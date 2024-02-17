@@ -2,17 +2,33 @@ from django.contrib import admin
 from .models import *
 
 
+
+class AdoptionInline(admin.StackedInline):
+    model = AdoptionParent.children.through
+    verbose_name = "Adoption Parent - Child"
+    verbose_name_plural = "Adoption Parents - Children"
+
+class AdoptionParentSponsoringInline(admin.StackedInline):
+    model = AdoptionParentSponsoring
+
+
 @admin.register(AdoptionParent)
 class AdoptionParentAdmin(admin.ModelAdmin):
-    list_display = ('first_name', 'last_name', )
+    list_display = ('first_name', 'last_name', 'get_children')
     ordering = ('id',)
-
+    inlines = [
+        AdoptionInline,
+        AdoptionParentSponsoringInline
+    ]
 
 
 @admin.register(Child)
 class ChildAdmin(admin.ModelAdmin):
-    list_display = ('name', 'day_of_birth',)
+    list_display = ('name', 'day_of_birth', 'get_adoption_parents')
     ordering = ('day_of_birth',)
+    inlines = [
+        AdoptionInline
+    ]
 
 
 class DonationInline(admin.StackedInline):
