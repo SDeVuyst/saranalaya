@@ -10,6 +10,91 @@ from rangefilter.filters import (
     NumericRangeFilterBuilder,
 )
 
+
+class AmountOfAdoptionParentsFilter(admin.SimpleListFilter):
+
+    title = 'Amount of Adoption Parents'
+    parameter_name = 'amount_of_adoption_parents'
+
+    def lookups(self, request, model_admin):
+        return [
+            ("0", _("No Adoption Parents")),
+            ("1", _("1 Adoption Parent")),
+            ("2", _("2 Adoption Parents")),
+            ("3", _("3 Adoption Parents")),
+            ("3+", _("More than 3 Adoption Parents")),
+        ]
+
+    def queryset(self, request, queryset):
+        
+        ap_count = {}
+        # TODO fix, nu telt aantal kinderen van adoptieouder, niet aatal adoptieouder per king
+        for ap in AdoptionParent.objects.all():
+            children = ap.children.all()
+
+            for child in children:
+                if child in ap_count:
+                    ap_count[child] += 1
+                else:
+                    ap_count[child] = 1
+
+        if self.value() == "0":
+            all_children = list(Child.objects.all())
+            children_with_ap = [ch[0] for ch in ap_count.items()]
+            # remaining_children = all_children.difference(children_with_ap)
+            set_difference = set(all_children) - set(children_with_ap)
+            remaining_children = list(set_difference)
+
+            correct_ch = [ch.pk for ch in remaining_children]
+            return queryset.filter(
+                id__in=correct_ch
+            )
+        
+        elif self.value() == "1":
+            correct_aps = list(filter(
+                lambda a: a[1] == 1,
+                ap_count.items(),
+            ))
+            correct_aps = [ch[0].pk for ch in correct_aps]
+            return queryset.filter(
+                id__in=correct_aps
+            )
+        
+        elif self.value() == "2":
+            correct_aps = list(filter(
+                lambda a: a[1] == 2,
+                ap_count.items(),
+            ))
+            correct_aps = [ch[0].pk for ch in correct_aps]
+            return queryset.filter(
+                id__in=correct_aps
+            )
+        
+        elif self.value() == "3":
+            correct_aps = list(filter(
+                lambda a: a[1] == 3,
+                ap_count.items(),
+            ))
+            correct_aps = [ch[0].pk for ch in correct_aps]
+            return queryset.filter(
+                id__in=correct_aps
+            )
+
+        elif self.value() == "3+":
+            correct_aps = list(filter(
+                lambda a: a[1] > 3,
+                ap_count.items(),
+            ))
+            correct_aps = [ch[0].pk for ch in correct_aps]
+            return queryset.filter(
+                id__in=correct_aps
+            )
+        
+
+        return queryset
+        
+        
+
 def addNewSponsoring(modeladmin, request, queryset):
     amount_of_sponsors_saved = 0
 
@@ -139,11 +224,13 @@ class ChildAdmin(admin.ModelAdmin):
 
     search_fields = ('name', 'gender', 'adoptionparent__first_name', 'adoptionparent__last_name', 'adoptionparent__firm', 'adoptionparent__street_name', 'adoptionparent__postcode', 'adoptionparent__city', 'adoptionparent__country', 'adoptionparent__mail', 'adoptionparent__description', 'adoptionparent__phone_number', 'day_of_birth', 'date_of_admission', 'date_of_leave', 'indian_parent_status', 'status', 'link_website', 'description')
     list_filter = (
+        AmountOfAdoptionParentsFilter,
         'gender',
         ('day_of_birth', DateRangeFilterBuilder(title="By Day of Birth")), 
         ('date_of_admission', DateRangeFilterBuilder(title="By Date of Admission")), 
         ('date_of_leave', DateRangeFilterBuilder(title="By Day of Leave")), 
-        'indian_parent_status', 'status',)
+        'indian_parent_status', 'status'
+    )
 
 
 class DonationInline(admin.StackedInline):
