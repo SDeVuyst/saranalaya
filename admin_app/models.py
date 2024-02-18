@@ -47,9 +47,10 @@ class Child(models.Model):
         ONE = 'o', _('One Parent')
         TWO = 't', _('Two Parents')
 
-    parent_status = models.CharField(
+    indian_parent_status = models.CharField(
         max_length = 1,
         choices = ParentStatusChoices.choices,
+        verbose_name="Indian Parent Status"
     )
 
     class StatusChoices(models.TextChoices):
@@ -73,7 +74,7 @@ class Supporter(models.Model):
         verbose_name_plural = "Supporters"
 
     def __str__(self) -> str:
-        return self.first_name + self.last_name
+        return self.first_name + ' ' + self.last_name
 
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
@@ -86,6 +87,7 @@ class Supporter(models.Model):
     country = models.CharField(max_length=40, default="Belgium")
     mail = models.EmailField()
     description = models.TextField(blank=True, null=True)
+    phone_number = models.CharField(max_length=12, blank=True, null=True) # not required
 
 
 class AdoptionParent(Supporter):
@@ -93,7 +95,6 @@ class AdoptionParent(Supporter):
         verbose_name = "Adoption Parent"
         verbose_name_plural = "Adoption Parents"
     
-    phone_number = models.CharField(max_length=12)
     children = models.ManyToManyField("Child", blank=True)
     active = models.BooleanField(default=True)
 
@@ -111,9 +112,11 @@ class AdoptionParent(Supporter):
 
 class AdoptionParentSponsoring(models.Model):
     class Meta:
-        verbose_name = "Adoption Parent Sponsoring"
-        verbose_name_plural = "Adoption Parent Sponsorings"
+        verbose_name = "Adoption Parent Payment"
+        verbose_name_plural = "Adoption Parent Payments"
 
+    def __str__(self) -> str:
+        return str(self.parent) + f" ({str(self.date)})" + " - " + str(self.amount) + "/186"
 
     @property
     @admin.display(description="Amount remaining")
@@ -136,14 +139,15 @@ class Sponsor(Supporter):
     class Meta(Supporter.Meta):
         verbose_name = "Sponsor"
         verbose_name_plural = "Sponsors"
-    
-    phone_number = models.CharField(max_length=12, blank=True, null=True) # not required
 
 
 class Donation(models.Model):
     class Meta:
         verbose_name = "Donation"
         verbose_name_plural = "Donations"
+
+    def __str__(self) -> str:
+        return str(self.sponsor) + f" ({str(self.date)})" + ' - ' + str(self.amount)
 
     sponsor = models.ForeignKey(Sponsor, on_delete=models.RESTRICT)
     amount = models.FloatField()

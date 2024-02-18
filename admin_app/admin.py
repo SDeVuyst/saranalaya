@@ -14,8 +14,11 @@ def addNewSponsoring(modeladmin, request, queryset):
     amount_of_sponsors_saved = 0
 
     for sponsor in queryset:
+        if not sponsor.active:
+            continue
+
         children_of_sponsor = [c for c in Child.objects.all() if sponsor in c.get_adoption_parents()]
-        
+         
         for child in children_of_sponsor:
             sp = AdoptionParentSponsoring(
                 date=datetime.now(),
@@ -28,9 +31,9 @@ def addNewSponsoring(modeladmin, request, queryset):
             amount_of_sponsors_saved += 1
 
 
-    return messages.success(request, f"Added {amount_of_sponsors_saved} Sponsorings!")
+    return messages.success(request, f"Added {amount_of_sponsors_saved} Payments!")
 
-addNewSponsoring.short_description = 'Add New Sponsoring'
+addNewSponsoring.short_description = 'Add New Payment'
 
 
 
@@ -38,7 +41,7 @@ def generateMailList(modeladmin, request, queryset):
     response = FileResponse(generateMailListFile(queryset), 
                             as_attachment=True, 
                             filename='mail_list.pdf')
-    return messages.success(request, "Successfully made uppercase!")
+    return response
 
 generateMailList.short_description = 'Generate Mail List'
 
@@ -122,7 +125,7 @@ class AdoptionParentAdmin(admin.ModelAdmin):
         addNewSponsoring
     ]
 
-    search_fields = ('first_name', 'last_name', 'firm', 'street_name', 'address_number', 'bus', 'postcode', 'city', 'country', 'mail', 'description', 'phone_number', 'children')
+    search_fields = ('first_name', 'last_name', 'firm', 'street_name', 'address_number', 'bus', 'postcode', 'city', 'country', 'mail', 'description', 'phone_number', 'children__name', 'children__description')
     list_filter = ('postcode', 'city', 'country', 'children', ('active', admin.BooleanFieldListFilter))
 
 
@@ -134,13 +137,13 @@ class ChildAdmin(admin.ModelAdmin):
         AdoptionInline
     ]
 
-    search_fields = ('name', 'gender', 'get_adoption_parents_formatted', 'day_of_birth', 'date_of_admission', 'date_of_leave', 'parent_status', 'status', 'link_website', 'description')
+    search_fields = ('name', 'gender', 'adoptionparent__first_name', 'adoptionparent__last_name', 'adoptionparent__firm', 'adoptionparent__street_name', 'adoptionparent__postcode', 'adoptionparent__city', 'adoptionparent__country', 'adoptionparent__mail', 'adoptionparent__description', 'adoptionparent__phone_number', 'day_of_birth', 'date_of_admission', 'date_of_leave', 'indian_parent_status', 'status', 'link_website', 'description')
     list_filter = (
         'gender',
         ('day_of_birth', DateRangeFilterBuilder(title="By Day of Birth")), 
         ('date_of_admission', DateRangeFilterBuilder(title="By Date of Admission")), 
         ('date_of_leave', DateRangeFilterBuilder(title="By Day of Leave")), 
-        'parent_status', 'status',)
+        'indian_parent_status', 'status',)
 
 
 class DonationInline(admin.StackedInline):
@@ -152,10 +155,10 @@ class AdoptionParentSponsoringAdmin(admin.ModelAdmin):
     class Media:
         js = ('main.js',)   
 
-    list_display = ('date', 'amount', 'parent', 'get_amount_left')
+    list_display = ('date', 'amount', 'parent', 'child', 'get_amount_left')
     ordering = ('date', 'amount')
 
-    search_fields = ('date', 'amount', 'get_amount_left', 'description', 'parent', 'child')
+    search_fields = ('date', 'amount', 'description', 'parent__first_name', 'parent__last_name','parent__firm', 'parent__street_name', 'parent__postcode', 'parent__city', 'parent__country', 'parent__mail', 'parent__description', 'parent__phone_number', 'child__name')
     list_filter = (
         ('date', DateRangeFilterBuilder(title="By Date")), 
         ('amount', NumericRangeFilterBuilder(title="By Amount")), 
@@ -185,7 +188,7 @@ class SponsorAdmin(admin.ModelAdmin):
 class DonationAdmin(admin.ModelAdmin):
     list_display = ('date', 'amount', 'sponsor')
     ordering = ('date', 'amount')
-    search_fields = ('sponsor', 'amount', 'date', 'description')
+    search_fields = ('sponsor__first_name', 'sponsor__last_name', 'sponsor__firm', 'sponsor__street_name', 'sponsor__postcode', 'sponsor__city', 'sponsor__country', 'sponsor__mail', 'sponsor__description', 'sponsor__phone_number', 'amount', 'date', 'description')
     list_filter = (
         'sponsor',
         ('amount', NumericRangeFilterBuilder(title="By Amount")), 
