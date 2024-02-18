@@ -21,3 +21,7 @@ urlpatterns = [
     path('', admin.site.urls),
     path('admin_app', include("admin_app.urls"))
 ]
+
+admin.site.site_header = "Saranalaya Admin"
+admin.site.site_title = "Saranalaya Admin Portal"
+admin.site.index_title = "Welcome to Saranalaya Admin Portal"

@@ -1,15 +1,36 @@
-from django.contrib import admin
+from django.contrib import admin, messages
 from .models import *
 from datetime import datetime
 from io import BytesIO
 from reportlab.pdfgen import canvas
 from django.http import FileResponse
 from django.utils.translation import gettext_lazy as _
-from django.contrib.admin import SimpleListFilter
 from rangefilter.filters import (
     DateRangeFilterBuilder,
     NumericRangeFilterBuilder,
 )
+
+def addNewSponsoring(modeladmin, request, queryset):
+    amount_of_sponsors_saved = 0
+
+    for sponsor in queryset:
+        children_of_sponsor = [c for c in Child.objects.all() if sponsor in c.get_adoption_parents()]
+        
+        for child in children_of_sponsor:
+            sp = AdoptionParentSponsoring(
+                date=datetime.now(),
+                amount=0, 
+                parent=sponsor,
+                child=child
+            )
+
+            sp.save()
+            amount_of_sponsors_saved += 1
+
+
+    return messages.success(request, f"Added {amount_of_sponsors_saved} Sponsorings!")
+
+addNewSponsoring.short_description = 'Add New Sponsoring'
 
 
 
@@ -17,7 +38,7 @@ def generateMailList(modeladmin, request, queryset):
     response = FileResponse(generateMailListFile(queryset), 
                             as_attachment=True, 
                             filename='mail_list.pdf')
-    return response
+    return messages.success(request, "Successfully made uppercase!")
 
 generateMailList.short_description = 'Generate Mail List'
 
@@ -48,6 +69,7 @@ def generateAddressList(modeladmin, request, queryset):
     return response
 
 generateAddressList.short_description = 'Generate Address List'
+
 
 def generateAddressListFile(queryset):
     from io import BytesIO
@@ -88,6 +110,7 @@ class AdoptionParentSponsoringInline(admin.StackedInline):
 @admin.register(AdoptionParent)
 class AdoptionParentAdmin(admin.ModelAdmin):
     list_display = ('first_name', 'last_name', 'get_children')
+    exclude = ('children',)
     ordering = ('id',)
     inlines = [
         AdoptionInline,
@@ -95,21 +118,23 @@ class AdoptionParentAdmin(admin.ModelAdmin):
     ]
     actions = [
         generateAddressList,
-        generateMailList
+        generateMailList,
+        addNewSponsoring
     ]
 
     search_fields = ('first_name', 'last_name', 'firm', 'street_name', 'address_number', 'bus', 'postcode', 'city', 'country', 'mail', 'description', 'phone_number', 'children')
-    list_filter = ('postcode', 'city', 'country', 'children')
+    list_filter = ('postcode', 'city', 'country', 'children', ('active', admin.BooleanFieldListFilter))
+
 
 @admin.register(Child)
 class ChildAdmin(admin.ModelAdmin):
-    list_display = ('name', 'day_of_birth', 'get_adoption_parents')
+    list_display = ('name', 'day_of_birth', 'get_adoption_parents_formatted')
     ordering = ('day_of_birth',)
     inlines = [
         AdoptionInline
     ]
 
-    search_fields = ('name', 'gender', 'get_adoption_parents', 'day_of_birth', 'date_of_admission', 'date_of_leave', 'parent_status', 'status', 'link_website', 'description')
+    search_fields = ('name', 'gender', 'get_adoption_parents_formatted', 'day_of_birth', 'date_of_admission', 'date_of_leave', 'parent_status', 'status', 'link_website', 'description')
     list_filter = (
         'gender',
         ('day_of_birth', DateRangeFilterBuilder(title="By Day of Birth")), 

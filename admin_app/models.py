@@ -15,7 +15,7 @@ class Child(models.Model):
         return self.name
     
     @admin.display(description='Adoption Parents')
-    def get_adoption_parents(self):
+    def get_adoption_parents_formatted(self):
         formatted_list = []
         for parent in self.adoptionparent_set.all():
             url = resolve_url(admin_urlname(Child._meta, 'change'), parent.id)
@@ -25,6 +25,8 @@ class Child(models.Model):
 
         return format_html(", ".join(formatted_list))
 
+    def get_adoption_parents(self):
+        return self.adoptionparent_set.all()
 
     name = models.CharField(max_length=60)
 
@@ -93,6 +95,7 @@ class AdoptionParent(Supporter):
     
     phone_number = models.CharField(max_length=12)
     children = models.ManyToManyField("Child", blank=True)
+    active = models.BooleanField(default=True)
 
     @admin.display(description='Children')
     def get_children(self):

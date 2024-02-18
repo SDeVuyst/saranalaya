@@ -8,7 +8,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
         var innerValue = parseFloat(field.innerHTML)
         percent = (innerValue /186) * 100
         field.style.backgroundColor = `rgb(${percent *2}, ${(100 - percent) *2}, 0)`
-
+        field.style.fontWeight = "700"
+        field.style.color = "white"
     })
 });
 
