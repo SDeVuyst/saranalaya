@@ -8,6 +8,7 @@ class AdoptionInline(admin.StackedInline):
     verbose_name = "Adoption Parent - Child"
     verbose_name_plural = "Adoption Parents - Children"
 
+
 class AdoptionParentSponsoringInline(admin.StackedInline):
     model = AdoptionParentSponsoring
 
@@ -21,6 +22,9 @@ class AdoptionParentAdmin(admin.ModelAdmin):
         AdoptionParentSponsoringInline
     ]
 
+    search_fields = ('first_name', 'last_name', 'firm', 'address', 'mail', 'description', 'phone_number', 'children')
+    list_filter = ('first_name', 'last_name', 'firm', 'address', 'mail', 'description', 'phone_number', 'children')
+
 
 @admin.register(Child)
 class ChildAdmin(admin.ModelAdmin):
@@ -30,6 +34,8 @@ class ChildAdmin(admin.ModelAdmin):
         AdoptionInline
     ]
 
+    search_fields = ('name', 'gender', 'get_adoption_parents', 'day_of_birth', 'date_of_admission', 'date_of_leave', 'parent_status', 'status', 'link_website', 'description')
+    list_filter = ('name', 'gender', 'day_of_birth', 'date_of_admission', 'date_of_leave', 'parent_status', 'status', 'link_website', 'description')
 
 class DonationInline(admin.StackedInline):
     model = Donation
@@ -37,8 +43,14 @@ class DonationInline(admin.StackedInline):
 
 @admin.register(AdoptionParentSponsoring)
 class AdoptionParentSponsoringAdmin(admin.ModelAdmin):
-    list_display = ('date', 'amount', 'get_amount_left')
+    class Media:
+        js = ('main.js',)   
+
+    list_display = ('date', 'amount', 'parent', 'get_amount_left')
     ordering = ('date', 'amount')
+
+    search_fields = ('date', 'amount', 'get_amount_left', 'description', 'parent', 'child')
+    list_filter = ('date', 'amount', 'description', 'parent', 'child')
 
 
 @admin.register(Sponsor)

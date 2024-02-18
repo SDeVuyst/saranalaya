@@ -106,9 +106,10 @@ class AdoptionParentSponsoring(models.Model):
         verbose_name = "Adoption Parent Sponsoring"
         verbose_name_plural = "Adoption Parent Sponsorings"
 
+
     @admin.display(description="Amount remaining")
     def get_amount_left(self):
-        return float(186) - self.amount
+        return max(0, float(186) - self.amount)
 
     date = models.DateField()
     amount = models.FloatField()
