@@ -1,5 +1,39 @@
 from django.contrib import admin
 from .models import *
+from django.http import FileResponse
+
+
+def generateAddressList(modeladmin, request, queryset):
+    response = FileResponse(generateAddressListFile(queryset), 
+                            as_attachment=True, 
+                            filename='address_list.pdf')
+    return response
+
+generateAddressList.short_description = 'Generate Address List'
+
+def generateAddressListFile(queryset):
+    from io import BytesIO
+    from reportlab.pdfgen import canvas
+ 
+    buffer = BytesIO()
+    p = canvas.Canvas(buffer)
+ 
+    # Create a PDF document
+    supporters = queryset.all()
+ 
+    y = 790
+    for supporter in supporters:
+        p.drawString(50, y, f"{supporter.first_name} {supporter.last_name}")
+        p.drawString(50, y - 20, f"{supporter.street_name} {supporter.address_number} {supporter.bus if supporter.bus is not None else ''}")
+        p.drawString(50, y - 40, f"{supporter.postcode} {supporter.city}")
+        p.drawString(50, y - 60, supporter.country)
+        y -= 100
+ 
+    p.showPage()
+    p.save()
+ 
+    buffer.seek(0)
+    return buffer
 
 
 
@@ -21,9 +55,12 @@ class AdoptionParentAdmin(admin.ModelAdmin):
         AdoptionInline,
         AdoptionParentSponsoringInline
     ]
+    actions = [
+        generateAddressList
+    ]
 
-    search_fields = ('first_name', 'last_name', 'firm', 'address', 'mail', 'description', 'phone_number', 'children')
-    list_filter = ('first_name', 'last_name', 'firm', 'address', 'mail', 'description', 'phone_number', 'children')
+    search_fields = ('first_name', 'last_name', 'firm', 'street_name', 'address_number', 'bus', 'postcode', 'city', 'country', 'mail', 'description', 'phone_number', 'children')
+    list_filter = ('first_name', 'last_name', 'firm', 'street_name', 'address_number', 'bus', 'postcode', 'city', 'country', 'mail', 'description', 'phone_number', 'children')
 
 
 @admin.register(Child)
@@ -60,9 +97,14 @@ class SponsorAdmin(admin.ModelAdmin):
     inlines = [
         DonationInline
     ]
+    actions = [
+        generateAddressList
+    ]
 
-    search_fields = ('first_name', 'last_name', 'firm', 'address', 'mail', 'description', 'phone_number')
-    list_filter = ('first_name', 'last_name', 'firm', 'address', 'mail', 'description', 'phone_number')
+    search_fields = ('first_name', 'last_name', 'firm', 'street_name', 'address_number', 'bus', 'postcode', 'city', 'country', 'mail', 'description', 'phone_number')
+    list_filter = ('first_name', 'last_name', 'firm', 'street_name', 'address_number', 'bus', 'postcode', 'city', 'country', 'mail', 'description', 'phone_number')
+
+    
 
 
 @admin.register(Donation)

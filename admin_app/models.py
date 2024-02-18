@@ -38,7 +38,7 @@ class Child(models.Model):
     )
     day_of_birth = models.DateField()
     date_of_admission = models.DateField()
-    date_of_leave = models.DateField(blank=True)
+    date_of_leave = models.DateField(blank=True, null=True)
 
     class ParentStatusChoices(models.TextChoices):
         NONE = 'n', _('No Parents')
@@ -59,8 +59,8 @@ class Child(models.Model):
         max_length = 1,
         choices = StatusChoices.choices,
     )
-    link_website = models.URLField(blank=True)
-    description = models.TextField(blank=True)
+    link_website = models.URLField(blank=True, null=True)
+    description = models.TextField(blank=True, null=True)
 
 
 class Supporter(models.Model):
@@ -75,10 +75,15 @@ class Supporter(models.Model):
 
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
-    firm = models.CharField(max_length=45, blank=True) # not required
-    address = models.CharField(max_length=100)
+    firm = models.CharField(max_length=45, blank=True, null=True) # not required
+    street_name = models.CharField(max_length=100)
+    address_number = models.IntegerField()
+    bus = models.IntegerField(blank=True, null=True)
+    postcode = models.IntegerField()
+    city = models.CharField(max_length=40)
+    country = models.CharField(max_length=40, default="Belgium")
     mail = models.EmailField()
-    description = models.TextField(blank=True)
+    description = models.TextField(blank=True, null=True)
 
 
 class AdoptionParent(Supporter):
@@ -87,7 +92,7 @@ class AdoptionParent(Supporter):
         verbose_name_plural = "Adoption Parents"
     
     phone_number = models.CharField(max_length=12)
-    children = models.ManyToManyField("Child", blank=True)
+    children = models.ManyToManyField("Child", blank=True, null=True)
 
     @admin.display(description='Children')
     def get_children(self):
@@ -113,7 +118,7 @@ class AdoptionParentSponsoring(models.Model):
 
     date = models.DateField()
     amount = models.FloatField()
-    description = models.TextField(blank=True)
+    description = models.TextField(blank=True, null=True)
 
     parent = models.ForeignKey(AdoptionParent, on_delete=models.RESTRICT)
     child = models.ForeignKey(Child, on_delete=models.RESTRICT)
@@ -124,7 +129,7 @@ class Sponsor(Supporter):
         verbose_name = "Sponsor"
         verbose_name_plural = "Sponsors"
     
-    phone_number = models.CharField(max_length=12, blank=True) # not required
+    phone_number = models.CharField(max_length=12, blank=True, null=True) # not required
 
 
 class Donation(models.Model):
@@ -135,4 +140,4 @@ class Donation(models.Model):
     sponsor = models.ForeignKey(Sponsor, on_delete=models.RESTRICT)
     amount = models.FloatField()
     date = models.DateField()
-    description = models.TextField(blank=True)
+    description = models.TextField(blank=True, null=True)
