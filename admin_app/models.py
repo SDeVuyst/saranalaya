@@ -92,7 +92,7 @@ class AdoptionParent(Supporter):
         verbose_name_plural = "Adoption Parents"
     
     phone_number = models.CharField(max_length=12)
-    children = models.ManyToManyField("Child", blank=True, null=True)
+    children = models.ManyToManyField("Child", blank=True)
 
     @admin.display(description='Children')
     def get_children(self):
@@ -112,9 +112,14 @@ class AdoptionParentSponsoring(models.Model):
         verbose_name_plural = "Adoption Parent Sponsorings"
 
 
+    @property
     @admin.display(description="Amount remaining")
     def get_amount_left(self):
         return max(0, float(186) - self.amount)
+    
+
+    def is_enough(self):
+        return 186 <= self.amount
 
     date = models.DateField()
     amount = models.FloatField()
