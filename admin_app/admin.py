@@ -28,7 +28,6 @@ class AmountOfAdoptionParentsFilter(admin.SimpleListFilter):
     def queryset(self, request, queryset):
         
         ap_count = {}
-        # TODO fix, nu telt aantal kinderen van adoptieouder, niet aatal adoptieouder per king
         for ap in AdoptionParent.objects.all():
             children = ap.children.all()
 
