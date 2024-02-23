@@ -5,6 +5,7 @@ from django.utils.html import format_html
 from django.shortcuts import resolve_url
 from django.contrib.admin.templatetags.admin_urls import admin_urlname
 
+import os
 
 class Child(models.Model):
     class Meta:
@@ -121,11 +122,11 @@ class AdoptionParentSponsoring(models.Model):
     @property
     @admin.display(description="Amount remaining")
     def get_amount_left(self):
-        return max(0, float(186) - self.amount)
+        return max(0, float(os.environ.get("AMOUNT_ADOPTION_PARENTS")) - self.amount)
     
 
     def is_enough(self):
-        return 186 <= self.amount
+        return int(os.environ.get("AMOUNT_ADOPTION_PARENTS")) <= self.amount
 
     date = models.DateField()
     amount = models.FloatField()
