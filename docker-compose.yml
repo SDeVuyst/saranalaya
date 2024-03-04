@@ -16,7 +16,10 @@ services:
 
   web:
     pull_policy: build
-    build: .
+    pull_policy: build
+    build:
+      context: .
+      dockerfile: Dockerfile
     command: python manage.py runserver 0.0.0.0:8000
     restart: always
     volumes:
