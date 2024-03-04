@@ -1,7 +1,7 @@
 services:
 
   web:
-    pull_policy: build
+    pull_policy: always
     build:
       context: .
       dockerfile: Dockerfile
