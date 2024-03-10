@@ -8,7 +8,7 @@ services:
     command: python manage.py runserver 0.0.0.0:8100
     restart: always
     volumes:
-      - .:/code
+      - .:/data
     ports:
       - "8100:8100"
     environment:
