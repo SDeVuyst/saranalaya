@@ -5,7 +5,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    command: python manage.py runserver 0.0.0.0:8100
+    command: python saranalaya/manage.py runserver 0.0.0.0:8100
     restart: always
     volumes:
       - .:/code
