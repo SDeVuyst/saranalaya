@@ -137,6 +137,7 @@ class AdoptionParentSponsoring(models.Model):
 
     
 class Sponsor(Supporter):
+    letters = models.BooleanField(default=True)
     class Meta(Supporter.Meta):
         verbose_name = "Sponsor"
         verbose_name_plural = "Sponsors"

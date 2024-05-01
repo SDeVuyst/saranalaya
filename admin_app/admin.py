@@ -254,7 +254,7 @@ class AdoptionParentSponsoringAdmin(admin.ModelAdmin):
 
 @admin.register(Sponsor)
 class SponsorAdmin(admin.ModelAdmin):
-    list_display = ('first_name', 'last_name', )
+    list_display = ('first_name', 'last_name', 'letters')
     ordering = ('id',)
     inlines = [
         DonationInline
@@ -265,7 +265,7 @@ class SponsorAdmin(admin.ModelAdmin):
     ]
 
     search_fields = ('first_name', 'last_name', 'firm', 'street_name', 'address_number', 'bus', 'postcode', 'city', 'country', 'mail', 'description', 'phone_number')
-    list_filter = ('postcode', 'city', 'country')
+    list_filter = ('postcode', 'city', 'country', 'letters')
 
     
 
