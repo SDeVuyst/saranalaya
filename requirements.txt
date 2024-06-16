@@ -3,3 +3,6 @@ psycopg2>=2.8
 django-admin-rangefilter
 reportlab
 django-reversion
+django-dbbackup 
+boto3
+django-storages
