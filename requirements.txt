@@ -6,3 +6,4 @@ django-reversion
 django-dbbackup 
 boto3
 django-storages
+postgresql-client
