@@ -26,14 +26,3 @@ services:
       - "5433"
     ports:
       - 5433:5433
-
-  adminer:
-    container_name: saranalaya_adminer_container
-    image: adminer
-    restart: unless-stopped
-    env_file: stack.env
-
-    ports:
-      - 8081:8081
-    depends_on:
-      - db
