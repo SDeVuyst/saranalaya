@@ -10,6 +10,8 @@ from rangefilter.filters import (
     NumericRangeFilterBuilder,
 )
 
+from reversion.admin import VersionAdmin
+
 
 class AmountOfAdoptionParentsFilter(admin.SimpleListFilter):
 
@@ -195,7 +197,7 @@ class AdoptionParentSponsoringInline(admin.StackedInline):
 
 
 @admin.register(AdoptionParent)
-class AdoptionParentAdmin(admin.ModelAdmin):
+class AdoptionParentAdmin(VersionAdmin):
     list_display = ('first_name', 'last_name', 'get_children')
     exclude = ('children',)
     ordering = ('id',)
@@ -214,7 +216,7 @@ class AdoptionParentAdmin(admin.ModelAdmin):
 
 
 @admin.register(Child)
-class ChildAdmin(admin.ModelAdmin):
+class ChildAdmin(VersionAdmin):
     list_display = ('name', 'day_of_birth', 'get_adoption_parents_formatted')
     ordering = ('day_of_birth',)
     inlines = [
@@ -237,7 +239,7 @@ class DonationInline(admin.StackedInline):
 
 
 @admin.register(AdoptionParentSponsoring)
-class AdoptionParentSponsoringAdmin(admin.ModelAdmin):
+class AdoptionParentSponsoringAdmin(VersionAdmin):
     class Media:
         js = ('main.js',)   
 
@@ -253,7 +255,7 @@ class AdoptionParentSponsoringAdmin(admin.ModelAdmin):
 
 
 @admin.register(Sponsor)
-class SponsorAdmin(admin.ModelAdmin):
+class SponsorAdmin(VersionAdmin):
     list_display = ('first_name', 'last_name', 'letters')
     ordering = ('id',)
     inlines = [
@@ -271,7 +273,7 @@ class SponsorAdmin(admin.ModelAdmin):
 
 
 @admin.register(Donation)
-class DonationAdmin(admin.ModelAdmin):
+class DonationAdmin(VersionAdmin):
     list_display = ('date', 'amount', 'sponsor')
     ordering = ('date', 'amount')
     search_fields = ('sponsor__first_name', 'sponsor__last_name', 'sponsor__firm', 'sponsor__street_name', 'sponsor__postcode', 'sponsor__city', 'sponsor__country', 'sponsor__mail', 'sponsor__description', 'sponsor__phone_number', 'amount', 'date', 'description')

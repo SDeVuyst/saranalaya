@@ -22,6 +22,7 @@ services:
 
     volumes:
       - ./data/db:/var/lib/postgresql/data
+      - ./backups:/backups
     expose:
       - "5433"
     ports:
