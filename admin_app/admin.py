@@ -13,6 +13,9 @@ from rangefilter.filters import (
 from reversion.admin import VersionAdmin
 
 
+from django.contrib import admin
+
+
 class AmountOfAdoptionParentsFilter(admin.SimpleListFilter):
 
     title = 'Amount of Adoption Parents'
@@ -201,7 +204,7 @@ class AdoptionParentAdmin(VersionAdmin):
     list_display = ('first_name', 'last_name', 'get_children')
     exclude = ('children',)
     ordering = ('id',)
-    inlines = [
+    inlines = [ 
         AdoptionInline,
         AdoptionParentSponsoringInline
     ]
