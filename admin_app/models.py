@@ -82,7 +82,7 @@ class Supporter(models.Model):
     firm = models.CharField(max_length=45, blank=True, null=True) # not required
     street_name = models.CharField(max_length=100)
     address_number = models.IntegerField()
-    bus = models.IntegerField(blank=True, null=True)
+    bus = models.CharField(max_length=15, blank=True, null=True)
     postcode = models.IntegerField()
     city = models.CharField(max_length=40)
     country = models.CharField(max_length=40, default="Belgium")
