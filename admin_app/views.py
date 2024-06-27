@@ -26,8 +26,8 @@ def donations_per_year_chart(request):
     years = donations.values("date__year").order_by("date__year").distinct()
     years = [str(y['date__year']) for y in years]
 
-    # make sure only the correct years are selected
-    valid_years = years if valid_years is None else valid_years
+    # make sure only the correct years are selected, last 5 years if years not specified
+    valid_years = years[-5:] if valid_years is None else valid_years
     years = list(filter(lambda year: year in valid_years, years))
 
     return JsonResponse({

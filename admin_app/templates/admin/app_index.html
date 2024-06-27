@@ -72,6 +72,9 @@
       <input type="submit" value="Load" name="_load">
     </form>
     <script>
+
+      const defaultAmountOfYearsLoaded = 5; 
+
       $(document).ready(function () {
 
         $('#year').select2({
@@ -86,13 +89,13 @@
           success: (jsonResponse) => {
             // Load all the options
             jsonResponse.options.forEach(option => {
-              $("#year").append(new Option(option, option, true));
+              $("#year").append(new Option(option, option));
             });
 
-            $('#year').val(["3", "4", "5"]).trigger('change');
+            $('#year').trigger('change');
 
-            // Load data for every available year
-            loadAllCharts(jsonResponse.options);
+            // Load data for last 5 years
+            loadAllCharts(jsonResponse.options.slice(0, defaultAmountOfYearsLoaded));
           },
           error: () => console.log("Failed to fetch chart filter options!")
         });
@@ -102,7 +105,6 @@
         event.preventDefault();
 
         const years = $("#year").val();
-        console.log(years)
         loadAllCharts(years)
       });
 
@@ -117,12 +119,12 @@
             const labels = jsonResponse.data.labels;
             const datasets = jsonResponse.data.datasets;
 
-            console.log(labels)
-            console.log(datasets)
-
             // update the yearpicker
-            labels.forEach(label => {
-              $('#year option[value="' + label + '"]').prop('selected', true);
+            labels.forEach((label, index) => {
+              if (index < defaultAmountOfYearsLoaded) {
+                $('#year option[value="' + label + '"]').prop('selected', true);
+              }
+              
             })
 
             $('#year').trigger('change');
