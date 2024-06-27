@@ -115,6 +115,7 @@ class AdoptionParentSponsoring(models.Model):
     class Meta:
         verbose_name = "Adoption Parent Payment"
         verbose_name_plural = "Adoption Parent Payments"
+        get_latest_by = "date"
 
     def __str__(self) -> str:
         return str(self.parent) + f" ({str(self.date)})" + " - " + str(self.amount) + "/186"
