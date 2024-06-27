@@ -13,6 +13,41 @@
 {% endblock %}
 {% endif %}
 {% block content %}
+
+<style>
+  #filterForm {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
+  
+  select {
+    width: 200px;
+    height: 100px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+    font-size: 16px;
+  }
+  
+  input[type="submit"] {
+    margin-top: 10px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+</style>
+
 <div style="float: left">
   <div id="content-main">
     {% include "admin/app_list.html" with app_list=app_list show_changelinks=True %}
@@ -25,13 +60,25 @@
       integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8="
       crossorigin="anonymous">
     </script>
+
+
+    <!-- Include Select2 CSS and JS -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    
     <form id="filterForm">
-      <label for="year">Choose a year:</label>
+      <label for="year">Choose years:</label>
       <select name="year" id="year" multiple></select>
       <input type="submit" value="Load" name="_load">
     </form>
     <script>
       $(document).ready(function () {
+
+        $('#year').select2({
+          placeholder: 'Choose year(s)',
+          allowClear: true,
+        });
+
         $.ajax({
           url: "/stats/chart/filter-options/",
           type: "GET",
@@ -39,10 +86,13 @@
           success: (jsonResponse) => {
             // Load all the options
             jsonResponse.options.forEach(option => {
-              $("#year").append(new Option(option, option));
+              $("#year").append(new Option(option, option, true));
             });
-            // Load data for the first option
-            loadAllCharts($("#year").children().first().val());
+
+            $('#year').val(["3", "4", "5"]).trigger('change');
+
+            // Load data for every available year
+            loadAllCharts(jsonResponse.options);
           },
           error: () => console.log("Failed to fetch chart filter options!")
         });
@@ -51,8 +101,9 @@
       $("#filterForm").on("submit", (event) => {
         event.preventDefault();
 
-        const year = $("#year").val();
-        loadAllCharts(year)
+        const years = $("#year").val();
+        console.log(years)
+        loadAllCharts(years)
       });
 
       function loadChart(chart, endpoint) {
@@ -60,44 +111,67 @@
           url: endpoint,
           type: "GET",
           dataType: "json",
-          success: (jsonResponse) => {
+          success: (jsonResponse) => {      
+
             // Extract data from the response
-            const title = jsonResponse.title;
             const labels = jsonResponse.data.labels;
             const datasets = jsonResponse.data.datasets;
+
+            console.log(labels)
+            console.log(datasets)
+
+            // update the yearpicker
+            labels.forEach(label => {
+              $('#year option[value="' + label + '"]').prop('selected', true);
+            })
+
+            $('#year').trigger('change');
 
             // Reset the current chart
             chart.data.datasets = [];
             chart.data.labels = [];
 
             // Load new data into the chart
-            chart.options.title.text = title;
-            chart.options.title.display = true;
             chart.data.labels = labels;
             datasets.forEach(dataset => {
               chart.data.datasets.push(dataset);
             });
             chart.update();
           },
-          error: () => console.log("Failed to fetch chart data from " + endpoint + "!")
+          error: () => console.log("Failed to fetch chart data from " + endpoint)
         });
       }
 
-      function loadAllCharts(year) {
-        loadChart(salesChart, `/stats/chart/donations-per-year/`);
+      function loadAllCharts(years) {
+
+        loadChart(donationsChart, `/stats/chart/donations-per-year${createYearQueryString(years)}/`);
+      }
+
+      function createYearQueryString(years) {
+        if (!Array.isArray(years) || years.length === 0) {
+          return '';
+        }
+
+        const queryString = years.map(year => `years=${year}`).join('&');
+        return `?${queryString}`;
       }
     </script>
-    <canvas id="salesChart"></canvas>
+    <canvas id="donationsChart"></canvas>
     <script>
-      let salesCtx = document.getElementById("salesChart").getContext("2d");
-      let salesChart = new Chart(salesCtx, {
+      let donationsCtx = document.getElementById("donationsChart").getContext("2d");
+      let donationsChart = new Chart(donationsCtx, {
         type: "bar",
         options: {
           responsive: true,
-          title: {
-            display: false,
-            text: ""
-          },
+          plugins: {
+            legend: {
+              position: 'top',
+            },
+            title: {
+              display: true,
+              text: 'Yearly Donations'
+            }
+          }
         }
       });
       
