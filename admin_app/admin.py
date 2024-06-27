@@ -215,7 +215,7 @@ class AdoptionParentAdmin(VersionAdmin):
     ]
 
     search_fields = ('first_name', 'last_name', 'firm', 'street_name', 'address_number', 'bus', 'postcode', 'city', 'country', 'mail', 'description', 'phone_number', 'children__name', 'children__description')
-    list_filter = ('postcode', 'city', 'country', 'children', ('active', admin.BooleanFieldListFilter))
+    list_filter = ( ('active', admin.BooleanFieldListFilter), 'country', 'children', 'city')
 
 
 @admin.register(Child)
@@ -230,10 +230,11 @@ class ChildAdmin(VersionAdmin):
     list_filter = (
         AmountOfAdoptionParentsFilter,
         'gender',
+        'status',
+        'indian_parent_status',
         ('day_of_birth', DateRangeFilterBuilder(title="By Day of Birth")), 
         ('date_of_admission', DateRangeFilterBuilder(title="By Date of Admission")), 
         ('date_of_leave', DateRangeFilterBuilder(title="By Day of Leave")), 
-        'indian_parent_status', 'status'
     )
 
 
@@ -270,7 +271,7 @@ class SponsorAdmin(VersionAdmin):
     ]
 
     search_fields = ('first_name', 'last_name', 'firm', 'street_name', 'address_number', 'bus', 'postcode', 'city', 'country', 'mail', 'description', 'phone_number')
-    list_filter = ('postcode', 'city', 'country', 'letters')
+    list_filter = ('letters', 'country', 'city' )
 
     
 
@@ -281,7 +282,7 @@ class DonationAdmin(VersionAdmin):
     ordering = ('date', 'amount')
     search_fields = ('sponsor__first_name', 'sponsor__last_name', 'sponsor__firm', 'sponsor__street_name', 'sponsor__postcode', 'sponsor__city', 'sponsor__country', 'sponsor__mail', 'sponsor__description', 'sponsor__phone_number', 'amount', 'date', 'description')
     list_filter = (
-        'sponsor',
         ('amount', NumericRangeFilterBuilder(title="By Amount")), 
         ('date' , DateRangeFilterBuilder(title="By Date")),
+        'sponsor'
     )
