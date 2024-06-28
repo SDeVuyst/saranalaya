@@ -2,6 +2,20 @@ const defaultAmountOfYearsLoaded = 5;
 
 $(document).ready(function () {
 
+
+    // we have to switch these 2 elements to ensure correct positioning
+    let div1 = $('#content-related');
+	let div2 = $('#swapper');
+	
+	let tdiv1 = div1.clone();
+	let tdiv2 = div2.clone();
+	
+	if(!div2.is(':empty')){
+		div1.replaceWith(tdiv2);
+		div2.replaceWith(tdiv1);	  
+	}
+
+    // create charts
     let donationsCtx = document.getElementById("donationsChart").getContext("2d");
     var donationsChart = new Chart(donationsCtx, {
     type: "bar",

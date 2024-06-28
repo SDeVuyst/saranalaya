@@ -27,57 +27,26 @@
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
+<link rel="stylesheet" href="{% static 'admin.css' %}">
 
-<style>
-  #multiYearFilterForm {
-    font-family: Arial, sans-serif;
-    margin: 20px;
-  }
-  
-  label {
-    display: block;
-    margin-bottom: 10px;
-    font-weight: bold;
-  }
-  
-  select {
-    width: 200px;
-    height: 100px;
-    padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    background-color: #f9f9f9;
-    font-size: 16px;
-  }
-  
-  input[type="submit"] {
-    margin-top: 10px;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-  }
-  
-</style>
+<script src="{% static 'charts.js' %}"></script>
 
-<div style="float: left">
+<div id="swapper">
   <div id="content-main">
     {% include "admin/app_list.html" with app_list=app_list show_changelinks=True %}
   </div>
   <div id="content-statistics">
     <h1>Statistics</h1>
 
-    <script src="{% static 'charts.js' %}"></script>
-    
     <form id="multiYearFilterForm">
       <label for="years">Choose years:</label>
       <select name="years" id="multiYearSelect" multiple></select>
       <input type="submit" value="Load" name="_load">
     </form>
 
-    <canvas id="donationsChart"></canvas>
+    <div class="chartwrapper">
+      <canvas id="donationsChart"></canvas>
+    </div>
 
     <form id="singleYearFilterForm">
       <label for="years">Choose year:</label>
@@ -85,8 +54,11 @@
       <input type="submit" value="Load" name="_load">
     </form>
 
-    <canvas id="moneyRatioChart"></canvas>
-    
+    <div class="chartwrapper">
+      <canvas id="moneyRatioChart"></canvas>
+    </div>
+
   </div>
 </div>
+<!-- todo swap #swapper met #content-related-->
 {% endblock %}
