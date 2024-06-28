@@ -19,7 +19,7 @@ class Child(models.Model):
     def get_adoption_parents_formatted(self):
         formatted_list = []
         for parent in self.adoptionparent_set.all():
-            url = resolve_url(admin_urlname(Child._meta, 'change'), parent.id)
+            url = resolve_url(admin_urlname(AdoptionParent._meta, 'change'), parent.id)
             formatted_list.append(format_html(
                 '<a href="{url}">{name}</a>'.format(url=url, name=str(parent.first_name + ' ' + parent.last_name))
             ))
