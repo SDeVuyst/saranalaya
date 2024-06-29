@@ -4,7 +4,7 @@ from datetime import datetime
 from io import BytesIO
 from reportlab.pdfgen import canvas
 from django.http import FileResponse
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import gettext as _
 from rangefilter.filters import (
     DateRangeFilterBuilder,
     NumericRangeFilterBuilder,
@@ -12,14 +12,13 @@ from rangefilter.filters import (
 
 from reversion.admin import VersionAdmin
 
-
 from django.contrib import admin
 
 
 class AmountOfAdoptionParentsFilter(admin.SimpleListFilter):
 
-    title = 'Amount of Adoption Parents'
-    parameter_name = 'amount_of_adoption_parents'
+    title = _('Amount of Adoption Parents')
+    parameter_name = _('amount_of_adoption_parents')
 
     def lookups(self, request, model_admin):
         return [
@@ -120,7 +119,7 @@ def addNewSponsoring(modeladmin, request, queryset):
             amount_of_sponsors_saved += 1
 
 
-    return messages.success(request, f"Added {amount_of_sponsors_saved} Payments!")
+    return messages.success(request, _(f"Added {amount_of_sponsors_saved} Payments!"))
 
 addNewSponsoring.short_description = 'Add New Payment'
 
@@ -132,7 +131,7 @@ def generateMailList(modeladmin, request, queryset):
                             filename='mail_list.pdf')
     return response
 
-generateMailList.short_description = 'Generate Mail List'
+generateMailList.short_description = _('Generate Mail List')
 
 
 def generateMailListFile(queryset):
@@ -160,7 +159,7 @@ def generateAddressList(modeladmin, request, queryset):
                             filename='address_list.pdf')
     return response
 
-generateAddressList.short_description = 'Generate Address List'
+generateAddressList.short_description = _('Generate Address List')
 
 
 def generateAddressListFile(queryset):
@@ -191,8 +190,8 @@ def generateAddressListFile(queryset):
 
 class AdoptionInline(admin.StackedInline):
     model = AdoptionParent.children.through
-    verbose_name = "Adoption Parent - Child"
-    verbose_name_plural = "Adoption Parents - Children"
+    verbose_name = _("Adoption Parent - Child")
+    verbose_name_plural = _("Adoption Parents - Children")
 
 
 class AdoptionParentSponsoringInline(admin.StackedInline):
@@ -232,9 +231,9 @@ class ChildAdmin(VersionAdmin):
         'gender',
         'status',
         'indian_parent_status',
-        ('day_of_birth', DateRangeFilterBuilder(title="By Day of Birth")), 
-        ('date_of_admission', DateRangeFilterBuilder(title="By Date of Admission")), 
-        ('date_of_leave', DateRangeFilterBuilder(title="By Day of Leave")), 
+        ('day_of_birth', DateRangeFilterBuilder(title=_("By Day of Birth"))), 
+        ('date_of_admission', DateRangeFilterBuilder(title=_("By Date of Admission"))), 
+        ('date_of_leave', DateRangeFilterBuilder(title=_("By Day of Leave"))), 
     )
 
 
@@ -252,8 +251,8 @@ class AdoptionParentSponsoringAdmin(VersionAdmin):
 
     search_fields = ('date', 'amount', 'description', 'parent__first_name', 'parent__last_name','parent__firm', 'parent__street_name', 'parent__postcode', 'parent__city', 'parent__country', 'parent__mail', 'parent__description', 'parent__phone_number', 'child__name')
     list_filter = (
-        ('date', DateRangeFilterBuilder(title="By Date")), 
-        ('amount', NumericRangeFilterBuilder(title="By Amount")), 
+        ('date', DateRangeFilterBuilder(title=_("By Date"))), 
+        ('amount', NumericRangeFilterBuilder(title=_("By Amount"))), 
         'parent', 'child'
     )
 
@@ -282,7 +281,7 @@ class DonationAdmin(VersionAdmin):
     ordering = ('date', 'amount')
     search_fields = ('sponsor__first_name', 'sponsor__last_name', 'sponsor__firm', 'sponsor__street_name', 'sponsor__postcode', 'sponsor__city', 'sponsor__country', 'sponsor__mail', 'sponsor__description', 'sponsor__phone_number', 'amount', 'date', 'description')
     list_filter = (
-        ('amount', NumericRangeFilterBuilder(title="By Amount")), 
-        ('date' , DateRangeFilterBuilder(title="By Date")),
+        ('amount', NumericRangeFilterBuilder(title=_("By Amount"))), 
+        ('date' , DateRangeFilterBuilder(title=_("By Date"))),
         'sponsor'
     )

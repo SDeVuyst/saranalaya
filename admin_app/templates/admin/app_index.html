@@ -36,10 +36,10 @@
     {% include "admin/app_list.html" with app_list=app_list show_changelinks=True %}
   </div>
   <div id="content-statistics">
-    <h1>Statistics</h1>
+    <h1>{% translate "Statistics" %}</h1>
 
     <form id="multiYearFilterForm">
-      <label for="years">Choose years:</label>
+      <label for="years">{% translate "Choose years:" %}</label>
       <select name="years" id="multiYearSelect" multiple></select>
       <input type="submit" value="Load" name="_load">
     </form>
@@ -49,7 +49,7 @@
     </div>
 
     <form id="singleYearFilterForm">
-      <label for="years">Choose year:</label>
+      <label for="years">{% translate "Choose year:" %}</label>
       <select name="years" id="singleYearSelect"></select>
       <input type="submit" value="Load" name="_load">
     </form>
@@ -60,5 +60,4 @@
 
   </div>
 </div>
-<!-- todo swap #swapper met #content-related-->
 {% endblock %}

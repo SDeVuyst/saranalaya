@@ -1,7 +1,8 @@
 from django.contrib.admin.views.decorators import staff_member_required
-from django.http import HttpResponse, JsonResponse
+from django.http import JsonResponse
 from django.db.models import Sum
 from django.db.models.functions import ExtractYear
+from django.utils.translation import gettext as _
 
 from admin_app.models import Donation, AdoptionParentSponsoring
 from .utils.helper import *
@@ -58,7 +59,7 @@ def money_ratio_chart(request):
 
     return JsonResponse({
         "data": {
-            "labels": ["Donations", "Parent Sponsors"],
+            "labels": [_("Donations"), _("Parent Sponsors")],
             "datasets": [{
                 "label": "Amount (€)",
                 "data": [

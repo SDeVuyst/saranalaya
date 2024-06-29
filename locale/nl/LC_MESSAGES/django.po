@@ -1,0 +1,319 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-06-29 17:04+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: .\admin_app\admin.py:21
+#, fuzzy
+#| msgid "2 Adoption Parents"
+msgid "Amount of Adoption Parents"
+msgstr "2 Adoptie-ouders"
+
+#: .\admin_app\admin.py:22
+#, fuzzy
+#| msgid "Adoption Parents"
+msgid "amount_of_adoption_parents"
+msgstr "Adoptie-ouders"
+
+#: .\admin_app\admin.py:26
+msgid "No Adoption Parents"
+msgstr ""
+
+#: .\admin_app\admin.py:27
+msgid "1 Adoption Parent"
+msgstr "1 Adoptie-ouder"
+
+#: .\admin_app\admin.py:28
+msgid "2 Adoption Parents"
+msgstr "2 Adoptie-ouders"
+
+#: .\admin_app\admin.py:29
+msgid "3 Adoption Parents"
+msgstr "3 Adoptie-ouders"
+
+#: .\admin_app\admin.py:30
+msgid "More than 3 Adoption Parents"
+msgstr "Meer dan 3 Adoptie-ouders"
+
+#: .\admin_app\admin.py:123
+#, python-brace-format
+msgid "Added {amount_of_sponsors_saved} Payments!"
+msgstr ""
+
+#: .\admin_app\admin.py:135
+msgid "Generate Mail List"
+msgstr ""
+
+#: .\admin_app\admin.py:163
+msgid "Generate Address List"
+msgstr ""
+
+#: .\admin_app\admin.py:194
+#, fuzzy
+#| msgid "Adoption Parents"
+msgid "Adoption Parent - Child"
+msgstr "Adoptie-ouders"
+
+#: .\admin_app\admin.py:195
+#, fuzzy
+#| msgid "Adoption Parents"
+msgid "Adoption Parents - Children"
+msgstr "Adoptie-ouders"
+
+#: .\admin_app\admin.py:235
+#, fuzzy
+#| msgid "Day of Birth"
+msgid "By Day of Birth"
+msgstr "Geboortedag"
+
+#: .\admin_app\admin.py:236
+#, fuzzy
+#| msgid "Date of Admission"
+msgid "By Date of Admission"
+msgstr "Dag van Aankomst"
+
+#: .\admin_app\admin.py:237
+#, fuzzy
+#| msgid "Date of Leave"
+msgid "By Day of Leave"
+msgstr "Dag van Weggaan"
+
+#: .\admin_app\admin.py:255 .\admin_app\admin.py:286
+msgid "By Date"
+msgstr ""
+
+#: .\admin_app\admin.py:256 .\admin_app\admin.py:285
+msgid "By Amount"
+msgstr ""
+
+#: .\admin_app\apps.py:7
+msgid "Saranalaya Admin"
+msgstr ""
+
+#: .\admin_app\models.py:12 .\admin_app\models.py:139
+msgid "Child"
+msgstr "Kind"
+
+#: .\admin_app\models.py:13 .\admin_app\models.py:101 .\admin_app\models.py:104
+msgid "Children"
+msgstr "Kinderen"
+
+#: .\admin_app\models.py:18 .\admin_app\models.py:99
+msgid "Adoption Parents"
+msgstr "Adoptie-ouders"
+
+#: .\admin_app\models.py:32
+msgid "name"
+msgstr "naam"
+
+#: .\admin_app\models.py:35
+msgid "Male"
+msgstr "Mannelijk"
+
+#: .\admin_app\models.py:36
+msgid "Female"
+msgstr "Vrouwelijk"
+
+#: .\admin_app\models.py:41
+msgid "gender"
+msgstr "gender"
+
+#: .\admin_app\models.py:43
+msgid "Day of Birth"
+msgstr "Geboortedag"
+
+#: .\admin_app\models.py:44
+msgid "Date of Admission"
+msgstr "Dag van Aankomst"
+
+#: .\admin_app\models.py:45
+msgid "Date of Leave"
+msgstr "Dag van Weggaan"
+
+#: .\admin_app\models.py:48
+msgid "No Parents"
+msgstr "Geen Ouders"
+
+#: .\admin_app\models.py:49
+msgid "One Parent"
+msgstr "1 Ouder"
+
+#: .\admin_app\models.py:50
+msgid "Two Parents"
+msgstr "2 Ouders"
+
+#: .\admin_app\models.py:55
+msgid "Indian Parent Status"
+msgstr "Status van Indische ouders"
+
+#: .\admin_app\models.py:59 .\admin_app\models.py:102
+msgid "Active"
+msgstr "Actief"
+
+#: .\admin_app\models.py:60
+msgid "Left"
+msgstr "Weg"
+
+#: .\admin_app\models.py:61
+msgid "Support"
+msgstr "Ondersteuning"
+
+#: .\admin_app\models.py:66
+msgid "Status"
+msgstr "Status"
+
+#: .\admin_app\models.py:68
+msgid "Link website"
+msgstr "Link naar Website"
+
+#: .\admin_app\models.py:69 .\admin_app\models.py:92 .\admin_app\models.py:136
+#: .\admin_app\models.py:160
+msgid "Description"
+msgstr "Beschrijving"
+
+#: .\admin_app\models.py:76
+#, fuzzy
+#| msgid "Support"
+msgid "Supporter"
+msgstr "Ondersteuning"
+
+#: .\admin_app\models.py:77
+#, fuzzy
+#| msgid "Support"
+msgid "Supporters"
+msgstr "Ondersteuning"
+
+#: .\admin_app\models.py:82
+msgid "First Name"
+msgstr ""
+
+#: .\admin_app\models.py:83
+msgid "Last Name"
+msgstr ""
+
+#: .\admin_app\models.py:84
+msgid "Firm"
+msgstr ""
+
+#: .\admin_app\models.py:85
+msgid "Street Name"
+msgstr ""
+
+#: .\admin_app\models.py:86
+msgid "Address Number"
+msgstr ""
+
+#: .\admin_app\models.py:87
+msgid "Bus"
+msgstr ""
+
+#: .\admin_app\models.py:88
+msgid "Postcode"
+msgstr ""
+
+#: .\admin_app\models.py:89
+msgid "City"
+msgstr ""
+
+#: .\admin_app\models.py:90
+msgid "Country"
+msgstr ""
+
+#: .\admin_app\models.py:91
+msgid "E-mail"
+msgstr ""
+
+#: .\admin_app\models.py:93
+msgid "Phone Number"
+msgstr ""
+
+#: .\admin_app\models.py:98
+#, fuzzy
+#| msgid "Adoption Parents"
+msgid "Adoption Parent"
+msgstr "Adoptie-ouders"
+
+#: .\admin_app\models.py:118
+#, fuzzy
+#| msgid "Adoption Parents"
+msgid "Adoption Parent Payment"
+msgstr "Adoptie-ouders"
+
+#: .\admin_app\models.py:119
+#, fuzzy
+#| msgid "Adoption Parents"
+msgid "Adoption Parent Payments"
+msgstr "Adoptie-ouders"
+
+#: .\admin_app\models.py:126
+msgid "Amount remaining"
+msgstr ""
+
+#: .\admin_app\models.py:134 .\admin_app\models.py:159
+msgid "Date"
+msgstr ""
+
+#: .\admin_app\models.py:135 .\admin_app\models.py:158
+msgid "Amount"
+msgstr ""
+
+#: .\admin_app\models.py:138
+#, fuzzy
+#| msgid "No Parents"
+msgid "Parent"
+msgstr "Geen Ouders"
+
+#: .\admin_app\models.py:143
+msgid "Letters"
+msgstr ""
+
+#: .\admin_app\models.py:145 .\admin_app\models.py:157
+msgid "Sponsor"
+msgstr ""
+
+#: .\admin_app\models.py:146
+msgid "Sponsors"
+msgstr ""
+
+#: .\admin_app\models.py:151
+msgid "Donation"
+msgstr ""
+
+#: .\admin_app\models.py:152 .\admin_app\views.py:62
+msgid "Donations"
+msgstr ""
+
+#: .\admin_app\templates\admin\app_index.html:8
+msgid "Home"
+msgstr "Home"
+
+#: .\admin_app\templates\admin\app_index.html:39
+msgid "Statistics"
+msgstr "Statistieken"
+
+#: .\admin_app\templates\admin\app_index.html:42
+msgid "Choose years:"
+msgstr ""
+
+#: .\admin_app\templates\admin\app_index.html:52
+msgid "Choose year:"
+msgstr ""
+
+#: .\admin_app\views.py:62
+msgid "Parent Sponsors"
+msgstr ""

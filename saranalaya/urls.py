@@ -22,9 +22,6 @@ from .views import redirect_to_admin
 urlpatterns = [
     path('stats/', include("admin_app.urls")),
     path('admin/', admin.site.urls),
+    path("i18n/", include("django.conf.urls.i18n")),
     path('', redirect_to_admin),
 ]
-
-admin.site.site_header = "Saranalaya Admin"
-admin.site.site_title = "Saranalaya Admin Portal"
-admin.site.index_title = "Welcome to Saranalaya Admin Portal"
