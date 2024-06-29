@@ -9,10 +9,10 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-06-29 20:13+0200\n"
-"PO-Revision-Date: 2024-06-29 20:20+0200\n"
+"PO-Revision-Date: 2024-06-29 20:23+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
-"Language: nl\n"
+"Language: ta\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -21,278 +21,278 @@ msgstr ""
 
 #: .\admin_app\admin.py:20
 msgid "Amount of Adoption Parents"
-msgstr "Hoeveelheid Adoptie-ouders"
+msgstr "தத்தெடுப்பு பெற்றோரின் தொகை"
 
 #: .\admin_app\admin.py:21
 msgid "amount_of_adoption_parents"
-msgstr "hoeveelheid_adoptieouders"
+msgstr "amount_of_adoption_parents"
 
 #: .\admin_app\admin.py:25
 msgid "No Adoption Parents"
-msgstr "Geen Adoptie-ouders"
+msgstr "தத்தெடுப்பு பெற்றோர் இல்லை"
 
 #: .\admin_app\admin.py:26
 msgid "1 Adoption Parent"
-msgstr "1 Adoptie-ouder"
+msgstr "1 தத்தெடுப்பு பெற்றோர்"
 
 #: .\admin_app\admin.py:27
 msgid "2 Adoption Parents"
-msgstr "2 Adoptie-ouders"
+msgstr "2 தத்தெடுப்பு பெற்றோர்"
 
 #: .\admin_app\admin.py:28
 msgid "3 Adoption Parents"
-msgstr "3 Adoptie-ouders"
+msgstr "3 தத்தெடுப்பு பெற்றோர்"
 
 #: .\admin_app\admin.py:29
 msgid "More than 3 Adoption Parents"
-msgstr "Meer dan 3 Adoptie-ouders"
+msgstr "3 க்கும் மேற்பட்ட தத்தெடுப்பு பெற்றோர்கள்"
 
 #: .\admin_app\admin.py:122
 #, python-brace-format
 msgid "Added {amount_of_sponsors_saved} Payments!"
-msgstr "{amount_of_sponsors_saved} betalingen toegevoegd!"
+msgstr "{amount_of_sponsors_saved} பேமெண்ட்கள் சேர்க்கப்பட்டன!"
 
 #: .\admin_app\admin.py:134
 msgid "Generate Mail List"
-msgstr "Genereer Mail Lijst"
+msgstr "அஞ்சல் பட்டியலை உருவாக்கு"
 
 #: .\admin_app\admin.py:162
 msgid "Generate Address List"
-msgstr "Genereer Adres Lijst"
+msgstr "முகவரி பட்டியலை உருவாக்கு"
 
 #: .\admin_app\admin.py:193
 msgid "Adoption Parent - Child"
-msgstr "Adoptie-ouder - Kind"
+msgstr "தத்தெடுப்பு பெற்றோர் - குழந்தை"
 
 #: .\admin_app\admin.py:194
 msgid "Adoption Parents - Children"
-msgstr "Adoptie-ouders - Kinderen"
+msgstr "தத்தெடுப்பு பெற்றோர் - குழந்தைகள்"
 
 #: .\admin_app\admin.py:234
 msgid "By Day of Birth"
-msgstr "Door Geboortedag"
+msgstr "பிறந்த நாளின் மூலம்"
 
 #: .\admin_app\admin.py:235
 msgid "By Date of Admission"
-msgstr "Door Dag van Aankomst"
+msgstr "சேர்க்கை தேதியின் படி"
 
 #: .\admin_app\admin.py:236
 msgid "By Day of Leave"
-msgstr "Door Dag van Weggaan"
+msgstr "விடுமுறை நாளில்"
 
 #: .\admin_app\admin.py:254 .\admin_app\admin.py:285
 msgid "By Date"
-msgstr "Door Datum"
+msgstr "தேதி வாரியாக"
 
 #: .\admin_app\admin.py:255 .\admin_app\admin.py:284
 msgid "By Amount"
-msgstr "Door Hoeveelheid"
+msgstr "தொகை வாரியாக"
 
 #: .\admin_app\apps.py:7
 msgid "Saranalaya Admin"
-msgstr ""
+msgstr "சரணாலயா நிர்வாகம்"
 
 #: .\admin_app\models.py:12 .\admin_app\models.py:139
 msgid "Child"
-msgstr "Kind"
+msgstr "குழந்தை"
 
 #: .\admin_app\models.py:13 .\admin_app\models.py:101 .\admin_app\models.py:104
 msgid "Children"
-msgstr "Kinderen"
+msgstr "குழந்தைகள்"
 
 #: .\admin_app\models.py:18 .\admin_app\models.py:99
 msgid "Adoption Parents"
-msgstr "Adoptie-ouders"
+msgstr "தத்தெடுப்பு பெற்றோர்"
 
 #: .\admin_app\models.py:32
 msgid "name"
-msgstr "naam"
+msgstr "பெயர்"
 
 #: .\admin_app\models.py:35
 msgid "Male"
-msgstr "Mannelijk"
+msgstr "ஆண்"
 
 #: .\admin_app\models.py:36
 msgid "Female"
-msgstr "Vrouwelijk"
+msgstr "பெண்"
 
 #: .\admin_app\models.py:41
 msgid "gender"
-msgstr "gender"
+msgstr "பாலினம்"
 
 #: .\admin_app\models.py:43
 msgid "Day of Birth"
-msgstr "Geboortedag"
+msgstr "பிறந்த நாள்"
 
 #: .\admin_app\models.py:44
 msgid "Date of Admission"
-msgstr "Dag van Aankomst"
+msgstr "சேர்க்கை தேதி"
 
 #: .\admin_app\models.py:45
 msgid "Date of Leave"
-msgstr "Dag van Weggaan"
+msgstr "விடுப்பு தேதி"
 
 #: .\admin_app\models.py:48
 msgid "No Parents"
-msgstr "Geen Ouders"
+msgstr "பெற்றோர் இல்லை"
 
 #: .\admin_app\models.py:49
 msgid "One Parent"
-msgstr "1 Ouder"
+msgstr "ஒரு பெற்றோர்"
 
 #: .\admin_app\models.py:50
 msgid "Two Parents"
-msgstr "2 Ouders"
+msgstr "இரண்டு பெற்றோர்"
 
 #: .\admin_app\models.py:55
 msgid "Indian Parent Status"
-msgstr "Status van Indische ouders"
+msgstr "இந்திய பெற்றோர் நிலை"
 
 #: .\admin_app\models.py:59 .\admin_app\models.py:102
 msgid "Active"
-msgstr "Actief"
+msgstr "சுறுசுறுப்பான"
 
 #: .\admin_app\models.py:60
 msgid "Left"
-msgstr "Weg"
+msgstr "இடதுபுறம்"
 
 #: .\admin_app\models.py:61
 msgid "Support"
-msgstr "Ondersteuning"
+msgstr "ஆதரவு"
 
 #: .\admin_app\models.py:66
 msgid "Status"
-msgstr "Status"
+msgstr "அந்தஸ்து"
 
 #: .\admin_app\models.py:68
 msgid "Link website"
-msgstr "Link naar Website"
+msgstr "இணைப்பு வலைத்தளம்"
 
 #: .\admin_app\models.py:69 .\admin_app\models.py:92 .\admin_app\models.py:136
 #: .\admin_app\models.py:160
 msgid "Description"
-msgstr "Beschrijving"
+msgstr "வருணனை"
 
 #: .\admin_app\models.py:76
 msgid "Supporter"
-msgstr "Supporter"
+msgstr "ஆதரவாளர்"
 
 #: .\admin_app\models.py:77
 msgid "Supporters"
-msgstr "Supporters"
+msgstr "ஆதரவாளர்கள்"
 
 #: .\admin_app\models.py:82
 msgid "First Name"
-msgstr "Voornaam"
+msgstr "முதல் பெயர்"
 
 #: .\admin_app\models.py:83
 msgid "Last Name"
-msgstr "Achternaam"
+msgstr "கடைசி பெயர்"
 
 #: .\admin_app\models.py:84
 msgid "Firm"
-msgstr "Firma"
+msgstr "நிறுவனம்"
 
 #: .\admin_app\models.py:85
 msgid "Street Name"
-msgstr "Straatnaam"
+msgstr "தெரு பெயர்"
 
 #: .\admin_app\models.py:86
 msgid "Address Number"
-msgstr "Adres Nummer"
+msgstr "முகவரி எண்"
 
 #: .\admin_app\models.py:87
 msgid "Bus"
-msgstr "Bus"
+msgstr "பேருந்து"
 
 #: .\admin_app\models.py:88
 msgid "Postcode"
-msgstr "Postcode"
+msgstr "அஞ்சல் குறியீடு"
 
 #: .\admin_app\models.py:89
 msgid "City"
-msgstr "Stad"
+msgstr "நகரம்"
 
 #: .\admin_app\models.py:90
 msgid "Country"
-msgstr "Land"
+msgstr "நாடு"
 
 #: .\admin_app\models.py:91
 msgid "E-mail"
-msgstr "E-mail"
+msgstr "மின்னஞ்சல்"
 
 #: .\admin_app\models.py:93
 msgid "Phone Number"
-msgstr "GSM-nummer"
+msgstr "தொலைபேசி எண்"
 
 #: .\admin_app\models.py:98
 msgid "Adoption Parent"
-msgstr "Adoptie-ouder"
+msgstr "தத்தெடுப்பு பெற்றோர்"
 
 #: .\admin_app\models.py:118
 msgid "Adoption Parent Payment"
-msgstr "Adoptie-ouder Betaling"
+msgstr "தத்தெடுப்பு பெற்றோர் கொடுப்பனவு"
 
 #: .\admin_app\models.py:119
 msgid "Adoption Parent Payments"
-msgstr "Adoptie-ouder Betalingen"
+msgstr "தத்தெடுப்பு பெற்றோர் கொடுப்பனவுகள்"
 
 #: .\admin_app\models.py:126
 msgid "Amount remaining"
-msgstr "Resterend"
+msgstr "மீதமுள்ள தொகை"
 
 #: .\admin_app\models.py:134 .\admin_app\models.py:159
 msgid "Date"
-msgstr "Datum"
+msgstr "தேதி"
 
 #: .\admin_app\models.py:135 .\admin_app\models.py:158
 msgid "Amount"
-msgstr "Hoeveelheid"
+msgstr "தொகை"
 
 #: .\admin_app\models.py:138
 msgid "Parent"
-msgstr "Ouder"
+msgstr "பெற்றோர்"
 
 #: .\admin_app\models.py:143
 msgid "Letters"
-msgstr "Brieven"
+msgstr "கடிதங்கள்"
 
 #: .\admin_app\models.py:145 .\admin_app\models.py:157
 msgid "Sponsor"
-msgstr "Sponser"
+msgstr "உபயத்தார்"
 
 #: .\admin_app\models.py:146
 msgid "Sponsors"
-msgstr "Sponsers"
+msgstr "ஸ்பான்சர்கள்"
 
 #: .\admin_app\models.py:151
 msgid "Donation"
-msgstr "Donatie"
+msgstr "நன்கொடை"
 
 #: .\admin_app\models.py:152 .\admin_app\views.py:62
 msgid "Donations"
-msgstr "Donaties"
+msgstr "நன்கொடைகள்"
 
 #: .\admin_app\templates\admin\app_index.html:8
 msgid "Home"
-msgstr "Home"
+msgstr "இல்லம்"
 
 #: .\admin_app\templates\admin\app_index.html:39
 msgid "Statistics"
-msgstr "Statistieken"
+msgstr "புள்ளியியல்"
 
 #: .\admin_app\templates\admin\app_index.html:42
 msgid "Choose years:"
-msgstr "Kies Jaren:"
+msgstr "ஆண்டுகளைத் தேர்வுசெய்க:"
 
 #: .\admin_app\templates\admin\app_index.html:52
 msgid "Choose year:"
-msgstr "Kies jaar:"
+msgstr "ஆண்டை தேர்வு செய்யவும்:"
 
 #: .\admin_app\templates\admin\color_theme_toggle.html:5
 msgid "Toggle light / dark color theme"
-msgstr "Schakel tussen licht/donker kleurenthema"
+msgstr "ஒளி / இருண்ட வண்ண தீம் மாற்று"
 
 #: .\admin_app\views.py:62
 msgid "Parent Sponsors"
-msgstr "Ouder Sponsers"
+msgstr "பெற்றோர் ஸ்பான்சர்கள்"
