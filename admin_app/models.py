@@ -4,8 +4,32 @@ from django.utils.html import format_html
 from django.shortcuts import resolve_url
 from django.contrib.admin.templatetags.admin_urls import admin_urlname
 from django.utils.translation import gettext_lazy as _
+from simple_history.models import HistoricalRecords
 
 import os
+
+
+# CHOICES #
+
+class GenderChoices(models.TextChoices):
+    MALE = 'm', _('Male')
+    FEMALE = 'f', _('Female')
+
+
+class ParentStatusChoices(models.TextChoices):
+    NONE = 'n', _('No Parents')
+    ONE = 'o', _('One Parent')
+    TWO = 't', _('Two Parents')
+
+
+class StatusChoices(models.TextChoices):
+    ACTIVE = 'a', _('Active')
+    LEFT = 'l', _('Left')
+    SUPPORT = 's', _('Support')
+
+
+
+# MODELS #
 
 class Child(models.Model):
     class Meta:
@@ -29,44 +53,18 @@ class Child(models.Model):
     def get_adoption_parents(self):
         return self.adoptionparent_set.all()
 
+
     name = models.CharField(max_length=60, verbose_name=_("name"))
-
-    class GenderChoices(models.TextChoices):
-        MALE = 'm', _('Male')
-        FEMALE = 'f', _('Female')
-
-    gender = models.CharField(
-        max_length = 1,
-        choices = GenderChoices.choices,
-        verbose_name=_("gender")
-    )
+    gender = models.CharField(max_length = 1, choices = GenderChoices.choices, verbose_name=_("gender"))
     day_of_birth = models.DateField(verbose_name=_("Day of Birth"))
     date_of_admission = models.DateField(verbose_name=_("Date of Admission"))
     date_of_leave = models.DateField(blank=True, null=True, verbose_name=_("Date of Leave"))
-
-    class ParentStatusChoices(models.TextChoices):
-        NONE = 'n', _('No Parents')
-        ONE = 'o', _('One Parent')
-        TWO = 't', _('Two Parents')
-
-    indian_parent_status = models.CharField(
-        max_length = 1,
-        choices = ParentStatusChoices.choices,
-        verbose_name=_("Indian Parent Status")
-    )
-
-    class StatusChoices(models.TextChoices):
-        ACTIVE = 'a', _('Active')
-        LEFT = 'l', _('Left')
-        SUPPORT = 's', _('Support')
-
-    status = models.CharField(
-        max_length = 1,
-        choices = StatusChoices.choices,
-        verbose_name=_("Status")
-    )
+    indian_parent_status = models.CharField(max_length = 1, choices = ParentStatusChoices.choices, verbose_name=_("Indian Parent Status"))
+    status = models.CharField( max_length = 1, choices = StatusChoices.choices, verbose_name=_("Status"))
     link_website = models.URLField(blank=True, null=True, verbose_name=_("Link website"))
     description = models.TextField(blank=True, null=True, verbose_name=_("Description"))
+
+    history = HistoricalRecords(verbose_name=_("History"))
 
 
 class Supporter(models.Model):
@@ -97,9 +95,6 @@ class AdoptionParent(Supporter):
     class Meta(Supporter.Meta):
         verbose_name = _("Adoption Parent")
         verbose_name_plural = _("Adoption Parents")
-    
-    children = models.ManyToManyField("Child", blank=True, verbose_name=_("Children"))
-    active = models.BooleanField(default=True, verbose_name=_("Active"))
 
     @admin.display(description=_('Children'))
     def get_children(self):
@@ -111,6 +106,12 @@ class AdoptionParent(Supporter):
             ))
 
         return format_html(", ".join(formatted_list))
+    
+
+    children = models.ManyToManyField("Child", blank=True, verbose_name=_("Children"))
+    active = models.BooleanField(default=True, verbose_name=_("Active"))
+
+    history = HistoricalRecords(verbose_name=_("History"))
 
 
 class AdoptionParentSponsoring(models.Model):
@@ -134,16 +135,20 @@ class AdoptionParentSponsoring(models.Model):
     date = models.DateField(verbose_name=_("Date"))
     amount = models.FloatField(verbose_name=_("Amount"))
     description = models.TextField(blank=True, null=True, verbose_name=_("Description"))
-
     parent = models.ForeignKey(AdoptionParent, on_delete=models.RESTRICT, verbose_name=_("Parent"))
     child = models.ForeignKey(Child, on_delete=models.RESTRICT, verbose_name=_("Child"))
 
+    history = HistoricalRecords(verbose_name=_("History"))
+
     
 class Sponsor(Supporter):
-    letters = models.BooleanField(default=True, verbose_name=_("Letters"))
     class Meta(Supporter.Meta):
         verbose_name = _("Sponsor")
         verbose_name_plural = _("Sponsors")
+
+    letters = models.BooleanField(default=True, verbose_name=_("Letters"))
+    
+    history = HistoricalRecords(verbose_name=_("History"))
 
 
 class Donation(models.Model):
@@ -158,3 +163,5 @@ class Donation(models.Model):
     amount = models.FloatField(verbose_name=_("Amount"))
     date = models.DateField(verbose_name=_("Date"))
     description = models.TextField(blank=True, null=True, verbose_name=_("Description"))
+
+    history = HistoricalRecords(verbose_name=_("History"))

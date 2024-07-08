@@ -1,8 +1,8 @@
 Django>=3.0,<4.0
 psycopg2>=2.8
-django-admin-rangefilter
 reportlab
-django-reversion
 django-dbbackup 
 boto3
 django-storages
+django-unfold
+django-simple-history

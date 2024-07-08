@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 import os
-
+from django.templatetags.static import static
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -43,15 +43,22 @@ DBBACKUP_STORAGE_OPTIONS = {
 # Application definition
 
 INSTALLED_APPS = [
+    
     'admin_app.apps.AdminAppConfig',
-    'rangefilter',
+
+    "unfold",
+    "unfold.contrib.filters",
+    "unfold.contrib.inlines",  
+    "unfold.contrib.simple_history",
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'reversion',
+
+    'simple_history',
     'dbbackup',
     'storages',
 ]
@@ -127,7 +134,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Brussels'
 
 USE_I18N = True
 
@@ -150,3 +157,36 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+UNFOLD = {
+    "SITE_TITLE": "Saranalaya Admin",
+    "SITE_HEADER": "Saranalaya Admin",
+    "SITE_URL": "/",
+
+    "SITE_SYMBOL": "volunteer_activism",
+    "SHOW_HISTORY": True, 
+    "SHOW_VIEW_ON_SITE": False,
+
+    "COLORS": {
+        "primary": {
+            "50": "250 245 255",
+            "100": "243 232 255",
+            "200": "233 213 255",
+            "300": "216 180 254",
+            "400": "192 132 252",
+            "500": "168 85 247",
+            "600": "147 51 234",
+            "700": "126 34 206",
+            "800": "107 33 168",
+            "900": "88 28 135",
+            "950": "59 7 100",
+        },
+    },
+    
+    "SIDEBAR": {
+        "show_search": False,  # Search in applications and models names
+        "show_all_applications": True,  # Dropdown with all applications and models
+            
+    },
+}
