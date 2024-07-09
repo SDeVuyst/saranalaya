@@ -9,7 +9,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from unfold.admin import ModelAdmin
 from unfold.decorators import action
-from unfold.contrib.inlines.admin import StackedInline
+from unfold.contrib.inlines.admin import StackedInline  
+from simple_history.admin import SimpleHistoryAdmin
 
 
 
@@ -17,7 +18,7 @@ from unfold.contrib.inlines.admin import StackedInline
 admin.site.unregister(User)
 
 @admin.register(User)
-class UserAdmin(BaseUserAdmin, ModelAdmin):
+class UserAdmin(BaseUserAdmin, ModelAdmin, SimpleHistoryAdmin):
     pass
 
 

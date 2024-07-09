@@ -43,7 +43,6 @@ DBBACKUP_STORAGE_OPTIONS = {
 # Application definition
 
 INSTALLED_APPS = [
-    
     'admin_app.apps.AdminAppConfig',
 
     "unfold",
@@ -61,6 +60,7 @@ INSTALLED_APPS = [
     'simple_history',
     'dbbackup',
     'storages',
+
 ]
 
 MIDDLEWARE = [
@@ -72,6 +72,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "simple_history.middleware.HistoryRequestMiddleware",
 ]
 
 ROOT_URLCONF = 'saranalaya.urls'
