@@ -1,18 +1,33 @@
 from django.contrib import admin, messages
 from .models import *
+from .utils import helper
 from datetime import datetime
-from io import BytesIO
-from reportlab.pdfgen import canvas
-from django.http import FileResponse
 from django.utils.translation import gettext as _
-from rangefilter.filters import (
-    DateRangeFilterBuilder,
-    NumericRangeFilterBuilder,
-)
-
-from reversion.admin import VersionAdmin
-
+from unfold.contrib.filters.admin import RangeDateFilter, RangeNumericFilter
 from django.contrib import admin
+from django.contrib.auth.models import User
+from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+from unfold.admin import ModelAdmin
+from unfold.decorators import action
+from unfold.contrib.inlines.admin import StackedInline  
+from simple_history.admin import SimpleHistoryAdmin
+
+
+
+# Unfold model admin
+admin.site.unregister(User)
+
+@admin.register(User)
+class UserAdmin(BaseUserAdmin, ModelAdmin):
+    pass
+
+
+
+# FILTERS #
+
+class AmountRangeFilter(RangeNumericFilter):
+    parameter_name = "amount"
+    title = _("By Amount")
 
 
 class AmountOfAdoptionParentsFilter(admin.SimpleListFilter):
@@ -95,111 +110,30 @@ class AmountOfAdoptionParentsFilter(admin.SimpleListFilter):
         
 
         return queryset
-        
-        
-
-def addNewSponsoring(modeladmin, request, queryset):
-    amount_of_sponsors_saved = 0
-
-    for sponsor in queryset:
-        if not sponsor.active:
-            continue
-
-        children_of_sponsor = [c for c in Child.objects.all() if sponsor in c.get_adoption_parents()]
-         
-        for child in children_of_sponsor:
-            sp = AdoptionParentSponsoring(
-                date=datetime.now(),
-                amount=0, 
-                parent=sponsor,
-                child=child
-            )
-
-            sp.save()
-            amount_of_sponsors_saved += 1
+  
 
 
-    return messages.success(request, _(f"Added {amount_of_sponsors_saved} Payments!"))
+# INLINES #
 
-addNewSponsoring.short_description = 'Add New Payment'
-
-
-
-def generateMailList(modeladmin, request, queryset):
-    response = FileResponse(generateMailListFile(queryset), 
-                            as_attachment=True, 
-                            filename='mail_list.pdf')
-    return response
-
-generateMailList.short_description = _('Generate Mail List')
-
-
-def generateMailListFile(queryset):
-    buffer = BytesIO()
-    p = canvas.Canvas(buffer)
- 
-    # Create a PDF document
-    supporters = queryset.all()
- 
-    y = 790
-    for supporter in supporters:
-        p.drawString(50, y, supporter.mail)
-        y -= 15
-
-    p.showPage()
-    p.save()
- 
-    buffer.seek(0)
-    return buffer
-
-
-def generateAddressList(modeladmin, request, queryset):
-    response = FileResponse(generateAddressListFile(queryset), 
-                            as_attachment=True, 
-                            filename='address_list.pdf')
-    return response
-
-generateAddressList.short_description = _('Generate Address List')
-
-
-def generateAddressListFile(queryset):
-    from io import BytesIO
-    from reportlab.pdfgen import canvas
- 
-    buffer = BytesIO()
-    p = canvas.Canvas(buffer)
- 
-    # Create a PDF document
-    supporters = queryset.all()
- 
-    y = 790
-    for supporter in supporters:
-        p.drawString(50, y, f"{supporter.first_name} {supporter.last_name}")
-        p.drawString(50, y - 20, f"{supporter.street_name} {supporter.address_number} {supporter.bus if supporter.bus is not None else ''}")
-        p.drawString(50, y - 40, f"{supporter.postcode} {supporter.city}")
-        p.drawString(50, y - 60, supporter.country)
-        y -= 100
- 
-    p.showPage()
-    p.save()
- 
-    buffer.seek(0)
-    return buffer
-
-
-
-class AdoptionInline(admin.StackedInline):
+class AdoptionInline(StackedInline):
     model = AdoptionParent.children.through
     verbose_name = _("Adoption Parent - Child")
     verbose_name_plural = _("Adoption Parents - Children")
 
 
-class AdoptionParentSponsoringInline(admin.StackedInline):
+class AdoptionParentSponsoringInline(StackedInline):
     model = AdoptionParentSponsoring
 
 
+class DonationInline(StackedInline):
+    model = Donation
+
+
+
+# MODELS #
+
 @admin.register(AdoptionParent)
-class AdoptionParentAdmin(VersionAdmin):
+class AdoptionParentAdmin(SimpleHistoryAdmin, ModelAdmin):
     list_display = ('first_name', 'last_name', 'get_children')
     exclude = ('children',)
     ordering = ('id',)
@@ -207,18 +141,53 @@ class AdoptionParentAdmin(VersionAdmin):
         AdoptionInline,
         AdoptionParentSponsoringInline
     ]
-    actions = [
-        generateAddressList,
-        generateMailList,
-        addNewSponsoring
-    ]
 
     search_fields = ('first_name', 'last_name', 'firm', 'street_name', 'address_number', 'bus', 'postcode', 'city', 'country', 'mail', 'description', 'phone_number', 'children__name', 'children__description')
     list_filter = ( ('active', admin.BooleanFieldListFilter), 'country', 'children', 'city')
 
+    list_filter_submit = True
+
+    actions = [
+        "add_new_sponsoring",
+        "generate_address_list",
+        "generate_mail_list",
+    ]
+
+    @action(description=_('Add New Payment'))
+    def add_new_sponsoring(modeladmin, request, queryset):
+        amount_of_sponsors_saved = 0
+
+        for sponsor in queryset:
+            if not sponsor.active:
+                continue
+
+            children_of_sponsor = [c for c in Child.objects.all() if sponsor in c.get_adoption_parents()]
+            
+            for child in children_of_sponsor:
+                sp = AdoptionParentSponsoring(
+                    date=datetime.now(),
+                    amount=0, 
+                    parent=sponsor,
+                    child=child
+                )
+
+                sp.save()
+                amount_of_sponsors_saved += 1
+
+
+        return messages.success(request, _(f"Added {amount_of_sponsors_saved} Payments!"))
+
+    @action(description=_("Generate Address List"))
+    def generate_address_list(modeladmin, request, queryset):
+        return helper.generateAddressList(modeladmin, request, queryset)
+
+    @action(description=_("Generate Mailing List"))
+    def generate_mail_list(modeladmin, request, queryset):
+        return helper.generateMailList(modeladmin, request, queryset)
+
 
 @admin.register(Child)
-class ChildAdmin(VersionAdmin):
+class ChildAdmin(SimpleHistoryAdmin, ModelAdmin):
     list_display = ('name', 'day_of_birth', 'get_adoption_parents_formatted')
     ordering = ('day_of_birth',)
     inlines = [
@@ -231,18 +200,16 @@ class ChildAdmin(VersionAdmin):
         'gender',
         'status',
         'indian_parent_status',
-        ('day_of_birth', DateRangeFilterBuilder(title=_("By Day of Birth"))), 
-        ('date_of_admission', DateRangeFilterBuilder(title=_("By Date of Admission"))), 
-        ('date_of_leave', DateRangeFilterBuilder(title=_("By Day of Leave"))), 
+        ('day_of_birth', RangeDateFilter), 
+        ('date_of_admission', RangeDateFilter), 
+        ('date_of_leave', RangeDateFilter), 
     )
 
-
-class DonationInline(admin.StackedInline):
-    model = Donation
+    list_filter_submit = True
 
 
 @admin.register(AdoptionParentSponsoring)
-class AdoptionParentSponsoringAdmin(VersionAdmin):
+class AdoptionParentSponsoringAdmin(SimpleHistoryAdmin, ModelAdmin):
     class Media:
         js = ('main.js',)   
 
@@ -251,37 +218,48 @@ class AdoptionParentSponsoringAdmin(VersionAdmin):
 
     search_fields = ('date', 'amount', 'description', 'parent__first_name', 'parent__last_name','parent__firm', 'parent__street_name', 'parent__postcode', 'parent__city', 'parent__country', 'parent__mail', 'parent__description', 'parent__phone_number', 'child__name')
     list_filter = (
-        ('date', DateRangeFilterBuilder(title=_("By Date"))), 
-        ('amount', NumericRangeFilterBuilder(title=_("By Amount"))), 
+        ('date', RangeDateFilter), 
+        ('amount', AmountRangeFilter), 
         'parent', 'child'
     )
 
+    list_filter_submit = True
+
 
 @admin.register(Sponsor)
-class SponsorAdmin(VersionAdmin):
+class SponsorAdmin(SimpleHistoryAdmin, ModelAdmin):
     list_display = ('first_name', 'last_name', 'letters')
     ordering = ('id',)
     inlines = [
         DonationInline
     ]
-    actions = [
-        generateAddressList,
-        generateMailList
-    ]
 
     search_fields = ('first_name', 'last_name', 'firm', 'street_name', 'address_number', 'bus', 'postcode', 'city', 'country', 'mail', 'description', 'phone_number')
     list_filter = ('letters', 'country', 'city' )
+    list_filter_submit = True
 
+    actions = [
+        "generate_address_list",
+        "generate_mail_list",
+    ]
+
+    @action(description=_("Generate Address List"))
+    def generate_address_list(modeladmin, request, queryset):
+        return helper.generateAddressList(modeladmin, request, queryset)
+
+    @action(description=_("Generate Mailing List"))
+    def generate_mail_list(modeladmin, request, queryset):
+        return helper.generateMailList(modeladmin, request, queryset)
     
 
-
 @admin.register(Donation)
-class DonationAdmin(VersionAdmin):
+class DonationAdmin(SimpleHistoryAdmin, ModelAdmin):
     list_display = ('date', 'amount', 'sponsor')
     ordering = ('date', 'amount')
     search_fields = ('sponsor__first_name', 'sponsor__last_name', 'sponsor__firm', 'sponsor__street_name', 'sponsor__postcode', 'sponsor__city', 'sponsor__country', 'sponsor__mail', 'sponsor__description', 'sponsor__phone_number', 'amount', 'date', 'description')
     list_filter = (
-        ('amount', NumericRangeFilterBuilder(title=_("By Amount"))), 
-        ('date' , DateRangeFilterBuilder(title=_("By Date"))),
+        ('amount', AmountRangeFilter), 
+        ('date' , RangeDateFilter),
         'sponsor'
     )
+    list_filter_submit = True
