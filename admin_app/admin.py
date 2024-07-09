@@ -18,7 +18,7 @@ from simple_history.admin import SimpleHistoryAdmin
 admin.site.unregister(User)
 
 @admin.register(User)
-class UserAdmin(BaseUserAdmin, ModelAdmin, SimpleHistoryAdmin):
+class UserAdmin(BaseUserAdmin, ModelAdmin):
     pass
 
 
@@ -133,7 +133,7 @@ class DonationInline(StackedInline):
 # MODELS #
 
 @admin.register(AdoptionParent)
-class AdoptionParentAdmin(ModelAdmin):
+class AdoptionParentAdmin(SimpleHistoryAdmin, ModelAdmin):
     list_display = ('first_name', 'last_name', 'get_children')
     exclude = ('children',)
     ordering = ('id',)
@@ -187,7 +187,7 @@ class AdoptionParentAdmin(ModelAdmin):
 
 
 @admin.register(Child)
-class ChildAdmin(ModelAdmin):
+class ChildAdmin(SimpleHistoryAdmin, ModelAdmin):
     list_display = ('name', 'day_of_birth', 'get_adoption_parents_formatted')
     ordering = ('day_of_birth',)
     inlines = [
@@ -209,7 +209,7 @@ class ChildAdmin(ModelAdmin):
 
 
 @admin.register(AdoptionParentSponsoring)
-class AdoptionParentSponsoringAdmin(ModelAdmin):
+class AdoptionParentSponsoringAdmin(SimpleHistoryAdmin, ModelAdmin):
     class Media:
         js = ('main.js',)   
 
@@ -227,7 +227,7 @@ class AdoptionParentSponsoringAdmin(ModelAdmin):
 
 
 @admin.register(Sponsor)
-class SponsorAdmin(ModelAdmin):
+class SponsorAdmin(SimpleHistoryAdmin, ModelAdmin):
     list_display = ('first_name', 'last_name', 'letters')
     ordering = ('id',)
     inlines = [
@@ -253,7 +253,7 @@ class SponsorAdmin(ModelAdmin):
     
 
 @admin.register(Donation)
-class DonationAdmin(ModelAdmin):
+class DonationAdmin(SimpleHistoryAdmin, ModelAdmin):
     list_display = ('date', 'amount', 'sponsor')
     ordering = ('date', 'amount')
     search_fields = ('sponsor__first_name', 'sponsor__last_name', 'sponsor__firm', 'sponsor__street_name', 'sponsor__postcode', 'sponsor__city', 'sponsor__country', 'sponsor__mail', 'sponsor__description', 'sponsor__phone_number', 'amount', 'date', 'description')
