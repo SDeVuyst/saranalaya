@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 import os
+import random
 from django.templatetags.static import static
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
@@ -173,6 +174,10 @@ UNFOLD = {
     "SHOW_VIEW_ON_SITE": False,
 
     "DASHBOARD_CALLBACK": "admin_app.views.dashboard_callback",
+
+    "LOGIN": {
+        "image": lambda request: static(random.choice(["img/login-bg.jpg", "img/login-bg2.jpg", "img/login-bg3.jpg"])),
+    },
 
     "COLORS": {
         "primary": {
