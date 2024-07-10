@@ -73,4 +73,5 @@ def generateAddressListFile(queryset):
 
 
 def percentage_change(a, b):
+    if a == 0: return -100
     return (b - a) / a * 100
