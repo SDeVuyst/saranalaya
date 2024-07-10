@@ -69,7 +69,7 @@ def dashboard_callback(request, context):
             "short_stats": [
                 {
                     "title": _("Children"),
-                    "year": _("Huidig"),
+                    "year": _("Current"),
                     "metric": amount_of_active_children,
                     "footer": _("Only active children are counted"),
                 },

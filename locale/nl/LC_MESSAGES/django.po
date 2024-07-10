@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-10 15:18+0200\n"
-"PO-Revision-Date: 2024-07-10 15:20+0200\n"
+"POT-Creation-Date: 2024-07-10 15:49+0200\n"
+"PO-Revision-Date: 2024-07-10 15:50+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -117,12 +117,12 @@ msgid "Child"
 msgstr "Kind"
 
 #: .\admin_app\models.py:37 .\admin_app\models.py:99 .\admin_app\models.py:111
-#: .\admin_app\views.py:74 .\admin_app\views.py:126 .\admin_app\views.py:139
-#: .\admin_app\views.py:151 .\saranalaya\settings.py:206
+#: .\admin_app\views.py:71 .\admin_app\views.py:124 .\admin_app\views.py:137
+#: .\saranalaya\settings.py:206
 msgid "Children"
 msgstr "Kinderen"
 
-#: .\admin_app\models.py:42 .\admin_app\models.py:97 .\admin_app\views.py:90
+#: .\admin_app\models.py:42 .\admin_app\models.py:97 .\admin_app\views.py:87
 #: .\saranalaya\settings.py:211
 msgid "Adoption Parents"
 msgstr "Adoptie-ouders"
@@ -265,7 +265,7 @@ msgstr "Brieven"
 msgid "Donation"
 msgstr "Donatie"
 
-#: .\admin_app\models.py:157 .\admin_app\views.py:81 .\admin_app\views.py:111
+#: .\admin_app\models.py:157 .\admin_app\views.py:78 .\admin_app\views.py:108
 #: .\saranalaya\settings.py:226
 msgid "Donations"
 msgstr "Donaties"
@@ -282,37 +282,40 @@ msgstr "Django site admin"
 msgid "Income"
 msgstr "Inkomsten"
 
-#: .\admin_app\views.py:75 .\admin_app\views.py:91
-msgid "All Time"
-msgstr "Sinds begin"
+#: .\admin_app\views.py:72
+msgid "Current"
+msgstr "Huidig"
 
-#: .\admin_app\views.py:77
+#: .\admin_app\views.py:74
 msgid "Only active children are counted"
 msgstr "Alleen actieve kinderen worden meegeteld"
 
-#: .\admin_app\views.py:93
+#: .\admin_app\views.py:88
+msgid "All Time"
+msgstr "Sinds begin"
+
+#: .\admin_app\views.py:90
 msgid "Only active parents are counted"
 msgstr "Alleen actieve ouders worden meegeteld"
 
-#: .\admin_app\views.py:97 .\admin_app\views.py:117
+#: .\admin_app\views.py:94 .\admin_app\views.py:115
 msgid "Parent Payments"
 msgstr "Adoptie-ouder Betalingen"
 
-#: .\admin_app\views.py:127
+#: .\admin_app\views.py:125
 msgid "By Admission Date"
 msgstr "Door Dag van Aankomst"
 
-#: .\admin_app\views.py:140
+#: .\admin_app\views.py:138
 msgid "By Status"
 msgstr "Door Status"
-
-#: .\admin_app\views.py:152
-msgid "By Adoption Parents"
-msgstr "Door Adoptie-ouders"
 
 #: .\saranalaya\settings.py:198
 msgid "Navigation"
 msgstr "Navigatie"
+
+#~ msgid "By Adoption Parents"
+#~ msgstr "Door Adoptie-ouders"
 
 #~ msgid "Parent Sponsors"
 #~ msgstr "Ouder Sponsers"
