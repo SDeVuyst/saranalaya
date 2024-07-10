@@ -29,6 +29,9 @@ def dashboard_callback(request, context):
     donation_data = [Donation.objects.filter(date__year=y).aggregate(Sum("amount"))['amount__sum'] for y in all_years]
     parent_sponsor_data = [AdoptionParentSponsoring.objects.filter(date__year=y).aggregate(Sum("amount"))['amount__sum'] for y in all_years]
 
+    print(donation_data)
+    print(parent_sponsor_data)
+
     # Total amount of donations and parent sponsors this year
     total_donations_this_year = Donation.objects.filter(date__year=current_year).aggregate(Sum("amount"))['amount__sum']
     total_donations_this_year = total_donations_this_year if total_donations_this_year is not None else 0
@@ -42,9 +45,9 @@ def dashboard_callback(request, context):
     total_parent_sponsors_last_year = total_parent_sponsors_last_year if total_parent_sponsors_last_year is not None else 0
 
     # Calculate the difference in percentage and set color (red or green for + or -)
-    donations_change_percentage = percentage_change(total_donations_this_year, total_donations_last_year)
+    donations_change_percentage = int(percentage_change(total_donations_last_year, total_donations_this_year))
     donations_color_percentage = "green" if donations_change_percentage >= 0 else "red"
-    parent_sponsor_change_percentage = percentage_change(total_parent_sponsors_this_year, total_parent_sponsors_last_year)
+    parent_sponsor_change_percentage = int(percentage_change(total_parent_sponsors_last_year, total_parent_sponsors_this_year))
     parent_sponsor_color_percentage = "green" if parent_sponsor_change_percentage >= 0 else "red"
 
     # Calculate total amount of active children and active adoption parents
@@ -62,9 +65,6 @@ def dashboard_callback(request, context):
     children_statusses = [str(l) for l in StatusChoices.labels]
     children_status_data = [Child.objects.filter(status=s).count() for s in StatusChoices.values]
 
-    # Get amoutn of children by amount of adoption parents
-    children_parents = [str(l) for l in ParentStatusChoices.labels]
-    children_parents_data = [Child.objects.filter(status=s).count() for s in ParentStatusChoices.values]
 
     # add data to context to be able to build the dashboard
     context.update(
@@ -72,7 +72,7 @@ def dashboard_callback(request, context):
             "short_stats": [
                 {
                     "title": _("Children"),
-                    "year": _("All Time"),
+                    "year": _("Huidig"),
                     "metric": amount_of_active_children,
                     "footer": _("Only active children are counted"),
                 },
@@ -110,6 +110,7 @@ def dashboard_callback(request, context):
                         {
                             "label": _("Donations"),
                             "data": donation_data,
+                            "type": "line",
                             "backgroundColor": "#f0abfc",
                             "borderColor": "#f0abfc",
                         },
@@ -143,18 +144,6 @@ def dashboard_callback(request, context):
                             "labels": children_statusses,
                             "datasets": [
                                 {"data": children_status_data, "borderColor": "#9333ea"}
-                            ],
-                        }
-                    ),
-                },
-                {
-                    "title": _("Children"),
-                    "metric": _("By Adoption Parents"),
-                    "chart": json.dumps(
-                        {
-                            "labels": children_parents,
-                            "datasets": [
-                                {"data": children_parents_data, "borderColor": "#9333ea"}
                             ],
                         }
                     ),
