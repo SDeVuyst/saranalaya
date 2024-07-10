@@ -22,13 +22,18 @@ def dashboard_callback(request, context):
     
     # Get donations and parent sponsors in every year
     all_years_donation = Donation.objects.all().values("date__year").order_by("date__year").distinct()
+    print(all_years_donation)
     all_years_donation = [str(y['date__year']) for y in all_years_donation]
+    print(all_years_donation)
     all_years_parent = AdoptionParentSponsoring.objects.all().values("date__year").order_by("date__year").distinct()
+    print(all_years_parent)
     all_years_parent = [str(y['date__year']) for y in all_years_parent]
+    print(all_years_parent)
     all_years = all_years_donation if len(all_years_donation) < len(all_years_parent) else all_years_parent # select shortest years as years
+    print(all_years)
     donation_data = [Donation.objects.filter(date__year=y).aggregate(Sum("amount"))['amount__sum'] for y in all_years]
     parent_sponsor_data = [AdoptionParentSponsoring.objects.filter(date__year=y).aggregate(Sum("amount"))['amount__sum'] for y in all_years]
-
+    
     print(donation_data)
     print(parent_sponsor_data)
 
