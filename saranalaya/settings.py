@@ -28,7 +28,7 @@ SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
 DEBUG = True
 
 ALLOWED_HOSTS = ['192.168.86.200', '0.0.0.0', 'localhost', '127.0.0.1','vanakaam.be']
-CSRF_TRUSTED_ORIGINS = ['https:/vanakaam.be', 'https:/www.vanakaam.be']
+CSRF_TRUSTED_ORIGINS = ['https://vanakaam.be', 'https://www.vanakaam.be']
 
 
 DBBACKUP_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'

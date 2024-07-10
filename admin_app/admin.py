@@ -211,7 +211,7 @@ class ChildAdmin(SimpleHistoryAdmin, ModelAdmin):
 @admin.register(AdoptionParentSponsoring)
 class AdoptionParentSponsoringAdmin(SimpleHistoryAdmin, ModelAdmin):
     class Media:
-        js = ('main.js',)   
+        js = ('js/paymentcolor.js',)   
 
     list_display = ('date', 'amount', 'parent', 'child', 'get_amount_left')
     ordering = ('date', 'amount')
