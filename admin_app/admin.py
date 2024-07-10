@@ -5,8 +5,9 @@ from datetime import datetime
 from django.utils.translation import gettext as _
 from unfold.contrib.filters.admin import RangeDateFilter, RangeNumericFilter
 from django.contrib import admin
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+from django.contrib.auth.admin import GroupAdmin as BaseGroupAdmin
 from unfold.admin import ModelAdmin
 from unfold.decorators import action
 from unfold.contrib.inlines.admin import StackedInline  
@@ -16,12 +17,15 @@ from .sites import saranalaya_admin_site
 
 # Unfold model admin
 admin.site.unregister(User)
+admin.site.unregister(Group)
 
-@admin.register(User)
+@admin.register(User, site=saranalaya_admin_site)
 class UserAdmin(BaseUserAdmin, ModelAdmin):
     pass
 
-
+@admin.register(Group, site=saranalaya_admin_site)
+class GroupAdmin(BaseGroupAdmin, ModelAdmin):
+    pass
 
 # FILTERS #
 

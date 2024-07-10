@@ -1,5 +1,4 @@
 from unfold.sites import UnfoldAdminSite
-from .forms import LoginForm
 
 class SaranalayaAdminSite(UnfoldAdminSite):
     pass
