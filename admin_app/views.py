@@ -1,16 +1,13 @@
 import json
 from django.contrib.admin.views.decorators import staff_member_required
-from django.http import JsonResponse
 from django.db.models import Sum
-from django.db.models.functions import ExtractYear
 from django.utils.translation import gettext as _
 from .utils.helper import percentage_change
 import datetime
-import random
 
 from django.utils.safestring import mark_safe
 
-from admin_app.models import Donation, AdoptionParentSponsoring, Child, AdoptionParent, StatusChoices, ParentStatusChoices
+from admin_app.models import Donation, AdoptionParentSponsoring, Child, AdoptionParent, StatusChoices
 from .utils.helper import *
 
 
@@ -19,6 +16,8 @@ def dashboard_callback(request, context):
 
     current_year = str(datetime.datetime.now().year)
     last_year = str(datetime.datetime.now().year -1)
+
+    progress_text = _(f"progress from {last_year}")
     
     # Get donations and parent sponsors in every year
     all_years_donation = Donation.objects.all().values("date__year").order_by("date__year").distinct()
@@ -79,7 +78,7 @@ def dashboard_callback(request, context):
                     "year": current_year,
                     "metric": f"€{total_donations_this_year}",
                     "footer": mark_safe(
-                        f'<strong class="text-{donations_color_percentage}-600 font-medium">{donations_change_percentage}%</strong>&nbsp;{_(f"progress from {last_year}")}'
+                        f'<strong class="text-{donations_color_percentage}-600 font-medium">{donations_change_percentage}%</strong>&nbsp;{progress_text}'
                     ),
                 },
 
@@ -95,7 +94,7 @@ def dashboard_callback(request, context):
                     "year": current_year,
                     "metric": f"€{total_parent_sponsors_last_year}",
                     "footer": mark_safe(
-                        f'<strong class="text-{parent_sponsor_color_percentage}-600 font-medium">{parent_sponsor_change_percentage}%</strong>&nbsp;{_(f"progress from {last_year}")}'
+                        f'<strong class="text-{parent_sponsor_color_percentage}-600 font-medium">{parent_sponsor_change_percentage}%</strong>&nbsp;{progress_text}'
                     ),
                 }, 
                 
