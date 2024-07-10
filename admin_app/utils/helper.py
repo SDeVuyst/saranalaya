@@ -71,3 +71,6 @@ def generateAddressListFile(queryset):
     buffer.seek(0)
     return buffer
 
+
+def percentage_change(a, b):
+    return (b - a) / a * 100

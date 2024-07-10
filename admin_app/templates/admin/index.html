@@ -1,0 +1,67 @@
+{% extends 'unfold/layouts/base_simple.html' %}
+
+{% load i18n unfold %}
+
+{% block breadcrumbs %}{% endblock %}
+
+{% block title %}
+    {% trans 'Dashboard' %} | {{ site_title|default:_('Django site admin') }}
+{% endblock %}
+
+{% block branding %}
+    <h1 id="site-name">
+        <a href="{% url 'admin:index' %}">
+            {{ site_header }}
+        </a>
+    </h1>
+{% endblock %}
+
+{% block extrahead %}
+    {% if plausible_domain %}
+        <script defer data-domain="{{ plausible_domain }}" src="https://plausible.io/js/script.js"></script>
+    {% endif %}    
+{% endblock %}
+
+{% block content %}
+    {% include "unfold/helpers/messages.html" %}
+    
+    {% component "unfold/components/container.html" %}
+
+        {% component "unfold/components/flex.html" with class="gap-8 mb-8 flex-col lg:flex-row" %}
+            {% for stats in short_stats %}
+                {% component "unfold/components/card.html" with class="lg:w-1/3" label=stats.year footer=stats.footer %}
+                    {% component "unfold/components/text.html" %}
+                        {{ stats.title }}
+                    {% endcomponent %}   
+
+                    {% component "unfold/components/title.html" %}
+                        {{ stats.metric }}
+                    {% endcomponent %}                                  
+                {% endcomponent %}
+            {% endfor %}
+        {% endcomponent %}
+        
+        {% trans "Income" as title %}
+        {% component "unfold/components/card.html" with class="mb-8" title=title %}
+            {% component "unfold/components/chart/bar.html" with data=chart height=320 %}{% endcomponent %}
+        {% endcomponent %}
+
+        {% component "unfold/components/flex.html" with class="gap-8 mb-8 flex-col lg:flex-row" %}
+            {% component "unfold/components/flex.html" with class="gap-8 lg:w-1/2" %}
+                {% for stats in children %}
+                    {% component "unfold/components/card.html" %}
+                        {% component "unfold/components/text.html" %}
+                            {{ stats.title }}
+                        {% endcomponent %}   
+
+                        {% component "unfold/components/title.html" with class="mb-8" %}
+                            {{ stats.metric }}
+                        {% endcomponent %}                                  
+
+                        {% component "unfold/components/chart/line.html" with data=stats.chart %}{% endcomponent %}
+                    {% endcomponent %}
+                {% endfor %}
+            {% endcomponent %}        
+        {% endcomponent %}    
+    {% endcomponent %}
+{% endblock %}

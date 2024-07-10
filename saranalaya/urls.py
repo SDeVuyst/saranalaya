@@ -17,11 +17,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 from .views import redirect_to_admin
+from admin_app.sites import saranalaya_admin_site
 
 
 urlpatterns = [
     path('stats/', include("admin_app.urls")),
-    path('admin/', admin.site.urls),
+    path('admin/', saranalaya_admin_site.urls),
     path("i18n/", include("django.conf.urls.i18n")),
     path('', redirect_to_admin),
 ]

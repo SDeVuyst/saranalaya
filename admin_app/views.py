@@ -1,74 +1,166 @@
+import json
 from django.contrib.admin.views.decorators import staff_member_required
 from django.http import JsonResponse
 from django.db.models import Sum
 from django.db.models.functions import ExtractYear
 from django.utils.translation import gettext as _
+from .utils.helper import percentage_change
+import datetime
+import random
 
-from admin_app.models import Donation, AdoptionParentSponsoring
+from django.utils.safestring import mark_safe
+
+from admin_app.models import Donation, AdoptionParentSponsoring, Child, AdoptionParent, StatusChoices, ParentStatusChoices
 from .utils.helper import *
 
 
-@staff_member_required
-def get_filter_options(request):
-    grouped_donations = Donation.objects.annotate(year=ExtractYear("date")).values("year").order_by("-year").distinct()
-    options = [donation["year"] for donation in grouped_donations]
 
-    return JsonResponse({
-        "options": options,
-    })
+def dashboard_callback(request, context):
 
+    current_year = str(datetime.datetime.now().year)
+    last_year = str(datetime.datetime.now().year -1)
+    
+    # Get donations and parent sponsors in every year
+    all_years_donation = Donation.objects.all().values("date__year").order_by("date__year").distinct()
+    all_years_donation = [str(y['date__year']) for y in all_years_donation]
+    all_years_parent = AdoptionParentSponsoring.objects.all().values("date__year").order_by("date__year").distinct()
+    all_years_parent = [str(y['date__year']) for y in all_years_parent]
+    all_years = all_years_donation if len(all_years_donation) < len(all_years_parent) else all_years_parent # select shortest years as years
+    donation_data = [Donation.objects.filter(date__year=y).aggregate(Sum("amount"))['amount__sum'] for y in all_years]
+    parent_sponsor_data = [AdoptionParentSponsoring.objects.filter(date__year=y).aggregate(Sum("amount"))['amount__sum'] for y in all_years]
 
-@staff_member_required
-def donations_per_year_chart(request):
+    # Total amount of donations and parent sponsors this year
+    total_donations_this_year = Donation.objects.filter(date__year=current_year).aggregate(Sum("amount"))['amount__sum']
+    total_donations_this_year = total_donations_this_year if total_donations_this_year is not None else 0
+    total_parent_sponsors_this_year = AdoptionParentSponsoring.objects.filter(date__year=current_year).aggregate(Sum("amount"))['amount__sum']
+    total_parent_sponsors_this_year = total_parent_sponsors_this_year if total_parent_sponsors_this_year is not None else 0
 
-    valid_years = get_years_from_request(request)
+    # Total amount of donations and parent sponsors last year
+    total_donations_last_year = Donation.objects.filter(date__year=last_year).aggregate(Sum("amount"))['amount__sum']
+    total_donations_last_year = total_donations_last_year if total_donations_last_year is not None else 0
+    total_parent_sponsors_last_year = AdoptionParentSponsoring.objects.filter(date__year=last_year).aggregate(Sum("amount"))['amount__sum']
+    total_parent_sponsors_last_year = total_parent_sponsors_last_year if total_parent_sponsors_last_year is not None else 0
 
-    donations = Donation.objects.all()
-    years = donations.values("date__year").order_by("date__year").distinct()
-    years = [str(y['date__year']) for y in years]
+    # Calculate the difference in percentage and set color (red or green for + or -)
+    donations_change_percentage = percentage_change(total_donations_this_year, total_donations_last_year)
+    donations_color_percentage = "green" if donations_change_percentage >= 0 else "red"
+    parent_sponsor_change_percentage = percentage_change(total_parent_sponsors_this_year, total_parent_sponsors_last_year)
+    parent_sponsor_color_percentage = "green" if parent_sponsor_change_percentage >= 0 else "red"
 
-    # make sure only the correct years are selected, last 5 years if years not specified
-    valid_years = years[-5:] if valid_years == [] else valid_years
-    years = list(filter(lambda year: year in valid_years, years))
+    # Calculate total amount of active children and active adoption parents
+    amount_of_active_children = Child.objects.filter(status='a').count()
+    amount_of_adoption_parents = AdoptionParent.objects.filter(active=True).count()
 
-    return JsonResponse({
-        "data": {
-            "labels": [str(year) for year in years],
-            "datasets": [{
-                "label": "Amount (€)",
-                "data": [
-                    donations.filter(date__year=y).aggregate(Sum("amount"))['amount__sum'] for y in years
-                ],
-                "hoverOffset": 4
-            }]
-        }
-    })
+    # Get years of admission dates of children
+    all_years_admission = Child.objects.all().values("date_of_admission__year").order_by("date_of_admission__year").distinct()
+    all_years_admission = [str(y['date_of_admission__year']) for y in all_years_admission]
 
+    # Get amount of children by admission year
+    children_admission_data = [Child.objects.filter(date_of_admission__year=y).count() for y in all_years_admission]
 
-@staff_member_required
-def money_ratio_chart(request):
+    # Get amount of children by status
+    children_statusses = [str(l) for l in StatusChoices.labels]
+    children_status_data = [Child.objects.filter(status=s).count() for s in StatusChoices.values]
 
-    donations = Donation.objects.all()
-    parent_sponsors = AdoptionParentSponsoring.objects.all()
+    # Get amoutn of children by amount of adoption parents
+    children_parents = [str(l) for l in ParentStatusChoices.labels]
+    children_parents_data = [Child.objects.filter(status=s).count() for s in ParentStatusChoices.values]
 
-    years = get_years_from_request(request)
-    year = get_last_available_adoption_sponsoring_year(parent_sponsors) if years == [] else years[0]
+    # add data to context to be able to build the dashboard
+    context.update(
+        {
+            "short_stats": [
+                {
+                    "title": _("Children"),
+                    "year": _("All Time"),
+                    "metric": amount_of_active_children,
+                    "footer": _("Only active children are counted"),
+                },
 
-    total_donations_in_year = donations.filter(date__year=year).aggregate(Sum("amount"))['amount__sum']
-    total_parent_sponsors_in_year = parent_sponsors.filter(date__year=year).aggregate(Sum("amount"))['amount__sum']
+                {
+                    "title": _(f"Donations"),
+                    "year": current_year,
+                    "metric": f"€{total_donations_this_year}",
+                    "footer": mark_safe(
+                        f'<strong class="text-{donations_color_percentage}-600 font-medium">{donations_change_percentage}%</strong>&nbsp;{_(f"progress from {last_year}")}'
+                    ),
+                },
 
-    return JsonResponse({
-        "data": {
-            "labels": [_("Donations"), _("Parent Sponsors")],
-            "datasets": [{
-                "label": "Amount (€)",
-                "data": [
-                    total_donations_in_year if total_donations_in_year is not None else 0,
-                    total_parent_sponsors_in_year if total_parent_sponsors_in_year is not None else 0,
-                ],
-                "hoverOffset": 4
-            }]
-        }
-    })
+                {
+                    "title": _(f"Adoption Parents"),
+                    "year": _("All Time"),
+                    "metric": amount_of_adoption_parents,
+                    "footer": _("Only active parents are counted"),
+                },
 
+                {
+                    "title": _(f"Parent Payments"),
+                    "year": current_year,
+                    "metric": f"€{total_parent_sponsors_last_year}",
+                    "footer": mark_safe(
+                        f'<strong class="text-{parent_sponsor_color_percentage}-600 font-medium">{parent_sponsor_change_percentage}%</strong>&nbsp;{_(f"progress from {last_year}")}'
+                    ),
+                }, 
+                
+            ],
+            "chart": json.dumps(
+                {
+                    "labels": all_years,
+                    "datasets": [
+                        {
+                            "label": _("Donations"),
+                            "data": donation_data,
+                            "backgroundColor": "#f0abfc",
+                            "borderColor": "#f0abfc",
+                        },
+                        {
+                            "label": _("Parent Payments"),
+                            "data": parent_sponsor_data,
+                            "backgroundColor": "#9333ea",
+                        },
+                    ],
+                }
+            ),
+            "children": [
+                {
+                    "title": _("Children"),
+                    "metric": _("By Admission Date"),
+                    "chart": json.dumps(
+                        {
+                            "labels": all_years_admission,
+                            "datasets": [
+                                {"data": children_admission_data, "borderColor": "#9333ea"}
+                            ],
+                        }
+                    ),
+                },
 
+                {
+                    "title": _("Children"),
+                    "metric": _("By Status"),
+                    "chart": json.dumps(
+                        {
+                            "labels": children_statusses,
+                            "datasets": [
+                                {"data": children_status_data, "borderColor": "#9333ea"}
+                            ],
+                        }
+                    ),
+                },
+                {
+                    "title": _("Children"),
+                    "metric": _("By Adoption Parents"),
+                    "chart": json.dumps(
+                        {
+                            "labels": children_parents,
+                            "datasets": [
+                                {"data": children_parents_data, "borderColor": "#9333ea"}
+                            ],
+                        }
+                    ),
+                },
+            ],
+        },
+    )
+
+    return context

@@ -12,7 +12,7 @@ from unfold.decorators import action
 from unfold.contrib.inlines.admin import StackedInline  
 from simple_history.admin import SimpleHistoryAdmin
 
-
+from .sites import saranalaya_admin_site
 
 # Unfold model admin
 admin.site.unregister(User)
@@ -132,7 +132,7 @@ class DonationInline(StackedInline):
 
 # MODELS #
 
-@admin.register(AdoptionParent)
+@admin.register(AdoptionParent, site=saranalaya_admin_site)
 class AdoptionParentAdmin(SimpleHistoryAdmin, ModelAdmin):
     list_display = ('first_name', 'last_name', 'get_children')
     exclude = ('children',)
@@ -186,7 +186,7 @@ class AdoptionParentAdmin(SimpleHistoryAdmin, ModelAdmin):
         return helper.generateMailList(modeladmin, request, queryset)
 
 
-@admin.register(Child)
+@admin.register(Child, site=saranalaya_admin_site)
 class ChildAdmin(SimpleHistoryAdmin, ModelAdmin):
     list_display = ('name', 'day_of_birth', 'get_adoption_parents_formatted')
     ordering = ('day_of_birth',)
@@ -208,7 +208,7 @@ class ChildAdmin(SimpleHistoryAdmin, ModelAdmin):
     list_filter_submit = True
 
 
-@admin.register(AdoptionParentSponsoring)
+@admin.register(AdoptionParentSponsoring, site=saranalaya_admin_site)
 class AdoptionParentSponsoringAdmin(SimpleHistoryAdmin, ModelAdmin):
     class Media:
         js = ('js/paymentcolor.js',)   
@@ -226,7 +226,7 @@ class AdoptionParentSponsoringAdmin(SimpleHistoryAdmin, ModelAdmin):
     list_filter_submit = True
 
 
-@admin.register(Sponsor)
+@admin.register(Sponsor, site=saranalaya_admin_site)
 class SponsorAdmin(SimpleHistoryAdmin, ModelAdmin):
     list_display = ('first_name', 'last_name', 'letters')
     ordering = ('id',)
@@ -252,7 +252,7 @@ class SponsorAdmin(SimpleHistoryAdmin, ModelAdmin):
         return helper.generateMailList(modeladmin, request, queryset)
     
 
-@admin.register(Donation)
+@admin.register(Donation, site=saranalaya_admin_site)
 class DonationAdmin(SimpleHistoryAdmin, ModelAdmin):
     list_display = ('date', 'amount', 'sponsor')
     ordering = ('date', 'amount')

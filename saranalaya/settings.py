@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 from pathlib import Path
 import os
 from django.templatetags.static import static
+from django.urls import reverse_lazy
+from django.utils.translation import gettext_lazy as _
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -170,6 +172,8 @@ UNFOLD = {
     "SHOW_HISTORY": True, 
     "SHOW_VIEW_ON_SITE": False,
 
+    "DASHBOARD_CALLBACK": "admin_app.views.dashboard_callback",
+
     "COLORS": {
         "primary": {
             "50": "250 245 255",
@@ -187,8 +191,44 @@ UNFOLD = {
     },
     
     "SIDEBAR": {
-        "show_search": False,  # Search in applications and models names
-        "show_all_applications": True,  # Dropdown with all applications and models
-            
+        "show_search": False,
+        "show_all_applications": True,
+        "navigation": [
+            {
+                "title": _("Navigation"),
+                "items": [
+                    {
+                        "title": _("Dashboard"),
+                        "icon": "dashboard",
+                        "link": reverse_lazy("admin:index"),
+                    },
+                    {
+                        "title": _("Children"),
+                        "icon": "sentiment_very_satisfied",
+                        "link": "/admin/admin_app/child/",
+                    },
+                    {
+                        "title": _("Adoption Parents"),
+                        "icon": "escalator_warning",
+                        "link": "/admin/admin_app/adoptionparent/",
+                    },
+                    {
+                        "title": _("Adoption Parent Payments"),
+                        "icon": "account_balance",
+                        "link": "/admin/admin_app/adoptionparentsponsoring/",
+                    },
+                    {
+                        "title": _("Sponsors"),
+                        "icon": "patient_list",
+                        "link": "/admin/admin_app/sponsor/",
+                    },
+                    {
+                        "title": _("Donations"),
+                        "icon": "credit_card_heart",
+                        "link": "/admin/admin_app/donation/",
+                    },
+                ],
+            },
+        ],
     },
 }
