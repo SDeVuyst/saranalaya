@@ -12,7 +12,7 @@ from unfold.admin import ModelAdmin
 from unfold.decorators import action
 from unfold.contrib.inlines.admin import StackedInline  
 from simple_history.admin import SimpleHistoryAdmin
-
+from django import forms
 from .sites import saranalaya_admin_site
 
 # Unfold model admin
@@ -26,6 +26,25 @@ class UserAdmin(BaseUserAdmin, ModelAdmin):
 @admin.register(Group, site=saranalaya_admin_site)
 class GroupAdmin(BaseGroupAdmin, ModelAdmin):
     pass
+
+# FORMS #
+class AdoptionSponsoringForm(forms.ModelForm):
+    class Meta:
+        model = AdoptionParentSponsoring
+        fields = ['parent', 'child', 'amount', 'date', 'description']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if 'parent' in self.data:
+            # only adopted children are available for selection
+            try:
+                parent_id = int(self.data.get('parent'))
+                self.fields['child'].queryset = AdoptionParent.objects.get(id=parent_id).children.all()
+            except (ValueError, TypeError):
+                pass  # invalid input from the client; ignore and fallback to empty queryset
+        elif self.instance.pk:
+            self.fields['child'].queryset = self.instance.parent.children.all()
+        
 
 # FILTERS #
 
@@ -127,6 +146,8 @@ class AdoptionInline(StackedInline):
 
 class AdoptionParentSponsoringInline(StackedInline):
     model = AdoptionParentSponsoring
+    form = AdoptionSponsoringForm
+    extra = 1
 
 
 class DonationInline(StackedInline):
@@ -216,6 +237,8 @@ class ChildAdmin(SimpleHistoryAdmin, ModelAdmin):
 class AdoptionParentSponsoringAdmin(SimpleHistoryAdmin, ModelAdmin):
     class Media:
         js = ('js/paymentcolor.js',)   
+
+    form = AdoptionSponsoringForm
 
     list_display = ('date', 'amount', 'parent', 'child', 'get_amount_left')
     ordering = ('date', 'amount')
