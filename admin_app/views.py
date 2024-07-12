@@ -26,8 +26,10 @@ def dashboard_callback(request, context):
     all_years_parent = [str(y['date__year']) for y in all_years_parent]
     all_years = all_years_donation if len(all_years_donation) > len(all_years_parent) else all_years_parent # select longest years as years
     donation_data = [Donation.objects.filter(date__year=y).aggregate(Sum("amount"))['amount__sum'] for y in all_years]
+    donation_data = [0 if val is None else val for val in donation_data]
     parent_sponsor_data = [AdoptionParentSponsoring.objects.filter(date__year=y).aggregate(Sum("amount"))['amount__sum'] for y in all_years]
-
+    parent_sponsor_data = [0 if val is None else val for val in parent_sponsor_data]
+    
     # Total amount of donations and parent sponsors this year
     total_donations_this_year = Donation.objects.filter(date__year=current_year).aggregate(Sum("amount"))['amount__sum']
     total_donations_this_year = total_donations_this_year if total_donations_this_year is not None else 0
