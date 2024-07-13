@@ -6,3 +6,5 @@ boto3
 django-storages
 django-unfold
 django-simple-history
+django-payments
+django-money

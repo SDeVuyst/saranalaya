@@ -48,6 +48,7 @@ DBBACKUP_STORAGE_OPTIONS = {
 
 INSTALLED_APPS = [
     'admin_app.apps.AdminAppConfig',
+    'events',
 
     "unfold",
     "unfold.contrib.filters",
@@ -64,7 +65,8 @@ INSTALLED_APPS = [
     'simple_history',
     'dbbackup',
     'storages',
-
+    "payments",
+    'djmoney',
 ]
 
 MIDDLEWARE = [
@@ -234,6 +236,42 @@ UNFOLD = {
                     },
                 ],
             },
+
+            {
+                "separator": True,
+                "items": [
+                    {
+                        "title": _("Events"),
+                        "icon": "event",
+                        "link": "/admin/events/event/",
+                    },
+                    {
+                        "title": _("Tickets"),
+                        "icon": "confirmation_number",
+                        "link": "/admin/events/ticket/",
+                    },
+                    {
+                        "title": _("Participants"),
+                        "icon": "group",
+                        "link": "/admin/events/participant/",
+                    },
+                    {
+                        "title": _("Payments"),
+                        "icon": "receipt_long",
+                        "link": "/admin/events/payment/",
+                    },
+                ]
+            }
         ],
     },
+}
+
+# Payment
+# TODO
+PAYMENT_HOST = 'localhost:8100'
+PAYMENT_USES_SSL = False
+PAYMENT_MODEL = 'events.models.Payment'
+
+PAYMENT_VARIANTS = {
+    'default': ('payments.dummy.DummyProvider', {})
 }
