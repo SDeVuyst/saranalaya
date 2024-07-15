@@ -25,6 +25,6 @@ urlpatterns = [
     path('admin/', saranalaya_admin_site.urls),
     path("i18n/", include("django.conf.urls.i18n")),
     path('payments/', include('payments.urls')),
-    path("events", include('events.urls')),
+    path("events/", include('events.urls')),
     path('', redirect_to_admin),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -3,7 +3,7 @@ from django.utils.translation import gettext_lazy as _
 from simple_history.models import HistoricalRecords
 from payments.models import BasePayment
 from djmoney.models.fields import MoneyField
-
+from ckeditor.fields import RichTextField
 
 
 class Payment(BasePayment):
@@ -18,11 +18,14 @@ class Event(models.Model):
         return self.title
     
     title = models.CharField(max_length=100, verbose_name=_("Title"))
-    description = models.TextField(verbose_name=_("Description"))
+    description = RichTextField(verbose_name=_("Description"))
     start_date = models.DateTimeField(verbose_name=_("Start Date"))
     end_date = models.DateTimeField(verbose_name=_("End Date"))
     max_participants = models.IntegerField(verbose_name=_("Max Participants"))
-    location = models.CharField(max_length=200, verbose_name=_("Location"))
+    location_short = models.CharField(max_length=50, verbose_name=_("Location (short)"))
+    location_long = RichTextField(verbose_name=_("Location (long)"))
+    image = models.ImageField(verbose_name=_("Image"), upload_to="events")
+    google_maps_embed_url = models.URLField(verbose_name=_("Google Maps embed URL"), max_length=512)
 
     history = HistoricalRecords(verbose_name=_("History"))
 

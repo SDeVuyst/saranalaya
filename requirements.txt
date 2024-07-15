@@ -8,3 +8,4 @@ django-unfold
 django-simple-history
 django-payments
 django-money
+django-ckeditor

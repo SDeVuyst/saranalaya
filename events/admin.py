@@ -19,7 +19,7 @@ class TicketInline(StackedInline):
 # MODELS #
 @admin.register(Event, site=saranalaya_admin_site)
 class EventAdmin(SimpleHistoryAdmin, ModelAdmin):
-    list_display = ('title', 'location',)
+    list_display = ('title', 'location_short',)
     ordering = ('id',)
     exclude = ('tickets',)
 
