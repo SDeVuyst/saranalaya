@@ -38,7 +38,7 @@ https://templatemo.com/tm-583-festava-live
         <nav class="navbar navbar-expand-lg">
             <div class="container">
                 <a class="navbar-brand" href="index.html">
-                    Saranalaya Evenementen
+                    <img class="logo" src="{% static "images/logo.png" %}" alt="logo">
                 </a>
 
                 <a href="ticket.html" class="btn custom-btn d-lg-none ms-auto me-4">Koop Tickets</a>
@@ -60,11 +60,11 @@ https://templatemo.com/tm-583-festava-live
 
 
                         <li class="nav-item">
-                            <a class="nav-link click-scroll" href="#section_5">Prijzen</a>
+                            <a class="nav-link click-scroll" href="#section_3">Prijzen</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link click-scroll" href="#section_6">Locatie</a>
+                            <a class="nav-link click-scroll" href="#section_4">Locatie</a>
                         </li>
                     </ul>
 
@@ -91,7 +91,6 @@ https://templatemo.com/tm-583-festava-live
                         <div class="date-wrap">
                             <h5 class="text-white">
                                 <i class="custom-icon bi-clock me-2"></i>
-                                {% comment %} TODO {% endcomment %}
                                 {{ event.start_date|dutch_datetime }} - {{ event.end_date|dutch_datetime }}
                             </h5>
                         </div>
@@ -108,7 +107,7 @@ https://templatemo.com/tm-583-festava-live
 
             <div class="video-wrap">
                 <video autoplay="" loop="" muted="" class="custom-video" poster="">
-                    <source src="{% static "video/pexels-2022395.mp4" %}" type="video/mp4">
+                    <source src="{% static "video/main.mp4" %}" type="video/mp4">
 
                     Your browser does not support the video tag.
                 </video>
@@ -121,27 +120,16 @@ https://templatemo.com/tm-583-festava-live
                 <div class="row">
 
                     <div class="col-lg-6 col-12 mb-4 mb-lg-0 d-flex align-items-center">
-                        <div class="services-info">
+                        <div class="services-info ">
                             <h2 class="text-white mb-4">Over {{ event.title }}</h2>
-                            {% comment %} TODO {% endcomment %}
-                            <p class="text-white">Festava Live is free CSS template provided by TemplateMo website. This
-                                layout is built on Bootstrap v5.2.2 CSS library. You are free to use this template for
-                                your commercial website.</p>
-
-                            <h6 class="text-white mt-4">Once in Lifetime Experience</h6>
-
-                            <p class="text-white">You are not allowed to redistribute the template ZIP file on any other
-                                website without a permission.</p>
-
-                            <h6 class="text-white mt-4">Whole Night Party</h6>
-
-                            <p class="text-white">Please tell your friends about our website. Thank you.</p>
+                            {{ event.description|safe}}
                         </div>
                     </div>
 
                     <div class="col-lg-6 col-12">
                         <div class="about-text-wrap">
-                            <img src="{{ event.image }}" class="about-image img-fluid">
+
+                            <img src="{{ event.image.url }}" class="about-image img-fluid">
                         </div>
                     </div>
 
@@ -149,12 +137,9 @@ https://templatemo.com/tm-583-festava-live
             </div>
         </section>
 
-        {% comment %} TODO {% endcomment %}
-        <section class="pricing-section section-padding section-bg" id="section_5">
+        <section class="pricing-section section-padding section-bg" id="section_3">
             <div class="container">
                 <div class="row">
-
-                    
 
                     <div class="col-lg-8 col-12 mx-auto">
                         <h2 class="text-center mb-4">Prijzen</h2>
@@ -166,7 +151,7 @@ https://templatemo.com/tm-583-festava-live
                         <div class="pricing-thumb">
                             <div class="d-flex">
                                 <div>
-                                    <h3><small>{{ ticket.title }}</small> {{ ticket.price }}</h3>
+                                    <h3>{{ ticket.title }} {{ ticket.price }}</h3>
                                 </div>
                             </div>
 
@@ -194,7 +179,7 @@ https://templatemo.com/tm-583-festava-live
         </section>
 
 
-        <section class="location-section section-padding" id="section_6">
+        <section class="location-section section-padding" id="section_4">
             <div class="container">
                 <div class="row">
 
@@ -224,7 +209,7 @@ https://templatemo.com/tm-583-festava-live
                                 aria-labelledby="nav-ContactForm-tab">
                                 <div class="row">
                                     <div class="col-lg-6 col-md-6 col-12">
-                                        {{ event.location_long }}
+                                        {{ event.location_long|safe }}
                                     </div>
                                 </div>
 

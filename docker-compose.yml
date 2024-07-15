@@ -9,6 +9,7 @@ services:
 
     volumes:
       - .:/data
+      - media_volume:/app/media
     ports:
       - "8100:8100"
     depends_on:
@@ -33,3 +34,6 @@ services:
     environment:
       SCHEDULE: '@daily'
       BACKUP_KEEP_DAYS: 14
+
+volumes:
+  media_volume:
