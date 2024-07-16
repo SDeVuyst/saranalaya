@@ -260,11 +260,6 @@ UNFOLD = {
                         "icon": "group",
                         "link": "/admin/events/participant/",
                     },
-                    {
-                        "title": _("Payments"),
-                        "icon": "receipt_long",
-                        "link": "/admin/events/payment/",
-                    },
                 ]
             }
         ],
@@ -275,7 +270,7 @@ UNFOLD = {
 # TODO
 PAYMENT_HOST = 'localhost:8100'
 PAYMENT_USES_SSL = False
-PAYMENT_MODEL = 'events.models.Payment'
+PAYMENT_MODEL = 'events.Payment'
 
 PAYMENT_VARIANTS = {
     'default': ('payments.dummy.DummyProvider', {})

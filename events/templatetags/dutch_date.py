@@ -39,3 +39,10 @@ def dutch_datetime(value):
     time = value.strftime('%H:%M')
 
     return f"{day} {month} {year}, {time}"
+
+@register.filter
+def dutch_time(value):
+    if not isinstance(value, datetime.datetime):
+        return value
+
+    return value.strftime('%H:%M')
