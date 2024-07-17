@@ -37,6 +37,10 @@ class Event(models.Model):
     @property
     def is_same_day(self):
         return self.start_date.strftime("%d/%m/%Y") == self.end_date.strftime("%d/%m/%Y")
+    
+    @property
+    def is_sold_out(self):
+        return False # TODO
 
 
 class Ticket(models.Model):
@@ -51,6 +55,10 @@ class Ticket(models.Model):
     event = models.ForeignKey(Event, verbose_name=_("Event"), on_delete=models.RESTRICT)
 
     history = HistoricalRecords(verbose_name=_("History"))
+
+    @property 
+    def is_sold_out(self):
+        return False # TODO
 
 
 class Payment(BasePayment):
@@ -91,3 +99,4 @@ class Participant(models.Model):
     ticket = models.ForeignKey(Ticket, verbose_name=_("Ticket"), on_delete=models.RESTRICT)
     
     history = HistoricalRecords(verbose_name=_("History"))
+    

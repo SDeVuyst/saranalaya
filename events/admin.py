@@ -1,5 +1,4 @@
 from django.contrib import admin
-from django.contrib import admin
 from django.http import HttpResponse
 from .models import *
 from django.utils.translation import gettext as _
@@ -7,11 +6,12 @@ from django.contrib import admin
 from unfold.admin import ModelAdmin
 from simple_history.admin import SimpleHistoryAdmin
 from admin_app.sites import saranalaya_admin_site
+from payments.models import PaymentStatus
 from unfold.contrib.inlines.admin import StackedInline  
-from unfold.decorators import action
+from unfold.decorators import action, display
 import qrcode
 from io import BytesIO
-
+    
 
 # INLINES #
 class TicketInline(StackedInline):
@@ -36,8 +36,35 @@ class EventAdmin(SimpleHistoryAdmin, ModelAdmin):
 
 @admin.register(Participant, site=saranalaya_admin_site)
 class ParticipantAdmin(SimpleHistoryAdmin, ModelAdmin):
-    list_display = ('first_name', 'last_name', )
+    list_display = ['first_name', 'last_name', 'payment_status', 'attendance']
     ordering = ('id',)
+
+    @display(
+        description=_('Payment Status'), 
+        label={
+            PaymentStatus.WAITING: "warning",
+            PaymentStatus.PREAUTH: "warning",
+            PaymentStatus.CONFIRMED: "success",
+            PaymentStatus.REJECTED: "danger",
+            PaymentStatus.REFUNDED: "info",
+            PaymentStatus.ERROR: "danger",
+            PaymentStatus.INPUT: "danger",
+        },
+        header=True,
+    )
+    def payment_status(self, obj):
+        return obj.payment.status
+    
+    @display(
+        description=_("Attended"),
+        label={
+            True: "success",
+            False: "danger"
+        }
+    )
+    def attendance(self, obj):
+        return obj.attended
+    
 
     search_fields = ('first_name', 'last_name', 'mail')
     list_filter = (
@@ -46,7 +73,6 @@ class ParticipantAdmin(SimpleHistoryAdmin, ModelAdmin):
 
     list_filter_submit = True
     actions_detail = ["generate_qr_code"]
-
 
     @action(description=_("Generate QR-code"))
     def generate_qr_code(modeladmin, request, object_id: int):

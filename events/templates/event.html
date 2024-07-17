@@ -2,7 +2,6 @@
 <html lang="nl">
 
 <head>
-
     {% load static dutch_date %}
 
     <meta charset="utf-8">
@@ -149,11 +148,15 @@
                         <div class="pricing-thumb">
                             <div class="d-flex">
                                 <div>
-                                    <h3>{{ ticket.title }} {{ ticket.price }}</h3>
+                                    <h3>{{ ticket.title }} - {{ ticket.price }}</h3>
                                 </div>
                             </div>
 
                             <div class="pricing-list mt-3">
+                                {% if ticket.is_sold_out %}
+                                    <p class="fw-bold">Uitverkocht!</p>
+                                {% endif %}
+
                                 {{ ticket.description }}
                             </div>
 
@@ -176,7 +179,7 @@
             </div>
         </section>
 
-        {% if event.is_in_future     %}
+        {% if event.is_in_future and not event.is_sold_out %}
         <section class="ticket-section section-padding" id="section_4">
             <div class="section-overlay"></div>
 
@@ -209,6 +212,7 @@
                                 <h6>Kies uw tickets</h6>
 
                                 {% for ticket in tickets %}
+                                {% if not ticket.is_sold_out %}
                                 <div class="row" x-data="{ isChecked: false }">
                                     <div class="col-lg-6 col-md-6 col-12" >
                                         <div class="form-check form-control">
@@ -238,6 +242,7 @@
                                         >
                                     </div>
                                 </div>
+                                {% endif %}
                                 {% endfor %}
 
                                 <div class="col-lg-4 col-md-10 col-8 mx-auto">

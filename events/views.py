@@ -57,6 +57,8 @@ def buy_ticket(request, event_id):
                 code="invalid",
                 params={"mail": mail},
             )
+        
+        # TODO check if tickets and/or event are not sold out
 
 
         total_cost = sum([amount*ticket.price.amount for ticket, amount in tickets.items()])
