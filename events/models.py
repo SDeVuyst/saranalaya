@@ -40,7 +40,14 @@ class Event(models.Model):
     
     @property
     def is_sold_out(self):
-        return False # TODO
+        # Total participants limit exceeded
+        total_participants = sum(ticket.participants_count for ticket in self.ticket_set.all())
+        total = total_participants >= self.max_participants
+        if total: return total
+
+        # All tickets have their max participants limit exceeded
+        tickets_are_sold_out = all(ticket.is_sold_out for ticket in self.ticket_set.all())
+        return tickets_are_sold_out 
 
 
 class Ticket(models.Model):
@@ -58,7 +65,19 @@ class Ticket(models.Model):
 
     @property 
     def is_sold_out(self):
-        return False # TODO
+        # TODO filter participants by payment status
+        amount_of_participants_with_this_as_ticket = Participant.objects.filter(ticket_id=self.pk).count()
+        return amount_of_participants_with_this_as_ticket >= self.max_participants
+    
+    @property
+    def remaining_tickets(self):
+        amount_of_participants_with_this_as_ticket = Participant.objects.filter(ticket_id=self.pk).count()
+        return self.max_participants - amount_of_participants_with_this_as_ticket
+    
+    @property
+    def participants_count(self):
+        # TODO filter participants by payment status
+        return Participant.objects.filter(ticket_id=self.pk).count()
 
 
 class Payment(BasePayment):

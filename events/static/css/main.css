@@ -17,6 +17,7 @@ https://templatemo.com/tm-583-festava-live
   --section-bg-color:             #f0f8ff;
   --custom-btn-bg-color:          #e55f09;
   --custom-btn-bg-hover-color:    #c01f27;
+  --custom-btn-bg-danger:         #dd1717;
   --dark-color:                   #000000;
   --p-color:                      #717275;
   --border-color:                 #7fffd4;
@@ -332,6 +333,13 @@ strong {
   color: var(--white-color);
 }
 
+.custom-btn-danger {
+  background: var(--custom-btn-bg-danger) !important;
+}
+
+.custom-btn-danger:hover {
+  background: var(--custom-btn-bg-danger) !important;
+}
 
 /*---------------------------------------
   VIDEO              

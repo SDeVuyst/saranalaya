@@ -23,7 +23,7 @@ class TicketInline(StackedInline):
 # MODELS #
 @admin.register(Event, site=saranalaya_admin_site)
 class EventAdmin(SimpleHistoryAdmin, ModelAdmin):
-    list_display = ('title', 'location_short',)
+    list_display = ('title', 'location_short', 'is_sold_out')
     ordering = ('id',)
     exclude = ('tickets',)
 
@@ -32,6 +32,16 @@ class EventAdmin(SimpleHistoryAdmin, ModelAdmin):
     inlines = [
         TicketInline
     ]
+
+    @display(
+        description=_("Sold out"),
+        label={
+            "Sold out!": "danger",
+            "Available": "success"
+        }
+    )
+    def is_sold_out(self, obj):
+        return "Sold out!" if obj.is_sold_out else "Available"
 
 
 @admin.register(Participant, site=saranalaya_admin_site)
@@ -103,8 +113,17 @@ class PaymentAdmin(SimpleHistoryAdmin, ModelAdmin):
 
 @admin.register(Ticket, site=saranalaya_admin_site)
 class TicketAdmin(SimpleHistoryAdmin, ModelAdmin):
-    list_display = ('title', 'price')
+    list_display = ('title', 'price', 'is_sold_out')
     ordering = ("id",)
 
     search_fields = ('title', 'description')
-    
+
+    @display(
+        description=_("Sold out"),
+        label={
+            "Sold out!": "danger",
+            "Available": "success"
+        }
+    )
+    def is_sold_out(self, obj):
+        return "Sold out!" if obj.is_sold_out else "Available"

@@ -34,7 +34,13 @@
                     <img class="logo" src="{% static "images/logo.png" %}" alt="logo">
                 </a>
 
-                <a href="ticket.html" class="btn custom-btn d-lg-none ms-auto me-4">Koop Tickets</a>
+                <a href="#section_4" class="btn custom-btn d-lg-none ms-auto me-4{% if event.is_sold_out %}custom-btn-danger{% endif %}">
+                    {% if event.is_sold_out %} 
+                        Uitverkocht!
+                    {% else %}
+                        Koop Tickets
+                    {% endif %}
+                </a>
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -51,7 +57,6 @@
                             <a class="nav-link click-scroll" href="#section_2">Over</a>
                         </li>
 
-
                         <li class="nav-item">
                             <a class="nav-link click-scroll" href="#section_3">Prijzen</a>
                         </li>
@@ -61,7 +66,13 @@
                         </li>
                     </ul>
 
-                    <a href="#section_4" class="btn custom-btn d-lg-block d-none">Koop Tickets</a>
+                    <a href="#section_4" class="btn custom-btn d-lg-block d-none {% if event.is_sold_out %}custom-btn-danger{% endif %}">
+                        {% if event.is_sold_out %} 
+                            Uitverkocht!
+                        {% else %}
+                            Koop Tickets
+                        {% endif %}
+                    </a>
                 </div>
             </div>
         </nav>
@@ -74,7 +85,6 @@
                 <div class="row">
 
                     <div class="col-12 mt-auto mb-5 text-center">
-
                         <h1 class="text-white mb-5">{{ event.title }}</h1>
 
                         <a class="btn custom-btn smoothscroll" href="#section_2">Laten we beginnen</a>
@@ -153,15 +163,18 @@
                             </div>
 
                             <div class="pricing-list mt-3">
-                                {% if ticket.is_sold_out %}
+                                {% if ticket.is_sold_out or event.is_sold_out %}
                                     <p class="fw-bold">Uitverkocht!</p>
                                 {% endif %}
 
                                 {{ ticket.description }}
                             </div>
 
+                            {% if not ticket.is_sold_out and not event.is_sold_out %}
                             <a class="link-fx-1 color-contrast-higher mt-4" href="#section_4">
+
                                 <span>Koop Ticket</span>
+
                                 <svg class="icon" viewBox="0 0 32 32" aria-hidden="true">
                                     <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
                                         <circle cx="16" cy="16" r="15.5"></circle>
@@ -170,6 +183,7 @@
                                     </g>
                                 </svg>
                             </a>
+                            {% endif %}
                         </div>
                     </div>
                     {% endfor %}
@@ -224,7 +238,7 @@
                                                 x-model="isChecked"
                                             >
                                             <label class="form-check-label" for="flexCheckDefault{{ ticket.id }}">
-                                                {{ ticket.title }} {{ ticket.price }}
+                                                {{ ticket.title }} - {{ ticket.price }}
                                             </label>
                                         </div>
                                     </div>
@@ -237,6 +251,7 @@
                                             class="form-control" 
                                             placeholder="Aantal Tickets"
                                             min="1"
+                                            max="{{ ticket.remaining_tickets }}"
                                             required 
                                             x-on:input="isChecked = $event.target.value !== ''"
                                         >
