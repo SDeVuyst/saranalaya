@@ -31,8 +31,7 @@
     <main>
         <nav class="navbar navbar-expand-lg">
             <div class="container">
-                <!-- TODO href -->
-                <a class="navbar-brand" href="">
+                <a class="navbar-brand" href="/events/{{ event_id }}">
                     <img class="logo" src="{% static "images/logo.png" %}" alt="logo">
                 </a>
             </div>
@@ -49,8 +48,7 @@
 
                         <h1 class="text-white mb-5">{{ title }}</h1>
 
-                        <!-- TODO href -->
-                        <a class="btn custom-btn smoothscroll" href="#">Home</a>
+                        <a class="btn custom-btn smoothscroll" href="/events/{{ event_id }}">Home</a>
 
                     </div>
 

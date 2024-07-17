@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Scanner</title>
+    <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+
+    <link href="{% static "css/scanner.css" %}" rel="stylesheet">
+</head>
+<body>
+
+    <h2 id="title">QR SCANNER</h2>
+    <div id="reader"></div>
+    <label class="switch">
+        <input type="checkbox" id="toggleSwitch">
+        <span class="slider round"></span>
+    </label>
+    <p id="toggleLabel">Registration</p>
+
+    <script src="{% static "js/scanner.js" %}"></script>
+</body>
+</html>

@@ -261,6 +261,17 @@ UNFOLD = {
                         "link": "/admin/events/participant/",
                     },
                 ]
+            },
+
+            {
+                "separator": True,
+                "items": [
+                    {
+                        "title": _("Scanner"),
+                        "icon": "qr_code_scanner",
+                        "link": "/events/scanner/",
+                    },
+                ]
             }
         ],
     },

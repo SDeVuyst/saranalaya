@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.contrib import admin
+from django.http import HttpResponse
 from .models import *
 from django.utils.translation import gettext as _
 from django.contrib import admin
@@ -7,6 +8,9 @@ from unfold.admin import ModelAdmin
 from simple_history.admin import SimpleHistoryAdmin
 from admin_app.sites import saranalaya_admin_site
 from unfold.contrib.inlines.admin import StackedInline  
+from unfold.decorators import action
+import qrcode
+from io import BytesIO
 
 
 # INLINES #
@@ -41,6 +45,29 @@ class ParticipantAdmin(SimpleHistoryAdmin, ModelAdmin):
     )
 
     list_filter_submit = True
+    actions_detail = ["generate_qr_code"]
+
+
+    @action(description=_("Generate QR-code"))
+    def generate_qr_code(modeladmin, request, object_id: int):
+        qr = qrcode.QRCode(
+            version=1,
+            error_correction=qrcode.constants.ERROR_CORRECT_L,
+            box_size=10,
+            border=4,
+        )
+        qr.add_data(f'participant_id:{object_id}')
+        qr.make(fit=True)
+
+        img = qr.make_image(fill='black', back_color='white')
+        buffer = BytesIO()
+        img.save(buffer, format='PNG')
+        buffer.seek(0)
+
+        response = HttpResponse(buffer, content_type='image/png')
+        response['Content-Disposition'] = f'attachment; filename=ticket_{object_id}_qr.png'
+        return response
+
 
 
 @admin.register(Payment, site=saranalaya_admin_site)

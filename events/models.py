@@ -15,6 +15,9 @@ class Event(models.Model):
     def __str__(self) -> str:
         return self.title
     
+    class Meta:
+        get_latest_by = "pk"
+    
     title = models.CharField(max_length=100, verbose_name=_("Title"))
     description = RichTextField(verbose_name=_("Description"))
     start_date = models.DateTimeField(verbose_name=_("Start Date"))
