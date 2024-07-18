@@ -28,11 +28,44 @@ function extractParticipantId(str) {
     }
 }
 
+function extractSeed(str) {
+    const keyword = "seed:";
+    const startIndex = str.indexOf(keyword);
+    
+    // Check if keyword exists in the input string
+    if (startIndex !== -1) {
+        // Extract and return the substring after the keyword
+        return str.substring(startIndex + keyword.length);
+    }
+    
+    // Return an empty string if the keyword is not found
+    return "";
+}
+
+let isCooldown = false;
+const cooldownDuration = 3000;
+
 function onScanSuccess(decodedText, decodedResult) {
+    if (isCooldown) {
+        console.log("Cooldown active. Scan ignored.");
+        return;
+    }
+
+    isCooldown = true;
+    setTimeout(() => {
+        isCooldown = false;
+    }, cooldownDuration);
+
     var id = -1;
+    var seed = '';
 
     try {
-        id = extractParticipantId(decodedText)
+        console.log(decodedText)
+        id = extractParticipantId(decodedText);
+        console.log(id)
+        seed = extractSeed(decodedText);
+        console.log(seed)
+
     } catch (error) {
         console.error(error)
         return setStatusToFailed(error.message);
@@ -50,13 +83,13 @@ function onScanSuccess(decodedText, decodedResult) {
             'Content-Type': 'application/json',
             'X-CSRFToken': '{{ csrf_token }}'
         },
-        body: JSON.stringify({ 'participant_id':id })
+        body: JSON.stringify({ 'participant_id': id, 'seed': seed })
     })
     .then(response => response.json())
     .then(data => {
         console.log('Success:', data);
 
-        return data.success ? setStatusToSucces(data.message): setStatusToFailed(data.message);
+        return data.success ? setStatusToSucces(data.message) : setStatusToFailed(data.message);
     })
     .catch((error) => {
         console.error('Error:', error);
@@ -73,7 +106,7 @@ function setStatusToSucces(message) {
 function setStatusToFailed(message) {
     console.log('status BAD');
     document.getElementById('title').innerText = message;
-    setTemporaryBackgroundColor('red', 4)
+    setTemporaryBackgroundColor('red', 4);
 }
 
 function setTemporaryBackgroundColor(color, seconds) {

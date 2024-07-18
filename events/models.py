@@ -1,4 +1,6 @@
 from typing import Iterable
+import secrets
+import string
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from simple_history.models import HistoricalRecords
@@ -116,6 +118,19 @@ class Participant(models.Model):
     attended = models.BooleanField(verbose_name=_("Attended"))
     description = models.TextField(blank=True, null=True, verbose_name=_("Description"))
     ticket = models.ForeignKey(Ticket, verbose_name=_("Ticket"), on_delete=models.RESTRICT)
+
+    # seed for the QR codes
+    random_seed = models.CharField(max_length=10, verbose_name="Random Seed", editable=False)
     
     history = HistoricalRecords(verbose_name=_("History"))
+
+
+    def save(self, *args, **kwargs):
+        if not self.random_seed:
+            self.random_seed = self._generate_random_seed()
+        super().save(*args, **kwargs)
+
+    def _generate_random_seed(self):
+        alphabet = string.ascii_letters + string.digits
+        return ''.join(secrets.choice(alphabet) for _ in range(10))
     

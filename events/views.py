@@ -126,12 +126,19 @@ def set_attendance(request):
         # get data from request
         data = json.loads(request.body)
         participant_id = data.get('participant_id')
+        seed = data.get('seed')
 
         # validation
-        if participant_id is None:
+        if participant_id is None or seed is None:
             return JsonResponse({'success': False, 'message': _("QR code not recognised!")}, status=400)
         
         participant = get_object_or_404(Participant, pk=participant_id)
+
+        # check if seed is correct
+        if seed != participant.random_seed:
+            print(seed)
+            print(participant.random_seed)
+            return JsonResponse({'success': False, 'message': _("Fraud Detected!")}, status=400)
 
         # validation
         if participant.attended:

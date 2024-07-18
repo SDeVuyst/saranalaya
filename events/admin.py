@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from .models import *
 from django.utils.translation import gettext as _
 from django.contrib import admin
+from django.shortcuts import get_object_or_404
 from unfold.admin import ModelAdmin
 from simple_history.admin import SimpleHistoryAdmin
 from admin_app.sites import saranalaya_admin_site
@@ -86,6 +87,9 @@ class ParticipantAdmin(SimpleHistoryAdmin, ModelAdmin):
 
     @action(description=_("Generate QR-code"))
     def generate_qr_code(modeladmin, request, object_id: int):
+
+        participant = get_object_or_404(Participant, pk=object_id)
+
         qr = qrcode.QRCode(
             version=1,
             error_correction=qrcode.constants.ERROR_CORRECT_L,
@@ -93,6 +97,8 @@ class ParticipantAdmin(SimpleHistoryAdmin, ModelAdmin):
             border=4,
         )
         qr.add_data(f'participant_id:{object_id}')
+        qr.add_data(f'seed:{participant.random_seed}')
+
         qr.make(fit=True)
 
         img = qr.make_image(fill='black', back_color='white')
