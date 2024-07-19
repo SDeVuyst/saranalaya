@@ -10,15 +10,18 @@ from admin_app.sites import saranalaya_admin_site
 from payments.models import PaymentStatus
 from unfold.contrib.inlines.admin import StackedInline  
 from unfold.decorators import action, display
-import qrcode
 from io import BytesIO
-    
+from unfold.contrib.filters.admin import RelatedDropdownFilter
+
 
 # INLINES #
 class TicketInline(StackedInline):
     model = Ticket
     verbose_name = _("Event Ticket")
     verbose_name_plural = _("Event Tickets")
+
+
+# FILTERS #
 
 
 # MODELS #
@@ -37,12 +40,12 @@ class EventAdmin(SimpleHistoryAdmin, ModelAdmin):
     @display(
         description=_("Sold out"),
         label={
-            "Sold out!": "danger",
-            "Available": "success"
+            _("Sold out!"): "danger",
+            _("Available"): "success"
         }
     )
     def is_sold_out(self, obj):
-        return "Sold out!" if obj.is_sold_out else "Available"
+        return _("Sold out!") if obj.is_sold_out else _("Available")
 
 
 @admin.register(Participant, site=saranalaya_admin_site)
@@ -69,39 +72,30 @@ class ParticipantAdmin(SimpleHistoryAdmin, ModelAdmin):
     @display(
         description=_("Attended"),
         label={
-            True: "success",
-            False: "danger"
+            _("Yes"): "success",
+            _("No"): "danger"
         }
     )
     def attendance(self, obj):
-        return obj.attended
+        return _("Yes") if obj.attended else _("No")
     
 
     search_fields = ('first_name', 'last_name', 'mail')
     list_filter = (
         ('attended', admin.BooleanFieldListFilter),
+        ('ticket', RelatedDropdownFilter),
+        ('ticket__event', RelatedDropdownFilter)
     )
 
     list_filter_submit = True
-    actions_detail = ["generate_qr_code"]
+    actions_detail = ["generate_ticket", "generate_qr_code"]
 
     @action(description=_("Generate QR-code"))
     def generate_qr_code(modeladmin, request, object_id: int):
 
         participant = get_object_or_404(Participant, pk=object_id)
 
-        qr = qrcode.QRCode(
-            version=1,
-            error_correction=qrcode.constants.ERROR_CORRECT_L,
-            box_size=10,
-            border=4,
-        )
-        qr.add_data(f'participant_id:{object_id}')
-        qr.add_data(f'seed:{participant.random_seed}')
-
-        qr.make(fit=True)
-
-        img = qr.make_image(fill='black', back_color='white')
+        img = participant.generate_qr_code()
         buffer = BytesIO()
         img.save(buffer, format='PNG')
         buffer.seek(0)
@@ -109,6 +103,12 @@ class ParticipantAdmin(SimpleHistoryAdmin, ModelAdmin):
         response = HttpResponse(buffer, content_type='image/png')
         response['Content-Disposition'] = f'attachment; filename=ticket_{object_id}_qr.png'
         return response
+    
+    @action(description=_("Generate Ticket"))
+    def generate_ticket(modeladmin, request, object_id: int):
+        participant = get_object_or_404(Participant, pk=object_id)
+
+        return participant.generate_ticket()
 
 
 
@@ -123,6 +123,13 @@ class TicketAdmin(SimpleHistoryAdmin, ModelAdmin):
     ordering = ("id",)
 
     search_fields = ('title', 'description')
+
+    list_filter = (
+        ('event', RelatedDropdownFilter),
+    )
+
+    list_filter_submit = True
+
 
     @display(
         description=_("Sold out"),

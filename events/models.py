@@ -1,14 +1,25 @@
 from typing import Iterable
 import secrets
 import string
+from django.http import HttpResponse
+import qrcode
+from io import BytesIO
+from PIL import Image
+from reportlab.lib.pagesizes import letter
+from reportlab.pdfgen import canvas
+from reportlab.pdfbase import pdfmetrics
+from reportlab.pdfbase.ttfonts import TTFont
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from simple_history.models import HistoricalRecords
-from payments.models import BasePayment
+from payments.models import BasePayment, PaymentStatus
 from djmoney.models.fields import MoneyField
 from ckeditor.fields import RichTextField
 from django.utils import timezone
-
+from django.utils.html import strip_tags
+from django.db.models import Q
+from django.contrib.staticfiles import finders
+from .templatetags import dutch_date
 
 
 
@@ -67,8 +78,12 @@ class Ticket(models.Model):
 
     @property 
     def is_sold_out(self):
-        # TODO filter participants by payment status
-        amount_of_participants_with_this_as_ticket = Participant.objects.filter(ticket_id=self.pk).count()
+        amount_of_participants_with_this_as_ticket = Participant.objects.filter(ticket_id=self.pk).filter(
+            Q(payment__status=PaymentStatus.CONFIRMED) | 
+            Q(payment__status=PaymentStatus.WAITING) |
+            Q(payment__status=PaymentStatus.PREAUTH) |
+            Q(payment__status=PaymentStatus.INPUT)
+        ).count()
         return amount_of_participants_with_this_as_ticket >= self.max_participants
     
     @property
@@ -78,8 +93,12 @@ class Ticket(models.Model):
     
     @property
     def participants_count(self):
-        # TODO filter participants by payment status
-        return Participant.objects.filter(ticket_id=self.pk).count()
+        return Participant.objects.filter(ticket_id=self.pk).filter(
+            Q(payment__status=PaymentStatus.CONFIRMED) | 
+            Q(payment__status=PaymentStatus.WAITING) |
+            Q(payment__status=PaymentStatus.PREAUTH) |
+            Q(payment__status=PaymentStatus.INPUT)
+        ).count()
 
 
 class Payment(BasePayment):
@@ -134,3 +153,75 @@ class Participant(models.Model):
         alphabet = string.ascii_letters + string.digits
         return ''.join(secrets.choice(alphabet) for _ in range(10))
     
+    def generate_qr_code(self):
+        qr = qrcode.QRCode(
+            version=1,
+            error_correction=qrcode.constants.ERROR_CORRECT_L,
+            box_size=10,
+            border=4,
+        )
+        qr.add_data(f'participant_id:{self.pk}')
+        qr.add_data(f'seed:{self.random_seed}')
+
+        qr.make(fit=True)
+
+        return qr.make_image(fill='black', back_color='white')
+    
+    def generate_ticket(self):
+        # Create a buffer to hold the PDF data
+        buffer = BytesIO()
+
+        # Create a canvas object
+        p = canvas.Canvas(buffer, pagesize=letter)
+
+        qr_img = self.generate_qr_code()
+
+        # Save the QR code image to a BytesIO object
+        qr_buffer = BytesIO()
+        qr_img.save(qr_buffer, format='PNG')
+        qr_buffer.seek(0)
+
+        qr_image = Image.open(qr_buffer)
+        temp_path = "/tmp/qr_code.png"
+        qr_image.save(temp_path)
+
+        # Draw the QR code image onto the PDF
+        p.drawImage(temp_path, 400, 590, 170, 170)
+
+        # Add Care India logo
+        logo_path = finders.find('images/logo-with-bg.jpg')
+        p.drawImage(logo_path, 100, 730, 427 * 0.3, 58 * 0.3)
+
+        # get info about event
+        event = self.ticket.event
+        if dutch_date.dutch_date(event.start_date) == dutch_date.dutch_date(event.end_date):
+            formatted_date = f"{dutch_date.dutch_datetime(event.start_date)} - {dutch_date.dutch_time(event.end_date)}"
+        else:
+            formatted_date = f"{dutch_date.dutch_datetime(event.start_date)} - {dutch_date.dutch_datetime(event.end_date)}"
+
+        # Add ticket details
+        # Set correct font for title
+        font_path = finders.find('fonts/Outfit-Bold.ttf')
+        pdfmetrics.registerFont(TTFont('Outfit', font_path))
+        p.setFont("Outfit", 25)
+        p.drawString(100, 690, str(event))
+
+        # Set correct font for description
+        font_path = finders.find('fonts/Outfit-Regular.ttf')
+        pdfmetrics.registerFont(TTFont('Outfit', font_path))
+        p.setFont("Outfit", 18)
+
+        p.drawString(100, 660, formatted_date)
+        p.drawString(100, 635, str(self.ticket))
+        p.drawString(100, 610, strip_tags(event.location_long))
+
+        # Finalize the PDF
+        p.showPage()
+        p.save()
+
+        # Get the value of the BytesIO buffer and write it to the response
+        buffer.seek(0)
+        response = HttpResponse(buffer, content_type='application/pdf')
+        response['Content-Disposition'] = f'inline; filename="ticket-{self.pk}.pdf"'
+
+        return response

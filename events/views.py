@@ -15,8 +15,9 @@ from django.contrib.admin.views.decorators import staff_member_required
 
 def eventpage(request, id):
     event = get_object_or_404(Event, pk=id)
-    tickets = get_list_or_404(Ticket, pk=event.id)
+    tickets = get_list_or_404(Ticket, event_id=event.id)
 
+    print(tickets)
     context = {
         'event': event,
         'tickets': tickets

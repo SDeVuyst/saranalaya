@@ -10,3 +10,4 @@ django-payments
 django-money
 django-ckeditor
 qrcode[pil]
+reportlab
