@@ -114,7 +114,13 @@ class ParticipantAdmin(SimpleHistoryAdmin, ModelAdmin):
 
 @admin.register(Payment, site=saranalaya_admin_site)
 class PaymentAdmin(SimpleHistoryAdmin, ModelAdmin):
-    pass
+    actions_detail = ["generate_ticket",]
+
+    @action(description=_("Generate Ticket"))
+    def generate_ticket(modeladmin, request, object_id: int):
+        p = get_object_or_404(Payment, pk=object_id)
+
+        return p.generate_ticket()
 
 
 @admin.register(Ticket, site=saranalaya_admin_site)

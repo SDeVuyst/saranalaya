@@ -1,3 +1,4 @@
+import io
 from typing import Iterable
 import secrets
 import string
@@ -20,7 +21,7 @@ from django.utils.html import strip_tags
 from django.db.models import Q
 from django.contrib.staticfiles import finders
 from .templatetags import dutch_date
-
+from .utils import helpers
 
 
 class Event(models.Model):
@@ -120,7 +121,22 @@ class Payment(BasePayment):
         participants = Participant.objects.filter(payment=self)
         for participant in participants:
             yield participant.ticket
-    
+
+    def generate_ticket(self):
+        participants = Participant.objects.filter(payment=self)
+        tickets = []
+        for p in participants:
+            ticket = p.generate_ticket(return_as_http=False) 
+
+            tickets.append(ticket)
+
+            
+        merged_buffer = helpers.merge_pdfs(tickets)
+        response = HttpResponse(merged_buffer, content_type='application/pdf')
+        response['Content-Disposition'] = f'inline; filename="tickets-{self.pk}.pdf"'
+
+        return response
+        
 
     history = HistoricalRecords(verbose_name=_("History"))
 
@@ -167,7 +183,7 @@ class Participant(models.Model):
 
         return qr.make_image(fill='black', back_color='white')
     
-    def generate_ticket(self):
+    def generate_ticket(self, return_as_http=True):
         # Create a buffer to hold the PDF data
         buffer = BytesIO()
 
@@ -216,11 +232,14 @@ class Participant(models.Model):
         p.drawString(100, 610, strip_tags(event.location_long))
 
         # Finalize the PDF
-        p.showPage()
         p.save()
 
         # Get the value of the BytesIO buffer and write it to the response
         buffer.seek(0)
+
+        if not return_as_http:
+            return buffer
+        
         response = HttpResponse(buffer, content_type='application/pdf')
         response['Content-Disposition'] = f'inline; filename="ticket-{self.pk}.pdf"'
 
