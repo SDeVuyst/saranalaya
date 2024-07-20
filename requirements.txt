@@ -12,3 +12,4 @@ django-ckeditor
 qrcode[pil]
 reportlab
 pypdf
+pytz

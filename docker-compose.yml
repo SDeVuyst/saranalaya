@@ -9,7 +9,7 @@ services:
 
     volumes:
       - .:/data
-      - media_volume:/app/media
+      - media_volume:/code/media
     ports:
       - "8100:8100"
     depends_on:
@@ -36,4 +36,5 @@ services:
       BACKUP_KEEP_DAYS: 14
 
 volumes:
+  postgres_date:
   media_volume:

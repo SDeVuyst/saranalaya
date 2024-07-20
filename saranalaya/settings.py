@@ -140,13 +140,13 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
-LANGUAGE_CODE = 'en'
 
+USE_TZ = False
 TIME_ZONE = 'Europe/Brussels'
 
 USE_I18N = True
+LANGUAGE_CODE = 'en-us'
 
-USE_TZ = True
 
 LOCALE_PATHS = [os.path.join(BASE_DIR, 'locale')]
 

@@ -1,23 +1,9 @@
-var SCAN_MODE = "registration"
-
 // SCANNER
 var html5QrcodeScanner = new Html5QrcodeScanner(
     "reader", { fps: 10, qrbox: 250 }
 );
 html5QrcodeScanner.render(onScanSuccess);
 
-// JavaScript to toggle the label text
-const toggleSwitch = document.getElementById('toggleSwitch');
-const toggleLabel = document.getElementById('toggleLabel');
-toggleSwitch.addEventListener('change', () => {
-    if (toggleSwitch.checked) {
-        toggleLabel.innerText = 'See Participant';
-        SCAN_MODE = "participant";
-    } else {
-        toggleLabel.innerText = 'Registration';
-        SCAN_MODE = "registration";
-    }
-});
 
 function extractParticipantId(str) {
     const match = str.match(/participant_id:(\d+)/);
@@ -32,13 +18,10 @@ function extractSeed(str) {
     const keyword = "seed:";
     const startIndex = str.indexOf(keyword);
     
-    // Check if keyword exists in the input string
     if (startIndex !== -1) {
-        // Extract and return the substring after the keyword
         return str.substring(startIndex + keyword.length);
     }
     
-    // Return an empty string if the keyword is not found
     return "";
 }
 
@@ -60,23 +43,16 @@ function onScanSuccess(decodedText, decodedResult) {
     var seed = '';
 
     try {
-        console.log(decodedText)
         id = extractParticipantId(decodedText);
-        console.log(id)
         seed = extractSeed(decodedText);
-        console.log(seed)
-
     } catch (error) {
-        console.error(error)
         return setStatusToFailed(error.message);
     }
 
-    if (SCAN_MODE == "participant") {
-        // redirect user to the admin page of the participant
-        window.location.href = `${getBaseUrl()}admin/events/participant/${id}/change/`;
-        return;
-    }
+    // set the button link to the deelnemer link
+    document.getElementById('deelnemer-btn').href = `${getBaseUrl()}admin/events/participant/${id}/change/`;
 
+    // set attendance
     fetch('/events/set-attendance/', {
         method: 'POST',
         headers: {
@@ -87,50 +63,37 @@ function onScanSuccess(decodedText, decodedResult) {
     })
     .then(response => response.json())
     .then(data => {
-        console.log('Success:', data);
-
-        return data.success ? setStatusToSucces(data.message) : setStatusToFailed(data.message);
+        document.getElementById('response').value = data.message;
+        
+        return data.success ? setStatusToSuccess(data.message) : setStatusToFailed(data.message);
     })
     .catch((error) => {
-        console.error('Error:', error);
         return setStatusToFailed(error.message);
     });
 }
 
-function setStatusToSucces(message) {
-    console.log('status OK');
-    document.getElementById('title').innerText = message;
-    setTemporaryBackgroundColor('green', 2);
+function setStatusToSuccess(message) {
+    document.getElementById('status-text').innerText = "Deelnemer Geregistreerd!";
+    document.getElementById('status-bar').classList.replace('bg-primary', 'bg-success');
+    document.getElementById('status-bar').classList.replace('bg-danger', 'bg-success');
+
+    document.getElementById('response').innerText = message;
 }
 
 function setStatusToFailed(message) {
-    console.log('status BAD');
-    document.getElementById('title').innerText = message;
-    setTemporaryBackgroundColor('red', 4);
+    document.getElementById('status-text').innerText = "Er is een probleem!";
+    document.getElementById('status-bar').classList.replace('bg-primary', 'bg-danger');
+    document.getElementById('status-bar').classList.replace('bg-success', 'bg-danger');
+
+    document.getElementById('response').innerText = message;
 }
 
-function setTemporaryBackgroundColor(color, seconds) {
-    // Get the body element
-    const body = document.body;
-    
-    // Store the original background color
-    const originalColor = body.style.backgroundColor;
-    
-    // Set the new background color
-    body.style.backgroundColor = color;
-    
-    // Set a timeout to revert to the original color after the specified time
-    setTimeout(() => {
-        body.style.backgroundColor = originalColor;
-    }, seconds * 1000); // Convert seconds to milliseconds
-}
 
 function getBaseUrl() {
-    const protocol = window.location.protocol; // "http:" or "https:"
-    const hostname = window.location.hostname; // "localhost" or your domain name
-    const port = window.location.port; // "8100" or empty if using default ports (80 for HTTP, 443 for HTTPS)
+    const protocol = window.location.protocol;
+    const hostname = window.location.hostname;
+    const port = window.location.port;
 
-    // Construct the base URL
     let baseUrl = `${protocol}//${hostname}`;
     if (port) {
         baseUrl += `:${port}`;

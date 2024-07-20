@@ -1,7 +1,7 @@
-import io
 from typing import Iterable
 import secrets
 import string
+import pytz
 from django.http import HttpResponse
 import qrcode
 from io import BytesIO
@@ -46,7 +46,10 @@ class Event(models.Model):
 
     @property
     def is_in_future(self):
-        return timezone.now() < self.start_date
+        brussels_tz = pytz.timezone('Europe/Brussels')
+        now = timezone.now().astimezone(brussels_tz)
+        start_date_brussels = self.start_date.astimezone(brussels_tz)
+        return now < start_date_brussels
     
     @property
     def is_same_day(self):

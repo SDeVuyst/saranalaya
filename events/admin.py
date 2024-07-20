@@ -11,7 +11,7 @@ from payments.models import PaymentStatus
 from unfold.contrib.inlines.admin import StackedInline  
 from unfold.decorators import action, display
 from io import BytesIO
-from unfold.contrib.filters.admin import RelatedDropdownFilter
+from unfold.contrib.filters.admin import RelatedDropdownFilter, ChoicesDropdownFilter
 
 
 # INLINES #
@@ -84,7 +84,6 @@ class ParticipantAdmin(SimpleHistoryAdmin, ModelAdmin):
     list_filter = (
         ('attended', admin.BooleanFieldListFilter),
         ('ticket', RelatedDropdownFilter),
-        ('ticket__event', RelatedDropdownFilter)
     )
 
     list_filter_submit = True
@@ -129,13 +128,6 @@ class TicketAdmin(SimpleHistoryAdmin, ModelAdmin):
     ordering = ("id",)
 
     search_fields = ('title', 'description')
-
-    list_filter = (
-        ('event', RelatedDropdownFilter),
-    )
-
-    list_filter_submit = True
-
 
     @display(
         description=_("Sold out"),
