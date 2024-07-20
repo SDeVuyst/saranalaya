@@ -1,3 +1,4 @@
+import os
 from typing import Iterable
 import secrets
 import string
@@ -20,6 +21,9 @@ from django.utils import timezone
 from django.utils.html import strip_tags
 from django.db.models import Q
 from django.contrib.staticfiles import finders
+from django.core.mail import EmailMessage
+from django.template.loader import render_to_string
+from django.conf import settings
 from .templatetags import dutch_date
 from .utils import helpers
 
@@ -142,6 +146,33 @@ class Payment(BasePayment):
         
 
     history = HistoricalRecords(verbose_name=_("History"))
+
+    def save(self, *args, **kwargs):
+        # Object already exists
+        if self.pk:
+            old_status = Payment.objects.get(pk=self.pk).status
+            if old_status == PaymentStatus.CONFIRMED:
+                return super().save(*args, **kwargs)
+
+        # Check if payment is received
+        if self.status == PaymentStatus.CONFIRMED:
+            print(f"Payment received! Sending email...")
+
+            email_body = render_to_string('confirmation-email.html', {
+                'participant': 'TODO',
+            })
+            email = EmailMessage(
+                'Saranalaya | Bevestiging',
+                email_body,
+                settings.EMAIL_HOST_USER,
+                ['silasdevuyst@hotmail.com'] # TODO
+            )
+            email.content_subtype = 'html'
+
+            # Send the email
+            email.send()
+
+        super().save(*args, **kwargs)
 
 
 class Participant(models.Model):

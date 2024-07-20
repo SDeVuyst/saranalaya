@@ -140,6 +140,8 @@ def set_attendance(request):
             print(seed)
             print(participant.random_seed)
             return JsonResponse({'success': False, 'message': _("Fraud Detected!")}, status=400)
+        
+        # TODO check if payment is set to confirmed
 
         # validation
         if participant.attended:
