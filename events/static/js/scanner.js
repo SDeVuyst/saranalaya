@@ -26,7 +26,7 @@ function extractSeed(str) {
 }
 
 let isCooldown = false;
-const cooldownDuration = 3000;
+const cooldownDuration = 4000;
 
 function onScanSuccess(decodedText, decodedResult) {
     if (isCooldown) {
@@ -37,6 +37,9 @@ function onScanSuccess(decodedText, decodedResult) {
     isCooldown = true;
     setTimeout(() => {
         isCooldown = false;
+        document.getElementById('status-text').innerText = "Ticket Scanner";
+        document.getElementById('status-bar').classList.replace('bg-success', 'bg-primary');
+        document.getElementById('status-bar').classList.replace('bg-danger', 'bg-primary');
     }, cooldownDuration);
 
     var id = -1;
