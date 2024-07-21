@@ -1,6 +1,7 @@
 import re
 
 from pypdf import PdfReader, PdfWriter
+from django.contrib.auth.models import Group
 import io
 
 def emailIsValid(email):
@@ -22,3 +23,9 @@ def merge_pdfs(pdf_buffers):
     merged_buffer.seek(0)
     
     return merged_buffer
+
+
+def get_event_admin_emails():
+    admin_group = Group.objects.get(name='Evenementen Administratie')
+    admins = admin_group.user_set.all()
+    return [admin.email for admin in admins if admin.email]

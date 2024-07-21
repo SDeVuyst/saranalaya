@@ -1,4 +1,4 @@
-import os
+from email.utils import formataddr
 from typing import Iterable
 import secrets
 import string
@@ -24,6 +24,7 @@ from django.contrib.staticfiles import finders
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
 from django.conf import settings
+from email.mime.image import MIMEImage
 from .templatetags import dutch_date
 from .utils import helpers
 
@@ -129,7 +130,7 @@ class Payment(BasePayment):
         for participant in participants:
             yield participant.ticket
 
-    def generate_ticket(self):
+    def generate_ticket(self, for_email=False):
         participants = Participant.objects.filter(payment=self)
         tickets = []
         for p in participants:
@@ -139,6 +140,8 @@ class Payment(BasePayment):
 
             
         merged_buffer = helpers.merge_pdfs(tickets)
+        if for_email: return merged_buffer
+
         response = HttpResponse(merged_buffer, content_type='application/pdf')
         response['Content-Disposition'] = f'inline; filename="tickets-{self.pk}.pdf"'
 
@@ -158,16 +161,54 @@ class Payment(BasePayment):
         if self.status == PaymentStatus.CONFIRMED:
             print(f"Payment received! Sending email...")
 
+            # we only need first because all info is the same for the matching participants
+            participant = Participant.objects.filter(payment=self).first()
+            event = participant.ticket.event
+            
             email_body = render_to_string('confirmation-email.html', {
-                'participant': 'TODO',
+                'event': event,
+                'participant': participant,
             })
+
+            # Generate tickets PDF
+            tickets_pdf = self.generate_ticket(for_email=True)
+
             email = EmailMessage(
                 'Saranalaya | Bevestiging',
                 email_body,
-                settings.EMAIL_HOST_USER,
-                ['silasdevuyst@hotmail.com'] # TODO
+                formataddr(('Evenementen | Saranalaya', settings.EMAIL_HOST_USER)),
+                [participant.mail],
+                bcc=[helpers.get_event_admin_emails()]
             )
             email.content_subtype = 'html'
+
+            # add tickets as attachment
+            email.attach(f'tickets-{self.pk}.pdf', tickets_pdf.getvalue(), 'application/pdf')
+
+            # add logo
+            logo_path = finders.find('images/logo.png')
+            with open(logo_path, 'rb') as img_file:
+                img = MIMEImage(img_file.read())
+                img.add_header('Content-ID', '<logo_image>')
+                img.add_header('Content-Disposition', 'inline', filename='logo.png')
+                email.attach(img)
+
+            # add fb image
+            logo_path = finders.find('images/facebook.png')
+            with open(logo_path, 'rb') as img_file:
+                img = MIMEImage(img_file.read())
+                img.add_header('Content-ID', '<facebook_image>')
+                img.add_header('Content-Disposition', 'inline', filename='facebook.png')
+                email.attach(img)
+
+            # add fb image
+            logo_path = finders.find('images/mail.png')
+            with open(logo_path, 'rb') as img_file:
+                img = MIMEImage(img_file.read())
+                img.add_header('Content-ID', '<mail_image>')
+                img.add_header('Content-Disposition', 'inline', filename='mail.png')
+                email.attach(img)
+
 
             # Send the email
             email.send()

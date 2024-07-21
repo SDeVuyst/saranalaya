@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
 <head>
-  {% load static %}
+  {% load static dutch_date %}
 <!--[if gte mso 9]>
 <xml>
   <o:OfficeDocumentSettings>
@@ -174,10 +174,13 @@ table, td { color: #000000; } #u_body a { color: #0000ee; text-decoration: under
       <td style="overflow-wrap:break-word;word-break:break-word;padding:30px 10px 30px 20px;font-family:'Open Sans',sans-serif;" align="left">
         
   <div style="font-size: 14px; color: #333333; line-height: 130%; text-align: left; word-wrap: break-word;">
-    <p style="font-size: 14px; line-height: 130%;"><strong><span style="font-size: 16px; line-height: 20.8px;">Williams Brown,</span></strong></p>
+    <p style="font-size: 14px; line-height: 130%;"><strong><span style="font-size: 16px; line-height: 20.8px;">{{ participant.first_name }} {{ participant.last_name }},</span></strong></p>
 <p style="font-size: 14px; line-height: 130%;"> </p>
-<p style="font-size: 14px; line-height: 130%;"><span style="font-size: 16px; line-height: 20.8px; font-family: Lato, sans-serif;">Bedankt voor uw boeking! De tickets kan uw vinden in bijlage.</span></p>
-<p style="font-size: 14px; line-height: 130%;"><span style="font-size: 16px; line-height: 20.8px; font-family: Lato, sans-serif;">Voor enige vragen kan uw altijd terecht bij ...</span></p>
+<p style="font-size: 14px; line-height: 130%;"><span style="font-size: 16px; line-height: 20.8px; font-family: Lato, sans-serif;">Bedankt voor uw reservatie!</span></p>
+<p style="font-size: 14px; line-height: 130%;"><span style="font-size: 16px; line-height: 20.8px; font-family: Lato, sans-serif;">We verwelkomen u graag op ons evenement ten voordele van Saranalaya.</span></p>
+<p style="font-size: 14px; line-height: 130%;"><span style="font-size: 16px; line-height: 20.8px; font-family: Lato, sans-serif;">Uw tickets vindt u in bijlage, gelieve deze afgeprint of op uw gsm mee te brengen.</span></p>
+<p style="font-size: 14px; line-height: 130%;"><span style="font-size: 16px; line-height: 20.8px; font-family: Lato, sans-serif;">Tot binnenkort!</span></p>
+
   </div>
 
       </td>
@@ -214,7 +217,7 @@ table, td { color: #000000; } #u_body a { color: #0000ee; text-decoration: under
       <td style="overflow-wrap:break-word;word-break:break-word;padding:25px 10px 0px 20px;font-family:'Open Sans',sans-serif;" align="left">
         
   <div style="font-size: 14px; color: #f0a000; line-height: 140%; text-align: left; word-wrap: break-word;">
-    <p style="font-size: 14px; line-height: 140%;"><span style="font-family: Lato, sans-serif; font-size: 14px; line-height: 19.6px;"><strong><span style="font-size: 18px; line-height: 25.2px; color: #236fa1;">DETAILS EVENEMENT</span></strong></span></p>
+    <p style="font-size: 14px; line-height: 140%;"><span style="font-family: Lato, sans-serif; font-size: 14px; line-height: 19.6px;"><strong><span style="font-size: 18px; line-height: 25.2px; color: #f0a000;">{{ event.title }}</span></strong></span></p>
   </div>
 
       </td>
@@ -248,7 +251,7 @@ table, td { color: #000000; } #u_body a { color: #0000ee; text-decoration: under
       <td style="overflow-wrap:break-word;word-break:break-word;padding:10px 10px 10px 20px;font-family:'Open Sans',sans-serif;" align="left">
         
   <div style="font-size: 14px; color: #333333; line-height: 140%; text-align: left; word-wrap: break-word;">
-    <p style="font-size: 14px; line-height: 140%;"><strong>Naam: </strong> <span style="color: #828080; font-size: 14px; line-height: 19.6px;">Williams Brown.</span></p>
+    <p style="font-size: 14px; line-height: 140%;"><strong>Naam: </strong> <span style="color: #828080; font-size: 14px; line-height: 19.6px;">{{ participant.first_name }} {{ participant.last_name }}</span></p>
   </div>
 
       </td>
@@ -262,7 +265,7 @@ table, td { color: #000000; } #u_body a { color: #0000ee; text-decoration: under
       <td style="overflow-wrap:break-word;word-break:break-word;padding:5px 10px 10px 20px;font-family:'Open Sans',sans-serif;" align="left">
         
   <div style="font-size: 14px; color: #333333; line-height: 140%; text-align: left; word-wrap: break-word;">
-    <p style="font-size: 14px; line-height: 140%;"><strong>Start Datum &amp; Tijd : </strong> <span style="color: #828080; font-size: 14px; line-height: 19.6px;">16 May, 20XX. @ 10 . 00 AM </span></p>
+    <p style="font-size: 14px; line-height: 140%;"><strong>Start Datum &amp; Tijd : </strong> <span style="color: #828080; font-size: 14px; line-height: 19.6px;">{{ event.start_date|dutch_datetime }}</span></p>
   </div>
 
       </td>
@@ -276,7 +279,7 @@ table, td { color: #000000; } #u_body a { color: #0000ee; text-decoration: under
       <td style="overflow-wrap:break-word;word-break:break-word;padding:5px 10px 25px 20px;font-family:'Open Sans',sans-serif;" align="left">
         
   <div style="font-size: 14px; color: #333333; line-height: 140%; text-align: left; word-wrap: break-word;">
-    <p style="font-size: 14px; line-height: 140%;"><strong>Locatie :  </strong><span style="color: #828080; font-size: 14px; line-height: 19.6px;">University Name 2134, Area Name,  CA 23856, United Slates </span> </p>
+    <p style="font-size: 14px; line-height: 140%;"><strong>Locatie :  </strong><span style="color: #828080; font-size: 14px; line-height: 19.6px;">{{ event.location_short }}</span> </p>
   </div>
 
       </td>
@@ -292,7 +295,7 @@ table, td { color: #000000; } #u_body a { color: #0000ee; text-decoration: under
   <!--[if mso]><style>.v-button {background: transparent !important;}</style><![endif]-->
 <div align="center">
   <!--[if mso]><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="" style="height:41px; v-text-anchor:middle; width:167px;" arcsize="5%"  stroke="f" fillcolor="#e55f09"><w:anchorlock/><center style="color:#FFFFFF;"><![endif]-->
-    <a href="" target="_blank" class="v-button" style="box-sizing: border-box;display: inline-block;text-decoration: none;-webkit-text-size-adjust: none;text-align: center;color: #FFFFFF; background-color: #e55f09; border-radius: 2px;-webkit-border-radius: 2px; -moz-border-radius: 2px; width:auto; max-width:100%; overflow-wrap: break-word; word-break: break-word; word-wrap:break-word; mso-border-alt: none;font-size: 14px;">
+    <a href="https://www.vanakaam.be/events/{{ event.id }}/" target="_blank" class="v-button" style="box-sizing: border-box;display: inline-block;text-decoration: none;-webkit-text-size-adjust: none;text-align: center;color: #FFFFFF; background-color: #e55f09; border-radius: 2px;-webkit-border-radius: 2px; -moz-border-radius: 2px; width:auto; max-width:100%; overflow-wrap: break-word; word-break: break-word; word-wrap:break-word; mso-border-alt: none;font-size: 14px;">
       <span style="display:block;padding:12px 35px;line-height:120%;">Zie Evenement</span>
     </a>
     <!--[if mso]></center></v:roundrect><![endif]-->
@@ -378,7 +381,7 @@ table, td { color: #000000; } #u_body a { color: #0000ee; text-decoration: under
   <tr>
     <td style="padding-right: 0px;padding-left: 0px;" align="center">
       <a href="https://care-india.be/" target="_blank">
-      <img align="center" border="0" src="{% static "images/logo.png" %}" alt="Logo" title="Logo" style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;clear: both;display: inline-block !important;border: none;height: auto;float: none;width: 51%;max-width: 142.8px;" width="142.8" class="v-src-width v-src-max-width"/>
+      <img align="center" border="0" src="cid:logo_image" alt="Logo" title="Logo" style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;clear: both;display: inline-block !important;border: none;height: auto;float: none;width: 51%;max-width: 142.8px;" width="142.8" class="v-src-width v-src-max-width"/>
       </a>
     </td>
   </tr>
@@ -412,7 +415,7 @@ table, td { color: #000000; } #u_body a { color: #0000ee; text-decoration: under
     <table align="center" border="0" cellspacing="0" cellpadding="0" width="32" height="32" style="width: 32px !important;height: 32px !important;display: inline-block;border-collapse: collapse;table-layout: fixed;border-spacing: 0;mso-table-lspace: 0pt;mso-table-rspace: 0pt;vertical-align: top;margin-right: 15px">
       <tbody><tr style="vertical-align: top"><td align="center" valign="middle" style="word-break: break-word;border-collapse: collapse !important;vertical-align: top">
         <a href="https://www.facebook.com/groups/366106623433788/" title="Facebook" target="_blank">
-          <img src="{% static "images/facebook.png" %}" alt="Facebook" title="Facebook" width="32" style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;clear: both;display: block !important;border: none;height: auto;float: none;max-width: 32px !important">
+          <img src="cid:facebook_image" alt="Facebook" title="Facebook" width="32" style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;clear: both;display: block !important;border: none;height: auto;float: none;max-width: 32px !important">
         </a>
       </td></tr>
     </tbody></table>
@@ -422,7 +425,7 @@ table, td { color: #000000; } #u_body a { color: #0000ee; text-decoration: under
     <table align="center" border="0" cellspacing="0" cellpadding="0" width="32" height="32" style="width: 32px !important;height: 32px !important;display: inline-block;border-collapse: collapse;table-layout: fixed;border-spacing: 0;mso-table-lspace: 0pt;mso-table-rspace: 0pt;vertical-align: top;margin-right: 0px">
       <tbody><tr style="vertical-align: top"><td align="center" valign="middle" style="word-break: break-word;border-collapse: collapse !important;vertical-align: top">
         <a href="mailto:care.saranalaya@gmail.com" title="Email" target="_blank">
-          <img src="{% static "images/mail.png" %}" alt="Email" title="Email" width="32" style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;clear: both;display: block !important;border: none;height: auto;float: none;max-width: 32px !important">
+          <img src="cid:mail_image" alt="Email" title="Email" width="32" style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;clear: both;display: block !important;border: none;height: auto;float: none;max-width: 32px !important">
         </a>
       </td></tr>
     </tbody></table>
