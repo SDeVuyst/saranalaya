@@ -151,7 +151,7 @@ def set_attendance(request):
         participant.attended = True
         participant.save()
 
-        return JsonResponse({'success': True, 'message': _("Attendance set!")})
+        return JsonResponse({'success': True, 'message': str(participant.ticket)})
     
     return JsonResponse({'success': False, 'message': _("unknown request.")}, status=400)
 
