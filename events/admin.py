@@ -27,7 +27,7 @@ class TicketInline(StackedInline):
 # MODELS #
 @admin.register(Event, site=saranalaya_admin_site)
 class EventAdmin(SimpleHistoryAdmin, ModelAdmin):
-    list_display = ('title', 'location_short', 'is_sold_out')
+    list_display = ('title', 'participants_count', 'remaining_tickets', 'is_sold_out')
     ordering = ('id',)
     exclude = ('tickets',)
 
@@ -46,6 +46,7 @@ class EventAdmin(SimpleHistoryAdmin, ModelAdmin):
     )
     def is_sold_out(self, obj):
         return _("Sold out!") if obj.is_sold_out else _("Available")
+
 
 
 @admin.register(Participant, site=saranalaya_admin_site)
@@ -87,7 +88,7 @@ class ParticipantAdmin(SimpleHistoryAdmin, ModelAdmin):
     )
 
     list_filter_submit = True
-    actions_detail = ["generate_ticket", "generate_qr_code"]
+    actions_detail = ["generate_tickets", "generate_ticket", "generate_qr_code"]
 
     @action(description=_("Generate QR-code"))
     def generate_qr_code(modeladmin, request, object_id: int):
@@ -102,6 +103,13 @@ class ParticipantAdmin(SimpleHistoryAdmin, ModelAdmin):
         response = HttpResponse(buffer, content_type='image/png')
         response['Content-Disposition'] = f'attachment; filename=ticket_{object_id}_qr.png'
         return response
+    
+    @action(description=_("Generate All Tickets"))
+    def generate_tickets(modeladmin, request, object_id: int):
+        participant = get_object_or_404(Participant, pk=object_id)
+        payment = get_object_or_404(Payment, pk=participant.payment.id)
+
+        return payment.generate_ticket()
     
     @action(description=_("Generate Ticket"))
     def generate_ticket(modeladmin, request, object_id: int):
@@ -124,7 +132,7 @@ class PaymentAdmin(SimpleHistoryAdmin, ModelAdmin):
 
 @admin.register(Ticket, site=saranalaya_admin_site)
 class TicketAdmin(SimpleHistoryAdmin, ModelAdmin):
-    list_display = ('title', 'price', 'is_sold_out')
+    list_display = ('title', 'price', 'participants_count', 'remaining_tickets', 'is_sold_out')
     ordering = ("id",)
 
     search_fields = ('title', 'description')

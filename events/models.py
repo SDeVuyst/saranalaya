@@ -63,13 +63,21 @@ class Event(models.Model):
     @property
     def is_sold_out(self):
         # Total participants limit exceeded
-        total_participants = sum(ticket.participants_count for ticket in self.ticket_set.all())
+        total_participants = self.remaining_tickets
         total = total_participants >= self.max_participants
         if total: return total
 
         # All tickets have their max participants limit exceeded
         tickets_are_sold_out = all(ticket.is_sold_out for ticket in self.ticket_set.all())
-        return tickets_are_sold_out 
+        return tickets_are_sold_out
+
+    @property
+    def remaining_tickets(self):
+        return self.max_participants - self.participants_count
+    
+    @property
+    def participants_count(self):
+        return sum(ticket.participants_count for ticket in self.ticket_set.all())
 
 
 class Ticket(models.Model):
