@@ -1,17 +1,19 @@
+from io import BytesIO
+
 from django.contrib import admin
 from django.http import HttpResponse
-from .models import *
-from django.utils.translation import gettext as _
-from django.contrib import admin
 from django.shortcuts import get_object_or_404
-from unfold.admin import ModelAdmin
-from simple_history.admin import SimpleHistoryAdmin
-from admin_app.sites import saranalaya_admin_site
+from django.utils.translation import gettext as _
 from payments.models import PaymentStatus
-from unfold.contrib.inlines.admin import StackedInline  
+from simple_history.admin import SimpleHistoryAdmin
+from unfold.admin import ModelAdmin
+from unfold.contrib.filters.admin import RelatedDropdownFilter
+from unfold.contrib.inlines.admin import StackedInline
 from unfold.decorators import action, display
-from io import BytesIO
-from unfold.contrib.filters.admin import RelatedDropdownFilter, ChoicesDropdownFilter
+
+from admin_app.sites import saranalaya_admin_site
+
+from .models import *
 
 
 # INLINES #

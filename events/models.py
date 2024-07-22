@@ -1,30 +1,31 @@
-from email.utils import formataddr
-from typing import Iterable
 import secrets
 import string
-import pytz
-from django.http import HttpResponse
-import qrcode
+from email.utils import formataddr
 from io import BytesIO
-from PIL import Image
-from reportlab.lib.pagesizes import letter
-from reportlab.pdfgen import canvas
-from reportlab.pdfbase import pdfmetrics
-from reportlab.pdfbase.ttfonts import TTFont
-from django.db import models
-from django.utils.translation import gettext_lazy as _
-from simple_history.models import HistoricalRecords
-from payments.models import BasePayment, PaymentStatus
-from djmoney.models.fields import MoneyField
+from typing import Iterable
+
+import pytz
+import qrcode
 from ckeditor.fields import RichTextField
-from django.utils import timezone
-from django.utils.html import strip_tags
-from django.db.models import Q
+from django.conf import settings
 from django.contrib.staticfiles import finders
 from django.core.mail import EmailMessage
+from django.db import models
+from django.db.models import Q
+from django.http import HttpResponse
 from django.template.loader import render_to_string
-from django.conf import settings
-from email.mime.image import MIMEImage
+from django.utils import timezone
+from django.utils.html import strip_tags
+from django.utils.translation import gettext_lazy as _
+from djmoney.models.fields import MoneyField
+from payments.models import BasePayment, PaymentStatus
+from PIL import Image
+from reportlab.lib.pagesizes import letter
+from reportlab.pdfbase import pdfmetrics
+from reportlab.pdfbase.ttfonts import TTFont
+from reportlab.pdfgen import canvas
+from simple_history.models import HistoricalRecords
+
 from .templatetags import dutch_date
 from .utils import helpers
 
@@ -39,6 +40,7 @@ class Event(models.Model):
     
     title = models.CharField(max_length=100, verbose_name=_("Title"))
     description = RichTextField(verbose_name=_("Description"))
+    email_text = RichTextField(verbose_name=_("Email Text"))
     start_date = models.DateTimeField(verbose_name=_("Start Date"))
     end_date = models.DateTimeField(verbose_name=_("End Date"))
     max_participants = models.IntegerField(verbose_name=_("Max Participants"))
@@ -158,6 +160,38 @@ class Payment(BasePayment):
 
     history = HistoricalRecords(verbose_name=_("History"))
 
+    def send_mail(self):
+        # we only need first because all info is the same for the matching participants
+        participant = Participant.objects.filter(payment=self).first()
+        event = participant.ticket.event
+        
+        email_body = render_to_string('confirmation-email.html', {
+            'event': event,
+            'participant': participant,
+        })
+
+        # Generate tickets PDF
+        tickets_pdf = self.generate_ticket(for_email=True)
+
+        email = EmailMessage(
+            'Saranalaya | Bevestiging',
+            email_body,
+            formataddr(('Evenementen | Saranalaya', settings.EMAIL_HOST_USER)),
+            [participant.mail],
+            bcc=[helpers.get_event_admin_emails()]
+        )
+        email.content_subtype = 'html'
+
+        # add tickets as attachment
+        email.attach(f'tickets-{self.pk}.pdf', tickets_pdf.getvalue(), 'application/pdf')
+
+        helpers.attach_image(email, "logo")
+        helpers.attach_image(email, "facebook")
+        helpers.attach_image(email, "mail")
+
+        # Send the email
+        email.send()
+
     def save(self, *args, **kwargs):
         # Object already exists
         if self.pk:
@@ -169,57 +203,7 @@ class Payment(BasePayment):
         if self.status == PaymentStatus.CONFIRMED:
             print(f"Payment received! Sending email...")
 
-            # we only need first because all info is the same for the matching participants
-            participant = Participant.objects.filter(payment=self).first()
-            event = participant.ticket.event
-            
-            email_body = render_to_string('confirmation-email.html', {
-                'event': event,
-                'participant': participant,
-            })
-
-            # Generate tickets PDF
-            tickets_pdf = self.generate_ticket(for_email=True)
-
-            email = EmailMessage(
-                'Saranalaya | Bevestiging',
-                email_body,
-                formataddr(('Evenementen | Saranalaya', settings.EMAIL_HOST_USER)),
-                [participant.mail],
-                bcc=[helpers.get_event_admin_emails()]
-            )
-            email.content_subtype = 'html'
-
-            # add tickets as attachment
-            email.attach(f'tickets-{self.pk}.pdf', tickets_pdf.getvalue(), 'application/pdf')
-
-            # add logo
-            logo_path = finders.find('images/logo.png')
-            with open(logo_path, 'rb') as img_file:
-                img = MIMEImage(img_file.read())
-                img.add_header('Content-ID', '<logo_image>')
-                img.add_header('Content-Disposition', 'inline', filename='logo.png')
-                email.attach(img)
-
-            # add fb image
-            logo_path = finders.find('images/facebook.png')
-            with open(logo_path, 'rb') as img_file:
-                img = MIMEImage(img_file.read())
-                img.add_header('Content-ID', '<facebook_image>')
-                img.add_header('Content-Disposition', 'inline', filename='facebook.png')
-                email.attach(img)
-
-            # add fb image
-            logo_path = finders.find('images/mail.png')
-            with open(logo_path, 'rb') as img_file:
-                img = MIMEImage(img_file.read())
-                img.add_header('Content-ID', '<mail_image>')
-                img.add_header('Content-Disposition', 'inline', filename='mail.png')
-                email.attach(img)
-
-
-            # Send the email
-            email.send()
+            self.send_mail()
 
         super().save(*args, **kwargs)
 

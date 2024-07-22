@@ -14,19 +14,20 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.urls import include, path
-from .views import redirect_to_admin
-from admin_app.sites import saranalaya_admin_site
 from django.conf import settings
 from django.conf.urls.static import static
+from django.urls import include, path
 
+from admin_app.sites import saranalaya_admin_site
+
+from .views import redirect_to_admin, redirect_to_latest_event
 
 urlpatterns = [
     path('admin/', saranalaya_admin_site.urls),
     path("i18n/", include("django.conf.urls.i18n")),
     path('payments/', include('payments.urls')),
     path("events/", include('events.urls')),
-    path('', redirect_to_admin),
+    path('', redirect_to_latest_event),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

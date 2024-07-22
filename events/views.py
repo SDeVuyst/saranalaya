@@ -1,16 +1,18 @@
-from decimal import Decimal
 import json
-from django.forms import ValidationError
-from .models import Event, Ticket, Participant, Payment
-from django.shortcuts import get_object_or_404, get_list_or_404, render, redirect
-from django.http import JsonResponse, HttpResponseRedirect
-from django.template.response import TemplateResponse
-from payments import get_payment_model, RedirectNeeded
-from django.utils.translation import gettext_lazy as _
-from .utils import helpers
-from django.views.decorators.csrf import csrf_exempt
-from django.contrib.admin.views.decorators import staff_member_required
+from decimal import Decimal
 
+from django.contrib.admin.views.decorators import staff_member_required
+from django.forms import ValidationError
+from django.http import HttpResponseRedirect, JsonResponse
+from django.shortcuts import (get_list_or_404, get_object_or_404, redirect,
+                              render)
+from django.template.response import TemplateResponse
+from django.utils.translation import gettext_lazy as _
+from django.views.decorators.csrf import csrf_exempt
+from payments import RedirectNeeded, get_payment_model
+
+from .models import Event, Participant, Payment, Ticket
+from .utils import helpers
 
 
 def eventpage(request, id):
@@ -58,9 +60,6 @@ def buy_ticket(request, event_id):
                 code="invalid",
                 params={"mail": mail},
             )
-        
-        # TODO check if tickets and/or event are not sold out
-
 
         total_cost = sum([amount*ticket.price.amount for ticket, amount in tickets.items()])
 

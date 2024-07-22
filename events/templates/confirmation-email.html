@@ -176,11 +176,7 @@ table, td { color: #000000; } #u_body a { color: #0000ee; text-decoration: under
   <div style="font-size: 14px; color: #333333; line-height: 130%; text-align: left; word-wrap: break-word;">
     <p style="font-size: 14px; line-height: 130%;"><strong><span style="font-size: 16px; line-height: 20.8px;">{{ participant.first_name }} {{ participant.last_name }},</span></strong></p>
 <p style="font-size: 14px; line-height: 130%;"> </p>
-<p style="font-size: 14px; line-height: 130%;"><span style="font-size: 16px; line-height: 20.8px; font-family: Lato, sans-serif;">Bedankt voor uw reservatie!</span></p>
-<p style="font-size: 14px; line-height: 130%;"><span style="font-size: 16px; line-height: 20.8px; font-family: Lato, sans-serif;">We verwelkomen u graag op ons evenement ten voordele van Saranalaya.</span></p>
-<p style="font-size: 14px; line-height: 130%;"><span style="font-size: 16px; line-height: 20.8px; font-family: Lato, sans-serif;">Uw tickets vindt u in bijlage, gelieve deze afgeprint of op uw gsm mee te brengen.</span></p>
-<p style="font-size: 14px; line-height: 130%;"><span style="font-size: 16px; line-height: 20.8px; font-family: Lato, sans-serif;">Tot binnenkort!</span></p>
-
+<p style="font-size: 14px; line-height: 130%;"><span style="font-size: 16px; line-height: 20.8px; font-family: Lato, sans-serif;">{{ event.email_text|safe }}</span></p>
   </div>
 
       </td>

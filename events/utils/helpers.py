@@ -1,8 +1,11 @@
-import re
-
-from pypdf import PdfReader, PdfWriter
-from django.contrib.auth.models import Group
 import io
+import re
+from email.mime.image import MIMEImage
+
+from django.contrib.auth.models import Group
+from django.contrib.staticfiles import finders
+from pypdf import PdfReader, PdfWriter
+
 
 def emailIsValid(email):
     return len(email) > 6 and re.search(r"/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/", email) != []
@@ -29,3 +32,12 @@ def get_event_admin_emails():
     admin_group = Group.objects.get(name='Evenementen Administratie')
     admins = admin_group.user_set.all()
     return [admin.email for admin in admins if admin.email]
+
+
+def attach_image(email, filename):
+    logo_path = finders.find(f'images/{filename}.png')
+    with open(logo_path, 'rb') as img_file:
+        img = MIMEImage(img_file.read())
+        img.add_header('Content-ID', f'<{filename}_image>')
+        img.add_header('Content-Disposition', 'inline', filename=f'{filename}.png')
+        email.attach(img)
