@@ -48,6 +48,7 @@ class Event(models.Model):
     location_long = RichTextField(verbose_name=_("Location (long)"))
     image = models.ImageField(verbose_name=_("Image"), upload_to="events")
     google_maps_embed_url = models.URLField(verbose_name=_("Google Maps embed URL"), max_length=512)
+    enable_selling = models.BooleanField(verbose_name=_("Enable Selling"), default=True)
 
     history = HistoricalRecords(verbose_name=_("History"))
 
@@ -201,8 +202,6 @@ class Payment(BasePayment):
 
         # Check if payment is received
         if self.status == PaymentStatus.CONFIRMED:
-            print(f"Payment received! Sending email...")
-
             self.send_mail()
 
         super().save(*args, **kwargs)

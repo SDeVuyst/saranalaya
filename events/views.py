@@ -19,7 +19,6 @@ def eventpage(request, id):
     event = get_object_or_404(Event, pk=id)
     tickets = get_list_or_404(Ticket, event_id=event.id)
 
-    print(tickets)
     context = {
         'event': event,
         'tickets': tickets
@@ -38,6 +37,13 @@ def buy_ticket(request, event_id):
         
         event = get_object_or_404(Event, pk=event_id)
         possible_tickets = get_list_or_404(Ticket, pk=event_id)
+
+        if not event.enable_selling:
+            raise ValidationError(
+                _("Event is not selling tickets"),
+                code="invalid",
+                params={},
+            )
 
         tickets = {}
         for possible_ticket in possible_tickets:
@@ -136,12 +142,8 @@ def set_attendance(request):
 
         # check if seed is correct
         if seed != participant.random_seed:
-            print(seed)
-            print(participant.random_seed)
             return JsonResponse({'success': False, 'message': _("Fraud Detected!")}, status=400)
         
-        # TODO check if payment is set to confirmed
-
         # validation
         if participant.attended:
             return JsonResponse({'success': False, 'message': _("Participant already attended!")}, status=400)

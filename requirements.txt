@@ -13,3 +13,4 @@ qrcode[pil]
 reportlab
 pypdf
 pytz
+gunicorn

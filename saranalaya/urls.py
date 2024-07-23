@@ -28,6 +28,4 @@ urlpatterns = [
     path('payments/', include('payments.urls')),
     path("events/", include('events.urls')),
     path('', redirect_to_latest_event),
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]
