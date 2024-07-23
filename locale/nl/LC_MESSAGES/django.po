@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-10 15:57+0200\n"
-"PO-Revision-Date: 2024-07-10 15:57+0200\n"
+"POT-Creation-Date: 2024-07-23 17:31+0200\n"
+"PO-Revision-Date: 2024-07-23 17:36+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -19,60 +19,60 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 3.4.4\n"
 
-#: .\admin_app\admin.py:30
+#: .\admin_app\admin.py:53
 msgid "By Amount"
 msgstr "Door Hoeveelheid"
 
-#: .\admin_app\admin.py:35
+#: .\admin_app\admin.py:58
 msgid "Amount of Adoption Parents"
 msgstr "Hoeveelheid Adoptie-ouders"
 
-#: .\admin_app\admin.py:36
+#: .\admin_app\admin.py:59
 msgid "amount_of_adoption_parents"
 msgstr "hoeveelheid_adoptieouders"
 
-#: .\admin_app\admin.py:40
+#: .\admin_app\admin.py:63
 msgid "No Adoption Parents"
 msgstr "Geen Adoptie-ouders"
 
-#: .\admin_app\admin.py:41
+#: .\admin_app\admin.py:64
 msgid "1 Adoption Parent"
 msgstr "1 Adoptie-ouder"
 
-#: .\admin_app\admin.py:42
+#: .\admin_app\admin.py:65
 msgid "2 Adoption Parents"
 msgstr "2 Adoptie-ouders"
 
-#: .\admin_app\admin.py:43
+#: .\admin_app\admin.py:66
 msgid "3 Adoption Parents"
 msgstr "3 Adoptie-ouders"
 
-#: .\admin_app\admin.py:44
+#: .\admin_app\admin.py:67
 msgid "More than 3 Adoption Parents"
 msgstr "Meer dan 3 Adoptie-ouders"
 
-#: .\admin_app\admin.py:120
+#: .\admin_app\admin.py:143
 msgid "Adoption Parent - Child"
 msgstr "Adoptie-ouder - Kind"
 
-#: .\admin_app\admin.py:121
+#: .\admin_app\admin.py:144
 msgid "Adoption Parents - Children"
 msgstr "Adoptie-ouders - Kinderen"
 
-#: .\admin_app\admin.py:156
+#: .\admin_app\admin.py:181
 msgid "Add New Payment"
 msgstr "Voeg Nieuwe Betaling Toe"
 
-#: .\admin_app\admin.py:178
+#: .\admin_app\admin.py:203
 #, python-brace-format
 msgid "Added {amount_of_sponsors_saved} Payments!"
 msgstr "{amount_of_sponsors_saved} betalingen toegevoegd!"
 
-#: .\admin_app\admin.py:180 .\admin_app\admin.py:246
+#: .\admin_app\admin.py:205 .\admin_app\admin.py:273
 msgid "Generate Address List"
 msgstr "Genereer Adres Lijst"
 
-#: .\admin_app\admin.py:184 .\admin_app\admin.py:250
+#: .\admin_app\admin.py:209 .\admin_app\admin.py:277
 msgid "Generate Mailing List"
 msgstr "Genereer Mail Lijst"
 
@@ -117,13 +117,13 @@ msgid "Child"
 msgstr "Kind"
 
 #: .\admin_app\models.py:37 .\admin_app\models.py:99 .\admin_app\models.py:111
-#: .\admin_app\views.py:70 .\admin_app\views.py:123 .\admin_app\views.py:136
-#: .\saranalaya\settings.py:206
+#: .\admin_app\views.py:72 .\admin_app\views.py:125 .\admin_app\views.py:138
+#: .\saranalaya\settings.py:230
 msgid "Children"
 msgstr "Kinderen"
 
-#: .\admin_app\models.py:42 .\admin_app\models.py:97 .\admin_app\views.py:86
-#: .\saranalaya\settings.py:211
+#: .\admin_app\models.py:42 .\admin_app\models.py:97 .\admin_app\views.py:88
+#: .\saranalaya\settings.py:235
 msgid "Adoption Parents"
 msgstr "Adoptie-ouders"
 
@@ -160,12 +160,14 @@ msgid "Link website"
 msgstr "Link naar Website"
 
 #: .\admin_app\models.py:65 .\admin_app\models.py:90 .\admin_app\models.py:137
-#: .\admin_app\models.py:165
+#: .\admin_app\models.py:165 .\events\models.py:42 .\events\models.py:91
+#: .\events\models.py:219
 msgid "Description"
 msgstr "Beschrijving"
 
 #: .\admin_app\models.py:67 .\admin_app\models.py:114 .\admin_app\models.py:141
-#: .\admin_app\models.py:151 .\admin_app\models.py:167
+#: .\admin_app\models.py:151 .\admin_app\models.py:167 .\events\models.py:53
+#: .\events\models.py:96 .\events\models.py:161 .\events\models.py:225
 msgid "History"
 msgstr "Geschiedenis"
 
@@ -177,11 +179,11 @@ msgstr "Supporter"
 msgid "Supporters"
 msgstr "Supporters"
 
-#: .\admin_app\models.py:80
+#: .\admin_app\models.py:80 .\events\models.py:214
 msgid "First Name"
 msgstr "Voornaam"
 
-#: .\admin_app\models.py:81
+#: .\admin_app\models.py:81 .\events\models.py:215
 msgid "Last Name"
 msgstr "Achternaam"
 
@@ -229,7 +231,7 @@ msgstr "Adoptie-ouder"
 msgid "Adoption Parent Payment"
 msgstr "Adoptie-ouder Betaling"
 
-#: .\admin_app\models.py:120 .\saranalaya\settings.py:216
+#: .\admin_app\models.py:120 .\saranalaya\settings.py:240
 msgid "Adoption Parent Payments"
 msgstr "Adoptie-ouder Betalingen"
 
@@ -253,7 +255,7 @@ msgstr "Ouder"
 msgid "Sponsor"
 msgstr "Sponser"
 
-#: .\admin_app\models.py:147 .\saranalaya\settings.py:221
+#: .\admin_app\models.py:147 .\saranalaya\settings.py:245
 msgid "Sponsors"
 msgstr "Sponsers"
 
@@ -265,12 +267,12 @@ msgstr "Brieven"
 msgid "Donation"
 msgstr "Donatie"
 
-#: .\admin_app\models.py:157 .\admin_app\views.py:77 .\admin_app\views.py:107
-#: .\saranalaya\settings.py:226
+#: .\admin_app\models.py:157 .\admin_app\views.py:79 .\admin_app\views.py:109
+#: .\saranalaya\settings.py:250
 msgid "Donations"
 msgstr "Donaties"
 
-#: .\admin_app\templates\admin\index.html:8 .\saranalaya\settings.py:201
+#: .\admin_app\templates\admin\index.html:8 .\saranalaya\settings.py:225
 msgid "Dashboard"
 msgstr "Dashboard"
 
@@ -287,37 +289,183 @@ msgstr "Inkomsten"
 msgid "progress from {last_year}"
 msgstr "vooruitgang van {last_year}"
 
-#: .\admin_app\views.py:71
+#: .\admin_app\views.py:73
 msgid "Current"
 msgstr "Huidig"
 
-#: .\admin_app\views.py:73
+#: .\admin_app\views.py:75
 msgid "Only active children are counted"
 msgstr "Alleen actieve kinderen worden meegeteld"
 
-#: .\admin_app\views.py:87
+#: .\admin_app\views.py:89
 msgid "All Time"
 msgstr "Sinds begin"
 
-#: .\admin_app\views.py:89
+#: .\admin_app\views.py:91
 msgid "Only active parents are counted"
 msgstr "Alleen actieve ouders worden meegeteld"
 
-#: .\admin_app\views.py:93 .\admin_app\views.py:114
+#: .\admin_app\views.py:95 .\admin_app\views.py:116
 msgid "Parent Payments"
 msgstr "Adoptie-ouder Betalingen"
 
-#: .\admin_app\views.py:124
+#: .\admin_app\views.py:126
 msgid "By Admission Date"
 msgstr "Door Dag van Aankomst"
 
-#: .\admin_app\views.py:137
+#: .\admin_app\views.py:139
 msgid "By Status"
 msgstr "Door Status"
 
-#: .\saranalaya\settings.py:198
+#: .\events\admin.py:22
+msgid "Event Ticket"
+msgstr "Event Ticket"
+
+#: .\events\admin.py:23
+msgid "Event Tickets"
+msgstr "Event Tickets"
+
+#: .\events\admin.py:43 .\events\admin.py:143
+msgid "Sold out"
+msgstr "Uitverkocht"
+
+#: .\events\admin.py:45 .\events\admin.py:50
+msgid "Sold out!"
+msgstr "Uitverkocht!"
+
+#: .\events\admin.py:46 .\events\admin.py:50
+msgid "Available"
+msgstr "Beschikbaar"
+
+#: .\events\admin.py:60
+msgid "Payment Status"
+msgstr "Status van Betaling"
+
+#: .\events\admin.py:76 .\events\models.py:218
+msgid "Attended"
+msgstr "Aanwezig"
+
+#: .\events\admin.py:78 .\events\admin.py:83
+msgid "Yes"
+msgstr "Ja"
+
+#: .\events\admin.py:79 .\events\admin.py:83
+msgid "No"
+msgstr "Nee"
+
+#: .\events\admin.py:95
+msgid "Generate QR-code"
+msgstr "Genereer QR-code"
+
+#: .\events\admin.py:109
+msgid "Generate All Tickets"
+msgstr "Genereer Alle Tickets"
+
+#: .\events\admin.py:116 .\events\admin.py:128
+msgid "Generate Ticket"
+msgstr "Genereer Ticket"
+
+#: .\events\models.py:41 .\events\models.py:90
+msgid "Title"
+msgstr "Titel"
+
+#: .\events\models.py:43
+msgid "Email Text"
+msgstr "E-mail Tekst"
+
+#: .\events\models.py:44
+msgid "Start Date"
+msgstr "Start Datum"
+
+#: .\events\models.py:45
+msgid "End Date"
+msgstr "Eind Datum"
+
+#: .\events\models.py:46 .\events\models.py:93
+msgid "Max Participants"
+msgstr "Max. aantal deelnemers"
+
+#: .\events\models.py:47
+msgid "Location (short)"
+msgstr "Locatie (kort)"
+
+#: .\events\models.py:48
+msgid "Location (long)"
+msgstr "Locatie (lang)"
+
+#: .\events\models.py:49
+msgid "Image"
+msgstr "Afbeelding"
+
+#: .\events\models.py:50
+msgid "Google Maps embed URL"
+msgstr "Google Maps embed URL"
+
+#: .\events\models.py:51
+msgid "Enable Selling"
+msgstr "Verkoop Inschakelen"
+
+#: .\events\models.py:94
+msgid "Event"
+msgstr "Evenement"
+
+#: .\events\models.py:216
+msgid "Email"
+msgstr "E-mail"
+
+#: .\events\models.py:220
+msgid "Ticket"
+msgstr "Ticket"
+
+#: .\events\views.py:43
+msgid "Event is not selling tickets"
+msgstr "Evenement is nog geen tickets aan het verkopen"
+
+#: .\events\views.py:58
+#, python-format
+msgid "Invalid tickets: %(value)s"
+msgstr "Ongeldige tickets: %(value)s"
+
+#: .\events\views.py:65
+#, python-format
+msgid "Invalid email: %(mail)s"
+msgstr "Ongeldige E-mail: %(mail)s"
+
+#: .\events\views.py:141
+msgid "QR code not recognised!"
+msgstr "QR-code wordt niet herkend!"
+
+#: .\events\views.py:147
+msgid "Fraud Detected!"
+msgstr "Fraude Gedetecteerd!"
+
+#: .\events\views.py:151
+msgid "Participant already attended!"
+msgstr "Deelnemer is reeds aanwezig!"
+
+#: .\events\views.py:159
+msgid "unknown request."
+msgstr "Onbekend verzoek."
+
+#: .\saranalaya\settings.py:222
 msgid "Navigation"
 msgstr "Navigatie"
+
+#: .\saranalaya\settings.py:261
+msgid "Events"
+msgstr "Evenementen"
+
+#: .\saranalaya\settings.py:266
+msgid "Tickets"
+msgstr "Tickets"
+
+#: .\saranalaya\settings.py:271
+msgid "Participants"
+msgstr "Deelnemers"
+
+#: .\saranalaya\settings.py:282
+msgid "Scanner"
+msgstr "Scanner"
 
 #~ msgid "By Adoption Parents"
 #~ msgstr "Door Adoptie-ouders"
@@ -345,6 +493,3 @@ msgstr "Navigatie"
 
 #~ msgid "By Day of Leave"
 #~ msgstr "Door Dag van Weggaan"
-
-#~ msgid "By Date"
-#~ msgstr "Door Datum"
