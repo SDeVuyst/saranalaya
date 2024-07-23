@@ -265,7 +265,7 @@
                                             placeholder="Aantal Tickets"
                                             min="1"
                                             max="{{ ticket.remaining_tickets }}"
-                                            x-model.number="quantities[{{ ticket.id }}]"
+                                            x-bind:value="quantities[{{ ticket.id }}] || ''"
                                             x-on:input="handleInputChange({{ ticket.id }}, $event.target.value)"
                                         >
                                     </div>
@@ -387,19 +387,20 @@
                 initialize() {
                     // Initialize the quantities and selectedTickets objects for each ticket
                     {% for ticket in tickets %}
-                        this.quantities[{{ ticket.id }}] = 0;
+                        this.quantities[{{ ticket.id }}] = '';
                         this.selectedTickets[{{ ticket.id }}] = false;
                     {% endfor %}
                 },
                 updateTotal() {
                     // Calculate the total quantity of selected tickets
                     this.totalQuantity = Object.keys(this.quantities).reduce((total, id) => {
-                        return total + (this.selectedTickets[id] ? this.quantities[id] : 0);
+                        return total + (this.selectedTickets[id] ? parseInt(this.quantities[id] || 0) : 0);
                     }, 0);
                 },
                 handleInputChange(ticketId, value) {
                     // Automatically select the checkbox if a number is entered
                     this.selectedTickets[ticketId] = value > 0;
+                    this.quantities[ticketId] = value;
                     this.updateTotal();
                 }
             }
