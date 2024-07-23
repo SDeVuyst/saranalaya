@@ -6,3 +6,11 @@ boto3
 django-storages
 django-unfold
 django-simple-history
+django-payments
+django-money
+django-ckeditor
+qrcode[pil]
+reportlab
+pypdf
+pytz
+gunicorn

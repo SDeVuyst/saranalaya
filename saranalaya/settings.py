@@ -20,7 +20,6 @@ from django.utils.translation import gettext_lazy as _
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
@@ -64,7 +63,11 @@ INSTALLED_APPS = [
     'simple_history',
     'dbbackup',
     'storages',
-
+    "payments",
+    'djmoney',
+    'ckeditor',
+    
+    'events',
 ]
 
 MIDDLEWARE = [
@@ -137,13 +140,12 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
-LANGUAGE_CODE = 'en'
-
+USE_TZ = False
 TIME_ZONE = 'Europe/Brussels'
 
 USE_I18N = True
+LANGUAGE_CODE = 'en-us'
 
-USE_TZ = True
 
 LOCALE_PATHS = [os.path.join(BASE_DIR, 'locale')]
 
@@ -153,10 +155,27 @@ LANGUAGES = [
     ('ta', 'Tamil'),
 ]
 
+
+# Emailing
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = 'static/'
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
@@ -234,6 +253,48 @@ UNFOLD = {
                     },
                 ],
             },
+
+            {
+                "separator": True,
+                "items": [
+                    {
+                        "title": _("Events"),
+                        "icon": "event",
+                        "link": "/admin/events/event/",
+                    },
+                    {
+                        "title": _("Tickets"),
+                        "icon": "confirmation_number",
+                        "link": "/admin/events/ticket/",
+                    },
+                    {
+                        "title": _("Participants"),
+                        "icon": "group",
+                        "link": "/admin/events/participant/",
+                    },
+                ]
+            },
+
+            {
+                "separator": True,
+                "items": [
+                    {
+                        "title": _("Scanner"),
+                        "icon": "qr_code_scanner",
+                        "link": "/events/scanner/",
+                    },
+                ]
+            }
         ],
     },
+}
+
+# Payment
+# TODO
+PAYMENT_HOST = 'localhost:8100'
+PAYMENT_USES_SSL = False
+PAYMENT_MODEL = 'events.Payment'
+
+PAYMENT_VARIANTS = {
+    'default': ('payments.dummy.DummyProvider', {})
 }

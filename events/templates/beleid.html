@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="nl">
+
+<head>
+    {% load static %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Beleid</title>
+
+    <!-- CSS FILES -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;400;700&display=swap" rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <link href="{% static "css/main.css" %}" rel="stylesheet">
+
+    <!-- edited from https://templatemo.com/tm-583-festava-live -->
+    <style>
+        .container-custom {
+            width: 60%;
+        }
+        @media (max-width: 768px) {
+            .container-custom {
+                width: 90%;
+            }
+        }
+        @media (max-width: 576px) {
+            .container-custom {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <main>
+        <nav class="navbar navbar-expand-lg navbar-black">
+            <div class="container">
+                <a class="navbar-brand" href="/">
+                    <img class="logo" src="{% static "images/logo.png" %}" alt="logo">
+                </a>
+
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav align-items-lg-center ms-auto me-lg-5">
+                        <li class="nav-item">
+                            <a class="nav-link click-scroll" href="#verzend">Verzendbeleid</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link click-scroll" href="#retour">Retourbeleid</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link click-scroll" href="#privacy">Privacybeleid</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link click-scroll" href="#betalingsvoorwaarden">Betalingsvoorwaarden</a>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+        </nav>
+
+        <section class="section section-padding" id="verzend">
+            <div class="container">
+                <div class="row">
+
+                    <h3 class="mb-4 no-left-padding">Verzendbeleid</h3>
+                    Na betaling ontvang je je tickets in je mailbox. De tickets worden niet opgestuurd.
+                    Gelieve op het evenement de uitgeprinte tickets of een screenshot op uw gsm mee te brengen. 
+
+                </div>
+            </div>
+        </section>
+
+        <section class="section section-padding" id="retour">
+            <div class="container">
+                <div class="row">
+
+                    <h3 class="mb-4 no-left-padding">Retourbeleid</h3>
+                    We kunnen geen tickets ruilen of terugbetalen, tenzij het evenement niet doorgaat of naar een andere datum wordt verplaatst.
+                
+                </div>
+            </div>
+        </section>
+
+        <section class="section section-padding" id="privacy">
+            <div class="container">
+                <div class="row">
+
+                    <h3 class="mb-4 no-left-padding">Privacybeleid</h3>
+                    De veiligheid van uw informatie is van cruciaal belang voor ons. Wij nemen alle veiligheidsmaatregelen om de persoonlijke informatie die u met ons deelt, te beschermen.
+                    Uw gegevens worden enkel gebruikt om uw tickets te kunnen bestellen en bezorgen en worden aan geen verdere partij doorgegeven.
+                
+                </div>
+            </div>
+        </section>
+
+        <section class="section section-padding" id="betalingsvoorwaarden">
+            <div class="container">
+                <div class="row">
+
+                    <h3 class="mb-4 no-left-padding">Betalingsvoorwaarden</h3>
+                    Voor de online kaartbetaling maken we gebruik van Mollie en Bancontact, ontworpen tegen fraude en om eerlijke transactie te faciliteren. Uw gegevens worden niet opgeslagen.
+                    Bij het bestellen van uw tickets dient er onmiddellijk via deze online betalingsmogelijkheden betaald te worden.
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+
+    <footer class="site-footer">
+
+        <div class="container">
+            <div class="row">
+
+                <div class="col-lg-4 col-12 mt-5">
+                    <p class="copyright-text">Copyright © {% now "Y" %} C.A.R.E India</p>
+                    <p class="copyright-text">Torhoutsesteenweg 441, 8210 Zedelgem, België</p>
+                    <p class="copyright-text">Alle transacties gebeuren in Euro (€)</p>
+                </div>
+
+                <div class="col-lg-4 col-12 mt-5">
+                    <p class="copyright-text"><a href="mailto:care.saranalaya@gmail.com" class="site-footer-link">care.saranalaya@gmail.com</a></p>
+                    <p class="copyright-text"><a href="tel:+32497282972" class="site-footer-link">+32497282972</a></p>
+                    <p class="copyright-text"><a href="https://www.facebook.com/groups/366106623433788/" class="site-footer-link" target="_blank">Facebook</a></p>
+                    <p class="copyright-text"><a href="https://care-india.be/" class="site-footer-link" target="_blank">Website</a></p>
+                </div>
+
+                <div class="col-lg-4 col-12 mt-5">
+                    <p class="copyright-text"><a href="/events/beleid#verzend" class="site-footer-link">Verzend- en retourbeleid</a></p>
+                    <p class="copyright-text"><a href="/events/beleid#privacy" class="site-footer-link">Privacybeleid</a></p>
+                    <p class="copyright-text"><a href="/events/beleid#betalingsvoorwaarden" class="site-footer-link">Betalingsvoorwaarden</a></p>
+                </div>
+
+            </div>
+            <div class="row">
+                <p class="copyright-text">Gemaakt door: <a href="https://github.com/SDeVuyst">Silas De Vuyst</a></p>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- JAVASCRIPT FILES -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+    <!-- <script src="{% static "js/jquery.sticky.js" %}"></script> -->
+    <script src="{% static "js/click-scroll.js" %}"></script>
+    <script src="{% static "js/custom.js" %}"></script>
+
+</body>
+
+</html>

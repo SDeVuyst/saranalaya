@@ -3,12 +3,14 @@ services:
   web:
     build: .
     pull_policy: build
-    command: python manage.py runserver 0:8100
+    command: gunicorn saranalaya.wsgi:application --bind 0.0.0.0:8100
     restart: always
     env_file: stack.env
 
     volumes:
-      - .:/data
+      - .:/app
+      - static_volume:/app/staticfiles
+      - media_volume:/app/mediafiles
     ports:
       - "8100:8100"
     depends_on:
@@ -33,3 +35,17 @@ services:
     environment:
       SCHEDULE: '@daily'
       BACKUP_KEEP_DAYS: 14
+
+  nginx:
+    image: nginx:alpine
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - static_volume:/app/staticfiles
+      - media_volume:/app/mediafiles
+    ports:
+      - "80:80"
+
+volumes:
+  postgres_date:
+  media_volume:
+  static_volume:

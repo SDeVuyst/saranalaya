@@ -1,7 +1,13 @@
 # syntax=docker/dockerfile:1
 FROM python:3
 
-COPY requirements.txt requirements.txt
+# Set environment variables
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+WORKDIR /app
+
+COPY requirements.txt /app/
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Add PostgreSQL APT repository to install PostgreSQL 16 client tools
@@ -12,9 +18,13 @@ RUN apt-get update && \
     apt-get update && \
     apt-get install -y postgresql-client-16
 
-COPY . code
-WORKDIR /code
+COPY . /app/
 
+# Collect static files
+RUN python manage.py collectstatic --noinput
+
+# Expose port
 EXPOSE 8100
 
-RUN apt-get -y update && apt-get -y upgrade
+# Start the server
+CMD ["gunicorn", "saranalaya.wsgi:application", "--bind", "0.0.0.0:8100"]
