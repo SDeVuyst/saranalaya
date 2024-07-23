@@ -242,6 +242,10 @@ strong {
   position: relative;
 }
 
+.no-left-padding {
+  padding-left: 0 !important;
+}
+
 .tab-content {
   background-color: var(--white-color);
   border-radius: var(--border-radius-medium);
@@ -456,6 +460,10 @@ strong {
 .navbar {
   background: transparent;
   z-index: 9;
+}
+
+.navbar-black {
+  background: var(--dark-color);
 }
 
 .navbar-brand,

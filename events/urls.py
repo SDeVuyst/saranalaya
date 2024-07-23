@@ -11,4 +11,6 @@ urlpatterns = [
 
     path("set-attendance/", views.set_attendance),
     path("scanner/", views.scanner),
+
+    path("beleid", views.beleid)
 ]

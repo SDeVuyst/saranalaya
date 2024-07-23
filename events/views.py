@@ -158,3 +158,7 @@ def set_attendance(request):
 @staff_member_required
 def scanner(request):
     return TemplateResponse(request, "scanner.html")
+
+
+def beleid(request):
+    return TemplateResponse(request, "beleid.html")
