@@ -3,6 +3,7 @@ services:
   web:
     build: .
     pull_policy: build
+    restart: always
     command: gunicorn saranalaya.wsgi:application --bind 0.0.0.0:8100
     env_file: stack.env
 
