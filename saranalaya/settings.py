@@ -296,13 +296,5 @@ PAYMENT_USES_SSL = False
 PAYMENT_MODEL = 'events.Payment'
 
 PAYMENT_VARIANTS = {
-    'sage': (
-        'payments.sofort.SofortProvider',
-        {
-            'id': '123456',
-            'key': '1234567890abcdef',
-            'project_id': '654321',
-            'endpoint': 'https://api.sofort.com/api/xml',
-        }
-    )
+    'default': ('payments.dummy.DummyProvider', {})
 }

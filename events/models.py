@@ -66,13 +66,12 @@ class Event(models.Model):
     @property
     def is_sold_out(self):
         # Total participants limit exceeded
-        total_participants = self.remaining_tickets
-        total = total_participants >= self.max_participants
-        if total: return total
+        event_sold_out = self.participants_count >= self.max_participants
 
         # All tickets have their max participants limit exceeded
         tickets_are_sold_out = all(ticket.is_sold_out for ticket in self.ticket_set.all())
-        return tickets_are_sold_out
+
+        return tickets_are_sold_out or event_sold_out
 
     @property
     def remaining_tickets(self):
@@ -126,12 +125,12 @@ class Payment(BasePayment):
     def get_failure_url(self) -> str:
         # Return a URL where users are redirected after
         # they fail to complete a payment:
-        return f"http://localhost:8100/events/ticket/{self.pk}/failure"
+        return f"http://localhost/events/ticket/{self.pk}/failure" # TODO
 
     def get_success_url(self) -> str:
         # Return a URL where users are redirected after
         # they successfully complete a payment:
-        return f"http://localhost:8100/events/ticket/{self.pk}/success"
+        return f"http://localhost/events/ticket/{self.pk}/success" # TODO
     
 
     def get_purchased_items(self) -> Iterable[Ticket]:

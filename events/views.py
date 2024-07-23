@@ -36,7 +36,7 @@ def buy_ticket(request, event_id):
         mail = request.POST.get('ticket-form-email')
         
         event = get_object_or_404(Event, pk=event_id)
-        possible_tickets = get_list_or_404(Ticket, pk=event_id)
+        possible_tickets = get_list_or_404(Ticket, event_id=event_id)
 
         if not event.enable_selling:
             raise ValidationError(
@@ -72,14 +72,14 @@ def buy_ticket(request, event_id):
         # create the corresponding objects
         # payment object
         payment = Payment.objects.create(
-            variant='default',
+            variant='default', # TODO
             description=event.title,
             total=Decimal(total_cost),
             currency='EUR',
             billing_first_name=first_name,
             billing_last_name=last_name,
         )
-        payment.save()
+        
 
         # every ticket needs its own participant object
         for ticket, amount in tickets.items():
@@ -94,6 +94,8 @@ def buy_ticket(request, event_id):
                 )
 
                 p.save()
+
+        payment.save()
 
         # go to the payment page
         return redirect(f"/events/payment-details/{payment.id}") 

@@ -212,7 +212,7 @@
                 <div class="row">
 
                     <div class="col-lg-8 col-10 mx-auto">
-                        <form class="custom-form ticket-form mb-5 mb-lg-0" action="/events/koop-ticket/{{ event.id }}/" method="post" role="form">
+                        <form class="custom-form ticket-form mb-5 mb-lg-0" action="/events/koop-ticket/{{ event.id }}/" method="post" role="form" x-data="ticketForm()" x-init="initialize()">
                             {% csrf_token %}
 
                             <h2 class="text-center mb-4">Koop Tickets</h2>
@@ -235,6 +235,7 @@
                                             required>
 
                                 <h6>Kies uw tickets</h6>
+                                <p x-show="totalQuantity > {{ event.remaining_tickets }}" class="text-danger">Er zijn nog maar {{ event.remaining_tickets }} tickets over!</p>
 
                                 {% for ticket in tickets %}
                                 {% if not ticket.is_sold_out %}
@@ -246,7 +247,8 @@
                                                 type="checkbox" 
                                                 name="TicketForm"
                                                 id="flexCheckDefault{{ ticket.id }}" 
-                                                x-model="isChecked"
+                                                x-model="selectedTickets[{{ ticket.id }}]"
+                                                x-on:change="updateTotal()"
                                             >
                                             <label class="form-check-label" for="flexCheckDefault{{ ticket.id }}">
                                                 {{ ticket.title }} - {{ ticket.price }}
@@ -263,7 +265,8 @@
                                             placeholder="Aantal Tickets"
                                             min="1"
                                             max="{{ ticket.remaining_tickets }}"
-                                            x-on:input="isChecked = $event.target.value !== ''"
+                                            x-model.number="quantities[{{ ticket.id }}]"
+                                            x-on:input="handleInputChange({{ ticket.id }}, $event.target.value)"
                                         >
                                     </div>
                                 </div>
@@ -272,7 +275,7 @@
 
                                 {% if event.enable_selling %}
                                 <div class="col-lg-4 col-md-10 col-8 mx-auto">
-                                    <button type="submit" class="form-control">Koop Tickets</button>
+                                    <button type="submit" class="form-control" x-bind:disabled="totalQuantity > {{ event.remaining_tickets }}">Koop Tickets</button>
                                 </div>
                                 {% endif %}
                             </div>
@@ -374,6 +377,34 @@
     <script src="{% static "js/jquery.sticky.js" %}"></script>
     <script src="{% static "js/click-scroll.js" %}"></script>
     <script src="{% static "js/custom.js" %}"></script>
+
+    <script>
+        function ticketForm() {
+            return {
+                selectedTickets: {},
+                quantities: {},
+                totalQuantity: 0,
+                initialize() {
+                    // Initialize the quantities and selectedTickets objects for each ticket
+                    {% for ticket in tickets %}
+                        this.quantities[{{ ticket.id }}] = 0;
+                        this.selectedTickets[{{ ticket.id }}] = false;
+                    {% endfor %}
+                },
+                updateTotal() {
+                    // Calculate the total quantity of selected tickets
+                    this.totalQuantity = Object.keys(this.quantities).reduce((total, id) => {
+                        return total + (this.selectedTickets[id] ? this.quantities[id] : 0);
+                    }, 0);
+                },
+                handleInputChange(ticketId, value) {
+                    // Automatically select the checkbox if a number is entered
+                    this.selectedTickets[ticketId] = value > 0;
+                    this.updateTotal();
+                }
+            }
+        }
+        </script>
 
 </body>
 

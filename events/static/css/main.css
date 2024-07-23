@@ -16,6 +16,7 @@ https://templatemo.com/tm-583-festava-live
   --secondary-color:              #e55f09;
   --section-bg-color:             #f0f8ff;
   --custom-btn-bg-color:          #e55f09;
+  --custom-btn-bg-color-disabled: #e55d097c;
   --custom-btn-bg-hover-color:    #c01f27;
   --custom-btn-bg-danger:         #dd1717;
   --dark-color:                   #000000;
@@ -318,6 +319,8 @@ strong {
   background: var(--custom-btn-bg-hover-color);
   color: var(--white-color);
 }
+
+
 
 .custom-border-btn {
   background: transparent;
@@ -705,6 +708,10 @@ strong {
   font-weight: var(--font-weight-medium);
   transition: all 0.3s;
   margin-bottom: 0;
+}
+
+.custom-form button[type="submit"]:disabled {
+  background: var(--custom-btn-bg-color-disabled) !important;
 }
 
 .custom-form button[type="submit"]:hover,
