@@ -3,7 +3,7 @@ from decimal import Decimal
 
 from django.contrib.admin.views.decorators import staff_member_required
 from django.forms import ValidationError
-from django.http import HttpResponseNotFound, HttpResponseRedirect, JsonResponse
+from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect, JsonResponse
 from django.shortcuts import (get_list_or_404, get_object_or_404, redirect,
                               render)
 from django.template.response import TemplateResponse
@@ -166,14 +166,15 @@ def mollie_webhook(request):
     print("webhook triggered")
     if request.method == 'POST':
         if 'id' not in request.POST:
-            print("id not found")
-            return HttpResponseNotFound("Unknown payment id")
+            return HttpResponse(status=400)
 
-        payment_id = request.POST['id']
-        payment = MollieClient().client.payments.get(payment_id)
-        print(payment)
-        print(payment.status)
-        return
+        mollie_payment_id = request.POST['id']
+        mollie_payment = MollieClient().client.payments.get(mollie_payment_id)
+        payment = get_object_or_404(Payment, mollie_id=mollie_payment_id)
 
-    print("invalid request method")
+        payment.status = mollie_payment.get("status")
+        payment.save()
+
+        return HttpResponse(status=200)
+
     return HttpResponseNotFound("Invalid request method")
