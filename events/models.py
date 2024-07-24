@@ -155,12 +155,6 @@ class Payment(models.Model):
     history = HistoricalRecords(verbose_name=_("History"))
 
     @property
-    def failure_url(self) -> str:
-        # Return a URL where users are redirected after
-        # they fail to complete a payment:
-        return f"https://vanakaam.be/events/ticket/{self.pk}/failure"
-
-    @property
     def success_url(self) -> str:
         # Return a URL where users are redirected after
         # they successfully complete a payment:

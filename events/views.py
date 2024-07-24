@@ -115,11 +115,6 @@ def payment_success(request, payment_id):
     return TemplateResponse(request, "paymentcallback.html", {"title": "Betaling geslaagd!", "description": "Check uw email (ook postvak ongewenst!) voor de tickets", "event_id": event.id})
 
 
-def payment_failure(request, payment_id):
-    event = Event.objects.latest()
-    return TemplateResponse(request, "paymentcallback.html", {"title": "Oeps, er ging iets mis!", "event_id": event.id})
-
-
 @csrf_exempt
 def set_attendance(request):
 

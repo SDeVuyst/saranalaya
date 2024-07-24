@@ -6,7 +6,6 @@ urlpatterns = [
     path('koop-ticket/<int:event_id>/', views.buy_ticket, name="buyticket"),
     
     path("ticket/<int:payment_id>/success/", views.payment_success),
-    path("ticket/<int:payment_id>/failure/", views.payment_failure),
 
     path("set-attendance/", views.set_attendance),
     path("scanner/", views.scanner),
