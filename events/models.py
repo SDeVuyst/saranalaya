@@ -311,7 +311,7 @@ class Participant(models.Model):
 
         p.drawString(100, 660, formatted_date)
         p.drawString(100, 635, str(self.ticket))
-        p.drawString(100, 610, strip_tags(event.location_long))
+        p.drawString(100, 610, strip_tags(event.location_short))
 
         # Finalize the PDF
         p.save()
