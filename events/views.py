@@ -112,7 +112,7 @@ def buy_ticket(request, event_id):
 
 def payment_success(request, payment_id):
     event = Event.objects.latest()
-    return TemplateResponse(request, "paymentcallback.html", {"title": "Betaling geslaagd!", "description": "Check uw email voor de tickets", "event_id": event.id})
+    return TemplateResponse(request, "paymentcallback.html", {"title": "Betaling geslaagd!", "description": "Check uw email (ook postvak ongewenst!) voor de tickets", "event_id": event.id})
 
 
 def payment_failure(request, payment_id):
