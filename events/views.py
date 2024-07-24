@@ -161,7 +161,7 @@ def scanner(request):
 def beleid(request):
     return TemplateResponse(request, "beleid.html")
 
-
+@csrf_exempt
 def mollie_webhook(request):
     print("webhook triggered")
     if request.method == 'POST':
