@@ -48,7 +48,7 @@ def buy_ticket(request, event_id):
         tickets = {}
         for possible_ticket in possible_tickets:
             amount_of_tickets = request.POST.get(f'ticket-form-number-{possible_ticket.pk}')
-            if amount_of_tickets is not '':
+            if amount_of_tickets != '':
                 tickets[possible_ticket] = int(amount_of_tickets)
 
         # validation
@@ -163,13 +163,17 @@ def beleid(request):
 
 
 def mollie_webhook(request):
+    print("webhook triggered")
     if request.method == 'POST':
         if 'id' not in request.POST:
+            print("id not found")
             return HttpResponseNotFound("Unknown payment id")
 
         payment_id = request.POST['id']
         payment = MollieClient().client.payments.get(payment_id)
         print(payment)
         print(payment.status)
+        return
 
+    print("invalid request method")
     return HttpResponseNotFound("Invalid request method")

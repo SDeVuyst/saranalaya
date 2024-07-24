@@ -13,5 +13,5 @@ urlpatterns = [
 
     path("beleid/", views.beleid),
 
-    path("mollie-webhook", views.mollie_webhook)
+    path("mollie-webhook/", views.mollie_webhook)
 ]
