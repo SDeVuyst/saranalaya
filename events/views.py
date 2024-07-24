@@ -171,7 +171,8 @@ def mollie_webhook(request):
         mollie_payment = MollieClient().client.payments.get(mollie_payment_id)
         payment = get_object_or_404(Payment, mollie_id=mollie_payment_id)
 
-        payment.status = mollie_payment.get("status").capitalize()
+        payment.status = mollie_payment.get("status").lower()
+        print(mollie_payment.get("status").lower())
         payment.save()
 
         return HttpResponse(status=200)

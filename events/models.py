@@ -118,12 +118,12 @@ class Ticket(models.Model):
 
 
 class PaymentStatus:
-    PAID = "Paid"
-    AUTHORIZED = "Authorized"
-    OPEN = "Open"
-    CANCELED = "Canceled"
-    EXPIRED = "Expired"
-    FAILED = "Failed"
+    PAID = "paid"
+    AUTHORIZED = "authorized"
+    OPEN = "open"
+    CANCELED = "canceled"
+    EXPIRED = "expired"
+    FAILED = "failed"
 
 
     CHOICES = [
