@@ -163,7 +163,6 @@ def beleid(request):
 
 @csrf_exempt
 def mollie_webhook(request):
-    print("webhook triggered")
     if request.method == 'POST':
         if 'id' not in request.POST:
             return HttpResponse(status=400)
@@ -172,7 +171,7 @@ def mollie_webhook(request):
         mollie_payment = MollieClient().client.payments.get(mollie_payment_id)
         payment = get_object_or_404(Payment, mollie_id=mollie_payment_id)
 
-        payment.status = mollie_payment.get("status")
+        payment.status = mollie_payment.get("status").capitalize()
         payment.save()
 
         return HttpResponse(status=200)
