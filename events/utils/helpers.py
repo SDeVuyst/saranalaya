@@ -28,12 +28,6 @@ def merge_pdfs(pdf_buffers):
     return merged_buffer
 
 
-def get_event_admin_emails():
-    admin_group = Group.objects.get(name='Evenementen Administratie')
-    admins = admin_group.user_set.all()
-    return [admin.email for admin in admins if admin.email]
-
-
 def attach_image(email, filename):
     logo_path = finders.find(f'images/{filename}.png')
     with open(logo_path, 'rb') as img_file:

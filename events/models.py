@@ -139,9 +139,7 @@ class Payment(models.Model):
     
     def save(self, *args, **kwargs):
         # Check if payment is received
-        print("saving")
         if self.status == PaymentStatus.PAID:
-            print("sending mail")
             self.send_mail()
 
         super().save(*args, **kwargs)
@@ -189,7 +187,9 @@ class Payment(models.Model):
     def send_mail(self):
         # we only need first because all info is the same for the matching participants
         participant = Participant.objects.filter(payment=self).first()
+        print(participant)
         event = participant.ticket.event
+        print(event)
         
         email_body = render_to_string('confirmation-email.html', {
             'event': event,
@@ -204,7 +204,7 @@ class Payment(models.Model):
             email_body,
             formataddr(('Evenementen | Saranalaya', settings.EMAIL_HOST_USER)),
             [participant.mail],
-            bcc=[helpers.get_event_admin_emails()]
+            bcc=["care.saranalay@gmail.com"]
         )
         email.content_subtype = 'html'
 
@@ -224,6 +224,9 @@ class Participant(models.Model):
 
     def __str__(self) -> str:
         return f"{self.first_name} {self.last_name}" 
+    
+    class Meta:
+        get_latest_by = "pk"
     
     first_name = models.CharField(max_length=50, verbose_name=_("First Name"))
     last_name = models.CharField(max_length=50, verbose_name=_("Last Name"))
