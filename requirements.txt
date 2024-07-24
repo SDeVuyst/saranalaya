@@ -14,3 +14,4 @@ reportlab
 pypdf
 pytz
 gunicorn
+mollie-api-python

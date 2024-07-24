@@ -4,7 +4,6 @@ from django.contrib import admin
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.utils.translation import gettext as _
-from payments.models import PaymentStatus
 from simple_history.admin import SimpleHistoryAdmin
 from unfold.admin import ModelAdmin
 from unfold.contrib.filters.admin import RelatedDropdownFilter
@@ -59,13 +58,11 @@ class ParticipantAdmin(SimpleHistoryAdmin, ModelAdmin):
     @display(
         description=_('Payment Status'), 
         label={
-            PaymentStatus.WAITING: "warning",
-            PaymentStatus.PREAUTH: "warning",
-            PaymentStatus.CONFIRMED: "success",
-            PaymentStatus.REJECTED: "danger",
-            PaymentStatus.REFUNDED: "info",
-            PaymentStatus.ERROR: "danger",
-            PaymentStatus.INPUT: "danger",
+            PaymentStatus.PAID: "success",
+            PaymentStatus.OPEN: "warning",
+            PaymentStatus.CANCELED: "danger",
+            PaymentStatus.EXPIRED: "danger",
+            PaymentStatus.FAILED: "danger",
         },
         header=True,
     )

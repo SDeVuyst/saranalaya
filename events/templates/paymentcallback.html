@@ -46,8 +46,10 @@
 
                     <div class="col-12 mt-auto mb-auto text-center">
 
-                        <h1 class="text-white mb-5">{{ title }}</h1>
-
+                        <h1 class="text-white">{{ title }}</h1>
+                        {% if description %}
+                        <p class="text-white mb-5">{{ description }}</p>
+                        {% endif %}
                         <a class="btn custom-btn smoothscroll" href="/events/{{ event_id }}">Home</a>
 
                     </div>

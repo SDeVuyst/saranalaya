@@ -25,7 +25,6 @@ from .views import redirect_to_admin, redirect_to_latest_event
 urlpatterns = [
     path('admin/', saranalaya_admin_site.urls),
     path("i18n/", include("django.conf.urls.i18n")),
-    path('payments/', include('payments.urls')),
     path("events/", include('events.urls')),
     path('', redirect_to_latest_event),
 ]

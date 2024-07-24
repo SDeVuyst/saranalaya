@@ -63,7 +63,6 @@ INSTALLED_APPS = [
     'simple_history',
     'dbbackup',
     'storages',
-    "payments",
     'djmoney',
     'ckeditor',
     
@@ -287,14 +286,4 @@ UNFOLD = {
             }
         ],
     },
-}
-
-# Payment
-# TODO
-PAYMENT_HOST = 'localhost:8100'
-PAYMENT_USES_SSL = False
-PAYMENT_MODEL = 'events.Payment'
-
-PAYMENT_VARIANTS = {
-    'default': ('payments.dummy.DummyProvider', {})
 }

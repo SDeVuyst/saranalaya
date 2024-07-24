@@ -275,7 +275,7 @@
 
                                 {% if event.enable_selling %}
                                 <div class="col-lg-4 col-md-10 col-8 mx-auto">
-                                    <button type="submit" class="form-control" x-bind:disabled="totalQuantity > {{ event.remaining_tickets }}">Koop Tickets</button>
+                                    <button type="submit" class="form-control" x-bind:disabled="totalQuantity > {{ event.remaining_tickets }} || totalQuantity < 1">Koop Tickets</button>
                                 </div>
                                 {% endif %}
                             </div>

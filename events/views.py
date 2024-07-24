@@ -3,16 +3,16 @@ from decimal import Decimal
 
 from django.contrib.admin.views.decorators import staff_member_required
 from django.forms import ValidationError
-from django.http import HttpResponseRedirect, JsonResponse
+from django.http import HttpResponseNotFound, HttpResponseRedirect, JsonResponse
 from django.shortcuts import (get_list_or_404, get_object_or_404, redirect,
                               render)
 from django.template.response import TemplateResponse
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.csrf import csrf_exempt
-from payments import RedirectNeeded, get_payment_model
 
 from .models import Event, Participant, Payment, Ticket
 from .utils import helpers
+from .payment import MollieClient
 
 
 def eventpage(request, id):
@@ -48,7 +48,7 @@ def buy_ticket(request, event_id):
         tickets = {}
         for possible_ticket in possible_tickets:
             amount_of_tickets = request.POST.get(f'ticket-form-number-{possible_ticket.pk}')
-            if amount_of_tickets is not None:
+            if amount_of_tickets is not '':
                 tickets[possible_ticket] = int(amount_of_tickets)
 
         # validation
@@ -72,15 +72,12 @@ def buy_ticket(request, event_id):
         # create the corresponding objects
         # payment object
         payment = Payment.objects.create(
-            variant='default', # TODO
-            description=event.title,
-            total=Decimal(total_cost),
-            currency='EUR',
-            billing_first_name=first_name,
-            billing_last_name=last_name,
+            first_name=first_name,
+            last_name=last_name,
+            mail=mail,
+            amount=Decimal(total_cost)
         )
         
-
         # every ticket needs its own participant object
         for ticket, amount in tickets.items():
             for i in range(amount):
@@ -94,31 +91,28 @@ def buy_ticket(request, event_id):
                 )
 
                 p.save()
+        payment.save()
 
+        # create the mollie payment
+        mollie_payment = MollieClient().create_mollie_payment(
+            amount=Decimal(total_cost),
+            description=event.title,
+            payment_id=payment.pk
+        )
+
+        payment.mollie_id = mollie_payment.id
         payment.save()
 
         # go to the payment page
-        return redirect(f"/events/payment-details/{payment.id}") 
+        return redirect(mollie_payment.checkout_url) 
 
     else:
         return HttpResponseRedirect(f"/events/{event_id}/")
 
 
-def payment_details(request, payment_id):
-    payment = get_object_or_404(get_payment_model(), id=payment_id)
-
-    try:
-        form = payment.get_form(data=request.POST or None)
-
-    except RedirectNeeded as redirect_to:
-        return redirect(str(redirect_to))
-    
-    return TemplateResponse(request, "payment.html", {"form": form, "payment": payment})
-
-
 def payment_success(request, payment_id):
     event = Event.objects.latest()
-    return TemplateResponse(request, "paymentcallback.html", {"title": "Betaling geslaagd!", "event_id": event.id})
+    return TemplateResponse(request, "paymentcallback.html", {"title": "Betaling geslaagd!", "description": "Check uw email voor de tickets", "event_id": event.id})
 
 
 def payment_failure(request, payment_id):
@@ -166,3 +160,16 @@ def scanner(request):
 
 def beleid(request):
     return TemplateResponse(request, "beleid.html")
+
+
+def mollie_webhook(request):
+    if request.method == 'POST':
+        if 'id' not in request.POST:
+            return HttpResponseNotFound("Unknown payment id")
+
+        payment_id = request.POST['id']
+        payment = MollieClient().client.payments.get(payment_id)
+        print(payment)
+        print(payment.status)
+
+    return HttpResponseNotFound("Invalid request method")

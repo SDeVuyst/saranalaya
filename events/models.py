@@ -8,6 +8,7 @@ import pytz
 import qrcode
 from ckeditor.fields import RichTextField
 from django.conf import settings
+from django.utils.translation import pgettext_lazy
 from django.contrib.staticfiles import finders
 from django.core.mail import EmailMessage
 from django.db import models
@@ -18,7 +19,6 @@ from django.utils import timezone
 from django.utils.html import strip_tags
 from django.utils.translation import gettext_lazy as _
 from djmoney.models.fields import MoneyField
-from payments.models import BasePayment, PaymentStatus
 from PIL import Image
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfbase import pdfmetrics
@@ -98,10 +98,8 @@ class Ticket(models.Model):
     @property 
     def is_sold_out(self):
         amount_of_participants_with_this_as_ticket = Participant.objects.filter(ticket_id=self.pk).filter(
-            Q(payment__status=PaymentStatus.CONFIRMED) | 
-            Q(payment__status=PaymentStatus.WAITING) |
-            Q(payment__status=PaymentStatus.PREAUTH) |
-            Q(payment__status=PaymentStatus.INPUT)
+            Q(payment__status=PaymentStatus.PAID) | 
+            Q(payment__status=PaymentStatus.OPEN)
         ).count()
         return amount_of_participants_with_this_as_ticket >= self.max_participants
     
@@ -113,32 +111,67 @@ class Ticket(models.Model):
     @property
     def participants_count(self):
         return Participant.objects.filter(ticket_id=self.pk).filter(
-            Q(payment__status=PaymentStatus.CONFIRMED) | 
-            Q(payment__status=PaymentStatus.WAITING) |
-            Q(payment__status=PaymentStatus.PREAUTH) |
-            Q(payment__status=PaymentStatus.INPUT)
+            Q(payment__status=PaymentStatus.PAID) | 
+            Q(payment__status=PaymentStatus.OPEN)
         ).count()
 
 
-class Payment(BasePayment):
 
-    def get_failure_url(self) -> str:
+class PaymentStatus:
+    PAID = "paid"
+    AUTHORIZED = "authorized"
+    OPEN = "open"
+    CANCELED = "canceled"
+    EXPIRED = "expired"
+    FAILED = "failed"
+
+
+    CHOICES = [
+        (PAID, pgettext_lazy("payment status", "Paid")),
+        (OPEN, pgettext_lazy("payment status", "Open")),
+        (CANCELED, pgettext_lazy("payment status", "Canceled")),
+        (EXPIRED, pgettext_lazy("payment status", "Expired")),
+        (FAILED, pgettext_lazy("payment status", "Failed"))
+    ]
+
+
+class Payment(models.Model):
+    
+    def save(self, *args, **kwargs):
+        # Object already exists
+        if self.pk:
+            old_status = Payment.objects.get(pk=self.pk).status
+            if old_status == PaymentStatus.PAID:
+                return super().save(*args, **kwargs)
+
+        # Check if payment is received
+        if self.status == PaymentStatus.PAID:
+            self.send_mail()
+
+        super().save(*args, **kwargs)
+
+
+    mollie_id = models.CharField(verbose_name=_("Mollie id"), blank=True, null=True)
+    first_name = models.CharField(max_length=50, verbose_name=_("First Name"), blank=True, null=True)
+    last_name = models.CharField(max_length=50, verbose_name=_("Last Name"), blank=True, null=True)
+    mail = models.EmailField(verbose_name=_("Email"), max_length=254, blank=True, null=True)
+    status = models.CharField(max_length=10, choices=PaymentStatus.CHOICES, default=PaymentStatus.OPEN)
+    amount = MoneyField(verbose_name="Price", default_currency="EUR", max_digits=10, decimal_places=2, blank=True, null=True)
+
+    history = HistoricalRecords(verbose_name=_("History"))
+
+    @property
+    def failure_url(self) -> str:
         # Return a URL where users are redirected after
         # they fail to complete a payment:
-        return f"http://localhost/events/ticket/{self.pk}/failure" # TODO
+        return f"https://vanakaam.be/events/ticket/{self.pk}/failure"
 
-    def get_success_url(self) -> str:
+    @property
+    def success_url(self) -> str:
         # Return a URL where users are redirected after
         # they successfully complete a payment:
-        return f"http://localhost/events/ticket/{self.pk}/success" # TODO
-    
+        return f"http://vanakaam.be/events/ticket/{self.pk}/success"
 
-    def get_purchased_items(self) -> Iterable[Ticket]:
-
-        # get all participants with this payment
-        participants = Participant.objects.filter(payment=self)
-        for participant in participants:
-            yield participant.ticket
 
     def generate_ticket(self, for_email=False):
         participants = Participant.objects.filter(payment=self)
@@ -156,9 +189,6 @@ class Payment(BasePayment):
         response['Content-Disposition'] = f'inline; filename="tickets-{self.pk}.pdf"'
 
         return response
-        
-
-    history = HistoricalRecords(verbose_name=_("History"))
 
     def send_mail(self):
         # we only need first because all info is the same for the matching participants
@@ -192,18 +222,6 @@ class Payment(BasePayment):
         # Send the email
         email.send()
 
-    def save(self, *args, **kwargs):
-        # Object already exists
-        if self.pk:
-            old_status = Payment.objects.get(pk=self.pk).status
-            if old_status == PaymentStatus.CONFIRMED:
-                return super().save(*args, **kwargs)
-
-        # Check if payment is received
-        if self.status == PaymentStatus.CONFIRMED:
-            self.send_mail()
-
-        super().save(*args, **kwargs)
 
 
 class Participant(models.Model):
