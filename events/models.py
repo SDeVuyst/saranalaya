@@ -204,7 +204,7 @@ class Payment(models.Model):
             email_body,
             formataddr(('Evenementen | Saranalaya', settings.EMAIL_HOST_USER)),
             [participant.mail],
-            bcc=["care.saranalay@gmail.com"]
+            bcc=[settings.EMAIL_HOST_USER]
         )
         email.content_subtype = 'html'
 
