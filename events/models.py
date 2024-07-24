@@ -138,14 +138,10 @@ class PaymentStatus:
 class Payment(models.Model):
     
     def save(self, *args, **kwargs):
-        # Object already exists
-        if self.pk:
-            old_status = Payment.objects.get(pk=self.pk).status
-            if old_status == PaymentStatus.PAID:
-                return super().save(*args, **kwargs)
-
         # Check if payment is received
+        print("saving")
         if self.status == PaymentStatus.PAID:
+            print("sending mail")
             self.send_mail()
 
         super().save(*args, **kwargs)
