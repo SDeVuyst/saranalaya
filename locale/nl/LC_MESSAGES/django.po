@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-24 16:01+0200\n"
-"PO-Revision-Date: 2024-07-24 16:02+0200\n"
+"POT-Creation-Date: 2024-07-25 17:17+0200\n"
+"PO-Revision-Date: 2024-07-25 17:18+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -160,14 +160,14 @@ msgid "Link website"
 msgstr "Link naar Website"
 
 #: .\admin_app\models.py:65 .\admin_app\models.py:90 .\admin_app\models.py:137
-#: .\admin_app\models.py:165 .\events\models.py:42 .\events\models.py:91
-#: .\events\models.py:237
+#: .\admin_app\models.py:165 .\events\models.py:43 .\events\models.py:92
+#: .\events\models.py:231
 msgid "Description"
 msgstr "Beschrijving"
 
 #: .\admin_app\models.py:67 .\admin_app\models.py:114 .\admin_app\models.py:141
-#: .\admin_app\models.py:151 .\admin_app\models.py:167 .\events\models.py:53
-#: .\events\models.py:96 .\events\models.py:161 .\events\models.py:243
+#: .\admin_app\models.py:151 .\admin_app\models.py:167 .\events\models.py:54
+#: .\events\models.py:97 .\events\models.py:156 .\events\models.py:237
 msgid "History"
 msgstr "Geschiedenis"
 
@@ -179,11 +179,11 @@ msgstr "Supporter"
 msgid "Supporters"
 msgstr "Supporters"
 
-#: .\admin_app\models.py:80 .\events\models.py:155 .\events\models.py:232
+#: .\admin_app\models.py:80 .\events\models.py:150 .\events\models.py:226
 msgid "First Name"
 msgstr "Voornaam"
 
-#: .\admin_app\models.py:81 .\events\models.py:156 .\events\models.py:233
+#: .\admin_app\models.py:81 .\events\models.py:151 .\events\models.py:227
 msgid "Last Name"
 msgstr "Achternaam"
 
@@ -341,7 +341,7 @@ msgstr "Beschikbaar"
 msgid "Payment Status"
 msgstr "Status van Betaling"
 
-#: .\events\admin.py:73 .\events\models.py:236
+#: .\events\admin.py:73 .\events\models.py:230
 msgid "Attended"
 msgstr "Aanwezig"
 
@@ -365,84 +365,88 @@ msgstr "Genereer Alle Tickets"
 msgid "Generate Ticket"
 msgstr "Genereer Ticket"
 
-#: .\events\models.py:41 .\events\models.py:90
+#: .\events\models.py:41 .\events\models.py:91
 msgid "Title"
 msgstr "Titel"
 
-#: .\events\models.py:43
+#: .\events\models.py:42
+msgid "Title Subscript"
+msgstr "Titel Subscript"
+
+#: .\events\models.py:44
 msgid "Email Text"
 msgstr "E-mail Tekst"
 
-#: .\events\models.py:44
+#: .\events\models.py:45
 msgid "Start Date"
 msgstr "Start Datum"
 
-#: .\events\models.py:45
+#: .\events\models.py:46
 msgid "End Date"
 msgstr "Eind Datum"
 
-#: .\events\models.py:46 .\events\models.py:93
+#: .\events\models.py:47 .\events\models.py:94
 msgid "Max Participants"
 msgstr "Max. aantal deelnemers"
 
-#: .\events\models.py:47
+#: .\events\models.py:48
 msgid "Location (short)"
 msgstr "Locatie (kort)"
 
-#: .\events\models.py:48
+#: .\events\models.py:49
 msgid "Location (long)"
 msgstr "Locatie (lang)"
 
-#: .\events\models.py:49
+#: .\events\models.py:50
 msgid "Image"
 msgstr "Afbeelding"
 
-#: .\events\models.py:50
+#: .\events\models.py:51
 msgid "Google Maps embed URL"
 msgstr "Google Maps embed URL"
 
-#: .\events\models.py:51
+#: .\events\models.py:52
 msgid "Enable Selling"
 msgstr "Verkoop Inschakelen"
 
-#: .\events\models.py:94
+#: .\events\models.py:95
 msgid "Event"
 msgstr "Evenement"
 
-#: .\events\models.py:130
+#: .\events\models.py:131
 msgctxt "payment status"
 msgid "Paid"
 msgstr "Betaald"
 
-#: .\events\models.py:131
+#: .\events\models.py:132
 msgctxt "payment status"
 msgid "Open"
 msgstr "Open"
 
-#: .\events\models.py:132
+#: .\events\models.py:133
 msgctxt "payment status"
 msgid "Canceled"
 msgstr "Geannuleerd"
 
-#: .\events\models.py:133
+#: .\events\models.py:134
 msgctxt "payment status"
 msgid "Expired"
 msgstr "Verlopen"
 
-#: .\events\models.py:134
+#: .\events\models.py:135
 msgctxt "payment status"
 msgid "Failed"
 msgstr "Gefaald"
 
-#: .\events\models.py:154
+#: .\events\models.py:149
 msgid "Mollie id"
 msgstr "Mollie id"
 
-#: .\events\models.py:157 .\events\models.py:234
+#: .\events\models.py:152 .\events\models.py:228
 msgid "Email"
 msgstr "E-mail"
 
-#: .\events\models.py:238
+#: .\events\models.py:232
 msgid "Ticket"
 msgstr "Ticket"
 
@@ -460,19 +464,19 @@ msgstr "Ongeldige tickets: %(value)s"
 msgid "Invalid email: %(mail)s"
 msgstr "Ongeldige E-mail: %(mail)s"
 
-#: .\events\views.py:135
+#: .\events\views.py:130
 msgid "QR code not recognised!"
 msgstr "QR-code wordt niet herkend!"
 
-#: .\events\views.py:141
+#: .\events\views.py:136
 msgid "Fraud Detected!"
 msgstr "Fraude Gedetecteerd!"
 
-#: .\events\views.py:145
+#: .\events\views.py:140
 msgid "Participant already attended!"
 msgstr "Deelnemer is reeds aanwezig!"
 
-#: .\events\views.py:153
+#: .\events\views.py:148
 msgid "unknown request."
 msgstr "onbekend verzoek."
 

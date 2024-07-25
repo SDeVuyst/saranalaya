@@ -39,6 +39,7 @@ class Event(models.Model):
         get_latest_by = "pk"
     
     title = models.CharField(max_length=100, verbose_name=_("Title"))
+    titel_sub = models.CharField(max_length=100, verbose_name=_("Title Subscript"))
     description = RichTextField(verbose_name=_("Description"))
     email_text = RichTextField(verbose_name=_("Email Text"))
     start_date = models.DateTimeField(verbose_name=_("Start Date"))
