@@ -29,7 +29,7 @@ SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DEBUG", False)
 
-ALLOWED_HOSTS = ['192.168.86.200', '0.0.0.0', 'localhost', '127.0.0.1','vanakaam.be']
+ALLOWED_HOSTS = ['192.168.86.200', '0.0.0.0', 'localhost', '127.0.0.1', 'vanakaam.be', 'www.vanakaam.be']
 CSRF_TRUSTED_ORIGINS = ['https://vanakaam.be', 'https://www.vanakaam.be']
 
 
