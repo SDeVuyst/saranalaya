@@ -32,12 +32,14 @@ services:
   backup:
     image: eeshugerman/postgres-backup-s3:16
     env_file: stack.env
+    restart: always
     environment:
       SCHEDULE: '@daily'
       BACKUP_KEEP_DAYS: 14
 
   nginx:
     image: nginx:alpine
+    restart: always
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
       - static_volume:/app/staticfiles
