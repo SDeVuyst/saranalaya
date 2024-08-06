@@ -241,7 +241,7 @@ class AdoptionParentAdmin(SimpleHistoryAdmin, ModelAdmin):
 @admin.register(Child, site=saranalaya_admin_site)
 class ChildAdmin(SimpleHistoryAdmin, ModelAdmin):
 
-    list_display = ('name', 'status_colored', 'show_status_with_custom_label', 'day_of_birth', 'get_adoption_parents_formatted')
+    list_display = ('name', 'status_colored', 'day_of_birth', 'get_adoption_parents_formatted')
 
     @display(
         description=_lazy_('Status'), 
