@@ -182,7 +182,7 @@ class DonationInline(StackedInline):
 class AdoptionParentAdmin(SimpleHistoryAdmin, ModelAdmin):
     list_display = ('first_name', 'last_name', 'get_children')
     exclude = ('children',)
-    ordering = ('id',)
+    ordering = ('first_name', 'last_name')
     inlines = [ 
         AdoptionInlineChild,
         AdoptionParentSponsoringInline
@@ -261,7 +261,7 @@ class ChildAdmin(SimpleHistoryAdmin, ModelAdmin):
         return status_label.get(obj.status, _("Active"))
 
     
-    ordering = ('day_of_birth',)
+    ordering = ('name',)
     inlines = [
         AdoptionInlineParent
     ]
@@ -322,7 +322,7 @@ class AdoptionParentSponsoringAdmin(SimpleHistoryAdmin, ModelAdmin):
 @admin.register(Sponsor, site=saranalaya_admin_site)
 class SponsorAdmin(SimpleHistoryAdmin, ModelAdmin):
     list_display = ('first_name', 'last_name', 'letters')
-    ordering = ('id',)
+    ordering = ('first_name', 'last_name')
     inlines = [
         DonationInline
     ]
