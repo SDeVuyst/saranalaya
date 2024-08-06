@@ -175,9 +175,25 @@ def generate_mailto_link(request):
     <head>
         <title>Redirecting...</title>
         <style>
-            body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
-            .button { display: inline-block; padding: 10px 20px; font-size: 16px; color: #fff; background-color: #007bff; border: none; border-radius: 5px; text-decoration: none; cursor: pointer; }
-            .button:hover { background-color: #0056b3; }
+            body {{
+                font-family: Arial, sans-serif;
+                text-align: center;
+                padding: 20px;
+            }}
+            .button {{
+                display: inline-block;
+                padding: 10px 20px;
+                font-size: 16px;
+                color: #fff;
+                background-color: #007bff;
+                border: none;
+                border-radius: 5px;
+                text-decoration: none;
+                cursor: pointer;
+            }}
+            .button:hover {{
+                background-color: #0056b3;
+            }}
         </style>
         <script type="text/javascript">
             window.onload = function() {
