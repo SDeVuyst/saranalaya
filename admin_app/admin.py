@@ -3,14 +3,14 @@ from .models import *
 from .utils import helper
 from datetime import datetime
 from django.utils.translation import gettext as _
-from unfold.contrib.filters.admin import RangeDateFilter, RangeNumericFilter
+from unfold.contrib.filters.admin import RangeDateFilter, RangeNumericFilter, FieldTextFilter
 from django.contrib import admin
 from django.contrib.auth.models import User, Group
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.admin import GroupAdmin as BaseGroupAdmin
 from unfold.admin import ModelAdmin
-from unfold.decorators import action
-from unfold.contrib.inlines.admin import StackedInline  
+from unfold.decorators import action, display
+from unfold.contrib.inlines.admin import StackedInline, TabularInline
 from simple_history.admin import SimpleHistoryAdmin
 from django import forms
 from .sites import saranalaya_admin_site
@@ -28,31 +28,45 @@ class GroupAdmin(BaseGroupAdmin, ModelAdmin):
     pass
 
 # FORMS #
+class AdoptionInlineFormChild(forms.ModelForm):
+    class Meta:
+        model = AdoptionParent.children.through
+        fields = ['child']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['child'].queryset = Child.objects.order_by('name')
+
+
+class AdoptionInlineFormParent(forms.ModelForm):
+    class Meta:
+        model = AdoptionParent.children.through
+        fields = ['adoptionparent']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['adoptionparent'].queryset = AdoptionParent.objects.order_by('first_name')
+
+
 class AdoptionSponsoringForm(forms.ModelForm):
     class Meta:
         model = AdoptionParentSponsoring
         fields = ['parent', 'child', 'amount', 'date', 'description']
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        if 'parent' in self.data:
-            # only adopted children are available for selection
-            try:
-                parent_id = int(self.data.get('parent'))
-                self.fields['child'].queryset = AdoptionParent.objects.get(id=parent_id).children.all()
-            except (ValueError, TypeError):
-                pass  # invalid input from the client; ignore and fallback to empty queryset
-        elif self.instance.pk:
-            self.fields['child'].queryset = self.instance.parent.children.all()
+    # def __init__(self, *args, **kwargs):
+    #     super().__init__(*args, **kwargs)
+    #     if 'parent' in self.data:
+    #         # only adopted children are available for selection
+    #         try:
+    #             parent_id = int(self.data.get('parent'))
+    #             self.fields['child'].queryset = AdoptionParent.objects.get(id=parent_id).children.all()
+    #         except (ValueError, TypeError):
+    #             pass  # invalid input from the client; ignore and fallback to empty queryset
+    #     elif self.instance.pk:
+    #         self.fields['child'].queryset = self.instance.parent.children.all()
         
 
 # FILTERS #
-
-class AmountRangeFilter(RangeNumericFilter):
-    parameter_name = "amount"
-    title = _("By Amount")
-
-
 class AmountOfAdoptionParentsFilter(admin.SimpleListFilter):
 
     title = _('Amount of Adoption Parents')
@@ -137,11 +151,18 @@ class AmountOfAdoptionParentsFilter(admin.SimpleListFilter):
 
 
 # INLINES #
-
-class AdoptionInline(StackedInline):
+class AdoptionInlineChild(TabularInline):
     model = AdoptionParent.children.through
+    form = AdoptionInlineFormChild
     verbose_name = _("Adoption Parent - Child")
     verbose_name_plural = _("Adoption Parents - Children")
+
+
+class AdoptionInlineParent(TabularInline):
+    model = AdoptionParent.children.through
+    form = AdoptionInlineFormParent
+    verbose_name = _("Child - Adoption Parent")
+    verbose_name_plural = _("Children - Adoption Parents")
 
 
 class AdoptionParentSponsoringInline(StackedInline):
@@ -163,12 +184,17 @@ class AdoptionParentAdmin(SimpleHistoryAdmin, ModelAdmin):
     exclude = ('children',)
     ordering = ('id',)
     inlines = [ 
-        AdoptionInline,
+        AdoptionInlineChild,
         AdoptionParentSponsoringInline
     ]
 
     search_fields = ('first_name', 'last_name', 'firm', 'street_name', 'address_number', 'bus', 'postcode', 'city', 'country', 'mail', 'description', 'phone_number', 'children__name', 'children__description')
-    list_filter = ( ('active', admin.BooleanFieldListFilter), 'country', 'children', 'city')
+    list_filter = (
+        ('active', admin.BooleanFieldListFilter), 
+        'country', 
+        'children', 
+        ('city', FieldTextFilter)
+    )
 
     list_filter_submit = True
 
@@ -213,10 +239,31 @@ class AdoptionParentAdmin(SimpleHistoryAdmin, ModelAdmin):
 
 @admin.register(Child, site=saranalaya_admin_site)
 class ChildAdmin(SimpleHistoryAdmin, ModelAdmin):
-    list_display = ('name', 'day_of_birth', 'get_adoption_parents_formatted')
+
+    list_display = ('name', 'status_colored', 'day_of_birth', 'get_adoption_parents_formatted')
+
+    @display(
+        description=_('Status'), 
+        label={
+            _("Active"): "success",
+            _("Left"): "danger",
+            _("Support"): "info",
+
+        },
+        header=True,
+    )
+    def status_colored(self, obj):
+        status_label = {
+            StatusChoices.ACTIVE: _("Active"),
+            StatusChoices.LEFT: _("Left"),
+            StatusChoices.SUPPORT: _("Support"),
+        }
+        return status_label.get(obj.status, _("Active"))
+
+    
     ordering = ('day_of_birth',)
     inlines = [
-        AdoptionInline
+        AdoptionInlineParent
     ]
 
     search_fields = ('name', 'gender', 'adoptionparent__first_name', 'adoptionparent__last_name', 'adoptionparent__firm', 'adoptionparent__street_name', 'adoptionparent__postcode', 'adoptionparent__city', 'adoptionparent__country', 'adoptionparent__mail', 'adoptionparent__description', 'adoptionparent__phone_number', 'day_of_birth', 'date_of_admission', 'date_of_leave', 'indian_parent_status', 'status', 'link_website', 'description')
@@ -246,11 +293,30 @@ class AdoptionParentSponsoringAdmin(SimpleHistoryAdmin, ModelAdmin):
     search_fields = ('date', 'amount', 'description', 'parent__first_name', 'parent__last_name','parent__firm', 'parent__street_name', 'parent__postcode', 'parent__city', 'parent__country', 'parent__mail', 'parent__description', 'parent__phone_number', 'child__name')
     list_filter = (
         ('date', RangeDateFilter), 
-        ('amount', AmountRangeFilter), 
+        ('amount', RangeNumericFilter), 
         'parent', 'child'
     )
 
     list_filter_submit = True
+
+    actions = [
+        "generate_address_list",
+        "generate_mail_list",
+    ]
+
+    @action(description=_("Generate Address List"))
+    def generate_address_list(modeladmin, request, queryset):
+        # queryset should only be the corresponding adoptionparents
+        parent_queryset = queryset.values_list('parent', flat=True).distinct()
+        parents = AdoptionParent.objects.filter(id__in=parent_queryset)
+        return helper.generateAddressList(modeladmin, request, parents)
+
+    @action(description=_("Generate Mailing List"))
+    def generate_mail_list(modeladmin, request, queryset):
+        # queryset should only be the corresponding adoptionparents
+        parent_queryset = queryset.values_list('parent', flat=True).distinct()
+        parents = AdoptionParent.objects.filter(id__in=parent_queryset)
+        return helper.generateMailList(modeladmin, request, parents)
 
 
 @admin.register(Sponsor, site=saranalaya_admin_site)
@@ -262,7 +328,11 @@ class SponsorAdmin(SimpleHistoryAdmin, ModelAdmin):
     ]
 
     search_fields = ('first_name', 'last_name', 'firm', 'street_name', 'address_number', 'bus', 'postcode', 'city', 'country', 'mail', 'description', 'phone_number')
-    list_filter = ('letters', 'country', 'city' )
+    list_filter = (
+        'letters', 
+        'country', 
+        ('city', FieldTextFilter),
+    )
     list_filter_submit = True
 
     actions = [
@@ -285,8 +355,8 @@ class DonationAdmin(SimpleHistoryAdmin, ModelAdmin):
     ordering = ('date', 'amount')
     search_fields = ('sponsor__first_name', 'sponsor__last_name', 'sponsor__firm', 'sponsor__street_name', 'sponsor__postcode', 'sponsor__city', 'sponsor__country', 'sponsor__mail', 'sponsor__description', 'sponsor__phone_number', 'amount', 'date', 'description')
     list_filter = (
-        ('amount', AmountRangeFilter), 
         ('date' , RangeDateFilter),
+        ('amount', RangeNumericFilter),
         'sponsor'
     )
     list_filter_submit = True

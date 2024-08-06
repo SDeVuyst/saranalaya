@@ -35,6 +35,7 @@ class Child(models.Model):
     class Meta:
         verbose_name = _("Child")
         verbose_name_plural = _("Children")
+        ordering = ["name", "day_of_birth"]
 
     def __str__(self) -> str:
         return self.name
@@ -70,7 +71,7 @@ class Child(models.Model):
 class Supporter(models.Model):
     class Meta:
         abstract = True
-        ordering = ['last_name']
+        ordering = ['first_name', 'last_name']
         verbose_name = _("Supporter")
         verbose_name_plural = _("Supporters")
 
