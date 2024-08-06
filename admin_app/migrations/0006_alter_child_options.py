@@ -6,7 +6,7 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('admin_app', '0005_sponsor_letters'),
+        ('admin_app', '0004_alter_historicaladoptionparent_options_and_more'),
     ]
 
     operations = [
