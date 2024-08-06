@@ -1,4 +1,7 @@
 from django.contrib import admin, messages
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+from django.utils.http import urlencode
 from .models import *
 from .utils import helper
 from datetime import datetime
@@ -6,6 +9,8 @@ from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy as _lazy_
 from unfold.contrib.filters.admin import RangeDateFilter, RangeNumericFilter, FieldTextFilter
 from django.contrib import admin
+from django.urls import path
+from .views import generate_mailto_link
 from django.contrib.auth.models import User, Group
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.admin import GroupAdmin as BaseGroupAdmin
@@ -22,7 +27,16 @@ admin.site.unregister(Group)
 
 @admin.register(User, site=saranalaya_admin_site)
 class UserAdmin(BaseUserAdmin, ModelAdmin):
-    pass
+
+    actions = ["generate_mail_list"]
+
+    def get_urls(self):
+        urls = super().get_urls()
+        custom_urls = [
+            path('generate_mailto_link/', generate_mailto_link, name='generate_mailto_link'),
+        ]
+        return custom_urls + urls
+
 
 @admin.register(Group, site=saranalaya_admin_site)
 class GroupAdmin(BaseGroupAdmin, ModelAdmin):
@@ -235,7 +249,9 @@ class AdoptionParentAdmin(SimpleHistoryAdmin, ModelAdmin):
 
     @action(description=_("Generate Mailing List"))
     def generate_mail_list(modeladmin, request, queryset):
-        return helper.generateMailList(modeladmin, request, queryset)
+        link = helper.generateMailList(modeladmin, request, queryset)
+        query_string = urlencode({'emails': link})
+        return HttpResponseRedirect(reverse('admin:generate_mailto_link') + '?' + query_string)
 
 
 @admin.register(Child, site=saranalaya_admin_site)
@@ -310,7 +326,9 @@ class AdoptionParentSponsoringAdmin(SimpleHistoryAdmin, ModelAdmin):
         # queryset should only be the corresponding adoptionparents
         parent_queryset = queryset.values_list('parent', flat=True).distinct()
         parents = AdoptionParent.objects.filter(id__in=parent_queryset)
-        return helper.generateMailList(modeladmin, request, parents)
+        link = helper.generateMailList(modeladmin, request, queryset)
+        query_string = urlencode({'emails': link})
+        return HttpResponseRedirect(reverse('admin:generate_mailto_link') + '?' + query_string)
 
 
 @admin.register(Sponsor, site=saranalaya_admin_site)
@@ -340,7 +358,9 @@ class SponsorAdmin(SimpleHistoryAdmin, ModelAdmin):
 
     @action(description=_("Generate Mailing List"))
     def generate_mail_list(modeladmin, request, queryset):
-        return helper.generateMailList(modeladmin, request, queryset)
+        link = helper.generateMailList(modeladmin, request, queryset)
+        query_string = urlencode({'emails': link})
+        return HttpResponseRedirect(reverse('admin:generate_mailto_link') + '?' + query_string)
     
 
 @admin.register(Donation, site=saranalaya_admin_site)

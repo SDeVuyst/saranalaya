@@ -16,31 +16,9 @@ def get_last_available_adoption_sponsoring_year(parent_sponsors):
 
 # mailing and adress list
 def generateMailList(modeladmin, request, queryset):
-    response = FileResponse(
-        generateMailListFile(queryset), 
-        as_attachment=True, 
-        filename='mail_list.pdf'
-    )
-    return response
-
-
-def generateMailListFile(queryset):
-    buffer = BytesIO()
-    p = canvas.Canvas(buffer)
- 
-    # Create a PDF document
     supporters = queryset.all()
- 
-    y = 790
-    for supporter in supporters:
-        p.drawString(50, y, supporter.mail)
-        y -= 15
-
-    p.showPage()
-    p.save()
- 
-    buffer.seek(0)
-    return buffer
+    mail_list = ','.join([sup.mail for sup in supporters if sup.mail])
+    return f"mailto:{mail_list}"
 
 
 def generateAddressList(modeladmin, request, queryset):

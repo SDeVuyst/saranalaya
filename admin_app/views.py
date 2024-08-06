@@ -1,6 +1,8 @@
 import json
 from django.contrib.admin.views.decorators import staff_member_required
 from django.db.models import Sum
+from django.http import HttpResponse
+from django.utils.html import escape
 from django.utils.translation import gettext as _
 from .utils.helper import percentage_change
 import datetime
@@ -151,3 +153,59 @@ def dashboard_callback(request, context):
     )
 
     return context
+
+
+def generate_mailto_link(request):
+    # Get email addresses from the query parameters
+    email_addresses = request.GET.get('emails', '')
+    
+    # Escape email addresses to ensure safety
+    escaped_emails = escape(email_addresses)
+    
+    # HTML content with JavaScript to handle mailto link and go back button
+    html_content = f"""
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Redirecting...</title>
+        <style>
+            body {{
+                font-family: Arial, sans-serif;
+                text-align: center;
+                padding: 20px;
+            }}
+            #fallback-link {{
+                margin-top: 20px;
+            }}
+            .button {{
+                display: inline-block;
+                padding: 10px 20px;
+                font-size: 16px;
+                color: #fff;
+                background-color: #007bff;
+                border: none;
+                border-radius: 5px;
+                text-decoration: none;
+                cursor: pointer;
+            }}
+            .button:hover {{
+                background-color: #0056b3;
+            }}
+        </style>
+        <script type="text/javascript">
+            // Open the mailto link in a new window/tab
+            window.onload = function() {{
+                var mailtoLink = 'mailto:{escaped_emails}?subject=Saranalaya';
+                window.open(mailtoLink, '_blank');
+            }};
+        </script>
+    </head>
+    <body>
+        <p>If your email client doesn't open, <a id="fallback-link" href="mailto:{escaped_emails}?subject=Saranalaya">click here</a>.</p>
+        <p><a href="javascript:history.back()" class="button">Go Back</a></p>
+    </body>
+    </html>
+    """
+    
+    return HttpResponse(html_content, content_type='text/html')
+
