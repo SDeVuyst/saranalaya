@@ -1,5 +1,4 @@
 import json
-from django.contrib.admin.views.decorators import staff_member_required
 from django.db.models import Sum
 from django.http import HttpResponse
 from django.utils.html import escape
@@ -9,12 +8,12 @@ import datetime
 
 from django.utils.safestring import mark_safe
 
-from admin_app.models import Donation, AdoptionParentSponsoring, Child, AdoptionParent, StatusChoices
 from .utils.helper import *
 
 
 
 def dashboard_callback(request, context):
+    from .models import Donation, AdoptionParentSponsoring, Child, AdoptionParent, StatusChoices
 
     current_year = str(datetime.datetime.now().year)
     last_year = str(datetime.datetime.now().year -1)

@@ -3,11 +3,41 @@ from django.contrib import admin
 from django.utils.html import format_html
 from django.shortcuts import resolve_url
 from django.contrib.admin.templatetags.admin_urls import admin_urlname
+from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.models import ContentType
 from django.utils.translation import gettext_lazy as _
 from simple_history.models import HistoricalRecords
+from django.urls import path
+from .views import generate_mailto_link
+from django.contrib.auth.models import User, Group
+from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+from django.contrib.auth.admin import GroupAdmin as BaseGroupAdmin
+from unfold.admin import ModelAdmin
+from .sites import saranalaya_admin_site
 
 import os
 
+
+# Unfold model admin
+admin.site.unregister(User)
+admin.site.unregister(Group)
+
+@admin.register(User, site=saranalaya_admin_site)
+class UserAdmin(BaseUserAdmin, ModelAdmin):
+
+    actions = ["generate_mail_list"]
+
+    def get_urls(self):
+        urls = super().get_urls()
+        custom_urls = [
+            path('generate_mailto_link/', generate_mailto_link, name='generate_mailto_link'),
+        ]
+        return custom_urls + urls
+
+
+@admin.register(Group, site=saranalaya_admin_site)
+class GroupAdmin(BaseGroupAdmin, ModelAdmin):
+    pass
 
 # CHOICES #
 
@@ -64,6 +94,7 @@ class Child(models.Model):
     status = models.CharField( max_length = 1, choices = StatusChoices.choices, verbose_name=_("Status"))
     link_website = models.URLField(blank=True, null=True, verbose_name=_("Link website"))
     description = models.TextField(blank=True, null=True, verbose_name=_("Description"))
+    last_updated = models.DateTimeField(auto_now=True)
 
     history = HistoricalRecords(verbose_name=_("History"))
 
@@ -90,6 +121,7 @@ class Supporter(models.Model):
     mail = models.EmailField(verbose_name=_("E-mail"))
     description = models.TextField(blank=True, null=True, verbose_name=_("Description"))
     phone_number = models.CharField(max_length=12, blank=True, null=True, verbose_name=_("Phone Number")) # not required
+    last_updated = models.DateTimeField(auto_now=True)
 
 
 class AdoptionParent(Supporter):
@@ -138,6 +170,7 @@ class AdoptionParentSponsoring(models.Model):
     description = models.TextField(blank=True, null=True, verbose_name=_("Description"))
     parent = models.ForeignKey(AdoptionParent, on_delete=models.RESTRICT, verbose_name=_("Parent"))
     child = models.ForeignKey(Child, on_delete=models.RESTRICT, verbose_name=_("Child"))
+    last_updated = models.DateTimeField(auto_now=True)
 
     history = HistoricalRecords(verbose_name=_("History"))
 
@@ -164,5 +197,17 @@ class Donation(models.Model):
     amount = models.FloatField(verbose_name=_("Amount"))
     date = models.DateField(verbose_name=_("Date"))
     description = models.TextField(blank=True, null=True, verbose_name=_("Description"))
+    last_updated = models.DateTimeField(auto_now=True)
 
     history = HistoricalRecords(verbose_name=_("History"))
+
+
+class UserView(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
+    object_id = models.PositiveIntegerField()
+    content_object = GenericForeignKey('content_type', 'object_id')
+    last_viewed = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        unique_together = ('user', 'content_type', 'object_id')
