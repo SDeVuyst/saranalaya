@@ -17,8 +17,7 @@ def get_last_available_adoption_sponsoring_year(parent_sponsors):
 # mailing and adress list
 def generateMailList(modeladmin, request, queryset):
     supporters = queryset.all()
-    mail_list = ','.join([sup.mail for sup in supporters if sup.mail])
-    return f"mailto:{mail_list}"
+    return ','.join([sup.mail for sup in supporters if sup.mail])
 
 
 def generateAddressList(modeladmin, request, queryset):
