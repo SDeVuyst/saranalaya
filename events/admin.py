@@ -41,12 +41,13 @@ class EventAdmin(SimpleHistoryAdmin, ModelAdmin):
     @display(
         description=_("Sold out"),
         label={
-            _("Sold out!"): "danger",
-            _("Available"): "success"
+            True: "danger",
+            False: "success"
         }
     )
     def is_sold_out(self, obj):
-        return _("Sold out!") if obj.is_sold_out else _("Available")
+        label = _("Sold out!") if obj.is_sold_out else _("Available")
+        return obj.is_sold_out, label
 
 
 
@@ -72,12 +73,13 @@ class ParticipantAdmin(SimpleHistoryAdmin, ModelAdmin):
     @display(
         description=_("Attended"),
         label={
-            _("Yes"): "success",
-            _("No"): "danger"
+            True: "success",
+            False: "danger"
         }
     )
     def attendance(self, obj):
-        return _("Yes") if obj.attended else _("No")
+        label = _("Yes") if obj.attended else _("No")
+        return obj.attended, label
     
 
     search_fields = ('first_name', 'last_name', 'mail')
@@ -139,9 +141,10 @@ class TicketAdmin(SimpleHistoryAdmin, ModelAdmin):
     @display(
         description=_("Sold out"),
         label={
-            "Sold out!": "danger",
-            "Available": "success"
+            True: "danger",
+            False: "success"
         }
     )
     def is_sold_out(self, obj):
-        return "Sold out!" if obj.is_sold_out else "Available"
+        label = _("Sold out!") if obj.is_sold_out else _("Available")
+        return obj.is_sold_out, label

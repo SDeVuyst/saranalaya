@@ -3,6 +3,7 @@ from .models import *
 from .utils import helper
 from datetime import datetime
 from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy as _lazy_
 from unfold.contrib.filters.admin import RangeDateFilter, RangeNumericFilter, FieldTextFilter
 from django.contrib import admin
 from django.contrib.auth.models import User, Group
@@ -240,26 +241,19 @@ class AdoptionParentAdmin(SimpleHistoryAdmin, ModelAdmin):
 @admin.register(Child, site=saranalaya_admin_site)
 class ChildAdmin(SimpleHistoryAdmin, ModelAdmin):
 
-    list_display = ('name', 'status_colored', 'day_of_birth', 'get_adoption_parents_formatted')
+    list_display = ('name', 'status_colored', 'show_status_with_custom_label', 'day_of_birth', 'get_adoption_parents_formatted')
 
     @display(
-        description=_('Status'), 
+        description=_lazy_('Status'), 
         label={
-            _("Active"): "success",
-            _("Left"): "danger",
-            _("Support"): "info",
-
+            StatusChoices.ACTIVE: "success",
+            StatusChoices.LEFT: "danger",
+            StatusChoices.SUPPORT: "info",
         },
-        header=True,
     )
     def status_colored(self, obj):
-        status_label = {
-            StatusChoices.ACTIVE: _("Active"),
-            StatusChoices.LEFT: _("Left"),
-            StatusChoices.SUPPORT: _("Support"),
-        }
-        return status_label.get(obj.status, _("Active"))
-
+        return obj.status, obj.get_status_display()
+    
     
     ordering = ('name',)
     inlines = [
