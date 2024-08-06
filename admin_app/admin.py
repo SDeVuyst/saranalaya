@@ -428,7 +428,7 @@ class AdoptionParentSponsoringAdmin(SimpleHistoryAdmin, ModelAdmin):
     form = AdoptionSponsoringForm
 
     list_display = ('changed_and_date', 'amount', 'parent', 'child', 'get_amount_left')
-    ordering = ('date', 'amount')
+    ordering = ('-date', 'amount')
 
     search_fields = ('date', 'amount', 'description', 'parent__first_name', 'parent__last_name','parent__firm', 'parent__street_name', 'parent__postcode', 'parent__city', 'parent__country', 'parent__mail', 'parent__description', 'parent__phone_number', 'child__name')
     list_filter = (
@@ -647,7 +647,7 @@ class SponsorAdmin(SimpleHistoryAdmin, ModelAdmin):
 @admin.register(Donation, site=saranalaya_admin_site)
 class DonationAdmin(SimpleHistoryAdmin, ModelAdmin):
     list_display = ('changed_and_date', 'amount', 'sponsor')
-    ordering = ('date', 'amount')
+    ordering = ('-date', 'amount')
     search_fields = ('sponsor__first_name', 'sponsor__last_name', 'sponsor__firm', 'sponsor__street_name', 'sponsor__postcode', 'sponsor__city', 'sponsor__country', 'sponsor__mail', 'sponsor__description', 'sponsor__phone_number', 'amount', 'date', 'description')
     list_filter = (
         ('date' , RangeDateFilter),
