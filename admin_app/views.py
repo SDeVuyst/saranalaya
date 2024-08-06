@@ -156,56 +156,52 @@ def dashboard_callback(request, context):
 
 
 def generate_mailto_link(request):
-    # Get email addresses from the query parameters
-    email_addresses = request.GET.get('emails', '')
+    email_addresses = request.GET.get('emails', '').split(',')
     
-    # Escape email addresses to ensure safety
-    escaped_emails = escape(email_addresses)
+    MAX_EMAILS_PER_LINK = 50
     
-    # HTML content with JavaScript to handle mailto link and go back button
-    html_content = f"""
+    # Split the email addresses into smaller groups
+    email_groups = [email_addresses[i:i + MAX_EMAILS_PER_LINK] for i in range(0, len(email_addresses), MAX_EMAILS_PER_LINK)]
+    
+    # Generate HTML content with JavaScript to handle multiple mailto links
+    email_links = [
+        f"mailto:{','.join(group)}?subject=Saranalaya"
+        for group in email_groups
+    ]
+    
+    html_content = """
     <!DOCTYPE html>
     <html>
     <head>
         <title>Redirecting...</title>
         <style>
-            body {{
-                font-family: Arial, sans-serif;
-                text-align: center;
-                padding: 20px;
-            }}
-            #fallback-link {{
-                margin-top: 20px;
-            }}
-            .button {{
-                display: inline-block;
-                padding: 10px 20px;
-                font-size: 16px;
-                color: #fff;
-                background-color: #007bff;
-                border: none;
-                border-radius: 5px;
-                text-decoration: none;
-                cursor: pointer;
-            }}
-            .button:hover {{
-                background-color: #0056b3;
-            }}
+            body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
+            .button { display: inline-block; padding: 10px 20px; font-size: 16px; color: #fff; background-color: #007bff; border: none; border-radius: 5px; text-decoration: none; cursor: pointer; }
+            .button:hover { background-color: #0056b3; }
         </style>
         <script type="text/javascript">
-            // Open the mailto link in a new window/tab
-            window.onload = function() {{
-                var mailtoLink = 'mailto:{escaped_emails}?subject=Saranalaya';
-                window.open(mailtoLink, '_blank');
-            }};
+            window.onload = function() {
+                var emailLinks = {links};
+                var index = 0;
+                
+                function openNextLink() {
+                    if (index < emailLinks.length) {
+                        window.open(emailLinks[index], '_blank');
+                        index++;
+                        setTimeout(openNextLink, 2000); // Wait 2 seconds before opening the next link
+                    }
+                }
+                
+                openNextLink();
+            };
         </script>
     </head>
     <body>
-        <p>If your email client doesn't open, <a id="fallback-link" href="mailto:{escaped_emails}?subject=Saranalaya">click here</a>.</p>
+        <p>Please wait while your email client opens the email addresses...</p>
         <p><a href="javascript:history.back()" class="button">Go Back</a></p>
     </body>
     </html>
-    """
-    
+    """.format(links=escape(str(email_links)))
+
     return HttpResponse(html_content, content_type='text/html')
 
