@@ -156,20 +156,27 @@ def dashboard_callback(request, context):
 
 
 def generate_mailto_link(request):
-    email_addresses = request.GET.get('emails', '').split(',')
+    # Get email addresses from the query parameters
+    email_addresses = request.GET.get('emails', '')
     
+    # Escape email addresses to ensure safety
+    escaped_emails = escape(email_addresses)
+
+    # Define a maximum number of addresses per mailto link
     MAX_EMAILS_PER_LINK = 50
     
     # Split the email addresses into smaller groups
-    email_groups = [email_addresses[i:i + MAX_EMAILS_PER_LINK] for i in range(0, len(email_addresses), MAX_EMAILS_PER_LINK)]
+    email_list = escaped_emails.split(',')
+    email_groups = [email_list[i:i + MAX_EMAILS_PER_LINK] for i in range(0, len(email_list), MAX_EMAILS_PER_LINK)]
     
     # Generate HTML content with JavaScript to handle multiple mailto links
     email_links = [
         f"mailto:{','.join(group)}?subject=Saranalaya"
         for group in email_groups
     ]
-    
-    html_content = """
+
+    # HTML content with JavaScript to handle mailto link and go back button
+    html_content = f"""
     <!DOCTYPE html>
     <html>
     <head>
@@ -179,6 +186,9 @@ def generate_mailto_link(request):
                 font-family: Arial, sans-serif;
                 text-align: center;
                 padding: 20px;
+            }}
+            #fallback-link {{
+                margin-top: 20px;
             }}
             .button {{
                 display: inline-block;
@@ -196,20 +206,21 @@ def generate_mailto_link(request):
             }}
         </style>
         <script type="text/javascript">
-            window.onload = function() {
-                var emailLinks = {links};
+            // Open the mailto link in a new window/tab
+            window.onload = function() {{
+                var emailLinks = {email_links};
                 var index = 0;
                 
-                function openNextLink() {
-                    if (index < emailLinks.length) {
+                function openNextLink() {{
+                    if (index < emailLinks.length) {{
                         window.open(emailLinks[index], '_blank');
                         index++;
-                        setTimeout(openNextLink, 2000); // Wait 2 seconds before opening the next link
-                    }
-                }
+                        setTimeout(openNextLink, 2000);
+                    }}
+                }}
                 
                 openNextLink();
-            };
+            }};
         </script>
     </head>
     <body>
@@ -217,7 +228,7 @@ def generate_mailto_link(request):
         <p><a href="javascript:history.back()" class="button">Go Back</a></p>
     </body>
     </html>
-    """.format(links=escape(str(email_links)))
-
+    """
+    
     return HttpResponse(html_content, content_type='text/html')
 
