@@ -5,7 +5,12 @@ from ..models import *
 
 
 def badge_callback(request, model) -> str:
-    user = request.user
+
+    # request can also be the user itself in case of the celery task
+    try:
+        user = request.user
+    except:
+        user = request
 
     # Ensure we have a valid user
     if not user.is_authenticated:

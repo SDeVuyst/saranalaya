@@ -29,3 +29,5 @@ EXPOSE 8100
 
 # Start the server
 CMD ["gunicorn", "saranalaya.wsgi:application", "--bind", "0.0.0.0:8100"]
+
+# Start 

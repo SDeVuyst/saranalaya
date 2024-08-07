@@ -15,3 +15,5 @@ pypdf
 pytz
 gunicorn
 mollie-api-python
+django-celery-beat
+redis

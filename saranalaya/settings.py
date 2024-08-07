@@ -65,6 +65,7 @@ INSTALLED_APPS = [
     'storages',
     'djmoney',
     'ckeditor',
+    "django_celery_beat",
     
     'events',
 ]
@@ -116,6 +117,10 @@ DATABASES = {
     }
 }
 
+# Celery
+CELERY_BROKER_URL = 'redis://redis:6379/0'
+CELERY_BROKER_CONNECTION_RETRY = True
+CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators

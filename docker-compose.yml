@@ -15,6 +15,27 @@ services:
       - "8100:8100"
     depends_on:
       - db
+
+  celery:
+    build: .
+    command: celery -A saranalaya worker -l INFO
+    env_file: stack.env
+    volumes:
+      - .:/app
+    depends_on:
+      - redis
+      - db
+
+  celery-beat:
+    build: .
+    command: celery -A saranalaya beat -l INFO --scheduler django_celery_beat.schedulers:DatabaseScheduler
+    env_file: stack.env
+    volumes:
+      - .:/app
+    depends_on:
+      - redis
+      - db
+
       
   db:
     image: postgres:16
@@ -28,6 +49,11 @@ services:
       - "5433"
     ports:
       - 5433:5433
+
+  redis:
+    image: redis:latest
+    ports:
+      - 6379:6379
 
   backup:
     image: eeshugerman/postgres-backup-s3:16

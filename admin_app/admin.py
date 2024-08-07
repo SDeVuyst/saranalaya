@@ -16,6 +16,21 @@ from unfold.contrib.inlines.admin import StackedInline, TabularInline
 from simple_history.admin import SimpleHistoryAdmin
 from django import forms
 from .sites import saranalaya_admin_site
+from django_celery_beat.models import (
+    ClockedSchedule,
+    CrontabSchedule,
+    IntervalSchedule,
+    PeriodicTask,
+    SolarSchedule,
+)
+from django_celery_beat.admin import ClockedScheduleAdmin as BaseClockedScheduleAdmin
+from django_celery_beat.admin import CrontabScheduleAdmin as BaseCrontabScheduleAdmin
+from django_celery_beat.admin import PeriodicTaskAdmin as BasePeriodicTaskAdmin
+from django_celery_beat.admin import PeriodicTaskForm, TaskSelectWidget
+from unfold.widgets import (
+    UnfoldAdminSelectWidget,
+    UnfoldAdminTextInputWidget,
+)
 
 
 # FORMS #
@@ -200,12 +215,13 @@ class AdoptionParentAdmin(SimpleHistoryAdmin, ModelAdmin):
     @action(description=_('Add New Payment'))
     def add_new_sponsoring(modeladmin, request, queryset):
         amount_of_sponsors_saved = 0
+        all_children = Child.objects.all()
 
         for sponsor in queryset:
             if not sponsor.active:
                 continue
 
-            children_of_sponsor = [c for c in Child.objects.all() if sponsor in c.get_adoption_parents()]
+            children_of_sponsor = [c for c in all_children if sponsor in c.get_adoption_parents()]
             
             for child in children_of_sponsor:
                 sp = AdoptionParentSponsoring(
@@ -735,3 +751,42 @@ class DonationAdmin(SimpleHistoryAdmin, ModelAdmin):
         self.request = request  # Make the request available for instance methods
         return qs
 
+
+# CELERY #
+
+admin.site.unregister(PeriodicTask)
+admin.site.unregister(IntervalSchedule)
+admin.site.unregister(CrontabSchedule)
+admin.site.unregister(SolarSchedule)
+admin.site.unregister(ClockedSchedule)
+
+
+class UnfoldTaskSelectWidget(UnfoldAdminSelectWidget, TaskSelectWidget):
+    pass
+
+
+class UnfoldPeriodicTaskForm(PeriodicTaskForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["task"].widget = UnfoldAdminTextInputWidget()
+        self.fields["regtask"].widget = UnfoldTaskSelectWidget()
+
+
+@admin.register(PeriodicTask, site=saranalaya_admin_site)
+class PeriodicTaskAdmin(BasePeriodicTaskAdmin, ModelAdmin):
+    form = UnfoldPeriodicTaskForm
+
+
+@admin.register(IntervalSchedule, site=saranalaya_admin_site)
+class IntervalScheduleAdmin(ModelAdmin):
+    pass
+
+
+@admin.register(CrontabSchedule, site=saranalaya_admin_site)
+class CrontabScheduleAdmin(BaseCrontabScheduleAdmin, ModelAdmin):
+    pass
+
+
+@admin.register(ClockedSchedule, site=saranalaya_admin_site)
+class ClockedScheduleAdmin(BaseClockedScheduleAdmin, ModelAdmin):
+    pass
