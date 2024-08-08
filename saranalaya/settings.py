@@ -122,8 +122,8 @@ DATABASES = {
 CELERY_BROKER_URL = 'redis://redis:6379/0'
 CELERY_BROKER_CONNECTION_RETRY = True
 CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True
-CELERY_ENABLE_UTC = True
-CELERY_TIMEZONE = pytz.timezone('Europe/Brussels')
+CELERY_DJANGO_CELERY_BEAT_TZ_AWARE = False
+DJANGO_CELERY_BEAT_TZ_AWARE = False
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -147,7 +147,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
-USE_TZ = True
+USE_TZ = False
 TIME_ZONE = 'Europe/Brussels'
 
 USE_I18N = True
