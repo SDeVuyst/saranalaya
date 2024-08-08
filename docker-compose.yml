@@ -21,8 +21,6 @@ services:
     build: .
     command: celery -A saranalaya worker -l INFO
     env_file: stack.env
-    volumes:
-      - .:/app
     depends_on:
       - redis
       - db
@@ -32,8 +30,6 @@ services:
     build: .
     command: celery -A saranalaya beat -l INFO --scheduler django_celery_beat.schedulers:DatabaseScheduler
     env_file: stack.env
-    volumes:
-      - .:/app
     depends_on:
       - redis
       - db
