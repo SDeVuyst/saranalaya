@@ -14,6 +14,11 @@ app = Celery('saranalaya')
 #   should have a `CELERY_` prefix.
 app.config_from_object('django.conf:settings', namespace='CELERY')
 
+app.conf.update(
+    timezone=None,  # Disable timezone support
+    enable_utc=False,  # Make sure UTC is not enabled
+)
+
 # Load task modules from all registered Django apps.
 app.autodiscover_tasks()
 
