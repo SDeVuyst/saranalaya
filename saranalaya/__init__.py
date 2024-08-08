@@ -1,3 +1,3 @@
-from .celery import app as saranalaya
+from .celery import app as celery_app
 
-__all__ = ('saranalaya',)
+__all__ = ('celery_app',)
