@@ -62,7 +62,7 @@ def add_yearly_adoption_parent_payments():
         if not sponsor.active:
             continue
         
-        children_of_sponsor = [c for c in all_children if sponsor in c.get_adoption_parents()]
+        children_of_sponsor = [c for c in all_children if sponsor in c.get_adoption_parents() and sponsor.active]
         
         for child in children_of_sponsor:
             sp = AdoptionParentSponsoring(

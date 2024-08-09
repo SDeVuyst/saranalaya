@@ -74,6 +74,8 @@ class Child(models.Model):
     def get_adoption_parents_formatted(self):
         formatted_list = []
         for parent in self.adoptionparent_set.all():
+            if not parent.active: continue
+
             url = resolve_url(admin_urlname(AdoptionParent._meta, 'change'), parent.id)
             formatted_list.append(format_html(
                 '<a href="{url}">{name}</a>'.format(url=url, name=str(parent.first_name + ' ' + parent.last_name))
@@ -141,10 +143,17 @@ class AdoptionParent(Supporter):
         return format_html(", ".join(formatted_list))
     
 
-    children = models.ManyToManyField("Child", blank=True, verbose_name=_("Children"))
+    children = models.ManyToManyField("Child", through="Adoption", blank=True, verbose_name=_("Children"))
     active = models.BooleanField(default=True, verbose_name=_("Active"))
 
     history = HistoricalRecords(verbose_name=_("History"))
+
+
+class Adoption(models.Model):
+    adoptionparent = models.ForeignKey(AdoptionParent, on_delete=models.CASCADE)
+    child = models.ForeignKey(Child, on_delete=models.CASCADE)
+
+    active = models.BooleanField(verbose_name=_("Active"), default=True)
 
 
 class AdoptionParentSponsoring(models.Model):

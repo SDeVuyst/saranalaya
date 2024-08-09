@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-06 12:26+0200\n"
-"PO-Revision-Date: 2024-08-06 12:28+0200\n"
+"POT-Creation-Date: 2024-08-09 14:16+0200\n"
+"PO-Revision-Date: 2024-08-09 14:19+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -19,264 +19,325 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 3.4.4\n"
 
-#: .\admin_app\admin.py:73
+#: .\admin_app\admin.py:78
 msgid "Amount of Adoption Parents"
 msgstr "Hoeveelheid Adoptie-ouders"
 
-#: .\admin_app\admin.py:74
+#: .\admin_app\admin.py:79
 msgid "amount_of_adoption_parents"
 msgstr "hoeveelheid_adoptieouders"
 
-#: .\admin_app\admin.py:78
+#: .\admin_app\admin.py:83
 msgid "No Adoption Parents"
 msgstr "Geen Adoptie-ouders"
 
-#: .\admin_app\admin.py:79
+#: .\admin_app\admin.py:84
 msgid "1 Adoption Parent"
 msgstr "1 Adoptie-ouder"
 
-#: .\admin_app\admin.py:80
+#: .\admin_app\admin.py:85
 msgid "2 Adoption Parents"
 msgstr "2 Adoptie-ouders"
 
-#: .\admin_app\admin.py:81
+#: .\admin_app\admin.py:86
 msgid "3 Adoption Parents"
 msgstr "3 Adoptie-ouders"
 
-#: .\admin_app\admin.py:82
+#: .\admin_app\admin.py:87
 msgid "More than 3 Adoption Parents"
 msgstr "Meer dan 3 Adoptie-ouders"
 
-#: .\admin_app\admin.py:158
+#: .\admin_app\admin.py:163
 msgid "Adoption Parent - Child"
 msgstr "Adoptie-ouder - Kind"
 
-#: .\admin_app\admin.py:159
+#: .\admin_app\admin.py:164
 msgid "Adoption Parents - Children"
 msgstr "Adoptie-ouders - Kinderen"
 
-#: .\admin_app\admin.py:165
+#: .\admin_app\admin.py:170
 msgid "Child - Adoption Parent"
 msgstr "Kind - Adoptie-ouder"
 
-#: .\admin_app\admin.py:166
+#: .\admin_app\admin.py:171
 msgid "Children - Adoption Parents"
 msgstr "Kinderen - Adoptie-ouders"
 
-#: .\admin_app\admin.py:208
+#: .\admin_app\admin.py:215
 msgid "Add New Payment"
 msgstr "Voeg Nieuwe Betaling Toe"
 
-#: .\admin_app\admin.py:230
+#: .\admin_app\admin.py:238
 #, python-brace-format
 msgid "Added {amount_of_sponsors_saved} Payments!"
 msgstr "{amount_of_sponsors_saved} betalingen toegevoegd!"
 
-#: .\admin_app\admin.py:232 .\admin_app\admin.py:301 .\admin_app\admin.py:337
+#: .\admin_app\admin.py:240 .\admin_app\admin.py:465 .\admin_app\admin.py:578
 msgid "Generate Address List"
 msgstr "Genereer Adres Lijst"
 
-#: .\admin_app\admin.py:236 .\admin_app\admin.py:308 .\admin_app\admin.py:341
+#: .\admin_app\admin.py:244 .\admin_app\admin.py:472 .\admin_app\admin.py:582
 msgid "Generate Mailing List"
 msgstr "Genereer Mail Lijst"
+
+#: .\admin_app\admin.py:250 .\admin_app\admin.py:403 .\admin_app\admin.py:481
+#: .\admin_app\admin.py:588 .\admin_app\admin.py:680
+msgid "Mark as read"
+msgstr "Markeer als gelezen"
+
+#: .\admin_app\admin.py:266
+#, python-brace-format
+msgid "{updated_count} adoption parents were successfully marked as read."
+msgstr "{updated_count} adoptie-ouders zijn gemarkeerd als gelezen."
+
+#: .\admin_app\admin.py:269 .\admin_app\admin.py:422 .\admin_app\admin.py:500
+#: .\admin_app\admin.py:607 .\admin_app\admin.py:699
+msgid "Mark as unread"
+msgstr "Markeer als ongelezen"
+
+#: .\admin_app\admin.py:283
+#, python-brace-format
+msgid "{deleted_count} adoption parents were successfully marked as unread."
+msgstr "{deleted_count} adoptie-ouders zijn gemarkeerd als ongelezen."
+
+#: .\admin_app\admin.py:419
+#, python-brace-format
+msgid "{updated_count} children were successfully marked as read."
+msgstr "{updated_count} kinderen zijn gemarkeerd als gelezen."
+
+#: .\admin_app\admin.py:436
+#, python-brace-format
+msgid "{deleted_count} children were successfully marked as unread."
+msgstr "{deleted_count} kinderen zijn gemarkeerd als ongelezen."
+
+#: .\admin_app\admin.py:497
+#, python-brace-format
+msgid "{updated_count} payments were successfully marked as read."
+msgstr "{updated_count} betalingen zijn gemarkeerd als gelezen."
+
+#: .\admin_app\admin.py:514
+#, python-brace-format
+msgid "{deleted_count} payments were successfully marked as unread."
+msgstr "{deleted_count} betalingen zijn gemarkeerd als ongelezen."
+
+#: .\admin_app\admin.py:604
+#, python-brace-format
+msgid "{updated_count} sponsors were successfully marked as read."
+msgstr "{updated_count} sponsers zijn gemarkeerd als gelezen."
+
+#: .\admin_app\admin.py:621
+#, python-brace-format
+msgid "{deleted_count} sponsors were successfully marked as unread."
+msgstr "{deleted_count} sponsors zijn gemarkeerd als ongelezen."
+
+#: .\admin_app\admin.py:696
+#, python-brace-format
+msgid "{updated_count} donations were successfully marked as read."
+msgstr "{updated_count} donaties zijn gemarkeerd als gelezen."
+
+#: .\admin_app\admin.py:713
+#, python-brace-format
+msgid "{deleted_count} donations were successfully marked as unread."
+msgstr "{deleted_count} donaties zijn gemarkeerd als ongelezen."
 
 #: .\admin_app\apps.py:7
 msgid "Saranalaya Admin"
 msgstr "Saranalaya Admin"
 
-#: .\admin_app\models.py:15
+#: .\admin_app\models.py:45
 msgid "Male"
 msgstr "Mannelijk"
 
-#: .\admin_app\models.py:16
+#: .\admin_app\models.py:46
 msgid "Female"
 msgstr "Vrouwelijk"
 
-#: .\admin_app\models.py:20
+#: .\admin_app\models.py:50
 msgid "No Parents"
 msgstr "Geen Ouders"
 
-#: .\admin_app\models.py:21
+#: .\admin_app\models.py:51
 msgid "One Parent"
 msgstr "1 Ouder"
 
-#: .\admin_app\models.py:22
+#: .\admin_app\models.py:52
 msgid "Two Parents"
 msgstr "2 Ouders"
 
-#: .\admin_app\models.py:26 .\admin_app\models.py:113
+#: .\admin_app\models.py:56 .\admin_app\models.py:147 .\admin_app\models.py:156
 msgid "Active"
 msgstr "Actief"
 
-#: .\admin_app\models.py:27
+#: .\admin_app\models.py:57
 msgid "Left"
 msgstr "Weg"
 
-#: .\admin_app\models.py:28
+#: .\admin_app\models.py:58
 msgid "Support"
 msgstr "Ondersteuning"
 
-#: .\admin_app\models.py:36 .\admin_app\models.py:140
+#: .\admin_app\models.py:66 .\admin_app\models.py:181
 msgid "Child"
 msgstr "Kind"
 
-#: .\admin_app\models.py:37 .\admin_app\models.py:100 .\admin_app\models.py:112
-#: .\admin_app\views.py:72 .\admin_app\views.py:125 .\admin_app\views.py:138
-#: .\saranalaya\settings.py:229
+#: .\admin_app\models.py:67 .\admin_app\models.py:134 .\admin_app\models.py:146
+#: .\admin_app\views.py:73 .\admin_app\views.py:126 .\admin_app\views.py:139
+#: .\saranalaya\settings.py:237
 msgid "Children"
 msgstr "Kinderen"
 
-#: .\admin_app\models.py:43 .\admin_app\models.py:98 .\admin_app\views.py:88
-#: .\saranalaya\settings.py:234
+#: .\admin_app\models.py:73 .\admin_app\models.py:132 .\admin_app\views.py:89
+#: .\saranalaya\settings.py:243
 msgid "Adoption Parents"
 msgstr "Adoptie-ouders"
 
-#: .\admin_app\models.py:58
+#: .\admin_app\models.py:90
 msgid "name"
 msgstr "naam"
 
-#: .\admin_app\models.py:59
+#: .\admin_app\models.py:91
 msgid "gender"
 msgstr "gender"
 
-#: .\admin_app\models.py:60
+#: .\admin_app\models.py:92
 msgid "Day of Birth"
 msgstr "Geboortedag"
 
-#: .\admin_app\models.py:61
+#: .\admin_app\models.py:93
 msgid "Date of Admission"
 msgstr "Dag van Aankomst"
 
-#: .\admin_app\models.py:62
+#: .\admin_app\models.py:94
 msgid "Date of Leave"
 msgstr "Dag van Weggaan"
 
-#: .\admin_app\models.py:63
+#: .\admin_app\models.py:95
 msgid "Indian Parent Status"
 msgstr "Status van Indische ouders"
 
-#: .\admin_app\models.py:64
+#: .\admin_app\models.py:96
 msgid "Status"
 msgstr "Status"
 
-#: .\admin_app\models.py:65
+#: .\admin_app\models.py:97
 msgid "Link website"
 msgstr "Link naar Website"
 
-#: .\admin_app\models.py:66 .\admin_app\models.py:91 .\admin_app\models.py:138
-#: .\admin_app\models.py:166 .\events\models.py:43 .\events\models.py:92
+#: .\admin_app\models.py:98 .\admin_app\models.py:124 .\admin_app\models.py:179
+#: .\admin_app\models.py:208 .\events\models.py:43 .\events\models.py:92
 #: .\events\models.py:231
 msgid "Description"
 msgstr "Beschrijving"
 
-#: .\admin_app\models.py:68 .\admin_app\models.py:115 .\admin_app\models.py:142
-#: .\admin_app\models.py:152 .\admin_app\models.py:168 .\events\models.py:54
-#: .\events\models.py:97 .\events\models.py:156 .\events\models.py:237
+#: .\admin_app\models.py:101 .\admin_app\models.py:149
+#: .\admin_app\models.py:184 .\admin_app\models.py:194
+#: .\admin_app\models.py:211 .\events\models.py:54 .\events\models.py:97
+#: .\events\models.py:156 .\events\models.py:237
 msgid "History"
 msgstr "Geschiedenis"
 
-#: .\admin_app\models.py:75
+#: .\admin_app\models.py:108
 msgid "Supporter"
 msgstr "Supporter"
 
-#: .\admin_app\models.py:76
+#: .\admin_app\models.py:109
 msgid "Supporters"
 msgstr "Supporters"
 
-#: .\admin_app\models.py:81 .\events\models.py:150 .\events\models.py:226
+#: .\admin_app\models.py:114 .\events\models.py:150 .\events\models.py:226
 msgid "First Name"
 msgstr "Voornaam"
 
-#: .\admin_app\models.py:82 .\events\models.py:151 .\events\models.py:227
+#: .\admin_app\models.py:115 .\events\models.py:151 .\events\models.py:227
 msgid "Last Name"
 msgstr "Achternaam"
 
-#: .\admin_app\models.py:83
+#: .\admin_app\models.py:116
 msgid "Firm"
 msgstr "Firma"
 
-#: .\admin_app\models.py:84
+#: .\admin_app\models.py:117
 msgid "Street Name"
 msgstr "Straatnaam"
 
-#: .\admin_app\models.py:85
+#: .\admin_app\models.py:118
 msgid "Address Number"
 msgstr "Adres Nummer"
 
-#: .\admin_app\models.py:86
+#: .\admin_app\models.py:119
 msgid "Bus"
 msgstr "Bus"
 
-#: .\admin_app\models.py:87
+#: .\admin_app\models.py:120
 msgid "Postcode"
 msgstr "Postcode"
 
-#: .\admin_app\models.py:88
+#: .\admin_app\models.py:121
 msgid "City"
 msgstr "Stad"
 
-#: .\admin_app\models.py:89
+#: .\admin_app\models.py:122
 msgid "Country"
 msgstr "Land"
 
-#: .\admin_app\models.py:90
+#: .\admin_app\models.py:123
 msgid "E-mail"
 msgstr "E-mail"
 
-#: .\admin_app\models.py:92
+#: .\admin_app\models.py:125
 msgid "Phone Number"
 msgstr "GSM-nummer"
 
-#: .\admin_app\models.py:97
+#: .\admin_app\models.py:131
 msgid "Adoption Parent"
 msgstr "Adoptie-ouder"
 
-#: .\admin_app\models.py:120
+#: .\admin_app\models.py:161
 msgid "Adoption Parent Payment"
 msgstr "Adoptie-ouder Betaling"
 
-#: .\admin_app\models.py:121 .\saranalaya\settings.py:239
+#: .\admin_app\models.py:162 .\saranalaya\settings.py:249
 msgid "Adoption Parent Payments"
 msgstr "Adoptie-ouder Betalingen"
 
-#: .\admin_app\models.py:128
+#: .\admin_app\models.py:169
 msgid "Amount remaining"
 msgstr "Resterend"
 
-#: .\admin_app\models.py:136 .\admin_app\models.py:165
+#: .\admin_app\models.py:177 .\admin_app\models.py:207
 msgid "Date"
 msgstr "Datum"
 
-#: .\admin_app\models.py:137 .\admin_app\models.py:164
+#: .\admin_app\models.py:178 .\admin_app\models.py:206
 msgid "Amount"
 msgstr "Hoeveelheid"
 
-#: .\admin_app\models.py:139
+#: .\admin_app\models.py:180
 msgid "Parent"
 msgstr "Ouder"
 
-#: .\admin_app\models.py:147 .\admin_app\models.py:163
+#: .\admin_app\models.py:189 .\admin_app\models.py:205
 msgid "Sponsor"
 msgstr "Sponser"
 
-#: .\admin_app\models.py:148 .\saranalaya\settings.py:244
+#: .\admin_app\models.py:190 .\saranalaya\settings.py:255
 msgid "Sponsors"
 msgstr "Sponsers"
 
-#: .\admin_app\models.py:150
+#: .\admin_app\models.py:192
 msgid "Letters"
 msgstr "Brieven"
 
-#: .\admin_app\models.py:157
+#: .\admin_app\models.py:199
 msgid "Donation"
 msgstr "Donatie"
 
-#: .\admin_app\models.py:158 .\admin_app\views.py:79 .\admin_app\views.py:109
-#: .\saranalaya\settings.py:249
+#: .\admin_app\models.py:200 .\admin_app\views.py:80 .\admin_app\views.py:110
+#: .\saranalaya\settings.py:261
 msgid "Donations"
 msgstr "Donaties"
 
-#: .\admin_app\templates\admin\index.html:8 .\saranalaya\settings.py:224
+#: .\admin_app\templates\admin\index.html:8 .\saranalaya\settings.py:232
 msgid "Dashboard"
 msgstr "Dashboard"
 
@@ -288,36 +349,36 @@ msgstr "Django site admin"
 msgid "Income"
 msgstr "Inkomsten"
 
-#: .\admin_app\views.py:20
+#: .\admin_app\views.py:21
 #, python-brace-format
 msgid "progress from {last_year}"
 msgstr "vooruitgang van {last_year}"
 
-#: .\admin_app\views.py:73
+#: .\admin_app\views.py:74
 msgid "Current"
 msgstr "Huidig"
 
-#: .\admin_app\views.py:75
+#: .\admin_app\views.py:76
 msgid "Only active children are counted"
 msgstr "Alleen actieve kinderen worden meegeteld"
 
-#: .\admin_app\views.py:89
+#: .\admin_app\views.py:90
 msgid "All Time"
 msgstr "Sinds begin"
 
-#: .\admin_app\views.py:91
+#: .\admin_app\views.py:92
 msgid "Only active parents are counted"
 msgstr "Alleen actieve ouders worden meegeteld"
 
-#: .\admin_app\views.py:95 .\admin_app\views.py:116
+#: .\admin_app\views.py:96 .\admin_app\views.py:117
 msgid "Parent Payments"
 msgstr "Adoptie-ouder Betalingen"
 
-#: .\admin_app\views.py:126
+#: .\admin_app\views.py:127
 msgid "By Admission Date"
 msgstr "Door Dag van Aankomst"
 
-#: .\admin_app\views.py:139
+#: .\admin_app\views.py:140
 msgid "By Status"
 msgstr "Door Status"
 
@@ -484,23 +545,23 @@ msgstr "Deelnemer is reeds aanwezig!"
 msgid "unknown request."
 msgstr "onbekend verzoek."
 
-#: .\saranalaya\settings.py:221
+#: .\saranalaya\settings.py:229
 msgid "Navigation"
 msgstr "Navigatie"
 
-#: .\saranalaya\settings.py:260
+#: .\saranalaya\settings.py:273
 msgid "Events"
 msgstr "Evenementen"
 
-#: .\saranalaya\settings.py:265
+#: .\saranalaya\settings.py:278
 msgid "Tickets"
 msgstr "Tickets"
 
-#: .\saranalaya\settings.py:270
+#: .\saranalaya\settings.py:283
 msgid "Participants"
 msgstr "Deelnemers"
 
-#: .\saranalaya\settings.py:281
+#: .\saranalaya\settings.py:294
 msgid "Scanner"
 msgstr "Scanner"
 
