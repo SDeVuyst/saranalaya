@@ -73,12 +73,12 @@ class Child(models.Model):
     @admin.display(description=_('Adoption Parents'))
     def get_adoption_parents_formatted(self):
         formatted_list = []
-        for parent in self.adoptionparent_set.all():
-            if not parent.active: continue
+        for adoption in Adoption.objects.filter(child_id=self.pk):
+            if not adoption.adoptionparent.active: continue
 
-            url = resolve_url(admin_urlname(AdoptionParent._meta, 'change'), parent.id)
+            url = resolve_url(admin_urlname(AdoptionParent._meta, 'change'), adoption.adoptionparent.id)
             formatted_list.append(format_html(
-                '<a href="{url}">{name}</a>'.format(url=url, name=str(parent.first_name + ' ' + parent.last_name))
+                f'<a class="{"bg-red-100 text-red-700 dark:bg-red-500/20 dark:text-red-400 leading-normal py-1 px-1 rounded" if not adoption.active else ""}" href="{url}">{str(adoption.adoptionparent.first_name + " " + adoption.adoptionparent.last_name)}</a>'
             ))
 
         return format_html(", ".join(formatted_list))
@@ -134,10 +134,10 @@ class AdoptionParent(Supporter):
     @admin.display(description=_('Children'))
     def get_children(self):
         formatted_list = []
-        for child in self.children.all():
-            url = resolve_url(admin_urlname(Child._meta, 'change'), child.id)
+        for adoption in Adoption.objects.filter(adoptionparent_id=self.pk):
+            url = resolve_url(admin_urlname(Child._meta, 'change'), adoption.child.id)
             formatted_list.append(format_html(
-                '<a href="{url}">{name}</a>'.format(url=url, name=str(child.name))
+                f'<a class="{"bg-red-100 text-red-700 dark:bg-red-500/20 dark:text-red-400 leading-normal py-1 px-1 rounded" if not adoption.active else ""}"href="{url}">{str(adoption.child.name)}</a>'
             ))
 
         return format_html(", ".join(formatted_list))
