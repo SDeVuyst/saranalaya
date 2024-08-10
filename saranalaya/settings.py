@@ -16,7 +16,6 @@ import random
 from django.templatetags.static import static
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
-import pytz
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -118,12 +117,6 @@ DATABASES = {
     }
 }
 
-# Celery
-CELERY_BROKER_URL = 'redis://redis:6379/0'
-CELERY_BROKER_CONNECTION_RETRY = True
-CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True
-CELERY_DJANGO_CELERY_BEAT_TZ_AWARE = False
-DJANGO_CELERY_BEAT_TZ_AWARE = False
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -147,7 +140,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
-USE_TZ = False
+USE_TZ = True
 TIME_ZONE = 'Europe/Brussels'
 
 USE_I18N = True
@@ -162,6 +155,12 @@ LANGUAGES = [
     ('ta', 'Tamil'),
 ]
 
+# Celery
+CELERY_BROKER_URL = 'redis://redis:6379/0'
+CELERY_BROKER_CONNECTION_RETRY = True
+CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True
+CELERY_DJANGO_CELERY_BEAT_TZ_AWARE = True
+DJANGO_CELERY_BEAT_TZ_AWARE = True
 
 # Emailing
 
