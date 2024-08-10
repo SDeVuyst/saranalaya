@@ -30,15 +30,15 @@ def notification_mail(user_id):
     message_lines = [f"Beste {user.username},\n\nJe hebt de volgende ongelezen meldingen:"]
     
     if child_noti:
-        message_lines.append(f"- Kind meldingen: {child_noti}")
+        message_lines.append(f"- Kinderen: {child_noti}")
     if adoptionparent_noti:
-        message_lines.append(f"- Adoptie-ouder meldingen: {adoptionparent_noti}")
+        message_lines.append(f"- Adoptie-ouders: {adoptionparent_noti}")
     if payment_noti:
-        message_lines.append(f"- Adoptie-ouder Betaling meldingen: {payment_noti}")
+        message_lines.append(f"- Adoptie-ouder Betalingen: {payment_noti}")
     if sponsor_noti:
-        message_lines.append(f"- Sponsor meldingen: {sponsor_noti}")
+        message_lines.append(f"- Sponsors: {sponsor_noti}")
     if donation_noti:
-        message_lines.append(f"- Donatie meldingen: {donation_noti}")
+        message_lines.append(f"- Donaties: {donation_noti}")
 
     message = "\n".join(message_lines) + "\n\nBekijk ze via vanakaam.be/admin"
     
