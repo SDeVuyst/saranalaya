@@ -74,8 +74,6 @@ class Child(models.Model):
     def get_adoption_parents_formatted(self):
         formatted_list = []
         for adoption in Adoption.objects.filter(child_id=self.pk):
-            if not adoption.adoptionparent.active: continue
-
             url = resolve_url(admin_urlname(AdoptionParent._meta, 'change'), adoption.adoptionparent.id)
             formatted_list.append(format_html(
                 f'<a class="{"bg-red-100 text-red-700 dark:bg-red-500/20 dark:text-red-400 leading-normal py-1 px-1 rounded" if not adoption.active else ""}" href="{url}">{str(adoption.adoptionparent.first_name + " " + adoption.adoptionparent.last_name)}</a>'
@@ -147,6 +145,15 @@ class AdoptionParent(Supporter):
     active = models.BooleanField(default=True, verbose_name=_("Active"))
 
     history = HistoricalRecords(verbose_name=_("History"))
+
+    def save(self, *args, **kwargs):
+        if self.pk:
+            old_instance = self.__class__.objects.get(pk=self.pk)
+            if old_instance.active and not self.active:
+                # Set all adoptions to inactive if parent is set to inactive
+                Adoption.objects.filter(adoptionparent_id=self.pk).update(active=False)
+
+        super().save(*args, **kwargs)
 
 
 class Adoption(models.Model):
