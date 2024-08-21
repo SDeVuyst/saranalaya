@@ -175,10 +175,12 @@ class AdoptionParentSponsoringInline(StackedInline):
     model = AdoptionParentSponsoring
     form = AdoptionSponsoringForm
     extra = 1
+    ordering = ['-date']
 
 
 class DonationInline(StackedInline):
     model = Donation
+    ordering = ['-date']
 
 
 
