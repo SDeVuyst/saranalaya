@@ -1,5 +1,5 @@
 Django
-psycopg2
+psycopg2-binary>=2.9.8
 reportlab
 django-dbbackup 
 boto3
