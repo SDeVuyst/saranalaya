@@ -4,7 +4,7 @@ reportlab
 django-dbbackup 
 boto3
 django-storages
-django-unfold
+django-unfold==0.36.0
 django-simple-history
 django-payments
 django-money
