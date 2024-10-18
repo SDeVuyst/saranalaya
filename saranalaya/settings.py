@@ -245,7 +245,7 @@ UNFOLD = {
                         "badge": "admin_app.utils.utils.adoptionparent_badge_callback",
                     },
                     {
-                        "title": _("Adoption Parent Payments"),
+                        "title": _("Adoption Payments"),
                         "icon": "account_balance",
                         "link": "/admin/admin_app/adoptionparentsponsoring/",
                         "badge": "admin_app.utils.utils.payment_badge_callback",
