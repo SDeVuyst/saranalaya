@@ -10,7 +10,7 @@ from django.template.response import TemplateResponse
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.csrf import csrf_exempt
 
-from .models import Event, Participant, Payment, Ticket
+from .models import Event, Participant, Payment, PaymentStatus, Ticket
 from .utils import helpers
 from .payment import MollieClient
 
@@ -130,6 +130,10 @@ def set_attendance(request):
             return JsonResponse({'success': False, 'message': _("QR code not recognised!")}, status=400)
         
         participant = get_object_or_404(Participant, pk=participant_id)
+
+        # participant hasnt paid
+        if participant.payment.status != PaymentStatus.PAID:
+            return JsonResponse({'success': False, 'message': _("Fraud Detected!")}, status=400)
 
         # check if seed is correct
         if seed != participant.random_seed:
