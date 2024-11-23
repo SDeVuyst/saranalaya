@@ -19,6 +19,7 @@ services:
 
   celery:
     build: .
+    restart: always
     command: celery -A saranalaya worker -l INFO
     env_file: stack.env
     depends_on:
@@ -28,6 +29,7 @@ services:
 
   celery-beat:
     build: .
+    restart: always
     command: celery -A saranalaya beat -l INFO --scheduler django_celery_beat.schedulers:DatabaseScheduler
     env_file: stack.env
     depends_on:
@@ -50,6 +52,7 @@ services:
 
   redis:
     image: redis:latest
+    restart: always
     ports:
       - 6379:6379
 
