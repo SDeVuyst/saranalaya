@@ -476,7 +476,7 @@ class AdoptionParentSponsoringAdmin(SimpleHistoryAdmin, ModelAdmin):
         # queryset should only be the corresponding adoptionparents
         parent_queryset = queryset.values_list('parent', flat=True).distinct()
         parents = AdoptionParent.objects.filter(id__in=parent_queryset)
-        link = helper.generateMailList(modeladmin, request, queryset)
+        link = helper.generateMailList(modeladmin, request, parents)
         query_string = urlencode({'emails': link})
         return HttpResponseRedirect(reverse('admin:generate_mailto_link') + '?' + query_string)
     
