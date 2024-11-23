@@ -173,7 +173,7 @@ def generate_mailto_link(request):
     # Generate buttons for each batch of email links
     buttons_html = ""
     for i, group in enumerate(email_groups):
-        mailto_link = f"mailto:{','.join(group)}?subject=Important Information&body=Please review the following information."
+        mailto_link = f"mailto:?bcc={','.join(group)}?subject=Important Information&body=Please review the following information."
         buttons_html += f"""
         <button onclick="window.open('{mailto_link}', '_blank')">Open Batch {i + 1}</button><br>
         """
