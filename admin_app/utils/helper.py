@@ -1,7 +1,7 @@
 from io import BytesIO
 from reportlab.pdfgen import canvas
 from django.http import FileResponse
-
+from PyPDF2 import PdfWriter, PdfReader
 
 def get_years_from_request(request):
     valid_years = request.GET.getlist('years', [])
@@ -21,19 +21,30 @@ def generateMailList(modeladmin, request, queryset):
 
 
 def generateAddressList(modeladmin, request, queryset):
-    response = FileResponse(generateAddressListFile(queryset), 
+    buffers = []
+    # split queryset into chunks of 8
+    # its possible that queryset is not divisible by 8
+    # so we need to handle the last chunk separately
+    chunks, chunk_size = len(queryset) // 8, 8
+    for i in range(chunks):
+        chunk = queryset[i * chunk_size:(i + 1) * chunk_size]
+        buffers.append(generateAddressListFile(chunk))
+    if len(queryset) % 8 != 0:
+        chunk = queryset[chunks * chunk_size:]
+        buffers.append(generateAddressListFile(chunk))
+
+    merged_pdf = mergeBuffersIntoPdf(buffers)
+
+    response = FileResponse(merged_pdf, 
                             as_attachment=True, 
                             filename='address_list.pdf')
     return response
 
 
-def generateAddressListFile(queryset):
+def generateAddressListFile(supporters):
     buffer = BytesIO()
     p = canvas.Canvas(buffer)
- 
-    # Create a PDF document
-    supporters = queryset.all()
- 
+  
     y = 790
     for supporter in supporters:
         p.drawString(50, y, f"{supporter.first_name} {supporter.last_name}")
@@ -52,3 +63,19 @@ def generateAddressListFile(queryset):
 def percentage_change(a, b):
     if a == 0: return -100
     return (b - a) / a * 100
+
+
+def mergeBuffersIntoPdf(buffers):
+    # Use PyPDF2 to merge buffers
+    writer = PdfWriter()
+
+    for buffer in buffers:
+        reader = PdfReader(buffer)
+        for page in reader.pages:
+            writer.add_page(page)
+
+    # Output the merged PDF into a new buffer
+    merged_buffer = BytesIO()
+    writer.write(merged_buffer)
+    merged_buffer.seek(0)
+    return merged_buffer

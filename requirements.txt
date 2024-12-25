@@ -16,3 +16,4 @@ gunicorn==23.0.0
 mollie-api-python==3.7.2
 django-celery-beat==2.7.0
 redis==5.2.0
+PyPDF2==3.0.1
