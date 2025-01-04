@@ -3,7 +3,7 @@ from email.utils import formataddr
 from celery import shared_task 
 from django.conf import settings
 from django.core.mail import send_mail
-from .models import AdoptionParent, AdoptionParentSponsoring, Child, User
+from .models import AdoptionParent, AdoptionParentSponsoring, Child, User, StatusChoices
 from .utils import utils
 
 
@@ -65,6 +65,9 @@ def add_yearly_adoption_parent_payments():
         children_of_sponsor = [c for c in all_children if sponsor in c.get_adoption_parents() and sponsor.active]
         
         for child in children_of_sponsor:
+            if child.status != StatusChoices.ACTIVE:
+                continue
+
             sp = AdoptionParentSponsoring(
                 date=datetime.now(),
                 amount=0, 
