@@ -1,7 +1,10 @@
+from email.utils import formataddr
 from django.contrib import admin, messages
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.utils.http import urlencode
+from django.core.mail import send_mail
+from django.conf import settings
 from .models import *
 from .utils import helper
 from datetime import datetime
@@ -31,6 +34,53 @@ from unfold.widgets import (
     UnfoldAdminSelectWidget,
     UnfoldAdminTextInputWidget,
 )
+
+class NotiModelAdmin(ModelAdmin):
+    """Base admin class that captures the request user and sends notifications"""
+
+    def save_model(self, request, obj, form, change):
+        """Capture the user making the update and differentiate between create/update"""
+        is_new = not change  # True if it's a create, False if it's an update
+        super().save_model(request, obj, form, change)
+        self.send_model_notifications(obj, request.user, "create" if is_new else "update")
+
+    def send_model_notifications(self, instance, updated_by, action):
+        """Send notifications only if the update was made by a watched user"""
+
+        model_name = instance._meta.verbose_name
+        try:
+            preference = ModelNotificationPreference.objects.get(model_name=model_name)
+            print(preference)
+
+            # Check if the updater is in the watched users list
+            if updated_by in preference.watched_users.all():
+                # Generate the admin URL for the model (only for create & update)
+                admin_url = resolve_url(
+                    reverse(f"admin:{instance._meta.app_label}_{instance._meta.model_name}_change", args=[instance.pk])
+                )
+                admin_link = f"\n\nView in admin: {admin_url}"
+
+                # Get all subscriber emails
+                recipient_emails = [user.email for user in preference.subscribers.all() if user.email]
+
+                if recipient_emails:
+                    action_messages = {
+                        "create": f"🆕 {updated_by.username} has created a new {model_name}: {instance}",
+                        "update": f"✏️ {updated_by.username} has updated a {model_name}: {instance}",
+                    }
+
+                    email_subject = f"{model_name} was {action}d!"
+                    email_message = f"{action_messages[action]}{admin_link}"
+                    
+                    send_mail(
+                        subject=email_subject,
+                        message=email_message,
+                        from_email=formataddr(('Admin | Saranalaya', settings.EMAIL_HOST_USER)),
+                        recipient_list=recipient_emails,
+                    )
+
+        except ModelNotificationPreference.DoesNotExist as err:
+            pass  # No preferences set for this model
 
 
 # FORMS #
@@ -187,8 +237,8 @@ class DonationInline(StackedInline):
 # MODELS #
 
 @admin.register(AdoptionParent, site=saranalaya_admin_site)
-class AdoptionParentAdmin(SimpleHistoryAdmin, ModelAdmin):
-    list_display = ('changed_and_first_name', 'last_name', 'get_children')
+class AdoptionParentAdmin(SimpleHistoryAdmin, NotiModelAdmin):
+    list_display = ('first_name', 'last_name', 'get_children')
     exclude = ('children',)
     ordering = ('first_name', 'last_name')
     inlines = [ 
@@ -210,8 +260,6 @@ class AdoptionParentAdmin(SimpleHistoryAdmin, ModelAdmin):
         "add_new_sponsoring",
         "generate_address_list",
         "generate_mail_list",
-        "mark_as_read",
-        "mark_as_unread",
     ]
 
     @action(description=_('Add New Payment'))
@@ -249,75 +297,6 @@ class AdoptionParentAdmin(SimpleHistoryAdmin, ModelAdmin):
         query_string = urlencode({'emails': link})
         return HttpResponseRedirect(reverse('admin:generate_mailto_link') + '?' + query_string)
     
-    @action(description=_("Mark as read"))
-    def mark_as_read(self, request, queryset):
-        content_type = ContentType.objects.get_for_model(AdoptionParent)
-        updated_count = 0
-
-        for obj in queryset:
-            # Update or create UserView entry
-            user_view, created = UserView.objects.update_or_create(
-                user=request.user,
-                content_type=content_type,
-                object_id=obj.id,
-                defaults={'last_viewed': timezone.now()}
-            )
-            if not created:
-                updated_count += 1
-
-        self.message_user(request, _(f"{updated_count} adoption parents were successfully marked as read."))
-
-
-    @action(description=_("Mark as unread"))
-    def mark_as_unread(self, request, queryset):
-        content_type = ContentType.objects.get_for_model(AdoptionParent)
-        deleted_count = 0
-
-        for obj in queryset:
-            user_view_qs = UserView.objects.filter(
-                user=request.user,
-                content_type=content_type,
-                object_id=obj.id
-            )
-            deleted_count += user_view_qs.count()
-            user_view_qs.delete()
-
-        self.message_user(request, _(f"{deleted_count} adoption parents were successfully marked as unread."))
-    
-
-    @display(description=_lazy_('First Name'))
-    def changed_and_first_name(self, obj):
-        # Get content type for the model
-        content_type = ContentType.objects.get_for_model(AdoptionParent)
-
-        # Check if there's a UserView record for the object and user
-        user_view = UserView.objects.filter(
-            user=self.request.user,
-            content_type=content_type,
-            object_id=obj.id
-        ).first()
-
-        # Determine if the object has been updated since last viewed
-        has_viewed = user_view is not None and obj.last_updated <= user_view.last_viewed
-
-        # Return HTML with a red dot if not viewed
-        red_dot = '<div class="block mr-3 outline rounded-full ml-1 h-1 w-1 bg-red-500 outline-red-200 dark:outline-red-500/20"></div>'
-        return format_html('<div class="flex items-center">{} <span>{}</span></div>'.format(red_dot if not has_viewed else '', obj.first_name))
-    
-
-    def change_view(self, request, object_id, form_url='', extra_context=None):
-        response = super().change_view(request, object_id, form_url, extra_context)
-
-        # Update the UserView record
-        content_type = ContentType.objects.get_for_model(AdoptionParent)
-        UserView.objects.update_or_create(
-            user=request.user,
-            content_type=content_type,
-            object_id=object_id,
-            defaults={'last_viewed': timezone.now()}
-        )
-        return response
-    
     def get_queryset(self, request):
         qs = super().get_queryset(request)
         self.request = request  # Make the request available for instance methods
@@ -325,9 +304,9 @@ class AdoptionParentAdmin(SimpleHistoryAdmin, ModelAdmin):
     
 
 @admin.register(Child, site=saranalaya_admin_site)
-class ChildAdmin(SimpleHistoryAdmin, ModelAdmin):
+class ChildAdmin(SimpleHistoryAdmin, NotiModelAdmin):
 
-    list_display = ('changed_and_name', 'status_colored', 'day_of_birth', 'get_adoption_parents_formatted')
+    list_display = ('name', 'status_colored', 'day_of_birth', 'get_adoption_parents_formatted')
 
     @display(
         description=_lazy_('Status'), 
@@ -339,26 +318,6 @@ class ChildAdmin(SimpleHistoryAdmin, ModelAdmin):
     )
     def status_colored(self, obj):
         return obj.status, obj.get_status_display()
-    
-    @display(description=_lazy_('Name'))
-    def changed_and_name(self, obj):
-        # Get content type for the model
-        content_type = ContentType.objects.get_for_model(Child)
-
-        # Check if there's a UserView record for the object and user
-        user_view = UserView.objects.filter(
-            user=self.request.user,
-            content_type=content_type,
-            object_id=obj.id
-        ).first()
-
-        # Determine if the object has been updated since last viewed
-        has_viewed = user_view is not None and obj.last_updated <= user_view.last_viewed
-
-        # Return HTML with a red dot if not viewed
-        red_dot = '<div class="block mr-3 outline rounded-full ml-1 h-1 w-1 bg-red-500 outline-red-200 dark:outline-red-500/20"></div>'
-        return format_html('<div class="flex items-center">{} <span>{}</span></div>'.format(red_dot if not has_viewed else '', obj.name))
-    
     
     @action(description=_("Generate Address List"))
     def generate_address_list(modeladmin, request, queryset):
@@ -380,20 +339,6 @@ class ChildAdmin(SimpleHistoryAdmin, ModelAdmin):
         link = helper.generateMailList(modeladmin, request, adoption_parents)
         query_string = urlencode({'emails': link})
         return HttpResponseRedirect(reverse('admin:generate_mailto_link') + '?' + query_string)
-    
-
-    def change_view(self, request, object_id, form_url='', extra_context=None):
-        response = super().change_view(request, object_id, form_url, extra_context)
-
-        # Update the UserView record
-        content_type = ContentType.objects.get_for_model(Child)
-        UserView.objects.update_or_create(
-            user=request.user,
-            content_type=content_type,
-            object_id=object_id,
-            defaults={'last_viewed': timezone.now()}
-        )
-        return response
     
     def get_queryset(self, request):
         qs = super().get_queryset(request)
@@ -420,54 +365,19 @@ class ChildAdmin(SimpleHistoryAdmin, ModelAdmin):
     list_filter_submit = True
 
     actions = [
-        "mark_as_read",
-        "mark_as_unread",
+        "generate_address_list",
+        "generate_mail_list",
     ]
-
-    @action(description=_("Mark as read"))
-    def mark_as_read(self, request, queryset):
-        content_type = ContentType.objects.get_for_model(Child)
-        updated_count = 0
-
-        for obj in queryset:
-            # Update or create UserView entry
-            user_view, created = UserView.objects.update_or_create(
-                user=request.user,
-                content_type=content_type,
-                object_id=obj.id,
-                defaults={'last_viewed': timezone.now()}
-            )
-            if not created:
-                updated_count += 1
-
-        self.message_user(request, _(f"{updated_count} children were successfully marked as read."))
-
-
-    @action(description=_("Mark as unread"))
-    def mark_as_unread(self, request, queryset):
-        content_type = ContentType.objects.get_for_model(Child)
-        deleted_count = 0
-
-        for obj in queryset:
-            user_view_qs = UserView.objects.filter(
-                user=request.user,
-                content_type=content_type,
-                object_id=obj.id
-            )
-            deleted_count += user_view_qs.count()
-            user_view_qs.delete()
-
-        self.message_user(request, _(f"{deleted_count} children were successfully marked as unread."))
 
 
 @admin.register(AdoptionParentSponsoring, site=saranalaya_admin_site)
-class AdoptionParentSponsoringAdmin(SimpleHistoryAdmin, ModelAdmin):
+class AdoptionParentSponsoringAdmin(SimpleHistoryAdmin, NotiModelAdmin):
     class Media:
         js = ('js/paymentcolor.js',)   
 
     form = AdoptionSponsoringForm
 
-    list_display = ('changed_and_date', 'amount', 'parent', 'child', 'get_amount_left')
+    list_display = ('date', 'amount', 'parent', 'child', 'get_amount_left')
     ordering = ('-date', 'amount')
 
     search_fields = ('date', 'amount', 'description', 'parent__first_name', 'parent__last_name','parent__firm', 'parent__street_name', 'parent__postcode', 'parent__city', 'parent__country', 'parent__mail', 'parent__description', 'parent__phone_number', 'child__name')
@@ -502,73 +412,6 @@ class AdoptionParentSponsoringAdmin(SimpleHistoryAdmin, ModelAdmin):
         query_string = urlencode({'emails': link})
         return HttpResponseRedirect(reverse('admin:generate_mailto_link') + '?' + query_string)
     
-    @action(description=_("Mark as read"))
-    def mark_as_read(self, request, queryset):
-        content_type = ContentType.objects.get_for_model(AdoptionParentSponsoring)
-        updated_count = 0
-
-        for obj in queryset:
-            # Update or create UserView entry
-            user_view, created = UserView.objects.update_or_create(
-                user=request.user,
-                content_type=content_type,
-                object_id=obj.id,
-                defaults={'last_viewed': timezone.now()}
-            )
-            if not created:
-                updated_count += 1
-
-        self.message_user(request, _(f"{updated_count} payments were successfully marked as read."))
-
-
-    @action(description=_("Mark as unread"))
-    def mark_as_unread(self, request, queryset):
-        content_type = ContentType.objects.get_for_model(AdoptionParentSponsoring)
-        deleted_count = 0
-
-        for obj in queryset:
-            user_view_qs = UserView.objects.filter(
-                user=request.user,
-                content_type=content_type,
-                object_id=obj.id
-            )
-            deleted_count += user_view_qs.count()
-            user_view_qs.delete()
-
-        self.message_user(request, _(f"{deleted_count} payments were successfully marked as unread."))
-
-    @display(description=_lazy_('Date'))
-    def changed_and_date(self, obj):
-        # Get content type for the model
-        content_type = ContentType.objects.get_for_model(AdoptionParentSponsoring)
-
-        # Check if there's a UserView record for the object and user
-        user_view = UserView.objects.filter(
-            user=self.request.user,
-            content_type=content_type,
-            object_id=obj.id
-        ).first()
-
-        # Determine if the object has been updated since last viewed
-        has_viewed = user_view is not None and obj.last_updated <= user_view.last_viewed
-
-        # Return HTML with a red dot if not viewed
-        red_dot = '<div class="block mr-3 outline rounded-full ml-1 h-1 w-1 bg-red-500 outline-red-200 dark:outline-red-500/20"></div>'
-        return format_html('<div class="flex items-center">{} <span>{}</span></div>'.format(red_dot if not has_viewed else '', obj.date))
-    
-
-    def change_view(self, request, object_id, form_url='', extra_context=None):
-        response = super().change_view(request, object_id, form_url, extra_context)
-
-        # Update the UserView record
-        content_type = ContentType.objects.get_for_model(AdoptionParentSponsoring)
-        UserView.objects.update_or_create(
-            user=request.user,
-            content_type=content_type,
-            object_id=object_id,
-            defaults={'last_viewed': timezone.now()}
-        )
-        return response
     
     def get_queryset(self, request):
         qs = super().get_queryset(request)
@@ -577,8 +420,8 @@ class AdoptionParentSponsoringAdmin(SimpleHistoryAdmin, ModelAdmin):
     
 
 @admin.register(Sponsor, site=saranalaya_admin_site)
-class SponsorAdmin(SimpleHistoryAdmin, ModelAdmin):
-    list_display = ('changed_and_first_name', 'last_name', 'letters')
+class SponsorAdmin(SimpleHistoryAdmin, NotiModelAdmin):
+    list_display = ('first_name', 'last_name', 'letters')
     ordering = ('first_name', 'last_name')
     inlines = [
         DonationInline
@@ -595,8 +438,6 @@ class SponsorAdmin(SimpleHistoryAdmin, ModelAdmin):
     actions = [
         "generate_address_list",
         "generate_mail_list",
-        "mark_as_read",
-        "mark_as_unread"
     ]
 
     @action(description=_("Generate Address List"))
@@ -609,74 +450,6 @@ class SponsorAdmin(SimpleHistoryAdmin, ModelAdmin):
         query_string = urlencode({'emails': link})
         return HttpResponseRedirect(reverse('admin:generate_mailto_link') + '?' + query_string)
     
-    @action(description=_("Mark as read"))
-    def mark_as_read(self, request, queryset):
-        content_type = ContentType.objects.get_for_model(Sponsor)
-        updated_count = 0
-
-        for obj in queryset:
-            # Update or create UserView entry
-            user_view, created = UserView.objects.update_or_create(
-                user=request.user,
-                content_type=content_type,
-                object_id=obj.id,
-                defaults={'last_viewed': timezone.now()}
-            )
-            if not created:
-                updated_count += 1
-
-        self.message_user(request, _(f"{updated_count} sponsors were successfully marked as read."))
-
-
-    @action(description=_("Mark as unread"))
-    def mark_as_unread(self, request, queryset):
-        content_type = ContentType.objects.get_for_model(Sponsor)
-        deleted_count = 0
-
-        for obj in queryset:
-            user_view_qs = UserView.objects.filter(
-                user=request.user,
-                content_type=content_type,
-                object_id=obj.id
-            )
-            deleted_count += user_view_qs.count()
-            user_view_qs.delete()
-
-        self.message_user(request, _(f"{deleted_count} sponsors were successfully marked as unread."))
-    
-    @display(description=_lazy_('First Name'))
-    def changed_and_first_name(self, obj):
-        # Get content type for the model
-        content_type = ContentType.objects.get_for_model(Sponsor)
-
-        # Check if there's a UserView record for the object and user
-        user_view = UserView.objects.filter(
-            user=self.request.user,
-            content_type=content_type,
-            object_id=obj.id
-        ).first()
-
-        # Determine if the object has been updated since last viewed
-        has_viewed = user_view is not None and obj.last_updated <= user_view.last_viewed
-
-        # Return HTML with a red dot if not viewed
-        red_dot = '<div class="block mr-3 outline rounded-full ml-1 h-1 w-1 bg-red-500 outline-red-200 dark:outline-red-500/20"></div>'
-        return format_html('<div class="flex items-center">{} <span>{}</span></div>'.format(red_dot if not has_viewed else '', obj.first_name))
-    
-
-    def change_view(self, request, object_id, form_url='', extra_context=None):
-        response = super().change_view(request, object_id, form_url, extra_context)
-
-        # Update the UserView record
-        content_type = ContentType.objects.get_for_model(Sponsor)
-        UserView.objects.update_or_create(
-            user=request.user,
-            content_type=content_type,
-            object_id=object_id,
-            defaults={'last_viewed': timezone.now()}
-        )
-        return response
-    
 
     def get_queryset(self, request):
         qs = super().get_queryset(request)
@@ -685,8 +458,8 @@ class SponsorAdmin(SimpleHistoryAdmin, ModelAdmin):
     
 
 @admin.register(Donation, site=saranalaya_admin_site)
-class DonationAdmin(SimpleHistoryAdmin, ModelAdmin):
-    list_display = ('changed_and_date', 'amount', 'sponsor')
+class DonationAdmin(SimpleHistoryAdmin, NotiModelAdmin):
+    list_display = ('date', 'amount', 'sponsor')
     ordering = ('-date', 'amount')
     search_fields = ('sponsor__first_name', 'sponsor__last_name', 'sponsor__firm', 'sponsor__street_name', 'sponsor__postcode', 'sponsor__city', 'sponsor__country', 'sponsor__mail', 'sponsor__description', 'sponsor__phone_number', 'amount', 'date', 'description')
     list_filter = (
@@ -694,87 +467,18 @@ class DonationAdmin(SimpleHistoryAdmin, ModelAdmin):
         ('amount', RangeNumericFilter),
         'sponsor'
     )
-    list_filter_submit = True
-
-    actions = [
-        "mark_as_read",
-        "mark_as_unread"
-    ]
-
-    @action(description=_("Mark as read"))
-    def mark_as_read(self, request, queryset):
-        content_type = ContentType.objects.get_for_model(Donation)
-        updated_count = 0
-
-        for obj in queryset:
-            # Update or create UserView entry
-            user_view, created = UserView.objects.update_or_create(
-                user=request.user,
-                content_type=content_type,
-                object_id=obj.id,
-                defaults={'last_viewed': timezone.now()}
-            )
-            if not created:
-                updated_count += 1
-
-        self.message_user(request, _(f"{updated_count} donations were successfully marked as read."))
-
-
-    @action(description=_("Mark as unread"))
-    def mark_as_unread(self, request, queryset):
-        content_type = ContentType.objects.get_for_model(Donation)
-        deleted_count = 0
-
-        for obj in queryset:
-            user_view_qs = UserView.objects.filter(
-                user=request.user,
-                content_type=content_type,
-                object_id=obj.id
-            )
-            deleted_count += user_view_qs.count()
-            user_view_qs.delete()
-
-        self.message_user(request, _(f"{deleted_count} donations were successfully marked as unread."))
-
-    @display(description=_lazy_('Date'))
-    def changed_and_date(self, obj):
-        # Get content type for the model
-        content_type = ContentType.objects.get_for_model(Donation)
-
-        # Check if there's a UserView record for the object and user
-        user_view = UserView.objects.filter(
-            user=self.request.user,
-            content_type=content_type,
-            object_id=obj.id
-        ).first()
-
-        # Determine if the object has been updated since last viewed
-        has_viewed = user_view is not None and obj.last_updated <= user_view.last_viewed
-
-        # Return HTML with a red dot if not viewed
-        red_dot = '<div class="block mr-3 outline rounded-full ml-1 h-1 w-1 bg-red-500 outline-red-200 dark:outline-red-500/20"></div>'
-        return format_html('<div class="flex items-center">{} <span>{}</span></div>'.format(red_dot if not has_viewed else '', obj.date))
-    
-
-    def change_view(self, request, object_id, form_url='', extra_context=None):
-        response = super().change_view(request, object_id, form_url, extra_context)
-
-        # Update the UserView record
-        content_type = ContentType.objects.get_for_model(Donation)
-        UserView.objects.update_or_create(
-            user=request.user,
-            content_type=content_type,
-            object_id=object_id,
-            defaults={'last_viewed': timezone.now()}
-        )
-        return response
-    
+    list_filter_submit = True    
 
     def get_queryset(self, request):
         qs = super().get_queryset(request)
         self.request = request  # Make the request available for instance methods
         return qs
 
+
+@admin.register(ModelNotificationPreference, site=saranalaya_admin_site)
+class ModelNotificationPreferenceAdmin(ModelAdmin):
+    list_display = ("model_name",)  
+    filter_horizontal = ("subscribers", "watched_users")  # Allows selecting multiple users
 
 # CELERY #
 

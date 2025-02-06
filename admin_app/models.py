@@ -1,13 +1,14 @@
+from django.apps import apps
 from django.db import models
 from django.contrib import admin
 from django.utils.html import format_html
 from django.shortcuts import resolve_url
+from django.contrib.auth import get_user_model
 from django.contrib.admin.templatetags.admin_urls import admin_urlname
-from django.contrib.contenttypes.fields import GenericForeignKey
-from django.contrib.contenttypes.models import ContentType
 from django.utils.translation import gettext_lazy as _
+from django.utils.timezone import now
 from simple_history.models import HistoricalRecords
-from django.urls import path
+from django.urls import path, reverse
 from .views import generate_mailto_link
 from django.contrib.auth.models import User, Group
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
@@ -57,6 +58,14 @@ class StatusChoices(models.TextChoices):
     LEFT = 'l', _('Left')
     SUPPORT = 's', _('Support')
 
+
+class ModelChoices(models.TextChoices):
+    CHILD = 'Child', _('Child')
+    ADOPTIONPARENT = 'Adoption Parent', _('Adoption Parent')
+    ADOPTION = 'Adoption', _('Adoption')
+    ADOPTIONPARENTSPONSORING = 'Adoption Parent Payment', _('Adoption Parent Payment')
+    SPONSOR = 'Sponsor', _('Sponsor')
+    DONATION = 'Donation', _('Donation')
 
 
 # MODELS #
@@ -157,6 +166,10 @@ class AdoptionParent(Supporter):
 
 
 class Adoption(models.Model):
+    class Meta:
+        verbose_name = _("Adoption")
+        verbose_name_plural = _("Adoptions")
+
     adoptionparent = models.ForeignKey(AdoptionParent, on_delete=models.CASCADE)
     child = models.ForeignKey(Child, on_delete=models.CASCADE)
 
@@ -218,12 +231,13 @@ class Donation(models.Model):
     history = HistoricalRecords(verbose_name=_("History"))
 
 
-class UserView(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
-    object_id = models.PositiveIntegerField()
-    content_object = GenericForeignKey('content_type', 'object_id')
-    last_viewed = models.DateTimeField(auto_now=True)
+User = get_user_model()
 
-    class Meta:
-        unique_together = ('user', 'content_type', 'object_id')
+class ModelNotificationPreference(models.Model):
+    model_name = models.CharField(max_length=32, choices=ModelChoices.choices, verbose_name=_("Model"))
+    subscribers = models.ManyToManyField(User, related_name="receiving_notifications", blank=True)
+    watched_users = models.ManyToManyField(User, related_name="triggering_notifications", blank=True)
+
+    def __str__(self):
+        return f"Notifications for {self.model_name}"
+    
