@@ -359,6 +359,28 @@ class ChildAdmin(SimpleHistoryAdmin, ModelAdmin):
         red_dot = '<div class="block mr-3 outline rounded-full ml-1 h-1 w-1 bg-red-500 outline-red-200 dark:outline-red-500/20"></div>'
         return format_html('<div class="flex items-center">{} <span>{}</span></div>'.format(red_dot if not has_viewed else '', obj.name))
     
+    
+    @action(description=_("Generate Address List"))
+    def generate_address_list(modeladmin, request, queryset):
+        # Extract unique adoption parents from active adoptions
+        active_adoptions = Adoption.objects.filter(child__in=queryset, active=True)
+        adoption_parents = AdoptionParent.objects.filter(
+            id__in=active_adoptions.values_list("adoptionparent", flat=True).distinct()
+        )
+        return helper.generateAddressList(modeladmin, request, adoption_parents)
+
+
+    @action(description=_("Generate Mailing List"))
+    def generate_mail_list(modeladmin, request, queryset):
+        # Extract unique adoption parents from active adoptions
+        active_adoptions = Adoption.objects.filter(child__in=queryset, active=True)
+        adoption_parents = AdoptionParent.objects.filter(
+            id__in=active_adoptions.values_list("adoptionparent", flat=True).distinct()
+        )
+        link = helper.generateMailList(modeladmin, request, adoption_parents)
+        query_string = urlencode({'emails': link})
+        return HttpResponseRedirect(reverse('admin:generate_mailto_link') + '?' + query_string)
+    
 
     def change_view(self, request, object_id, form_url='', extra_context=None):
         response = super().change_view(request, object_id, form_url, extra_context)
