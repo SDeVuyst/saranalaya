@@ -1,0 +1,141 @@
+{% extends 'main.html' %}
+
+{% load static i18n %}
+
+
+{% block meta %}
+<meta name="description" content="{% blocktrans %}C.A.R.E. is een Vlaamse, kleinschalige en onafhankelijke organisatie die zich inzet voor straatkinderen in Chennai.{% endblocktrans %}">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="Care India">
+<meta property="og:description" content="{% blocktrans %}C.A.R.E. is een Vlaamse, kleinschalige en onafhankelijke organisatie die zich inzet voor straatkinderen in Chennai.{% endblocktrans %}">
+<meta property="og:image" content="{% static 'img/logo.png' %}">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Care India">
+<meta name="twitter:description" content="{% blocktrans %}C.A.R.E. is een Vlaamse, kleinschalige en onafhankelijke organisatie die zich inzet voor straatkinderen in Chennai.{% endblocktrans %}">
+<meta name="twitter:image" content="{% static 'img/logo.png' %}">
+{% endblock %}
+
+{% block body %}
+<body id="empty_bg">
+
+  {% include 'blocks/header-fixed.html' %}
+
+  <main class="main mx-5">
+    <!-- Intro Section -->
+    <section id="intro" class="intro section m-5">
+        <div class="container mx-5 pt-5">
+            <div class="row">
+                <div class="col-lg-8">
+                    <h1 data-aos="fade-left" data-aos-delay="100">{% trans 'Onze Kinderen' %}</h1>
+                    <p>Het kindertehuis Saranalaya bestaat uit een 50-tal straatkinderen uit de streek rond Chennai in het zuiden van India.</p>
+                    <p>De meeste van onze kinderen zijn halve wezen. Vaak blijft de moeder alleen achter nadat de vader (en dus de kostwinner) het gezin verlaten heeft of gestorven is. Het leven in de sloppenwijken is hard en dikwijls is het onmogelijk voor de moeder om in het onderhoud van haar kindje te voldoen, laat staan om het naar school te sturen. Er zijn ook enkele kinderen in Saranalaya die geen ouders meer hebben.</p>
+                </div>
+            </div>
+        </div>
+      </div>
+
+    </section><!-- /Intro Section -->
+
+    <!-- Kinderen Section -->
+    <section class="section kinderen mx-5">
+
+        <form method="get" class="mb-4 mx-5">
+            <div class="row g-3 align-items-end">
+        
+                <!-- Name Filter -->
+                <div class="col-md-3">
+                    <label class="form-label">{{ filter.form.name.label }}</label>
+                    {{ filter.form.name }}
+                </div>
+        
+                <!-- Gender Filter -->
+                <div class="col-md-3">
+                    <label class="form-label">{{ filter.form.gender.label }}</label>
+                    {{ filter.form.gender }}
+                </div>
+        
+                <!-- Status Filter -->
+                <div class="col-md-3">
+                    <label class="form-label">{{ filter.form.status.label }}</label>
+                    {{ filter.form.status }}
+                </div>
+        
+                <!-- Date of Admission Filter -->
+                <div class="col-md-3">
+                    <label class="form-label">{{ filter.form.date_of_admission.label }}</label>
+                    {{ filter.form.date_of_admission }}
+                </div>
+        
+                <!-- Day of Birth (from) -->
+                <div class="col-md-3">
+                    <label class="form-label">{{ filter.form.day_of_birth__gte.label }}</label>
+                    {{ filter.form.day_of_birth__gte }}
+                </div>
+        
+                <!-- Day of Birth (to) -->
+                <div class="col-md-3">
+                    <label class="form-label">{{ filter.form.day_of_birth__lte.label }}</label>
+                    {{ filter.form.day_of_birth__lte }}
+                </div>
+        
+                <!-- Filter + Reset Buttons -->
+                <div class="col-md-3">
+                    <button type="submit" class="btn btn-primary w-100">Filter</button>
+                </div>
+                <div class="col-md-3">
+                    <a href="{% url 'kinderen' %}" class="btn btn-outline-secondary w-100">Reset Filters</a>
+                </div>
+        
+            </div>
+        </form>
+        
+
+        <!-- Kinderen -->
+        <div class="container">
+            <div class="row gx-3">
+            {% for kind in kinderen %}
+                {% include 'blocks/kind.html' with kind=kind delay=forloop.counter|add:"00" %}
+            {% empty %}
+                <p>Geen kinderen gevonden.</p>
+            {% endfor %}
+            </div>
+        </div>
+
+        <!-- Pagination -->
+        <nav aria-label="Pagination">
+            <ul class="pagination justify-content-center mt-4">
+                {% if kinderen.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page=1{% if request.GET.name %}&name={{ request.GET.name }}{% endif %}{% if request.GET.age %}&age={{ request.GET.age }}{% endif %}">Eerste</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ kinderen.previous_page_number }}{% if request.GET.name %}&name={{ request.GET.name }}{% endif %}{% if request.GET.age %}&age={{ request.GET.age }}{% endif %}">Vorige</a>
+                    </li>
+                {% endif %}
+
+                <li class="page-item disabled">
+                    <span class="page-link">Pagina {{ kinderen.number }} van {{ kinderen.paginator.num_pages }}</span>
+                </li>
+
+                {% if kinderen.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ kinderen.next_page_number }}{% if request.GET.name %}&name={{ request.GET.name }}{% endif %}{% if request.GET.age %}&age={{ request.GET.age }}{% endif %}">Volgende</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ kinderen.paginator.num_pages }}{% if request.GET.name %}&name={{ request.GET.name }}{% endif %}{% if request.GET.age %}&age={{ request.GET.age }}{% endif %}">Laatste</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+      
+    </section><!-- /Kinderen Section -->
+
+  </main>
+
+  {% include 'blocks/footer.html' %}
+
+  <script src="{% static "vendor/email-form/validate.js" %}" defer></script>
+
+</body>
+{% endblock %}

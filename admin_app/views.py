@@ -1,9 +1,11 @@
 import json
 from .models import Child, News
 from django.db.models import Sum
+from django.core.paginator import Paginator
 from django.utils.translation import gettext as _
 from django.template.response import TemplateResponse
 from .utils.helper import percentage_change
+from .filters import KindFilter
 import datetime
 
 from django.utils.safestring import mark_safe
@@ -22,9 +24,20 @@ def index(request):
     return TemplateResponse(request, "pages/index.html", context)
 
 def kinderen(request):
-    context = {}
+    queryset = Child.objects.all().order_by('-date_of_admission')
+    filterset = KindFilter(request.GET, queryset=queryset)
+    kinderen = filterset.qs
 
-    return TemplateResponse(request, "pages/index.html", context)
+    paginator = Paginator(kinderen, 12)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    context = {
+        'filter': filterset,
+        'kinderen': page_obj,  # Pass paginated queryset to template
+    }
+
+    return TemplateResponse(request, "pages/kinderen.html", context)
 
 def nieuws(request):
     context = {}

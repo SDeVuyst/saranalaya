@@ -2,19 +2,12 @@
 # Font & Color Variables
 # Help: https://bootstrapmade.com/color-system/
 --------------------------------------------------------------*/
-/* Fonts */
-@font-face {
-  font-family: "Kamikaze";
-  src: url("/static/fonts/kamikaze/Kamikaze.ttf") format("truetype");
-  font-weight: normal;
-  font-style: normal;
-}
 
 :root {
   --default-font: "Questrial",  system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   --heading-font: "DM Serif Display",  sans-serif;
   --nav-font: "Questrial",  sans-serif;
-  --logo-font: "Kamikaze", sans-serif;
+  --logo-font: "Questrial", sans-serif;
 }
 
 /* Global Colors - The following color variables are used throughout the website. Updating them here will change the color scheme of the entire website */
@@ -75,8 +68,16 @@ body {
   color: var(--default-color);
   /* background-color: var(--background-color); */
   font-family: var(--default-font);
-  /* TODO: fix op mobile */
+}
+
+#child_bg {
   background: url(/static/img/main_bg/background.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+#empty_bg {
+  background: url(/static/img/main_bg/background_empty.png);
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -258,7 +259,7 @@ h6 {
   --background-color: #ffffff;
   --heading-color: #32353a;
   --nav-color: #3a3939;
-  --nav-hover-color: #e84545;
+  --nav-hover-color: #f59c01;
 } */
 
 /*--------------------------------------------------------------
@@ -842,7 +843,7 @@ section,
   z-index: 3;
 }
 
-.hero .kamikaze {
+.hero .Questrial {
   font-family: var(--logo-font);
   color: var(--accent-color);
   letter-spacing: 3px;
