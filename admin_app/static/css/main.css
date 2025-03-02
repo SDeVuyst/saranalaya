@@ -3029,3 +3029,10 @@ section,
   color: color-mix(in srgb, var(--default-color), transparent 60%);
   font-size: 14px;
 }
+
+
+/* Kinderen */
+.kinderen .card:hover {
+  transform: scale(1.05); /* Scale the card slightly when hovered */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Optional: Adds a shadow effect */
+}

@@ -21,7 +21,7 @@
 
   {% include 'blocks/header-fixed.html' %}
 
-  <main class="main">
+  <main class="main mx-5">
     <!-- Hero Section -->
     <section id="hero" class="hero section">
 
@@ -54,9 +54,10 @@
     <!-- Icons Section -->
     <section class="section">
       <div class="container">
-        <div class="row mx-5">
+        <div class="row mx-5 gx-4">
 
           {% include 'blocks/index_icon.html' with tekst='Kleinschalige onafhankelijke organisatie sinds 1996' icon='non-profit' delay='100' %}
+          <!-- TODO toon exact aantal kinderen -->
           {% include 'blocks/index_icon.html' with tekst='Meer dan 40 kinderen uit de laagste kaste' icon='kinderen' delay='200' %}
           {% include 'blocks/index_icon.html' with tekst='Opvoeden en groeien in eigen cultuur' icon='home' delay='300' %}
           {% include 'blocks/index_icon.html' with tekst='De vicieuze cirkel van armoede breken' icon='circel' delay='400' %}
@@ -64,6 +65,39 @@
         </div>
       </div>
     </section><!-- /Icons Section -->
+
+    <!-- Kinderen Section -->
+    <section class="section kinderen mx-5">
+      <div class="title mb-3 mx-5">
+        <h1>{% trans 'Onze Kinderen' %}</h1>
+        <h5><a href="{% url 'kinderen' %}">Zie alle kinderen <i class="bi bi-arrow-right-circle"></i></a></h5>
+      </div>
+      <div class="container">
+        <div class="row gx-3">
+          {% for kind in kinderen %}
+          <!-- TODO delay -->
+            {% include 'blocks/kind.html' with kind=kind delay=loop.index|add:"00" %}
+          {% endfor %}
+        </div>
+      </div>
+      
+    </section><!-- /Kinderen Section -->
+
+    <!-- TODO -->
+    {% if nieuws %}
+    <!-- Nieuws Section -->
+    <section class="section kinderen mx-5">
+      <h1>{% trans 'Laatste Nieuws' %}</h1>
+      <div class="container">
+        <div class="row gx-3">
+          {% for artikel in nieuws %}
+            {% include 'blocks/artikel.html' with artikel=artikel delay=loop.index|add:"00" %}
+          {% endfor %}
+        </div>
+      </div>
+      <a href="{% url 'nieuws' %}">Zie alle nieuws</a>
+    </section><!-- /Nieuws Section -->
+    {% endif %}
 
   </main>
 
