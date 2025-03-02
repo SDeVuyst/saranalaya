@@ -1,0 +1,24 @@
+{% load static i18n %}
+
+<div class="container-fluid position-relative d-flex align-items-center justify-content-between">
+  
+  <a href="{% url 'index' %}#hero" class="logo d-flex align-items-center me-auto me-xl-0">
+    <img src="{% static "img/logo.png" %}" alt="Logo Care India">
+  </a>
+
+  <nav id="navmenu" class="navmenu">
+    <ul>
+      <li><a href="#">{% trans 'Over Ons' %}</a></li>
+      <li><a href="#">{% trans 'Onze Kinderen' %}</a></li>
+      <li><a href="#">{% trans 'Laatste Nieuws' %}</a></li>
+      <li><a href="#">{% trans 'Evenementen' %}</a></li>
+      <li><a href="#">{% trans 'Contact' %}</a></li>
+
+    </ul>
+    <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+
+  </nav>
+
+  <a class="btn-getstarted" href="#">{% trans 'Steun Ons' %}</a>
+
+</div>

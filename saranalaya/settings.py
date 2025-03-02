@@ -30,7 +30,7 @@ SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
 DEBUG = os.environ.get("DEBUG", False)
 
 ALLOWED_HOSTS = ['192.168.86.200', '0.0.0.0', 'localhost', '127.0.0.1', 'vanakaam.be', 'www.vanakaam.be']
-CSRF_TRUSTED_ORIGINS = ['https://vanakaam.be', 'https://www.vanakaam.be']
+CSRF_TRUSTED_ORIGINS = ['https://vanakaam.be', 'https://www.vanakaam.be', 'http://localhost']
 
 
 DBBACKUP_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
@@ -46,8 +46,6 @@ DBBACKUP_STORAGE_OPTIONS = {
 # Application definition
 
 INSTALLED_APPS = [
-    'admin_app.apps.AdminAppConfig',
-
     "unfold",
     "unfold.contrib.filters",
     "unfold.contrib.inlines",  
@@ -67,6 +65,7 @@ INSTALLED_APPS = [
     'ckeditor',
     "django_celery_beat",
     
+    'admin_app',
     'events',
 ]
 
@@ -87,7 +86,7 @@ ROOT_URLCONF = 'saranalaya.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [(os.path.join(BASE_DIR, 'templates')),],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -101,7 +100,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'saranalaya.wsgi.application'
-
+ROOT_URLCONF='saranalaya.urls'
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases

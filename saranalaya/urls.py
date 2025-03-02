@@ -23,8 +23,9 @@ from admin_app.sites import saranalaya_admin_site
 from .views import redirect_to_admin, redirect_to_latest_event
 
 urlpatterns = [
+    path("", include('admin_app.urls')),
     path('admin/', saranalaya_admin_site.urls),
     path("i18n/", include("django.conf.urls.i18n")),
     path("events/", include('events.urls')),
-    path('', redirect_to_latest_event),
+    # path('', redirect_to_latest_event),
 ]

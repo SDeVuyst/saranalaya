@@ -3,6 +3,7 @@ from django.db.models import Sum
 from django.http import HttpResponse
 from django.utils.html import escape
 from django.utils.translation import gettext as _
+from django.template.response import TemplateResponse
 from .utils.helper import percentage_change
 import datetime
 
@@ -11,6 +12,10 @@ from django.utils.safestring import mark_safe
 from .utils.helper import *
 
 
+def index(request):
+    context = {}
+
+    return TemplateResponse(request, "pages/index.html", context)
 
 def dashboard_callback(request, context):
     from .models import Donation, AdoptionParentSponsoring, Child, AdoptionParent, StatusChoices

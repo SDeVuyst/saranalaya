@@ -1,0 +1,75 @@
+{% extends 'main.html' %}
+
+{% load static i18n %}
+
+
+{% block meta %}
+<meta name="description" content="{% blocktrans %}C.A.R.E. is een Vlaamse, kleinschalige en onafhankelijke organisatie die zich inzet voor straatkinderen in Chennai.{% endblocktrans %}">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="Care India">
+<meta property="og:description" content="{% blocktrans %}C.A.R.E. is een Vlaamse, kleinschalige en onafhankelijke organisatie die zich inzet voor straatkinderen in Chennai.{% endblocktrans %}">
+<meta property="og:image" content="{% static 'img/logo.png' %}">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Care India">
+<meta name="twitter:description" content="{% blocktrans %}C.A.R.E. is een Vlaamse, kleinschalige en onafhankelijke organisatie die zich inzet voor straatkinderen in Chennai.{% endblocktrans %}">
+<meta name="twitter:image" content="{% static 'img/logo.png' %}">
+{% endblock %}
+
+{% block body %}
+<body class="index-page">
+
+  {% include 'blocks/header-fixed.html' %}
+
+  <main class="main">
+    <!-- Hero Section -->
+    <section id="hero" class="hero section">
+
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-10">
+            <h2 data-aos="fade-left" data-aos-delay="100">{% trans 'Een hart voor de straatkinderen' %}</h2>
+          </div>
+        </div>
+      </div>
+
+    </section><!-- /Hero Section -->
+
+    <section class="section pt-1">
+      <div class="container">
+        <div class="row gx-5">
+          <div class="col-md-6">
+            <img src="{% static 'img/index_over_ons.jpg' %}" alt="Groepsfoto" class="img-fluid">
+          </div>
+          <div class="col-md-6 d-flex flex-column justify-content-center">
+            <h1 class="pb-3">{% trans 'Over onze organisatie' %}</h1>
+            <p><b>C.A.R.E. is een Vlaamse, kleinschalige en onafhankelijke organisatie die zich inzet voor straatkinderen in Chennai.</b></p>
+            <p>C.A.R.E. is de oprichter en sponsor van een uniek kindertehuis, Saranalaya genaamd, waar de familiale en gemoedelijke sfeer overheerst. Wij werken uitsluitend met vrijwilligers, waardoor er geen gelden verloren gaan aan Belgische verloning. Ook blijven de adminstratieve kosten heel gering.</p>
+            <p>Bent u geïnteresseerd om ons project te steunen, dan zijn er verschillende mogelijkheden.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Icons Section -->
+    <section class="section">
+      <div class="container">
+        <div class="row mx-5">
+
+          {% include 'blocks/index_icon.html' with tekst='Kleinschalige onafhankelijke organisatie sinds 1996' icon='non-profit' delay='100' %}
+          {% include 'blocks/index_icon.html' with tekst='Meer dan 40 kinderen uit de laagste kaste' icon='kinderen' delay='200' %}
+          {% include 'blocks/index_icon.html' with tekst='Opvoeden en groeien in eigen cultuur' icon='home' delay='300' %}
+          {% include 'blocks/index_icon.html' with tekst='De vicieuze cirkel van armoede breken' icon='circel' delay='400' %}
+        
+        </div>
+      </div>
+    </section><!-- /Icons Section -->
+
+  </main>
+
+  {% include 'blocks/footer.html' %}
+
+  <script src="{% static "vendor/email-form/validate.js" %}" defer></script>
+
+</body>
+{% endblock %}
