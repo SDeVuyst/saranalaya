@@ -1,0 +1,14 @@
+{% extends 'main.html' %}
+
+{% block body %}
+<body id="empty_bg">
+
+  {% include 'blocks/header-fixed.html' %}
+
+  {% block main %}
+  {% endblock %}
+
+  {% include 'blocks/footer.html' %}
+
+</body>
+{% endblock %}

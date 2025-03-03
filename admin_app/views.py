@@ -59,6 +59,10 @@ def kind_detail(request, id):
     }
     return TemplateResponse(request, "pages/kind_detail.html", context)
 
+def over_ons(request):
+    context = {}
+
+    return TemplateResponse(request, "pages/over-ons.html", context)
 
 def steun_ons(request):
     context = {}
