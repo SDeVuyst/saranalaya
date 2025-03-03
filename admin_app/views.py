@@ -1,4 +1,7 @@
 import json
+
+from django.http import Http404
+from django.shortcuts import get_object_or_404
 from .models import Child, News
 from django.db.models import Sum
 from django.core.paginator import Paginator
@@ -14,7 +17,7 @@ from .utils.helper import *
 
 
 def index(request):
-    kinderen = Child.objects.all().order_by('-date_of_admission')[:4]
+    kinderen = Child.objects.all().filter(show_on_website=True).order_by('-date_of_admission')[:4]
     for index, kind in enumerate(kinderen):
         kind.delay = (index + 1) * 100
 
@@ -29,7 +32,7 @@ def index(request):
     return TemplateResponse(request, "pages/index.html", context)
 
 def kinderen(request):
-    queryset = Child.objects.all().order_by('-date_of_admission')
+    queryset = Child.objects.all().filter(show_on_website=True).order_by('-date_of_admission')
     filterset = KindFilter(request.GET, queryset=queryset)
     kinderen = filterset.qs
 
@@ -43,6 +46,19 @@ def kinderen(request):
     }
 
     return TemplateResponse(request, "pages/kinderen.html", context)
+
+
+def kind_detail(request, id):
+    kind = get_object_or_404(Child, id=id)
+
+    if kind.show_on_website == False:
+        raise Http404("Kind niet gevonden")
+
+    context = {
+        'kind': kind,
+    }
+    return TemplateResponse(request, "pages/kind_detail.html", context)
+
 
 def steun_ons(request):
     context = {}

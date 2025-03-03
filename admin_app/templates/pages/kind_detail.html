@@ -1,0 +1,71 @@
+{% extends 'main.html' %}
+
+{% load static i18n age %}
+
+{% block meta %}
+<meta name="description" content="{% blocktrans %}C.A.R.E. is een Vlaamse, kleinschalige en onafhankelijke organisatie die zich inzet voor straatkinderen in Chennai.{% endblocktrans %}">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="Care India">
+<meta property="og:description" content="{% blocktrans %}C.A.R.E. is een Vlaamse, kleinschalige en onafhankelijke organisatie die zich inzet voor straatkinderen in Chennai.{% endblocktrans %}">
+<meta property="og:image" content="{% static 'img/logo.png' %}">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Care India">
+<meta name="twitter:description" content="{% blocktrans %}C.A.R.E. is een Vlaamse, kleinschalige en onafhankelijke organisatie die zich inzet voor straatkinderen in Chennai.{% endblocktrans %}">
+<meta name="twitter:image" content="{% static 'img/logo.png' %}">
+{% endblock %}
+
+{% block body %}
+<body>
+
+  {% include 'blocks/header-fixed.html' %}
+
+  <main class="main mx-5">
+    <!-- Intro Section -->
+    <section id="intro" class="intro section m-5">
+        <h1 class="text-center mt-5">{{ kind.name }}</h1>
+        <p class="text-center mb-5">
+
+            <i class="bi bi-balloon"></i> {{ kind.day_of_birth|age }} jaar oud | 
+
+            {% if kind.date_of_leave %}
+                <i class="bi bi-calendar-heart"></i> Saranalaya verlaten op {{ kind.date_of_leave }}
+            {% else %}
+                <i class="bi bi-calendar-heart"></i> In Saranalaya sinds {{ kind.date_of_admission }}
+            {% endif %}
+
+            {% if kind.status == 's' %}
+                 | <i class="bi bi-backpack3"></i> We steunen {{ kind.name }} nog steeds
+            {% endif %}
+            
+        </p>
+        <div class="container">
+            <div class="row gx-5">
+              
+              <div class="col-md-6 px-4 d-flex align-items-center">
+                {{ kind.website_description|safe }}
+              </div>
+            
+              <div class="col-md-1"></div>
+
+              <div data-aos="fade-in" data-aos-delay="100" class="col-md-4 px-4">
+                {% if kind.image %}
+                    <img src="{{ kind.image.url }}" alt="Foto van {{ kind.name }}" class="img-fluid">
+                {% else %}
+                <!-- TODO default image kiezen  -->
+                    <img src="{% static 'img/kinderen/default.JPG' %}" alt="Default Image" class="img-fluid">
+                {% endif %}
+              </div>
+              
+            </div>
+          </div>
+    </section>
+   
+  </main>
+
+  {% include 'blocks/footer.html' %}
+
+  <script src="{% static "vendor/email-form/validate.js" %}" defer></script>
+
+</body>
+{% endblock %}

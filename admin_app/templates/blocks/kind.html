@@ -1,8 +1,8 @@
 {% load static age %}
 
-<!-- TODO dit eventueel wat pimpen -->
+<!-- TODO status van kind tonen -->
 <div class="col-lg-3 col-md-6 col-sm-12 d-flex flex-column align-items-center text-center mb-4" data-aos="fade-up" data-aos-delay="{{ delay }}">
-    <a href="#" class="text-decoration-none">
+    <a href="{% url 'kind_detail' kind.id %}" class="text-decoration-none">
         <div class="card" style="width: 100%; transition: transform 0.3s ease; border: none;">
             <div class="card-body d-flex flex-column align-items-center">
                 {% if kind.image %}
@@ -13,7 +13,11 @@
                 {% endif %}
                 <h2 class="card-title">{{ kind.name }}</h2>
                 <p class="card-text mb-0"><i class="bi bi-balloon"></i> {{ kind.day_of_birth|age }} jaar oud</p>
-                <p class="card-text"><i class="bi bi-calendar-heart"></i> In Saranalaya sinds {{ kind.date_of_admission }}</p>
+                {% if kind.date_of_leave %}
+                    <p class="card-text"><i class="bi bi-calendar-heart"></i> Saranalaya verlaten op {{ kind.date_of_leave }}</p>
+                {% else %}
+                    <p class="card-text"><i class="bi bi-calendar-heart"></i> In Saranalaya sinds {{ kind.date_of_admission }}</p>
+                {% endif %}
             </div>
         </div>
     </a>
