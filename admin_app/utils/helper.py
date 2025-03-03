@@ -1,8 +1,10 @@
 from io import BytesIO
+import os
 from reportlab.pdfgen import canvas
 from django.http import FileResponse, HttpResponse
 from PyPDF2 import PdfWriter, PdfReader
 from django.utils.html import escape
+import requests
 
 def get_years_from_request(request):
     valid_years = request.GET.getlist('years', [])
@@ -146,3 +148,10 @@ def generate_mailto_link(request):
     return HttpResponse(html_content, content_type='text/html')
 
 
+def verify_recaptcha(token):
+    response = requests.post(
+        'https://www.google.com/recaptcha/api/siteverify',
+        data={'secret': os.environ.get('CAPTCHA_SECRET'), 'response': token}
+    )
+    result = response.json()
+    return result.get('success', False) and result.get('score', 0) >= 0.5

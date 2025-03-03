@@ -1,14 +1,18 @@
 import json
 
-from django.http import Http404
+from django.conf import settings
+from django.http import BadHeaderError, Http404, JsonResponse
 from django.shortcuts import get_object_or_404
 from .models import Child, News
 from django.db.models import Sum
+from django.core.mail import send_mail
+from email.utils import formataddr
 from django.core.paginator import Paginator
 from django.utils.translation import gettext as _
 from django.template.response import TemplateResponse
-from .utils.helper import percentage_change
+from .utils.helper import percentage_change, verify_recaptcha
 from .filters import KindFilter, NewsFilter
+from .forms import ContactForm
 import datetime
 
 from django.utils.safestring import mark_safe
@@ -95,6 +99,53 @@ def nieuws_detail(request, id):
         'artikel': artikel,
     }
     return TemplateResponse(request, "pages/artikel_detail.html", context)
+
+def contact(request):
+    # request must always be post
+    if request.method != 'POST':
+        return JsonResponse({'success': False, 'error': 'Invalid request method.'})
+    
+    if not verify_recaptcha(request.GET.get('recaptcha_token')):
+        return JsonResponse({
+            'success': False,
+            'error': "reCAPTCHA gefaald. Gelieve opnieuw te proberen."
+        })
+
+    form = ContactForm(request.POST)
+
+    if not form.is_valid():
+        return JsonResponse({'success': False, 'error': 'Form is not valid.'})
+    
+    name =  form.cleaned_data['name']
+    email = form.cleaned_data['email']
+    subject = form.cleaned_data['subject']
+    message = form.cleaned_data['message']
+
+    try:
+        # Send mail to admins
+        send_mail(
+            f'Contact Form - {subject}',
+            f'Name: {name}\nEmail: {email}\nMessage: {message}',
+            formataddr(('Contact | Care India', settings.EMAIL_HOST_USER)),
+            [settings.EMAIL_HOST_USER],
+            fail_silently=False,
+        )
+
+        # Send confirmation mail to user
+        send_mail(
+            _('Message Received'),
+            _("Thank you for completing the contact form. We have received your message in good order and will contact you as soon as possible.\n\nKind regards\n\nThe Care India Team"),
+            formataddr(('Contact | Care India', settings.EMAIL_HOST_USER)),
+            [email],
+            fail_silently=False
+        )
+
+        return JsonResponse({'success': True})
+    
+    except BadHeaderError:
+        return JsonResponse({'success': False, 'error': 'Invalid header found.'})
+    except Exception as e:
+        return JsonResponse({'success': False, 'error': str(e)})
 
 def dashboard_callback(request, context):
     from .models import Donation, AdoptionParentSponsoring, Child, AdoptionParent, StatusChoices

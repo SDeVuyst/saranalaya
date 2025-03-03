@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log("submit");
             event.preventDefault(); // Prevent the default form submission
 
-            grecaptcha.execute('6LfebC8qAAAAAEQpGOujwPZHPtijR5u2k2CNqtmV', {action: 'submit'}).then(function(token) {
+            grecaptcha.execute('6Lcde-gqAAAAAAtLiLNKfgP9_XuSrvm4dHnJb_-4', {action: 'submit'}).then(function(token) {
             
                 // Show loading message and hide other messages
                 loadingMessage.style.display = 'block';

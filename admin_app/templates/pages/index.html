@@ -2,6 +2,9 @@
 
 {% load static i18n %}
 
+{% block head %}
+<script src="https://www.google.com/recaptcha/api.js?render=6Lcde-gqAAAAAAtLiLNKfgP9_XuSrvm4dHnJb_-4"></script>
+{% endblock %}
 
 {% block meta %}
 <meta name="description" content="{% blocktrans %}C.A.R.E. is een Vlaamse, kleinschalige en onafhankelijke organisatie die zich inzet voor straatkinderen in Chennai.{% endblocktrans %}">
@@ -106,6 +109,55 @@
     {% endif %}
 
     <!-- TODO: contact -->
+    <section id="contact" class="contact section">
+
+      <div data-aos="fade-in" data-aos-delay="100" class="title mb-3 mx-5">
+        <h1 class="text-center">{% trans 'Contact' %}</h1>
+        <h5 class="text-center">{% trans 'Send us a message!' %}</h5>
+      </div>
+
+      <div data-aos="fade" data-aos-delay="200">
+        <!-- TODO form laten werken (zie chudartz) -->
+        <form action="{% url 'contact' %}" method="POST" id="email-form" class="email-form mx-5">
+          {% csrf_token %}
+          <div class="row gy-4">
+      
+              <!-- Name -->
+              <div class="col-md-6">
+                  <input type="text" name="name" class="form-control" placeholder="{% trans 'Name' %}" maxlength="100" required>
+              </div>
+      
+              <!-- Email -->
+              <div class="col-md-6">
+                  <input type="email" class="form-control" name="email" placeholder="{% trans 'Email' %}" maxlength="254" required>
+              </div>
+      
+              <!-- Subject -->
+              <div class="col-12">
+                  <input type="text" class="form-control" name="subject" placeholder="{% trans 'Subject' %}" maxlength="100" required>
+              </div>
+      
+              <!-- Message -->
+              <div class="col-12">
+                  <textarea class="form-control" name="message" rows="6" placeholder="{% trans 'Message' %}" required></textarea>
+              </div>
+
+              <!-- captcha -->
+              <input type="hidden" name="recaptcha_token" id="recaptcha_token">
+      
+              <!-- Submit Button and Feedback Messages -->
+              <div class="col-12 text-center">
+                  <div class="loading" style="display:none;">{% trans 'Loading...' %}</div>
+                  <div class="error-message" style="display:none;"></div>
+                  <div class="sent-message" style="display:none;">{% trans 'Your message has been sent!' %}</div>
+                  <button type="submit">{% trans 'Send message' %}</button>
+              </div>
+      
+          </div>
+        </form>
+      </div>
+
+    </section>
     <!-- TODO: mailing list -->
 
   </main>

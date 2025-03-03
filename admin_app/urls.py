@@ -11,6 +11,7 @@ urlpatterns = i18n_patterns(
     path(_('support-us/'), views.steun_ons, name="support-us"),
     path(_('news/'), views.nieuws, name="news"),
     path(_('news/<int:id>/'), views.nieuws_detail, name="news_detail"),
-
+    path(_('contact/'), views.contact, name='contact'),
+    
     path('i18n/', include('django.conf.urls.i18n')),
 )
