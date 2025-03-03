@@ -29,6 +29,7 @@
         <div class="row">
           <div class="col-lg-10">
             <h2 data-aos="fade-left" data-aos-delay="100">{% trans 'Een hart voor de straatkinderen' %}</h2>
+            <a data-aos="fade-left" data-aos-delay="200" class="btn btn-primary btn-fit-content mt-3" href="{% url 'kinderen' %}">Ontdek de kinderen</a>
           </div>
         </div>
       </div>
@@ -46,6 +47,7 @@
             <p data-aos="fade-left" data-aos-delay="200"><b>C.A.R.E. is een Vlaamse, kleinschalige en onafhankelijke organisatie die zich inzet voor straatkinderen in Chennai.</b></p>
             <p data-aos="fade-left" data-aos-delay="200">C.A.R.E. is de oprichter en sponsor van een uniek kindertehuis, Saranalaya genaamd, waar de familiale en gemoedelijke sfeer overheerst. Wij werken uitsluitend met vrijwilligers, waardoor er geen gelden verloren gaan aan Belgische verloning. Ook blijven de adminstratieve kosten heel gering.</p>
             <p data-aos="fade-left" data-aos-delay="200">Bent u geïnteresseerd om ons project te steunen, dan zijn er verschillende mogelijkheden.</p>
+            <a data-aos="fade-left" data-aos-delay="200" class="btn btn-primary btn-fit-content" href="{% url 'steun-ons' %}">Steun Ons</a>
           </div>
         </div>
       </div>
@@ -75,8 +77,7 @@
       <div class="container">
         <div class="row gx-3">
           {% for kind in kinderen %}
-          <!-- TODO delay -->
-            {% include 'blocks/kind.html' with kind=kind delay=loop.index|add:"00" %}
+            {% include 'blocks/kind.html' with kind=kind delay=kind.delay %}
           {% endfor %}
         </div>
       </div>

@@ -15,6 +15,9 @@ from .utils.helper import *
 
 def index(request):
     kinderen = Child.objects.all().order_by('-date_of_admission')[:4]
+    for index, kind in enumerate(kinderen):
+        kind.delay = (index + 1) * 100
+
     nieuws = News.objects.all().order_by('-last_updated')[:4]
     kinderen_count = Child.objects.all().count()
     context = {
@@ -40,6 +43,11 @@ def kinderen(request):
     }
 
     return TemplateResponse(request, "pages/kinderen.html", context)
+
+def steun_ons(request):
+    context = {}
+
+    return TemplateResponse(request, "pages/steun-ons.html", context)
 
 def nieuws(request):
     context = {}
