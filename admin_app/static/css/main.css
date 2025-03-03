@@ -128,7 +128,7 @@ body {
 /* For very small devices (xs) */
 @media (max-width: 575.98px) {
   #empty_bg {
-      background-image: url(/static/img/main_bg/background-xs.png);
+      background-image: url(/static/img/main_bg/background_empty-xs.png);
   }
 }
 
