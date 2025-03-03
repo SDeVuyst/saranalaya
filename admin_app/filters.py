@@ -1,39 +1,40 @@
 import django_filters
 from django import forms
+from django.utils.translation import gettext as _
 from .models import Child, GenderChoices, StatusChoices, News
 
 class KindFilter(django_filters.FilterSet):
     name = django_filters.CharFilter(
         lookup_expr='icontains',
-        label="Naam",
-        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Search by name'})
+        label=_("Name"),
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': _('Search by name')})
     )
     gender = django_filters.ChoiceFilter(
         choices=GenderChoices.choices,
-        label="Gender",
+        label=_("Gender"),
         widget=forms.Select(attrs={'class': 'form-select'})
     )
     status = django_filters.ChoiceFilter(
         choices=StatusChoices.choices,
-        label="Status",
+        label=_("Status"),
         widget=forms.Select(attrs={'class': 'form-select'})
     )
     date_of_admission = django_filters.DateFilter(
         lookup_expr='gte',
-        label="Opgenomen Na",
+        label=_("Admitted After"),
         widget=forms.DateInput(attrs={'class': 'form-control', 'type': 'date'})
     )
 
     day_of_birth__gte = django_filters.DateFilter(
         field_name='day_of_birth',
         lookup_expr='gte',
-        label="Geboren Na",
+        label=_("Born After"),
         widget=forms.DateInput(attrs={'class': 'form-control', 'type': 'date'})
     )
     day_of_birth__lte = django_filters.DateFilter(
         field_name='day_of_birth',
         lookup_expr='lte',
-        label="Geboren Voor",
+        label=_("Born Before"),
         widget=forms.DateInput(attrs={'class': 'form-control', 'type': 'date'})
     )
 
@@ -45,20 +46,20 @@ class KindFilter(django_filters.FilterSet):
 class NewsFilter(django_filters.FilterSet):
     title = django_filters.CharFilter(
         lookup_expr='icontains',
-        label="Titel",
-        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Search by title'})
+        label=_("Title"),
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': _('Search by title')})
     )
 
     date__gte = django_filters.DateFilter(
         field_name='date',
         lookup_expr='gte',
-        label="Geschreven Na",
+        label=_("Written After"),
         widget=forms.DateInput(attrs={'class': 'form-control', 'type': 'date'})
     )
     date__lte = django_filters.DateFilter(
         field_name='date',
         lookup_expr='lte',
-        label="Geschreven Voor",
+        label=_("Written Before"),
         widget=forms.DateInput(attrs={'class': 'form-control', 'type': 'date'})
     )
 

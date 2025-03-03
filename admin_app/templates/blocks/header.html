@@ -8,16 +8,36 @@
 
   <nav id="navmenu" class="navmenu">
     <ul>
-      <li><a href="{% url 'over-ons' %}">{% trans 'Over Ons' %}</a></li>
-      <li><a href="{% url 'kinderen' %}">{% trans 'Onze Kinderen' %}</a></li>
-      <li><a href="#">{% trans 'Laatste Nieuws' %}</a></li>
-      <li><a href="#">{% trans 'Evenementen' %}</a></li>
+      <li><a href="{% url 'about-us' %}">{% trans 'About Us' %}</a></li>
+      <li><a href="{% url 'children' %}">{% trans 'Our Children' %}</a></li>
+      <li><a href="{% url 'news' %}">{% trans 'News' %}</a></li>
+      <li><a href="https://vanakaam.be/">{% trans 'Latest Event' %}</a></li>
       <li><a href="#">{% trans 'Contact' %}</a></li>
+      <li class="dropdown">
+        {% get_current_language as LANGUAGE_CODE %}
+        <a href="#"><span>{% trans 'Language' %}</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+        <ul>
+          
+          {% get_available_languages as LANGUAGES %}
+          {% for lang_code, lang_name in LANGUAGES %}
+            <li>
+              <a href="" data-language="{{ lang_code }}" class="language-switcher">{{ lang_name }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      </li>
     </ul>
     <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
 
+    <!-- Lang switcher form -->
+    <form id="language-form" action="{% url 'set_language' %}" method="post">
+      {% csrf_token %}
+      <input type="hidden" name="language" value="">
+      <input type="hidden" name="next" value="{{ request.path }}">
+    </form>
+
   </nav>
 
-  <a class="btn-getstarted" href="{% url 'steun-ons' %}">{% trans 'Steun Ons' %}</a>
+  <a class="btn-getstarted" href="{% url 'support-us' %}">{% trans 'Support Us' %}</a>
 
 </div>

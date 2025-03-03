@@ -26,7 +26,7 @@ def index(request):
     context = {
         'kinderen': kinderen,
         'nieuws': nieuws,
-        'kinderen_tekst': f'{kinderen_count} kinderen geholpen doorheen de jaren',
+        'kinderen_tekst': _(f'Helped {kinderen_count} children through the years'),
     }
 
     return TemplateResponse(request, "pages/index.html", context)

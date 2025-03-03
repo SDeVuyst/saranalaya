@@ -25,8 +25,8 @@
     <h1 class="text-center mt-5">{{ artikel.title }}</h1>
     <p class="text-center mb-5">
 
-        <i class="bi bi-calendar-event"></i> Geschreven op {{ artikel.date }} | 
-        <i class="bi bi-pencil"></i> Laatst geüpdate op {{ artikel.last_updated }}
+        <i class="bi bi-calendar-event"></i> {% blocktrans with date=artikel.date %}Written on {{ date }}{% endblocktrans %} | 
+        <i class="bi bi-pencil"></i> {% blocktrans with date=artikel.last_updated %}Updated on {{ date }}{% endblocktrans %}
         
     </p>
     <div class="container">
@@ -39,7 +39,7 @@
             <div class="col-md-1"></div>
 
             <div data-aos="fade-in" data-aos-delay="100" class="col-md-4 px-4">
-                <img src="{{ artikel.image.url }}" alt="Foto van {{ artikel.name }}" class="img-fluid">
+                <img src="{{ artikel.image.url }}" alt="Picture of {{ artikel.name }}" class="img-fluid">
             </div>
             
         </div>

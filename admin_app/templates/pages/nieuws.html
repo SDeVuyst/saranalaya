@@ -20,10 +20,10 @@
 <main class="main mx-5">
     <!-- Intro Section -->
     <section id="intro" class="intro section m-5">
-        <h1 class="pt-3" data-aos="fade-left" data-aos-delay="100">{% trans 'Nieuws' %}</h1>
+        <h1 class="pt-3" data-aos="fade-left" data-aos-delay="100">{% trans 'News' %}</h1>
         <!-- TODO tekst -->
-        <p data-aos="fade-left" data-aos-delay="200">Het kindertehuis Saranalaya bestaat uit een 50-tal straatartikels uit de streek rond Chennai in het zuiden van India.</p>
-        <p data-aos="fade-left" data-aos-delay="200">De meeste van onze artikels zijn halve wezen. Vaak blijft de moeder alleen achter nadat de vader (en dus de kostwinner) het gezin verlaten heeft of gestorven is. Het leven in de sloppenwijken is hard en dikwijls is het onmogelijk voor de moeder om in het onderhoud van haar kindje te voldoen, laat staan om het naar school te sturen. Er zijn ook enkele artikels in Saranalaya die geen ouders meer hebben.</p>
+        <p data-aos="fade-left" data-aos-delay="200">{% blocktrans %}Het kindertehuis Saranalaya bestaat uit een 50-tal straatartikels uit de streek rond Chennai in het zuiden van India.{% endblocktrans %}</p>
+        <p data-aos="fade-left" data-aos-delay="200">{% blocktrans %}De meeste van onze artikels zijn halve wezen. Vaak blijft de moeder alleen achter nadat de vader (en dus de kostwinner) het gezin verlaten heeft of gestorven is. Het leven in de sloppenwijken is hard en dikwijls is het onmogelijk voor de moeder om in het onderhoud van haar kindje te voldoen, laat staan om het naar school te sturen. Er zijn ook enkele artikels in Saranalaya die geen ouders meer hebben.{% endblocktrans %}</p>
       </div>
 
     </section><!-- /Intro Section -->
@@ -54,10 +54,10 @@
         
                 <!-- Filter + Reset Buttons -->
                 <div class="col-lg-2 col-md-3 col-sm-3">
-                    <button type="submit" class="btn btn-primary w-100">Filter</button>
+                    <button type="submit" class="btn btn-primary w-100">{% trans 'Filter' %}</button>
                 </div>
                 <div class="col-lg-1 col-md-3 col-sm-3">
-                    <a href="{% url 'nieuws' %}" class="btn btn-outline-secondary w-100">Reset</a>
+                    <a href="{% url 'news' %}" class="btn btn-outline-secondary w-100">{% trans 'Reset' %}</a>
                 </div>
         
             </div>
@@ -70,7 +70,7 @@
             {% for artikel in artikels %}
                 {% include 'blocks/artikel.html' with artikel=artikel delay=forloop.counter|add:"00" %}
             {% empty %}
-                <p>Geen artikels gevonden.</p>
+                <p>{% trans 'No articles found.' %}</p>
             {% endfor %}
             </div>
         </div>
@@ -80,23 +80,23 @@
             <ul class="pagination justify-content-center mt-4">
                 {% if artikels.has_previous %}
                     <li class="page-item">
-                        <a class="page-link" href="?page=1{% if request.GET.name %}&name={{ request.GET.name }}{% endif %}{% if request.GET.age %}&age={{ request.GET.age }}{% endif %}">Eerste</a>
+                        <a class="page-link" href="?page=1{% if request.GET.name %}&name={{ request.GET.name }}{% endif %}{% if request.GET.age %}&age={{ request.GET.age }}{% endif %}">{% trans 'First' %}</a>
                     </li>
                     <li class="page-item">
-                        <a class="page-link" href="?page={{ artikels.previous_page_number }}{% if request.GET.name %}&name={{ request.GET.name }}{% endif %}{% if request.GET.age %}&age={{ request.GET.age }}{% endif %}">Vorige</a>
+                        <a class="page-link" href="?page={{ artikels.previous_page_number }}{% if request.GET.name %}&name={{ request.GET.name }}{% endif %}{% if request.GET.age %}&age={{ request.GET.age }}{% endif %}">{% trans 'Previous' %}</a>
                     </li>
                 {% endif %}
 
                 <li class="page-item disabled">
-                    <span class="page-link">Pagina {{ artikels.number }} van {{ artikels.paginator.num_pages }}</span>
+                    <span class="page-link">{% trans 'Page' %} {{ artikels.number }} {% trans 'of' %} {{ artikels.paginator.num_pages }}</span>
                 </li>
 
                 {% if artikels.has_next %}
                     <li class="page-item">
-                        <a class="page-link" href="?page={{ artikels.next_page_number }}{% if request.GET.name %}&name={{ request.GET.name }}{% endif %}{% if request.GET.age %}&age={{ request.GET.age }}{% endif %}">Volgende</a>
+                        <a class="page-link" href="?page={{ artikels.next_page_number }}{% if request.GET.name %}&name={{ request.GET.name }}{% endif %}{% if request.GET.age %}&age={{ request.GET.age }}{% endif %}">{% trans 'Next' %}</a>
                     </li>
                     <li class="page-item">
-                        <a class="page-link" href="?page={{ artikels.paginator.num_pages }}{% if request.GET.name %}&name={{ request.GET.name }}{% endif %}{% if request.GET.age %}&age={{ request.GET.age }}{% endif %}">Laatste</a>
+                        <a class="page-link" href="?page={{ artikels.paginator.num_pages }}{% if request.GET.name %}&name={{ request.GET.name }}{% endif %}{% if request.GET.age %}&age={{ request.GET.age }}{% endif %}">{% trans 'Last' %}</a>
                     </li>
                 {% endif %}
             </ul>

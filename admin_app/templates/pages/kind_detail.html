@@ -23,16 +23,16 @@
     <h1 class="text-center mt-5">{{ kind.name }}</h1>
     <p class="text-center mb-5">
 
-        <i class="bi bi-balloon"></i> {{ kind.day_of_birth|age }} jaar oud | 
+        <i class="bi bi-balloon"></i> {% blocktrans with age=kind.day_of_birth|age %}{{ age }} years old{% endblocktrans %} | 
 
         {% if kind.date_of_leave %}
-            <i class="bi bi-calendar-heart"></i> Saranalaya verlaten op {{ kind.date_of_leave }}
+            <i class="bi bi-calendar-heart"></i> {% blocktrans with date=kind.date_of_leave %}Left Saranalaya on {{ date }}{% endblocktrans %}
         {% else %}
-            <i class="bi bi-calendar-heart"></i> In Saranalaya sinds {{ kind.date_of_admission }}
+            <i class="bi bi-calendar-heart"></i> {% blocktrans with date=kind.date_of_admission %}In Saranalaya since {{ date }}{% endblocktrans %}
         {% endif %}
 
         {% if kind.status == 's' %}
-                | <i class="bi bi-backpack3"></i> We steunen {{ kind.name }} nog steeds
+            <i class="bi bi-backpack3"></i> {% blocktrans with name=kind.name %}We are still supporting {{ name }}{% endblocktrans %}
         {% endif %}
         
     </p>
@@ -40,14 +40,14 @@
         <div class="row gx-5">
             
             <div class="col-md-6 px-4 d-flex align-items-center">
-            {{ kind.website_description|safe }}
+                {{ kind.website_description|safe }}
             </div>
         
             <div class="col-md-1"></div>
 
             <div data-aos="fade-in" data-aos-delay="100" class="col-md-4 px-4">
             {% if kind.image %}
-                <img src="{{ kind.image.url }}" alt="Foto van {{ kind.name }}" class="img-fluid">
+                <img src="{{ kind.image.url }}" alt="Picture of {{ kind.name }}" class="img-fluid">
             {% else %}
             <!-- TODO default image kiezen  -->
                 <img src="{% static 'img/kinderen/default.JPG' %}" alt="Default Image" class="img-fluid">

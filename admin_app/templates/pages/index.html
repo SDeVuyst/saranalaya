@@ -28,8 +28,8 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-10">
-            <h2 data-aos="fade-left" data-aos-delay="100">{% trans 'Een hart voor de straatkinderen' %}</h2>
-            <a data-aos="fade-left" data-aos-delay="200" class="btn btn-primary btn-fit-content mt-3" href="{% url 'kinderen' %}">Ontdek de kinderen</a>
+            <h2 data-aos="fade-left" data-aos-delay="100">{% trans 'A heart for the street children' %}</h2>
+            <a data-aos="fade-left" data-aos-delay="200" class="btn btn-primary btn-fit-content mt-3" href="{% url 'children' %}">{% trans 'Discover our children' %}</a>
           </div>
         </div>
       </div>
@@ -43,13 +43,14 @@
             <img src="{% static 'img/index_over_ons.jpg' %}" alt="Groepsfoto" class="img-fluid">
           </div>
           <div class="col-md-6 d-flex flex-column justify-content-center">
-            <h1 data-aos="fade-left" data-aos-delay="100" class="pb-3">{% trans 'Over onze organisatie' %}</h1>
-            <p data-aos="fade-left" data-aos-delay="200"><b>C.A.R.E. is een Vlaamse, kleinschalige en onafhankelijke organisatie die zich inzet voor straatkinderen in Chennai.</b></p>
-            <p data-aos="fade-left" data-aos-delay="200">C.A.R.E. is de oprichter en sponsor van een uniek kindertehuis, Saranalaya genaamd, waar de familiale en gemoedelijke sfeer overheerst. Wij werken uitsluitend met vrijwilligers, waardoor er geen gelden verloren gaan aan Belgische verloning. Ook blijven de adminstratieve kosten heel gering.</p>
-            <p data-aos="fade-left" data-aos-delay="200">Bent u geïnteresseerd om ons project te steunen, dan zijn er verschillende mogelijkheden.</p>
+            <h1 data-aos="fade-left" data-aos-delay="100" class="pb-3">{% trans 'About our organisation' %}</h1>
+            <!-- TODO tekst -->
+            <p data-aos="fade-left" data-aos-delay="200"><b>{% blocktrans %}C.A.R.E. is een Vlaamse, kleinschalige en onafhankelijke organisatie die zich inzet voor straatkinderen in Chennai.{% endblocktrans %}</b></p>
+            <p data-aos="fade-left" data-aos-delay="200">{% blocktrans %}C.A.R.E. is de oprichter en sponsor van een uniek kindertehuis, Saranalaya genaamd, waar de familiale en gemoedelijke sfeer overheerst. Wij werken uitsluitend met vrijwilligers, waardoor er geen gelden verloren gaan aan Belgische verloning. Ook blijven de adminstratieve kosten heel gering.{% endblocktrans %}</p>
+            <p data-aos="fade-left" data-aos-delay="200">{% blocktrans %}Bent u geïnteresseerd om ons project te steunen, dan zijn er verschillende mogelijkheden.{% endblocktrans %}</p>
             <div>
-              <a data-aos="fade-left" data-aos-delay="200" class="btn btn-primary btn-fit-content" href="{% url 'over-ons' %}">Meer Info</a>
-              <a data-aos="fade-left" data-aos-delay="200" class="btn btn-secondary btn-fit-content" href="{% url 'steun-ons' %}">Steun Ons</a>
+              <a data-aos="fade-left" data-aos-delay="200" class="btn btn-primary btn-fit-content" href="{% url 'about-us' %}">{% trans 'More Info' %}</a>
+              <a data-aos="fade-left" data-aos-delay="200" class="btn btn-secondary btn-fit-content" href="{% url 'support-us' %}">{% trans 'Support Us' %}</a>
             </div>
           </div>
         </div>
@@ -61,11 +62,10 @@
       <div class="container">
         <div class="row mx-5 gx-4">
 
-          {% include 'blocks/index_icon.html' with tekst='Kleinschalige onafhankelijke organisatie sinds 1996' icon='non-profit' delay='100' %}
-          <!-- TODO toon exact aantal kinderen -->
+          {% include 'blocks/index_icon.html' with tekst=_('Small-scale independent organization since 1996') icon='non-profit' delay='100' %}
           {% include 'blocks/index_icon.html' with tekst=kinderen_tekst icon='kinderen' delay='200' %}
-          {% include 'blocks/index_icon.html' with tekst='Opvoeden en groeien in eigen cultuur' icon='home' delay='300' %}
-          {% include 'blocks/index_icon.html' with tekst='De vicieuze cirkel van armoede breken' icon='circel' delay='400' %}
+          {% include 'blocks/index_icon.html' with tekst=_('Raising and growing in your own culture') icon='home' delay='300' %}
+          {% include 'blocks/index_icon.html' with tekst=_('Breaking the vicious circle of poverty') icon='circel' delay='400' %}
         
         </div>
       </div>
@@ -74,8 +74,8 @@
     <!-- Kinderen Section -->
     <section class="section kinderen mx-5">
       <div data-aos="fade-in" data-aos-delay="100" class="title mb-3 mx-5">
-        <h1>{% trans 'Onze Kinderen' %}</h1>
-        <h5><a href="{% url 'kinderen' %}">Zie alle kinderen <i class="bi bi-arrow-right-circle"></i></a></h5>
+        <h1>{% trans 'Our Children' %}</h1>
+        <h5><a href="{% url 'children' %}">{% trans 'See all children' %} <i class="bi bi-arrow-right-circle"></i></a></h5>
       </div>
       <div class="container">
         <div class="row gx-3">
@@ -91,8 +91,8 @@
     <!-- Nieuws Section -->
     <section class="section kinderen mx-5">
       <div data-aos="fade-in" data-aos-delay="100" class="title mb-3 mx-5">
-        <h1>{% trans 'Laatste Nieuws' %}</h1>
-        <h5><a href="{% url 'nieuws' %}">Zie alle nieuws <i class="bi bi-arrow-right-circle"></i></a></h5>
+        <h1>{% trans 'Latest News' %}</h1>
+        <h5><a href="{% url 'news' %}">{% trans 'See all news' %} <i class="bi bi-arrow-right-circle"></i></a></h5>
       </div>
       <div class="container">
         <div class="row gx-3">
