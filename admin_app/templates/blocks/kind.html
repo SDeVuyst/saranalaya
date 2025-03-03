@@ -1,4 +1,4 @@
-{% load static %}
+{% load static age %}
 
 <!-- TODO dit eventueel wat pimpen -->
 <div class="col-lg-3 col-md-6 col-sm-12 d-flex flex-column align-items-center text-center mb-4" data-aos="fade-up" data-aos-delay="{{ delay }}">
@@ -12,7 +12,8 @@
                     <img src="{% static 'img/kinderen/default.JPG' %}" alt="Default Image" class="mb-3 img-fluid" style="max-width: 250px; height: auto;">
                 {% endif %}
                 <h2 class="card-title">{{ kind.name }}</h2>
-                <p class="card-text">In Saranalaya sinds {{ kind.date_of_admission }}</p>
+                <p class="card-text mb-0"><i class="bi bi-balloon"></i> {{ kind.day_of_birth|age }} jaar oud</p>
+                <p class="card-text"><i class="bi bi-calendar-heart"></i> In Saranalaya sinds {{ kind.date_of_admission }}</p>
             </div>
         </div>
     </a>

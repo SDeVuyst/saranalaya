@@ -16,9 +16,11 @@ from .utils.helper import *
 def index(request):
     kinderen = Child.objects.all().order_by('-date_of_admission')[:4]
     nieuws = News.objects.all().order_by('-last_updated')[:4]
+    kinderen_count = Child.objects.all().count()
     context = {
         'kinderen': kinderen,
-        'nieuws': nieuws
+        'nieuws': nieuws,
+        'kinderen_tekst': f'{kinderen_count} kinderen geholpen doorheen de jaren',
     }
 
     return TemplateResponse(request, "pages/index.html", context)
