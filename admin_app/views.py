@@ -8,7 +8,7 @@ from django.core.paginator import Paginator
 from django.utils.translation import gettext as _
 from django.template.response import TemplateResponse
 from .utils.helper import percentage_change
-from .filters import KindFilter
+from .filters import KindFilter, NewsFilter
 import datetime
 
 from django.utils.safestring import mark_safe
@@ -52,7 +52,7 @@ def kind_detail(request, id):
     kind = get_object_or_404(Child, id=id)
 
     if kind.show_on_website == False:
-        raise Http404("Kind niet gevonden")
+        raise Http404("Child not found.")
 
     context = {
         'kind': kind,
@@ -70,9 +70,31 @@ def steun_ons(request):
     return TemplateResponse(request, "pages/steun-ons.html", context)
 
 def nieuws(request):
-    context = {}
+    queryset = News.objects.all().filter(show_on_website=True).order_by('-date')
+    filterset = NewsFilter(request.GET, queryset=queryset)
+    artikels = filterset.qs
 
-    return TemplateResponse(request, "pages/index.html", context)
+    paginator = Paginator(artikels, 12)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    context = {
+        'filter': filterset,
+        'artikels': page_obj,  # Pass paginated queryset to template
+    }
+
+    return TemplateResponse(request, "pages/nieuws.html", context)
+
+def nieuws_detail(request, id):
+    artikel = get_object_or_404(News, id=id)
+
+    if artikel.show_on_website == False:
+        raise Http404("Article not found.")
+
+    context = {
+        'artikel': artikel,
+    }
+    return TemplateResponse(request, "pages/artikel_detail.html", context)
 
 def dashboard_callback(request, context):
     from .models import Donation, AdoptionParentSponsoring, Child, AdoptionParent, StatusChoices

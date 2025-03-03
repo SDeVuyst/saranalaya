@@ -71,15 +71,65 @@ body {
 }
 
 #child_bg {
-  background: url(/static/img/main_bg/background.png);
   background-repeat: no-repeat;
   background-size: contain;
 }
 
+/* Default for larger screens (lg and up) */
+#child_bg {
+  background-image: url(/static/img/main_bg/background-lg.png);
+}
+
+/* For tablets and small desktops (md) */
+@media (max-width: 991.98px) {
+  #child_bg {
+      background-image: url(/static/img/main_bg/background-md.png);
+  }
+}
+
+/* For phones (sm) */
+@media (max-width: 767.98px) {
+  #child_bg {
+      background-image: url(/static/img/main_bg/background-sm.png);
+  }
+}
+
+/* For very small devices (xs) */
+@media (max-width: 575.98px) {
+  #child_bg {
+      background-image: url(/static/img/main_bg/background-xs.png);
+  }
+}
+
 #empty_bg {
-  background: url(/static/img/main_bg/background_empty.png);
   background-repeat: no-repeat;
   background-size: contain;
+}
+
+/* Default for larger screens (lg and up) */
+#empty_bg {
+  background-image: url(/static/img/main_bg/background_empty-lg.png);
+}
+
+/* For tablets and small desktops (md) */
+@media (max-width: 991.98px) {
+  #empty_bg {
+      background-image: url(/static/img/main_bg/background_empty-md.png);
+  }
+}
+
+/* For phones (sm) */
+@media (max-width: 767.98px) {
+  #empty_bg {
+      background-image: url(/static/img/main_bg/background_empty-sm.png);
+  }
+}
+
+/* For very small devices (xs) */
+@media (max-width: 575.98px) {
+  #empty_bg {
+      background-image: url(/static/img/main_bg/background-xs.png);
+  }
 }
 
 a {

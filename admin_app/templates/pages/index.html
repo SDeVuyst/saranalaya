@@ -87,11 +87,13 @@
       
     </section><!-- /Kinderen Section -->
 
-    <!-- TODO -->
     {% if nieuws %}
     <!-- Nieuws Section -->
     <section class="section kinderen mx-5">
-      <h1>{% trans 'Laatste Nieuws' %}</h1>
+      <div data-aos="fade-in" data-aos-delay="100" class="title mb-3 mx-5">
+        <h1>{% trans 'Laatste Nieuws' %}</h1>
+        <h5><a href="{% url 'nieuws' %}">Zie alle nieuws <i class="bi bi-arrow-right-circle"></i></a></h5>
+      </div>
       <div class="container">
         <div class="row gx-3">
           {% for artikel in nieuws %}
@@ -99,7 +101,7 @@
           {% endfor %}
         </div>
       </div>
-      <a href="{% url 'nieuws' %}">Zie alle nieuws</a>
+      
     </section><!-- /Nieuws Section -->
     {% endif %}
 

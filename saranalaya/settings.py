@@ -195,7 +195,7 @@ UNFOLD = {
 
     "SITE_SYMBOL": "volunteer_activism",
     "SHOW_HISTORY": True, 
-    "SHOW_VIEW_ON_SITE": False,
+    "SHOW_VIEW_ON_SITE": True,
 
     "DASHBOARD_CALLBACK": "admin_app.views.dashboard_callback",
 
@@ -256,6 +256,11 @@ UNFOLD = {
                         "icon": "credit_card_heart",
                         "link": "/admin/admin_app/donation/",
                     },
+                    {
+                        "title": _("News"),
+                        "icon": "article",
+                        "link": "/admin/admin_app/news/",
+                    }
                 ],
             },
 

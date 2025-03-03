@@ -306,7 +306,7 @@ class AdoptionParentAdmin(SimpleHistoryAdmin, NotiModelAdmin):
 @admin.register(Child, site=saranalaya_admin_site)
 class ChildAdmin(SimpleHistoryAdmin, NotiModelAdmin):
 
-    list_display = ('name', 'status_colored', 'day_of_birth', 'get_adoption_parents_formatted')
+    list_display = ('display_header', 'status_colored', 'day_of_birth', 'get_adoption_parents_formatted')
 
     @display(
         description=_lazy_('Status'), 
@@ -318,6 +318,21 @@ class ChildAdmin(SimpleHistoryAdmin, NotiModelAdmin):
     )
     def status_colored(self, obj):
         return obj.status, obj.get_status_display()
+    
+    @display(description=_("Name"), header=True)
+    def display_header(self, instance: Child):
+        return [
+            instance.name,
+            None,
+            instance.name,
+            {
+                "path": instance.image.url,
+                "height": 24,
+                "width": 24,
+                "borderless": False,
+                "squared": False,
+            } if instance.image else None,
+        ]
     
     @action(description=_("Generate Address List"))
     def generate_address_list(modeladmin, request, queryset):
@@ -479,6 +494,28 @@ class DonationAdmin(SimpleHistoryAdmin, NotiModelAdmin):
 class ModelNotificationPreferenceAdmin(ModelAdmin):
     list_display = ("model_name",)  
     filter_horizontal = ("subscribers", "watched_users")  # Allows selecting multiple users
+
+
+@admin.register(News, site=saranalaya_admin_site)
+class NewsAdmin(SimpleHistoryAdmin, NotiModelAdmin):
+    list_display = ('display_header', 'date', 'show_on_website')
+    search_fields = ('title', 'content')
+
+    @display(description=_("Title"), header=True)
+    def display_header(self, instance: News):
+        return [
+            instance.title,
+            None,
+            instance.title,
+            {
+                "path": instance.image.url,
+                "height": 24,
+                "width": 24,
+                "borderless": True,
+                "squared": True,
+            },
+        ]
+    
 
 # CELERY #
 

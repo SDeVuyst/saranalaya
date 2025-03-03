@@ -247,6 +247,7 @@ class News(models.Model):
     date = models.DateField(default=now, verbose_name=_("Date"))
     image = models.ImageField(upload_to='news/', verbose_name=_("Image"))
     last_updated = models.DateTimeField(auto_now=True)
+    show_on_website = models.BooleanField(default=True, verbose_name=_("Show on Website"))
 
     history = HistoricalRecords(verbose_name=_("History"))
 

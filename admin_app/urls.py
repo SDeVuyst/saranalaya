@@ -8,4 +8,5 @@ urlpatterns = [
     path('over-ons/', views.over_ons, name="over-ons"),
     path('steun-ons/', views.steun_ons, name="steun-ons"),
     path('nieuws/', views.nieuws, name="nieuws"),
+    path('nieuws/<int:id>/', views.nieuws_detail, name="nieuws_detail"),
 ]
