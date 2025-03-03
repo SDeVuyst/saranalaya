@@ -3088,6 +3088,32 @@ section,
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Optional: Adds a shadow effect */
 }
 
+.ribbon {
+  position: absolute;
+  top: 12px;
+  left: 0;
+  width: 120px;
+  text-align: center;
+  background-color: #f13333; /* Default color */
+  color: white;
+  padding: 5px 0;
+  font-weight: bold;
+  font-size: 0.85rem;
+  border-radius: 8px;
+  z-index: 5;
+  box-shadow: none;
+}
+
+/* Specific colors per status */
+.ribbon-l {
+  background-color: #e32121; /* Left - Red */
+}
+
+.ribbon-s {
+  background-color: var(--accent-color); /* Support - Orange */
+}
+
+
 /* Over ons */
 .btn-fit-content {
   width: fit-content;
