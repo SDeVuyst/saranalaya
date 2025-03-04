@@ -21,7 +21,7 @@ from django.urls import include, path
 
 from admin_app.sites import saranalaya_admin_site
 
-from .views import redirect_to_admin, redirect_to_latest_event
+from .views import redirect_to_admin
 
 urlpatterns = i18n_patterns(
     path('admin/', saranalaya_admin_site.urls),
@@ -29,5 +29,4 @@ urlpatterns = i18n_patterns(
 
     # path("", include('admin_app.urls')),
     # path("events/", include('events.urls')),
-    # path('', redirect_to_latest_event),
 )

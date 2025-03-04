@@ -3,6 +3,7 @@ import json
 from django.conf import settings
 from django.http import BadHeaderError, Http404, JsonResponse
 from django.shortcuts import get_object_or_404
+from django.urls import reverse
 from .models import Child, News
 from django.db.models import Sum
 from django.core.mail import send_mail
@@ -146,6 +147,12 @@ def contact(request):
         return JsonResponse({'success': False, 'error': 'Invalid header found.'})
     except Exception as e:
         return JsonResponse({'success': False, 'error': str(e)})
+
+
+def redirect_to_events(request):
+    request.urlconf = 'events.urls'
+    return reverse('events:index')
+
 
 def dashboard_callback(request, context):
     from .models import Donation, AdoptionParentSponsoring, Child, AdoptionParent, StatusChoices

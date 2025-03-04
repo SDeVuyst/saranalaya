@@ -151,6 +151,9 @@ def set_attendance(request):
     
     return JsonResponse({'success': False, 'message': _("unknown request.")}, status=400)
 
+def redirect_to_latest_event(request):
+    event = Event.objects.latest()
+    return redirect(f"/events/{event.id}/")
 
 @staff_member_required
 def scanner(request):

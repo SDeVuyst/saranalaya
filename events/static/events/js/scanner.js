@@ -5,8 +5,8 @@ const html5QrcodeScanner = new Html5QrcodeScanner(
 html5QrcodeScanner.render(onScanSuccess);
 
 // AUDIO
-const audio_success = new Audio('/static/audio/success.mp3');
-const audio_failed = new Audio('/static/audio/failed.mp3');
+const audio_success = new Audio('/static/events/audio/success.mp3');
+const audio_failed = new Audio('/static/events/audio/failed.mp3');
 
 
 function extractParticipantId(str) {
