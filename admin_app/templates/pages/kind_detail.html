@@ -2,18 +2,17 @@
 
 {% load static i18n age %}
 
-<!-- TODO meta -->
 {% block meta %}
-<meta name="description" content="{% blocktrans %}C.A.R.E. is een Vlaamse, kleinschalige en onafhankelijke organisatie die zich inzet voor straatkinderen in Chennai.{% endblocktrans %}">
+<meta name="description" content="{{ kind.website_description|safe }}">
 <meta name="robots" content="index, follow">
-<meta property="og:title" content="Care India">
-<meta property="og:description" content="{% blocktrans %}C.A.R.E. is een Vlaamse, kleinschalige en onafhankelijke organisatie die zich inzet voor straatkinderen in Chennai.{% endblocktrans %}">
-<meta property="og:image" content="{% static 'img/logo.png' %}">
+<meta property="og:title" content="{{ kind.name }} | Care India">
+<meta property="og:description" content="{{ kind.website_description|safe }}">
+<meta property="og:image" content="{% if kind.image %}{{ kind.image.url }}{% else %}{% static 'img/kinderen/default.JPG' %}{% endif %}">
 
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Care India">
-<meta name="twitter:description" content="{% blocktrans %}C.A.R.E. is een Vlaamse, kleinschalige en onafhankelijke organisatie die zich inzet voor straatkinderen in Chennai.{% endblocktrans %}">
-<meta name="twitter:image" content="{% static 'img/logo.png' %}">
+<meta name="twitter:title" content="{{ kind.name }} | Care India">
+<meta name="twitter:description" content="{{ kind.website_description|safe }}">
+<meta name="twitter:image" content="{% if kind.image %}{{ kind.image.url }}{% else %}{% static 'img/kinderen/default.JPG' %}{% endif %}">
 {% endblock %}
 
 {% block main %}
