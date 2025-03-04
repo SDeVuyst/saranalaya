@@ -195,6 +195,7 @@ UNFOLD = {
     "SITE_URL": "/",
 
     "SITE_SYMBOL": "volunteer_activism",
+    "SHOW_LANGUAGES": True,
     "SHOW_HISTORY": True, 
     "SHOW_VIEW_ON_SITE": True,
 
@@ -230,37 +231,37 @@ UNFOLD = {
                     {
                         "title": _("Dashboard"),
                         "icon": "dashboard",
-                        "link": "/admin",
+                        "link": reverse_lazy("admin:index"),
                     },
                     {
                         "title": _("Children"),
                         "icon": "sentiment_very_satisfied",
-                        "link": "/admin/admin_app/child/",
+                        "link": reverse_lazy("admin:admin_app_child_changelist"),
                     },
                     {
                         "title": _("Adoption Parents"),
                         "icon": "escalator_warning",
-                        "link": "/admin/admin_app/adoptionparent/",
+                        "link": reverse_lazy("admin:admin_app_adoptionparent_changelist"),
                     },
                     {
                         "title": _("Adoption Payments"),
                         "icon": "account_balance",
-                        "link": "/admin/admin_app/adoptionparentsponsoring/",
+                        "link": reverse_lazy("admin:admin_app_adoptionparentsponsoring_changelist"),
                     },
                     {
                         "title": _("Sponsors"),
                         "icon": "patient_list",
-                        "link": "/admin/admin_app/sponsor/",
+                        "link": reverse_lazy("admin:admin_app_sponsor_changelist"),
                     },
                     {
                         "title": _("Donations"),
                         "icon": "credit_card_heart",
-                        "link": "/admin/admin_app/donation/",
+                        "link": reverse_lazy("admin:admin_app_donation_changelist"),
                     },
                     {
                         "title": _("News"),
                         "icon": "article",
-                        "link": "/admin/admin_app/news/",
+                        "link": reverse_lazy("admin:admin_app_news_changelist"),
                     }
                 ],
             },
@@ -271,17 +272,17 @@ UNFOLD = {
                     {
                         "title": _("Events"),
                         "icon": "event",
-                        "link": "/admin/events/event/",
+                        "link": reverse_lazy("admin:events_event_changelist"),
                     },
                     {
                         "title": _("Tickets"),
                         "icon": "confirmation_number",
-                        "link": "/admin/events/ticket/",
+                        "link": reverse_lazy("admin:events_ticket_changelist"),
                     },
                     {
                         "title": _("Participants"),
                         "icon": "group",
-                        "link": "/admin/events/participant/",
+                        "link": reverse_lazy("admin:events_participant_changelist"),
                     },
                 ]
             },

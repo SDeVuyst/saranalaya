@@ -6,6 +6,7 @@ from django.utils.http import urlencode
 from django.core.mail import send_mail
 from django.conf import settings
 from .models import *
+from django.templatetags.static import static
 from .utils import helper
 from datetime import datetime
 from django.utils import timezone
@@ -326,12 +327,12 @@ class ChildAdmin(SimpleHistoryAdmin, NotiModelAdmin):
             None,
             instance.name,
             {
-                "path": instance.image.url,
-                "height": 24,
-                "width": 24,
+                "path": instance.image.url if instance.image else static("img/kinderen/default.JPG"),
+                "height": 30,
+                "width": 30,
                 "borderless": False,
                 "squared": False,
-            } if instance.image else None,
+            },
         ]
     
     @action(description=_("Generate Address List"))
