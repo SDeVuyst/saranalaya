@@ -83,27 +83,27 @@
                 <ul class="pagination justify-content-center mt-4">
                     {% if artikels.has_previous %}
                         <li class="page-item">
-                            <a class="page-link" href="?page=1{% if request.GET.name %}&name={{ request.GET.name }}{% endif %}{% if request.GET.age %}&age={{ request.GET.age }}{% endif %}">{% trans 'First' %}</a>
+                            <a class="page-link" href="?page=1{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">{% trans 'First' %}</a>
                         </li>
                         <li class="page-item">
-                            <a class="page-link" href="?page={{ artikels.previous_page_number }}{% if request.GET.name %}&name={{ request.GET.name }}{% endif %}{% if request.GET.age %}&age={{ request.GET.age }}{% endif %}">{% trans 'Previous' %}</a>
+                            <a class="page-link" href="?page={{ artikels.previous_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">{% trans 'Previous' %}</a>
                         </li>
                     {% endif %}
-
+            
                     <li class="page-item disabled">
                         <span class="page-link">{% trans 'Page' %} {{ artikels.number }} {% trans 'of' %} {{ artikels.paginator.num_pages }}</span>
                     </li>
-
+            
                     {% if artikels.has_next %}
                         <li class="page-item">
-                            <a class="page-link" href="?page={{ artikels.next_page_number }}{% if request.GET.name %}&name={{ request.GET.name }}{% endif %}{% if request.GET.age %}&age={{ request.GET.age }}{% endif %}">{% trans 'Next' %}</a>
+                            <a class="page-link" href="?page={{ artikels.next_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">{% trans 'Next' %}</a>
                         </li>
                         <li class="page-item">
-                            <a class="page-link" href="?page={{ artikels.paginator.num_pages }}{% if request.GET.name %}&name={{ request.GET.name }}{% endif %}{% if request.GET.age %}&age={{ request.GET.age }}{% endif %}">{% trans 'Last' %}</a>
+                            <a class="page-link" href="?page={{ artikels.paginator.num_pages }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">{% trans 'Last' %}</a>
                         </li>
                     {% endif %}
                 </ul>
-            </nav>
+            </nav>            
         </div>
     </section><!-- /Nieuws Section -->
 
