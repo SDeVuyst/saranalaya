@@ -7,6 +7,9 @@ class DomainMiddleware:
     def __call__(self, request):
         host = request.get_host().split(':')[0]
         
+        if host.startswith('www.'):
+            host = host[4:]
+
         if host == 'care-india.be':
             request.urlconf = 'admin_app.urls'
         elif host == 'vanakaam.be':

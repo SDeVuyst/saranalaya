@@ -17,5 +17,5 @@ urlpatterns = [
     path("beleid/", views.beleid),
 
     path("mollie-webhook/", views.mollie_webhook),
-    path('admin/', views.redirect_to_care, name="admin"),
+    path('admin/', views.redirect_to_care, name="admin_redirect"),
 ]

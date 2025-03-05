@@ -179,3 +179,6 @@ def mollie_webhook(request):
         return HttpResponse(status=200)
 
     return HttpResponseNotFound("Invalid request method")
+
+def redirect_to_care(request):
+    return redirect('https://care-india.be/admin/')
