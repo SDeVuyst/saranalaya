@@ -1,5 +1,6 @@
-from django.urls import path
+from django.urls import path, include
 from . import views
+from admin_app.sites import saranalaya_admin_site
 
 app_name = 'events'
 
@@ -15,5 +16,7 @@ urlpatterns = [
 
     path("beleid/", views.beleid),
 
-    path("mollie-webhook/", views.mollie_webhook)
+    path("mollie-webhook/", views.mollie_webhook),
+    path('admin/', saranalaya_admin_site.urls),
+    path('i18n/', include('django.conf.urls.i18n')),
 ]
