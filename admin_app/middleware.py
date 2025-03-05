@@ -12,9 +12,8 @@ class DomainMiddleware:
         elif host == 'vanakaam.be':
             request.urlconf = 'events.urls'
         else:
-            request.urlconf = 'admin_app.urls'
-            # TODO: uncomment in prod
-            # return HttpResponseNotFound('Domain not recognized')
+            # request.urlconf = 'admin_app.urls'
+            return HttpResponseNotFound('Domain not recognized')
         
         response = self.get_response(request)
         return response
