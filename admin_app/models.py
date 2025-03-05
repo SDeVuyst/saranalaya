@@ -70,7 +70,6 @@ class ModelChoices(models.TextChoices):
 
 
 # MODELS #
-
 class Child(models.Model):
     class Meta:
         verbose_name = _("Child")
@@ -79,6 +78,10 @@ class Child(models.Model):
 
     def __str__(self) -> str:
         return self.name
+    
+    def get_absolute_url(self):
+        return reverse("child_detail", kwargs={"id": self.id})
+    
     
     @admin.display(description=_('Adoption Parents'))
     def get_adoption_parents_formatted(self):
@@ -241,6 +244,9 @@ class News(models.Model):
 
     def __str__(self) -> str:
         return self.title
+    
+    def get_absolute_url(self):
+        return reverse("news_detail", kwargs={"id": self.id})
 
     title = models.CharField(max_length=100, verbose_name=_("Title"))
     content = RichTextField(verbose_name=_("Content"))
