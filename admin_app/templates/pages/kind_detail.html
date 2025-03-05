@@ -41,7 +41,11 @@
         <div class="row gx-5">
             
             <div class="col-md-6 px-4 d-flex align-items-center">
-                {{ kind.website_description|safe }}
+                {% if kind.website_description %}
+                    {{ kind.website_description|safe }}
+                {% else %}
+                    <span>{% trans 'No extra info available yet' %}</span>
+                {% endif %}
             </div>
         
             <div class="col-md-1"></div>
