@@ -17,6 +17,5 @@ urlpatterns = [
     path("beleid/", views.beleid),
 
     path("mollie-webhook/", views.mollie_webhook),
-    path('admin/', saranalaya_admin_site.urls),
-    path('i18n/', include('django.conf.urls.i18n')),
+    path('admin/', views.redirect_to_care, name="admin"),
 ]
