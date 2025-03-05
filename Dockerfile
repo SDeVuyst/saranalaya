@@ -26,6 +26,9 @@ RUN apt-get update && \
 
 COPY . /app/
 
+RUN chmod +x /app/entrypoint.sh
+ENTRYPOINT ["/app/entrypoint.sh"]
+
 # Expose port
 EXPOSE 8100
 

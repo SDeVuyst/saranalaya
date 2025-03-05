@@ -1,0 +1,63 @@
+{% extends 'detail_page.html' %}
+
+{% load static i18n age %}
+
+{% block title %}{{ kind.name }} | Care India{% endblock %}
+
+{% block meta %}
+<meta name="description" content="{{ kind.website_description|safe }}">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="{{ kind.name }} | Care India">
+<meta property="og:description" content="{{ kind.website_description|safe }}">
+<meta property="og:image" content="{% if kind.image %}{{ kind.image.url }}{% else %}{% static 'img/kinderen/default.JPG' %}{% endif %}">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ kind.name }} | Care India">
+<meta name="twitter:description" content="{{ kind.website_description|safe }}">
+<meta name="twitter:image" content="{% if kind.image %}{{ kind.image.url }}{% else %}{% static 'img/kinderen/default.JPG' %}{% endif %}">
+{% endblock %}
+
+{% block main %}
+<main class="main mx-5">
+<!-- Intro Section -->
+<section id="intro" class="intro section m-5">
+    <h1 class="text-center mt-5">{{ kind.name }}</h1>
+    <p class="text-center mb-5">
+
+        <i class="bi bi-balloon"></i> {% blocktrans with age=kind.day_of_birth|age %}{{ age }} years old{% endblocktrans %} | 
+
+        {% if kind.date_of_leave %}
+            <i class="bi bi-calendar-heart"></i> {% blocktrans with date=kind.date_of_leave %}Left Saranalaya on {{ date }}{% endblocktrans %}
+        {% else %}
+            <i class="bi bi-calendar-heart"></i> {% blocktrans with date=kind.date_of_admission %}In Saranalaya since {{ date }}{% endblocktrans %}
+        {% endif %}
+
+        {% if kind.status == 's' %}
+            <i class="bi bi-backpack3"></i> {% blocktrans with name=kind.name %}We are still supporting {{ name }}{% endblocktrans %}
+        {% endif %}
+        
+    </p>
+    <div class="container">
+        <div class="row gx-5">
+            
+            <div class="col-md-6 px-4 d-flex align-items-center">
+                {{ kind.website_description|safe }}
+            </div>
+        
+            <div class="col-md-1"></div>
+
+            <div data-aos="fade-in" data-aos-delay="100" class="col-md-4 px-4">
+            {% if kind.image %}
+                <img src="{{ kind.image.url }}" alt="Picture of {{ kind.name }}" class="img-fluid">
+            {% else %}
+            <!-- TODO default image kiezen  -->
+                <img src="{% static 'img/kinderen/default.JPG' %}" alt="Default Image" class="img-fluid">
+            {% endif %}
+            </div>
+            
+        </div>
+        </div>
+</section>
+
+</main>
+{% endblock %}

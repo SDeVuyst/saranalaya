@@ -1,7 +1,10 @@
 from io import BytesIO
+import os
 from reportlab.pdfgen import canvas
-from django.http import FileResponse
+from django.http import FileResponse, HttpResponse
 from PyPDF2 import PdfWriter, PdfReader
+from django.utils.html import escape
+import requests
 
 def get_years_from_request(request):
     valid_years = request.GET.getlist('years', [])
@@ -79,3 +82,76 @@ def mergeBuffersIntoPdf(buffers):
     writer.write(merged_buffer)
     merged_buffer.seek(0)
     return merged_buffer
+
+
+def generate_mailto_link(request):
+    # Get email addresses from the query parameters
+    email_addresses = request.GET.get('emails', '')
+    
+    # Escape email addresses to ensure safety
+    escaped_emails = escape(email_addresses)
+    
+    # Split email addresses into a list
+    email_list = escaped_emails.split(',')
+    
+    # Define a maximum number of addresses per mailto link
+    MAX_EMAILS_PER_LINK = 50
+    
+    # Split the email addresses into smaller groups
+    email_groups = [email_list[i:i + MAX_EMAILS_PER_LINK] for i in range(0, len(email_list), MAX_EMAILS_PER_LINK)]
+    
+    # Generate buttons for each batch of email links
+    buttons_html = ""
+    for i, group in enumerate(email_groups):
+        mailto_link = f"mailto:?bcc={','.join(group)}?subject=Important Information&body=Please review the following information."
+        buttons_html += f"""
+        <button onclick="window.open('{mailto_link}', '_blank')">Open Batch {i + 1}</button><br>
+        """
+    
+    # Generate the HTML content
+    html_content = f"""
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Send Emails</title>
+        <style>
+            body {{
+                font-family: Arial, sans-serif;
+                text-align: center;
+                padding: 20px;
+            }}
+            button {{
+                display: inline-block;
+                padding: 10px 20px;
+                font-size: 16px;
+                color: #fff;
+                background-color: #007bff;
+                border: none;
+                border-radius: 5px;
+                text-decoration: none;
+                cursor: pointer;
+                margin: 5px;
+            }}
+            button:hover {{
+                background-color: #0056b3;
+            }}
+        </style>
+    </head>
+    <body>
+        <p>Click on the buttons below to open each batch of email addresses:</p>
+        {buttons_html}
+        <p><a href="javascript:history.back()" class="button">Go Back</a></p>
+    </body>
+    </html>
+    """
+    
+    return HttpResponse(html_content, content_type='text/html')
+
+
+def verify_recaptcha(token):
+    response = requests.post(
+        'https://www.google.com/recaptcha/api/siteverify',
+        data={'secret': os.environ.get('CAPTCHA_SECRET'), 'response': token}
+    )
+    result = response.json()
+    return result.get('success', False) and result.get('score', 0) >= 0.5

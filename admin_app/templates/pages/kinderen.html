@@ -1,0 +1,130 @@
+{% extends 'detail_page.html' %}
+
+{% load static i18n %}
+
+{% block title %}{% trans 'Children' %} | Care India{% endblock %}
+
+<!-- TODO meta description tekst/vertaling-->
+{% block meta %}
+<meta name="description" content="{% blocktrans %}Het kindertehuis Saranalaya bestaat uit een 50-tal straatkinderen uit de streek rond Chennai in het zuiden van India.{% endblocktrans %}">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="{% blocktrans %}Children | Care India{% endblocktrans %}">
+<meta property="og:description" content="{% blocktrans %}Het kindertehuis Saranalaya bestaat uit een 50-tal straatkinderen uit de streek rond Chennai in het zuiden van India.{% endblocktrans %}">
+<meta property="og:image" content="{% static 'img/logo.png' %}">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{% blocktrans %}Children | Care India{% endblocktrans %}">
+<meta name="twitter:description" content="{% blocktrans %}Het kindertehuis Saranalaya bestaat uit een 50-tal straatkinderen uit de streek rond Chennai in het zuiden van India.{% endblocktrans %}">
+<meta name="twitter:image" content="{% static 'img/logo.png' %}">
+{% endblock %}
+
+{% block main %}
+<main class="main mx-5">
+    <!-- Intro Section -->
+    <section id="intro" class="intro section px-5 mt-5">
+        <div class="container">
+            <h1 class="pt-3" data-aos="fade-left" data-aos-delay="100">{% trans 'Our Children' %}</h1>
+            <!-- TODO tekst -->
+            <p data-aos="fade-left" data-aos-delay="200">{% blocktrans %}Het kindertehuis Saranalaya bestaat uit een 50-tal straatkinderen uit de streek rond Chennai in het zuiden van India.{% endblocktrans %}</p>
+            <p data-aos="fade-left" data-aos-delay="200">{% blocktrans %}De meeste van onze kinderen zijn halve wezen. Vaak blijft de moeder alleen achter nadat de vader (en dus de kostwinner) het gezin verlaten heeft of gestorven is. Het leven in de sloppenwijken is hard en dikwijls is het onmogelijk voor de moeder om in het onderhoud van haar kindje te voldoen, laat staan om het naar school te sturen. Er zijn ook enkele kinderen in Saranalaya die geen ouders meer hebben.{% endblocktrans %}</p>
+        </div>
+    </section><!-- /Intro Section -->
+
+    <!-- Kinderen Section -->
+    <section class="section kinderen mx-5">
+        <div class="container">
+
+        
+            <form data-aos="fade-in" data-aos-delay="300" method="get" class="mb-4">
+                <div class="row g-3 align-items-end">
+            
+                    <!-- Name Filter -->
+                    <div class="col-md-3">
+                        <label class="form-label">{{ filter.form.name.label }}</label>
+                        {{ filter.form.name }}
+                    </div>
+            
+                    <!-- Gender Filter -->
+                    <div class="col-md-3">
+                        <label class="form-label">{{ filter.form.gender.label }}</label>
+                        {{ filter.form.gender }}
+                    </div>
+            
+                    <!-- Status Filter -->
+                    <div class="col-md-3">
+                        <label class="form-label">{{ filter.form.status.label }}</label>
+                        {{ filter.form.status }}
+                    </div>
+            
+                    <!-- Date of Admission Filter -->
+                    <div class="col-md-3">
+                        <label class="form-label">{{ filter.form.date_of_admission.label }}</label>
+                        {{ filter.form.date_of_admission }}
+                    </div>
+            
+                    <!-- Day of Birth (from) -->
+                    <div class="col-md-3">
+                        <label class="form-label">{{ filter.form.day_of_birth__gte.label }}</label>
+                        {{ filter.form.day_of_birth__gte }}
+                    </div>
+            
+                    <!-- Day of Birth (to) -->
+                    <div class="col-md-3">
+                        <label class="form-label">{{ filter.form.day_of_birth__lte.label }}</label>
+                        {{ filter.form.day_of_birth__lte }}
+                    </div>
+            
+                    <!-- Filter + Reset Buttons -->
+                    <div class="col-md-3">
+                        <button type="submit" class="btn btn-primary w-100">{% trans 'Filter' %}</button>
+                    </div>
+                    <div class="col-md-3">
+                        <a href="{% url 'children' %}" class="btn btn-outline-secondary w-100">{% trans 'Reset' %}</a>
+                    </div>
+            
+                </div>
+            </form>
+            
+
+            <!-- Kinderen -->
+            <div class="container mt-5">
+                <div class="row gx-3">
+                {% for kind in kinderen %}
+                    {% include 'blocks/kind.html' with kind=kind delay=forloop.counter|add:"00" %}
+                {% empty %}
+                    <p>{% trans 'No children found.' %}</p>
+                {% endfor %}
+                </div>
+            </div>
+
+            <!-- Pagination -->
+            <nav aria-label="Pagination">
+                <ul class="pagination justify-content-center mt-4">
+                    {% if kinderen.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page=1{% if request.GET.name %}&name={{ request.GET.name }}{% endif %}{% if request.GET.age %}&age={{ request.GET.age }}{% endif %}">{% trans 'First' %}</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ kinderen.previous_page_number }}{% if request.GET.name %}&name={{ request.GET.name }}{% endif %}{% if request.GET.age %}&age={{ request.GET.age }}{% endif %}">{% trans 'Previous' %}</a>
+                        </li>
+                    {% endif %}
+
+                    <li class="page-item disabled">
+                        <span class="page-link">{% trans 'Page' %} {{ kinderen.number }} {% trans 'of' %} {{ kinderen.paginator.num_pages }}</span>
+                    </li>
+
+                    {% if kinderen.has_next %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ kinderen.next_page_number }}{% if request.GET.name %}&name={{ request.GET.name }}{% endif %}{% if request.GET.age %}&age={{ request.GET.age }}{% endif %}">{% trans 'Next' %}</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ kinderen.paginator.num_pages }}{% if request.GET.name %}&name={{ request.GET.name }}{% endif %}{% if request.GET.age %}&age={{ request.GET.age }}{% endif %}">{% trans 'Last' %}</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </section><!-- /Kinderen Section -->
+
+</main>
+{% endblock %}

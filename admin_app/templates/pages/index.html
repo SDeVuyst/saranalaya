@@ -1,0 +1,190 @@
+{% extends 'main.html' %}
+
+{% load static i18n %}
+
+{% block head %}
+<script src="https://www.google.com/recaptcha/api.js?render=6Lcde-gqAAAAAAtLiLNKfgP9_XuSrvm4dHnJb_-4"></script>
+<!-- MailerLite Universal -->
+<script>
+  (function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[])
+  .push(arguments);},l=d.createElement(e),l.async=1,l.src=u,
+  n=d.getElementsByTagName(e)[0],n.parentNode.insertBefore(l,n);})
+  (window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');
+  ml('account', '1366329');
+</script>
+<!-- End MailerLite Universal -->
+{% endblock %}
+
+{% block meta %}
+<meta name="description" content="{% blocktrans %}C.A.R.E. is een Vlaamse, kleinschalige en onafhankelijke organisatie die zich inzet voor straatkinderen in Chennai.{% endblocktrans %}">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="Care India">
+<meta property="og:description" content="{% blocktrans %}C.A.R.E. is een Vlaamse, kleinschalige en onafhankelijke organisatie die zich inzet voor straatkinderen in Chennai.{% endblocktrans %}">
+<meta property="og:image" content="{% static 'img/logo.png' %}">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Care India">
+<meta name="twitter:description" content="{% blocktrans %}C.A.R.E. is een Vlaamse, kleinschalige en onafhankelijke organisatie die zich inzet voor straatkinderen in Chennai.{% endblocktrans %}">
+<meta name="twitter:image" content="{% static 'img/logo.png' %}">
+{% endblock %}
+
+{% block body %}
+<body class="index-page" id="child_bg">
+
+  {% include 'blocks/header-fixed.html' %}
+
+  <main class="main mx-5">
+    <!-- Hero Section -->
+    <section id="hero" class="hero section">
+
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-10">
+            <h2 data-aos="fade-left" data-aos-delay="100">{% trans 'A heart for the street children' %}</h2>
+            <a data-aos="fade-left" data-aos-delay="200" class="btn btn-primary btn-fit-content mt-3" href="{% url 'children' %}">{% trans 'Discover our children' %}</a>
+          </div>
+        </div>
+      </div>
+
+    </section><!-- /Hero Section -->
+
+    <section class="section pt-1">
+      <div class="container">
+        <div class="row gx-5">
+          <div data-aos="fade-in" data-aos-delay="100" class="col-md-6">
+            <img src="{% static 'img/index_over_ons.jpg' %}" alt="Groepsfoto" class="img-fluid">
+          </div>
+          <div class="col-md-6 d-flex flex-column justify-content-center">
+            <h1 data-aos="fade-left" data-aos-delay="100" class="pb-3">{% trans 'About our organisation' %}</h1>
+            <!-- TODO tekst -->
+            <p data-aos="fade-left" data-aos-delay="200"><b>{% blocktrans %}C.A.R.E. is een Vlaamse, kleinschalige en onafhankelijke organisatie die zich inzet voor straatkinderen in Chennai.{% endblocktrans %}</b></p>
+            <p data-aos="fade-left" data-aos-delay="200">{% blocktrans %}C.A.R.E. is de oprichter en sponsor van een uniek kindertehuis, Saranalaya genaamd, waar de familiale en gemoedelijke sfeer overheerst. Wij werken uitsluitend met vrijwilligers, waardoor er geen gelden verloren gaan aan Belgische verloning. Ook blijven de adminstratieve kosten heel gering.{% endblocktrans %}</p>
+            <p data-aos="fade-left" data-aos-delay="200">{% blocktrans %}Bent u geïnteresseerd om ons project te steunen, dan zijn er verschillende mogelijkheden.{% endblocktrans %}</p>
+            <div>
+              <a data-aos="fade-left" data-aos-delay="200" class="btn btn-primary btn-fit-content" href="{% url 'about-us' %}">{% trans 'More Info' %}</a>
+              <a data-aos="fade-left" data-aos-delay="200" class="btn btn-secondary btn-fit-content" href="{% url 'support-us' %}">{% trans 'Support Us' %}</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Icons Section -->
+    <section class="section">
+      <div class="container">
+        <div class="row mx-5 gx-4">
+
+          {% include 'blocks/index_icon.html' with tekst=_('Small-scale independent organization since 1996') icon='non-profit' delay='100' %}
+          {% include 'blocks/index_icon.html' with tekst=kinderen_tekst icon='kinderen' delay='200' %}
+          {% include 'blocks/index_icon.html' with tekst=_('Raising and growing in your own culture') icon='home' delay='300' %}
+          {% include 'blocks/index_icon.html' with tekst=_('Breaking the vicious circle of poverty') icon='circel' delay='400' %}
+        
+        </div>
+      </div>
+    </section><!-- /Icons Section -->
+
+    <!-- Kinderen Section -->
+    <section class="section kinderen mx-5">
+      <div class="container">
+        <div data-aos="fade-in" data-aos-delay="100" class="title mb-3 mx-5">
+          <h1>{% trans 'Our Children' %}</h1>
+          <h5><a href="{% url 'children' %}">{% trans 'See all children' %} <i class="bi bi-arrow-right-circle"></i></a></h5>
+        </div>
+        <div class="row gx-5">
+          {% for kind in kinderen %}
+            {% include 'blocks/kind.html' with kind=kind delay=kind.delay %}
+          {% endfor %}
+        </div>
+      </div>
+      
+    </section><!-- /Kinderen Section -->
+
+    {% if nieuws %}
+    <!-- Nieuws Section -->
+    <section class="section kinderen mx-5">
+      <div class="container">
+        <div data-aos="fade-in" data-aos-delay="100" class="title mb-3 mx-5">
+          <h1>{% trans 'Latest News' %}</h1>
+          <h5><a href="{% url 'news' %}">{% trans 'See all news' %} <i class="bi bi-arrow-right-circle"></i></a></h5>
+        </div>
+        <div class="row gx-5">
+          {% for artikel in nieuws %}
+            {% include 'blocks/artikel.html' with artikel=artikel delay=loop.index|add:"00" %}
+          {% endfor %}
+        </div>
+      </div>
+      
+    </section><!-- /Nieuws Section -->
+    {% endif %}
+
+    <section id="contact" class="contact section">
+
+      <div class="container">
+
+        <div data-aos="fade-in" data-aos-delay="100" class="title mb-3 mx-5">
+          <h1 class="text-center">{% trans 'Contact' %}</h1>
+          <h5 class="text-center">{% trans 'Send us a message!' %}</h5>
+        </div>
+
+        <div class="row">
+    
+          <div class="col-lg-7">
+            
+            <div data-aos="fade" data-aos-delay="200">
+              <form action="{% url 'contact' %}" method="POST" id="email-form" class="email-form">
+                {% csrf_token %}
+                <div class="row gy-4">
+            
+                    <!-- Name -->
+                    <div class="col-md-6">
+                        <input type="text" name="name" class="form-control" placeholder="{% trans 'Name' %}" maxlength="100" required>
+                    </div>
+            
+                    <!-- Email -->
+                    <div class="col-md-6">
+                        <input type="email" class="form-control" name="email" placeholder="{% trans 'Email' %}" maxlength="254" required>
+                    </div>
+            
+                    <!-- Subject -->
+                    <div class="col-12">
+                        <input type="text" class="form-control" name="subject" placeholder="{% trans 'Subject' %}" maxlength="100" required>
+                    </div>
+            
+                    <!-- Message -->
+                    <div class="col-12">
+                        <textarea class="form-control" name="message" rows="6" placeholder="{% trans 'Message' %}" required></textarea>
+                    </div>
+      
+                    <!-- captcha -->
+                    <input type="hidden" name="recaptcha_token" id="recaptcha_token">
+            
+                    <!-- Submit Button and Feedback Messages -->
+                    <div class="col-12 text-center">
+                        <div class="loading" style="display:none;">{% trans 'Loading...' %}</div>
+                        <div class="error-message" style="display:none;"></div>
+                        <div class="sent-message" style="display:none;">{% trans 'Your message has been sent!' %}</div>
+                        <button type="submit">{% trans 'Send message' %}</button>
+                    </div>
+            
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <div class="col-lg-5 pt-4" data-aos="fade" data-aos-delay="200">
+            <div class="ml-embedded" data-form="d6pXww"></div>
+          </div>
+        </div>
+      </div>
+      
+
+    </section>    
+
+  </main>
+
+  {% include 'blocks/footer.html' %}
+
+  <script src="{% static "vendor/email-form/validate.js" %}" defer></script>
+
+</body>
+{% endblock %}

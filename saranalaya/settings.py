@@ -30,7 +30,7 @@ SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
 DEBUG = os.environ.get("DEBUG", False)
 
 ALLOWED_HOSTS = ['192.168.86.200', '0.0.0.0', 'localhost', '127.0.0.1', 'vanakaam.be', 'www.vanakaam.be']
-CSRF_TRUSTED_ORIGINS = ['https://vanakaam.be', 'https://www.vanakaam.be']
+CSRF_TRUSTED_ORIGINS = ['https://vanakaam.be', 'https://www.vanakaam.be', 'http://localhost']
 
 
 DBBACKUP_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
@@ -46,8 +46,6 @@ DBBACKUP_STORAGE_OPTIONS = {
 # Application definition
 
 INSTALLED_APPS = [
-    'admin_app.apps.AdminAppConfig',
-
     "unfold",
     "unfold.contrib.filters",
     "unfold.contrib.inlines",  
@@ -67,6 +65,7 @@ INSTALLED_APPS = [
     'ckeditor',
     "django_celery_beat",
     
+    'admin_app',
     'events',
 ]
 
@@ -79,6 +78,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'admin_app.middleware.DomainMiddleware',
     "simple_history.middleware.HistoryRequestMiddleware",
 ]
 
@@ -87,7 +87,7 @@ ROOT_URLCONF = 'saranalaya.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [(os.path.join(BASE_DIR, 'templates')),],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -101,7 +101,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'saranalaya.wsgi.application'
-
+ROOT_URLCONF='saranalaya.urls'
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
@@ -195,8 +195,9 @@ UNFOLD = {
     "SITE_URL": "/",
 
     "SITE_SYMBOL": "volunteer_activism",
+    "SHOW_LANGUAGES": True,
     "SHOW_HISTORY": True, 
-    "SHOW_VIEW_ON_SITE": False,
+    "SHOW_VIEW_ON_SITE": True,
 
     "DASHBOARD_CALLBACK": "admin_app.views.dashboard_callback",
 
@@ -230,33 +231,38 @@ UNFOLD = {
                     {
                         "title": _("Dashboard"),
                         "icon": "dashboard",
-                        "link": "/admin",
+                        "link": reverse_lazy("admin:index"),
                     },
                     {
                         "title": _("Children"),
                         "icon": "sentiment_very_satisfied",
-                        "link": "/admin/admin_app/child/",
+                        "link": reverse_lazy("admin:admin_app_child_changelist"),
                     },
                     {
                         "title": _("Adoption Parents"),
                         "icon": "escalator_warning",
-                        "link": "/admin/admin_app/adoptionparent/",
+                        "link": reverse_lazy("admin:admin_app_adoptionparent_changelist"),
                     },
                     {
                         "title": _("Adoption Payments"),
                         "icon": "account_balance",
-                        "link": "/admin/admin_app/adoptionparentsponsoring/",
+                        "link": reverse_lazy("admin:admin_app_adoptionparentsponsoring_changelist"),
                     },
                     {
                         "title": _("Sponsors"),
                         "icon": "patient_list",
-                        "link": "/admin/admin_app/sponsor/",
+                        "link": reverse_lazy("admin:admin_app_sponsor_changelist"),
                     },
                     {
                         "title": _("Donations"),
                         "icon": "credit_card_heart",
-                        "link": "/admin/admin_app/donation/",
+                        "link": reverse_lazy("admin:admin_app_donation_changelist"),
                     },
+                    {
+                        "title": _("News"),
+                        "icon": "article",
+                        "link": reverse_lazy("admin:admin_app_news_changelist"),
+                    }
                 ],
             },
 
@@ -266,17 +272,17 @@ UNFOLD = {
                     {
                         "title": _("Events"),
                         "icon": "event",
-                        "link": "/admin/events/event/",
+                        "link": reverse_lazy("admin:events_event_changelist"),
                     },
                     {
                         "title": _("Tickets"),
                         "icon": "confirmation_number",
-                        "link": "/admin/events/ticket/",
+                        "link": reverse_lazy("admin:events_ticket_changelist"),
                     },
                     {
                         "title": _("Participants"),
                         "icon": "group",
-                        "link": "/admin/events/participant/",
+                        "link": reverse_lazy("admin:events_participant_changelist"),
                     },
                 ]
             },

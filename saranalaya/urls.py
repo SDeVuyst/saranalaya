@@ -16,15 +16,17 @@ Including another URLconf
 """
 from django.conf import settings
 from django.conf.urls.static import static
+from django.conf.urls.i18n import i18n_patterns
 from django.urls import include, path
 
 from admin_app.sites import saranalaya_admin_site
 
-from .views import redirect_to_admin, redirect_to_latest_event
+from .views import redirect_to_admin
 
-urlpatterns = [
+urlpatterns = i18n_patterns(
     path('admin/', saranalaya_admin_site.urls),
     path("i18n/", include("django.conf.urls.i18n")),
-    path("events/", include('events.urls')),
-    path('', redirect_to_latest_event),
-]
+
+    # path("", include('admin_app.urls')),
+    # path("events/", include('events.urls')),
+)

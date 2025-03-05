@@ -1,0 +1,42 @@
+{% load static i18n %}
+
+<!-- TODO -->
+<footer id="footer" class="footer position-relative light-background">
+
+  <div class="container footer-top">
+    <div class="row gy-4">
+
+      <div class="col-lg-6 col-md-12 footer-about">
+        <a href="{% url 'index' %}" class="logo d-flex align-items-center">
+          <span class="sitename">{% trans 'Care India' %}</span>
+        </a>
+        <p>Copyright © {% now "Y" %} C.A.R.E India</p>
+        <div class="social-links d-flex mt-4">
+          <a target="_blank" href="https://www.facebook.com/groups/366106623433788"><i class="bi bi-facebook"></i></a>
+          <a target="_blank" href="https://github.com/SDeVuyst/saranalaya"><i class="bi bi-github"></i></a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</footer>
+
+{% if not disable_scroll_top %}
+<!-- Scroll Top -->
+<a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+{% endif %}
+
+<!-- Preloader -->
+<div id="preloader"></div>
+
+<!-- Vendor JS Files -->
+<script src="{% static "vendor/bootstrap/js/bootstrap.bundle.min.js" %}"></script>
+<script src="{% static "vendor/aos/aos.js" %}" defer></script>
+<script src="{% static "vendor/glightbox/js/glightbox.min.js" %}"></script>
+<script src="{% static "vendor/imagesloaded/imagesloaded.pkgd.min.js" %}"></script>
+<script src="{% static "vendor/isotope-layout/isotope.pkgd.min.js" %}" defer></script>
+
+<!-- Main JS File -->
+<script src="{% static "js/main.js" %}"></script>
+<script src="{% static "js/lang_switcher.js" %}"></script>

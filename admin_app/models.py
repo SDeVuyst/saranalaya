@@ -8,8 +8,9 @@ from django.contrib.admin.templatetags.admin_urls import admin_urlname
 from django.utils.translation import gettext_lazy as _
 from django.utils.timezone import now
 from simple_history.models import HistoricalRecords
+from ckeditor.fields import RichTextField
 from django.urls import path, reverse
-from .views import generate_mailto_link
+from .utils.helper import generate_mailto_link
 from django.contrib.auth.models import User, Group
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.admin import GroupAdmin as BaseGroupAdmin
@@ -101,8 +102,10 @@ class Child(models.Model):
     date_of_leave = models.DateField(blank=True, null=True, verbose_name=_("Date of Leave"))
     indian_parent_status = models.CharField(max_length = 1, choices = ParentStatusChoices.choices, verbose_name=_("Indian Parent Status"))
     status = models.CharField( max_length = 1, choices = StatusChoices.choices, verbose_name=_("Status"))
-    link_website = models.URLField(blank=True, null=True, verbose_name=_("Link website"))
     description = models.TextField(blank=True, null=True, verbose_name=_("Description"))
+    show_on_website = models.BooleanField(default=True, verbose_name=_("Show on Website"))
+    image = models.ImageField(upload_to='children/', blank=True, null=True, verbose_name=_("Image"))
+    website_description = RichTextField(blank=True, null=True, verbose_name=_("Website Description"))
     last_updated = models.DateTimeField(auto_now=True)
 
     history = HistoricalRecords(verbose_name=_("History"))
@@ -227,6 +230,24 @@ class Donation(models.Model):
     date = models.DateField(verbose_name=_("Date"))
     description = models.TextField(blank=True, null=True, verbose_name=_("Description"))
     last_updated = models.DateTimeField(auto_now=True)
+
+    history = HistoricalRecords(verbose_name=_("History"))
+
+class News(models.Model):
+    class Meta:
+        verbose_name = _("News")
+        verbose_name_plural = _("News")
+        ordering = ["-date"]
+
+    def __str__(self) -> str:
+        return self.title
+
+    title = models.CharField(max_length=100, verbose_name=_("Title"))
+    content = RichTextField(verbose_name=_("Content"))
+    date = models.DateField(default=now, verbose_name=_("Date"))
+    image = models.ImageField(upload_to='news/', verbose_name=_("Image"))
+    last_updated = models.DateTimeField(auto_now=True)
+    show_on_website = models.BooleanField(default=True, verbose_name=_("Show on Website"))
 
     history = HistoricalRecords(verbose_name=_("History"))
 

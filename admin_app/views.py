@@ -1,15 +1,157 @@
 import json
+
+from django.conf import settings
+from django.http import BadHeaderError, Http404, JsonResponse
+from django.shortcuts import get_object_or_404
+from django.urls import reverse
+from .models import Child, News
 from django.db.models import Sum
-from django.http import HttpResponse
-from django.utils.html import escape
+from django.core.mail import send_mail
+from email.utils import formataddr
+from django.core.paginator import Paginator
 from django.utils.translation import gettext as _
-from .utils.helper import percentage_change
+from django.template.response import TemplateResponse
+from .utils.helper import percentage_change, verify_recaptcha
+from .filters import KindFilter, NewsFilter
+from .forms import ContactForm
 import datetime
 
 from django.utils.safestring import mark_safe
 
 from .utils.helper import *
 
+
+def index(request):
+    kinderen = Child.objects.all().filter(show_on_website=True).order_by('-date_of_admission')[:4]
+    for index, kind in enumerate(kinderen):
+        kind.delay = (index + 1) * 100
+
+    nieuws = News.objects.all().order_by('-last_updated')[:4]
+    kinderen_count = Child.objects.all().count()
+    context = {
+        'kinderen': kinderen,
+        'nieuws': nieuws,
+        'kinderen_tekst': _(f'Helped {kinderen_count} children through the years'),
+    }
+
+    return TemplateResponse(request, "pages/index.html", context)
+
+def kinderen(request):
+    queryset = Child.objects.all().filter(show_on_website=True).order_by('-date_of_admission')
+    filterset = KindFilter(request.GET, queryset=queryset)
+    kinderen = filterset.qs
+
+    paginator = Paginator(kinderen, 12)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    context = {
+        'filter': filterset,
+        'kinderen': page_obj,  # Pass paginated queryset to template
+    }
+
+    return TemplateResponse(request, "pages/kinderen.html", context)
+
+
+def kind_detail(request, id):
+    kind = get_object_or_404(Child, id=id)
+
+    if kind.show_on_website == False:
+        raise Http404("Child not found.")
+
+    context = {
+        'kind': kind,
+    }
+    return TemplateResponse(request, "pages/kind_detail.html", context)
+
+def over_ons(request):
+    context = {}
+
+    return TemplateResponse(request, "pages/over-ons.html", context)
+
+def steun_ons(request):
+    context = {}
+
+    return TemplateResponse(request, "pages/steun-ons.html", context)
+
+def nieuws(request):
+    queryset = News.objects.all().filter(show_on_website=True).order_by('-date')
+    filterset = NewsFilter(request.GET, queryset=queryset)
+    artikels = filterset.qs
+
+    paginator = Paginator(artikels, 12)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    context = {
+        'filter': filterset,
+        'artikels': page_obj,  # Pass paginated queryset to template
+    }
+
+    return TemplateResponse(request, "pages/nieuws.html", context)
+
+def nieuws_detail(request, id):
+    artikel = get_object_or_404(News, id=id)
+
+    if artikel.show_on_website == False:
+        raise Http404("Article not found.")
+
+    context = {
+        'artikel': artikel,
+    }
+    return TemplateResponse(request, "pages/artikel_detail.html", context)
+
+def contact(request):
+    # request must always be post
+    if request.method != 'POST':
+        return JsonResponse({'success': False, 'error': 'Invalid request method.'})
+    
+    if not verify_recaptcha(request.GET.get('recaptcha_token')):
+        return JsonResponse({
+            'success': False,
+            'error': "reCAPTCHA gefaald. Gelieve opnieuw te proberen."
+        })
+
+    form = ContactForm(request.POST)
+
+    if not form.is_valid():
+        return JsonResponse({'success': False, 'error': 'Form is not valid.'})
+    
+    name =  form.cleaned_data['name']
+    email = form.cleaned_data['email']
+    subject = form.cleaned_data['subject']
+    message = form.cleaned_data['message']
+
+    try:
+        # Send mail to admins
+        send_mail(
+            f'Contact Form - {subject}',
+            f'Name: {name}\nEmail: {email}\nMessage: {message}',
+            formataddr(('Contact | Care India', settings.EMAIL_HOST_USER)),
+            [settings.EMAIL_HOST_USER],
+            fail_silently=False,
+        )
+
+        # Send confirmation mail to user
+        send_mail(
+            _('Message Received'),
+            _("Thank you for completing the contact form. We have received your message in good order and will contact you as soon as possible.\n\nKind regards\n\nThe Care India Team"),
+            formataddr(('Contact | Care India', settings.EMAIL_HOST_USER)),
+            [email],
+            fail_silently=False
+        )
+
+        return JsonResponse({'success': True})
+    
+    except BadHeaderError:
+        return JsonResponse({'success': False, 'error': 'Invalid header found.'})
+    except Exception as e:
+        return JsonResponse({'success': False, 'error': str(e)})
+
+
+def redirect_to_events(request):
+    request.urlconf = 'events.urls'
+    return reverse('events:index')
 
 
 def dashboard_callback(request, context):
@@ -152,69 +294,3 @@ def dashboard_callback(request, context):
     )
 
     return context
-
-
-def generate_mailto_link(request):
-    # Get email addresses from the query parameters
-    email_addresses = request.GET.get('emails', '')
-    
-    # Escape email addresses to ensure safety
-    escaped_emails = escape(email_addresses)
-    
-    # Split email addresses into a list
-    email_list = escaped_emails.split(',')
-    
-    # Define a maximum number of addresses per mailto link
-    MAX_EMAILS_PER_LINK = 50
-    
-    # Split the email addresses into smaller groups
-    email_groups = [email_list[i:i + MAX_EMAILS_PER_LINK] for i in range(0, len(email_list), MAX_EMAILS_PER_LINK)]
-    
-    # Generate buttons for each batch of email links
-    buttons_html = ""
-    for i, group in enumerate(email_groups):
-        mailto_link = f"mailto:?bcc={','.join(group)}?subject=Important Information&body=Please review the following information."
-        buttons_html += f"""
-        <button onclick="window.open('{mailto_link}', '_blank')">Open Batch {i + 1}</button><br>
-        """
-    
-    # Generate the HTML content
-    html_content = f"""
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <title>Send Emails</title>
-        <style>
-            body {{
-                font-family: Arial, sans-serif;
-                text-align: center;
-                padding: 20px;
-            }}
-            button {{
-                display: inline-block;
-                padding: 10px 20px;
-                font-size: 16px;
-                color: #fff;
-                background-color: #007bff;
-                border: none;
-                border-radius: 5px;
-                text-decoration: none;
-                cursor: pointer;
-                margin: 5px;
-            }}
-            button:hover {{
-                background-color: #0056b3;
-            }}
-        </style>
-    </head>
-    <body>
-        <p>Click on the buttons below to open each batch of email addresses:</p>
-        {buttons_html}
-        <p><a href="javascript:history.back()" class="button">Go Back</a></p>
-    </body>
-    </html>
-    """
-    
-    return HttpResponse(html_content, content_type='text/html')
-
-

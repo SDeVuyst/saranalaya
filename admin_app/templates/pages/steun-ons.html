@@ -1,0 +1,140 @@
+{% extends 'detail_page.html' %}
+
+{% load static i18n %}
+
+{% block title %}{% trans 'Support Us' %} | Care India{% endblock %}
+<!-- TODO contact-formulier / email link  -->
+
+<!-- TODO meta teksten/vertaling-->
+{% block meta %}
+<meta name="description" content="{% blocktrans %}C.A.R.E. is een Vlaamse, kleinschalige en onafhankelijke organisatie die zich inzet voor straatkinderen in Chennai.{% endblocktrans %}">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="{% blocktrans %}Support Us | Care India{% endblocktrans %}">
+<meta property="og:description" content="{% blocktrans %}C.A.R.E. is een Vlaamse, kleinschalige en onafhankelijke organisatie die zich inzet voor straatkinderen in Chennai.{% endblocktrans %}">
+<meta property="og:image" content="{% static 'img/logo.png' %}">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{% blocktrans %}Support Us | Care India{% endblocktrans %}">
+<meta name="twitter:description" content="{% blocktrans %}C.A.R.E. is een Vlaamse, kleinschalige en onafhankelijke organisatie die zich inzet voor straatkinderen in Chennai.{% endblocktrans %}">
+<meta name="twitter:image" content="{% static 'img/logo.png' %}">
+{% endblock %}
+
+{% block main %}
+<main class="main mx-5">
+<!-- Intro Section -->
+<section id="intro" class="intro section px-5 mt-5">
+    <div class="container">
+        <h1 class="pt-3" data-aos="fade-left" data-aos-delay="100">{% trans 'Support Us' %}</h1>
+        <!-- TODO tekst -->
+        <p data-aos="fade-left" data-aos-delay="200">
+            {% trans "Jouw steun maakt écht een verschil in het leven van onze kinderen in Saranalaya. Ontdek de verschillende manieren waarop je kan bijdragen." %}
+        </p>
+    
+
+        <!-- Quick Links to Each Type of Support -->
+        <div class="d-flex flex-wrap gap-2 mt-3" data-aos="fade-left" data-aos-delay="300">
+            <a href="#adoptie" class="btn btn-secondary">
+                <i class="bi bi-heart"></i> {% trans "Financial Adoption" %}
+            </a>
+            <a href="#gift" class="btn btn-secondary">
+                <i class="bi bi-cash-stack"></i> {% trans "Make a donation" %}
+            </a>
+            <a href="#acties" class="btn btn-secondary">
+                <i class="bi bi-lightbulb"></i> {% trans "Support actions" %}
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Steun Betekent Section -->
+<!-- TODO translations + tekst -->
+<section class="section px-5">
+    <div class="container">
+        <h2 data-aos="fade-in" data-aos-delay="100" class="text-center mb-4">{% trans "Wat jouw steun betekent" %}</h2>
+        <div class="row justify-content-center text-center">
+            <div class="col-md-4 mb-3" data-aos="fade-up" data-aos-delay="100">
+                <div class="card shadow-sm h-100">
+                    <div class="card-body">
+                        <h3 class="card-title">€5</h3>
+                        <p class="card-text">{% trans "Maaltijden voor een kind, voor één dag." %}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3" data-aos="fade-up" data-aos-delay="200">
+                <div class="card shadow-sm h-100">
+                    <div class="card-body">
+                        <h3 class="card-title">€50</h3>
+                        <p class="card-text">{% trans "Medische basiszorg en medicijnen voor één maand." %}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3" data-aos="fade-up" data-aos-delay="300">
+                <div class="card shadow-sm h-100">
+                    <div class="card-body">
+                        <h3 class="card-title">€200</h3>
+                        <p class="card-text">{% trans "Schoolgeld, uniform en materiaal voor één kind gedurende een maand." %}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- /Steun Betekent Section -->
+
+<!-- Financiële Adoptie -->
+<section id="adoptie" class="section px-5">
+    <div class="container">
+        <h2 data-aos="fade-left">{% trans "Word Financiële Adoptieouder" %}</h2>
+        <p data-aos="fade-left" data-aos-delay="100">
+            {% trans "Dit is geen echte adoptie, maar een manier om persoonlijk betrokken te zijn bij één van onze kinderen. Voor €225 per jaar steun je de volledige zorg van een kind." %}
+        </p>
+        <ul data-aos="fade-left" data-aos-delay="200">
+            <li>{% trans "€225 per jaar = €0,62 per dag" %}</li>
+            <li>{% trans "Fiscaal aftrekbaar" %}</li>
+            <li>{% trans "Persoonlijk contact met je adoptiekind" %}</li>
+            <li>{% trans "Updates via onze Facebookgroep" %}</li>
+        </ul>
+        <p data-aos="fade-left" data-aos-delay="300">
+            {% trans "Interesse? Contacteer ons en we bespreken samen welk kind nog op zoek is naar een Uncle of Auntie." %}
+        </p>
+    </div>
+</section>
+
+<!-- Doe een Gift -->
+<section id="gift" class="section px-5">
+    <div class="container">
+        <h2 data-aos="fade-left">{% trans "Doe een Vrije Gift" %}</h2>
+        <p data-aos="fade-left" data-aos-delay="100">
+            {% trans "Elke gift, groot of klein, maakt een verschil. En vanaf €40 per jaar is je gift fiscaal aftrekbaar." %}
+        </p>
+        <div class="bg-light p-3 rounded" data-aos="fade-left" data-aos-delay="200">
+            <p><strong>{% trans "Rekeningnummer" %}:</strong> IBAN: BE66 7380 3734 7143 | BIC: KREDBEBB</p>
+            <p><strong>{% trans "Vermelding" %}:</strong> Saranalaya + uw rijksregisternummer</p>
+            <p><small>{% trans "Zonder juiste vermelding gaat je gift naar de algemene werking van Kontinenten vzw." %}</small></p>
+        </div>
+    </div>
+</section>
+
+<!-- Steunacties -->
+<section id="acties" class="section px-5">
+    <div class="container">
+        <h2 data-aos="fade-left">{% trans "Creatieve Steunacties" %}</h2>
+        <p data-aos="fade-left" data-aos-delay="100">
+            {% trans "Scholen, verenigingen of vriendengroepen die in actie willen schieten voor Saranalaya kunnen hun creativiteit helemaal kwijt!" %}
+        </p>
+        <p data-aos="fade-left" data-aos-delay="200">{% trans "Enkele inspirerende ideeën:" %}</p>
+        <ul class="list" data-aos="fade-left" data-aos-delay="300">
+            <li><i class="bi bi-person-walking"></i> {% trans "Sponsorloop" %}</li>
+            <li><i class="bi bi-shop-window"></i> {% trans "Rommel- of kerstmarkt" %}</li>
+            <li><i class="bi bi-cup-straw"></i> {% trans "Taarten- of pannenkoekenverkoop" %}</li>
+            <li><i class="bi bi-house-door"></i> {% trans "Ontbijt aan huis voor Vaderdag of Moederdag" %}</li>
+            <li><i class="bi bi-car-front"></i> {% trans "Carwash" %}</li>
+        </ul>
+        <p data-aos="fade-left" data-aos-delay="400">
+            {% trans "Laat ons weten welke actie je wil organiseren, we ondersteunen jullie graag met info en materiaal!" %}
+        </p>
+    </div>
+</section>
+
+</main>
+{% endblock %}

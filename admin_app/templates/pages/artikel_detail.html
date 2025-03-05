@@ -1,0 +1,50 @@
+{% extends 'detail_page.html' %}
+
+{% load static i18n age %}
+
+{% block title %}{{ artikel.title }} | Care India{% endblock %}
+
+{% block meta %}
+<meta name="description" content="{{ artikel.content|safe }}">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="{{ artikel.title }} | Care India">
+<meta property="og:description" content="{{ artikel.content|safe }}">
+<meta property="og:image" content="{{ artikel.image.url }}">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ artikel.title }} | Care India">
+<meta name="twitter:description" content="{{ artikel.content|safe }}">
+<meta name="twitter:image" content="{{ artikel.image.url }}">
+{% endblock %}
+
+
+{% block main %}
+<main class="main mx-5">
+<!-- Intro Section -->
+<section id="intro" class="intro section m-5">
+    <h1 class="text-center mt-5">{{ artikel.title }}</h1>
+    <p class="text-center mb-5">
+
+        <i class="bi bi-calendar-event"></i> {% blocktrans with date=artikel.date %}Written on {{ date }}{% endblocktrans %} | 
+        <i class="bi bi-pencil"></i> {% blocktrans with date=artikel.last_updated %}Updated on {{ date }}{% endblocktrans %}
+        
+    </p>
+    <div class="container">
+        <div class="row gx-5">
+            
+            <div class="col-md-6 px-4 d-flex align-items-center">
+                {{ artikel.content|safe }}
+            </div>
+        
+            <div class="col-md-1"></div>
+
+            <div data-aos="fade-in" data-aos-delay="100" class="col-md-4 px-4">
+                <img src="{{ artikel.image.url }}" alt="Picture of {{ artikel.name }}" class="img-fluid">
+            </div>
+            
+        </div>
+        </div>
+</section>
+
+</main>
+{% endblock %}
