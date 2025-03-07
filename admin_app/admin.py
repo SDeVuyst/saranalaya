@@ -367,7 +367,7 @@ class ChildAdmin(SimpleHistoryAdmin, NotiModelAdmin):
         AdoptionInlineParent
     ]
 
-    search_fields = ('name', 'adoptionparent__first_name', 'adoptionparent__last_name', 'adoptionparent__firm', 'adoptionparent__description', 'day_of_birth', 'date_of_admission', 'date_of_leave', 'indian_parent_status', 'status', 'description_website', 'description')
+    search_fields = ('name', 'adoptionparent__first_name', 'adoptionparent__last_name', 'adoptionparent__firm', 'adoptionparent__description', 'day_of_birth', 'date_of_admission', 'date_of_leave', 'indian_parent_status', 'status', 'website_description', 'description')
     list_filter = (
         AmountOfAdoptionParentsFilter,
         'gender',
