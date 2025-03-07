@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
+from datetime import date, datetime
 from pathlib import Path
 import os
 import random
@@ -189,6 +190,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
+current_year = datetime.now().year
+
 UNFOLD = {
     "SITE_TITLE": "Saranalaya Admin",
     "SITE_HEADER": "Saranalaya Admin",
@@ -198,6 +201,14 @@ UNFOLD = {
     "SHOW_LANGUAGES": True,
     "SHOW_HISTORY": True, 
     "SHOW_VIEW_ON_SITE": True,
+    "SITE_FAVICONS": [
+        {
+            "rel": "icon",
+            "sizes": "48x48",
+            "type": "image/x-icon",
+            "href": lambda request: static("events/images/favicon.ico"),
+        },
+    ],
 
     "DASHBOARD_CALLBACK": "admin_app.views.dashboard_callback",
 
@@ -220,6 +231,66 @@ UNFOLD = {
             "950": "59 7 100",
         },
     },
+    "EXTENSIONS": {
+        "modeltranslation": {
+            "flags": {
+                "en": "🇬🇧",
+                "nl": "🇧🇪",
+                "ta": "🇮🇳",
+            },
+        },
+    },
+    "TABS": [
+        {
+            "page": _("Adoption Payments"),
+            "models": ["admin_app.adoptionparentsponsoring"],
+            "items": [
+                {
+                    "title": str(current_year),
+                    "icon": "account_balance",
+                    "link": lambda request: f"{
+                        reverse_lazy("admin:admin_app_adoptionparentsponsoring_changelist")
+                    }?date__gte={date(current_year, 1, 1).isoformat()}&date__lte={date(current_year, 12, 31).isoformat()}",
+                },
+                {
+                    "title": str(current_year-1),
+                    "icon": "account_balance",
+                    "link": lambda request: f"{
+                        reverse_lazy("admin:admin_app_adoptionparentsponsoring_changelist")
+                    }?date__gte={date(current_year-1, 1, 1).isoformat()}&date__lte={date(current_year-1, 12, 31).isoformat()}",
+                },
+                {
+                    "title": str(current_year-2),
+                    "icon": "account_balance",
+                    "link": lambda request: f"{
+                        reverse_lazy("admin:admin_app_adoptionparentsponsoring_changelist")
+                    }?date__gte={date(current_year-2, 1, 1).isoformat()}&date__lte={date(current_year-2, 12, 31).isoformat()}",
+                },
+                {
+                    "title": str(current_year-3),
+                    "icon": "account_balance",
+                    "link": lambda request: f"{
+                        reverse_lazy("admin:admin_app_adoptionparentsponsoring_changelist")
+                    }?date__gte={date(current_year-3, 1, 1).isoformat()}&date__lte={date(current_year-3, 12, 31).isoformat()}",
+                },
+                {
+                    "title": str(current_year-4),
+                    "icon": "account_balance",
+                    "link": lambda request: f"{
+                        reverse_lazy("admin:admin_app_adoptionparentsponsoring_changelist")
+                    }?date__gte={date(current_year-4, 1, 1).isoformat()}&date__lte={date(current_year-4, 12, 31).isoformat()}",
+                },
+                {
+                    "title": _("All"),
+                    "icon": "account_balance",
+                    "link": lambda request: f"{
+                        reverse_lazy("admin:admin_app_adoptionparentsponsoring_changelist")
+                    }",
+                },
+                
+            ],
+        },
+    ],
     
     "SIDEBAR": {
         "show_search": False,
