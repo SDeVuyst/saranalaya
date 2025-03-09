@@ -106,7 +106,7 @@ class Child(models.Model):
     indian_parent_status = models.CharField(max_length = 1, choices = ParentStatusChoices.choices, verbose_name=_("Indian Parent Status"))
     status = models.CharField( max_length = 1, choices = StatusChoices.choices, verbose_name=_("Status"))
     description = models.TextField(blank=True, null=True, verbose_name=_("Description"))
-    show_on_website = models.BooleanField(default=True, verbose_name=_("Show on Website"))
+    show_on_website = models.BooleanField(default=False, verbose_name=_("Show on Website"))
     image = models.ImageField(upload_to='children/', blank=True, null=True, verbose_name=_("Image"))
     website_description = RichTextField(blank=True, null=True, verbose_name=_("Website Description"))
     last_updated = models.DateTimeField(auto_now=True)
