@@ -56,7 +56,7 @@ class NotiModelAdmin(ModelAdmin):
             # Check if the updater is in the watched users list
             if updated_by in preference.watched_users.all():
                 # Generate the admin URL for the model (only for create & update)
-                admin_url = "https://vanakaam.be" + resolve_url(
+                admin_url = "https://care-india.be" + resolve_url(
                     reverse(f"admin:{instance._meta.app_label}_{instance._meta.model_name}_change", args=[instance.pk])
                 )
                 admin_link = f"\n\nView in admin: {admin_url}"
