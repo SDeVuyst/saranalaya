@@ -335,7 +335,7 @@ class ChildAdmin(SimpleHistoryAdmin, NotiModelAdmin):
             None,
             instance.name,
             {
-                "path": instance.image.url if instance.image else static("img/kinderen/default.jpg"),
+                "path": instance.image.url if instance.image else static("img/kinderen/kind_default.jpg"),
                 "height": 30,
                 "width": 30,
                 "borderless": False,
