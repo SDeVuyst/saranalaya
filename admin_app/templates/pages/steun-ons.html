@@ -46,38 +46,125 @@
 </section>
 
 <!-- Steun Betekent Section -->
-<!-- TODO translations + tekst -->
+<!-- TODO translations -->
 <section class="section px-5">
     <div class="container">
         <h2 data-aos="fade-in" data-aos-delay="100" class="text-center mb-4">{% trans "Wat jouw steun betekent" %}</h2>
-        <div class="row justify-content-center text-center">
-            <div class="col-md-4 mb-3" data-aos="fade-up" data-aos-delay="100">
-                <div class="card shadow-sm h-100">
-                    <div class="card-body">
-                        <h3 class="card-title">€5</h3>
-                        <p class="card-text">{% trans "Maaltijden voor een kind, voor één dag." %}</p>
+        
+        <div id="donationCarousel" class="carousel carousel-dark slide" data-bs-ride="carousel" data-bs-interval="5000">            
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="row justify-content-center text-center row-gap-3">
+                        <div class="col-md-3 mx-2">
+                            <div class="card shadow-sm h-100">
+                                <div class="card-body">
+                                    <h3 class="card-title">€10</h3>
+                                    <p class="card-text">{% trans "Nieuwe outfit voor één kind" %}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mx-2">
+                            <div class="card shadow-sm h-100">
+                                <div class="card-body">
+                                    <h3 class="card-title">€12</h3>
+                                    <p class="card-text">{% trans "Twee schooluniformen voor één kind" %}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mx-2">
+                            <div class="card shadow-sm h-100">
+                                <div class="card-body">
+                                    <h3 class="card-title">€15</h3>
+                                    <p class="card-text">{% trans "Snacks en thee voor alle kinderen" %}</p>
+                                </div>
+                            </div>
+                        </div>
+                        
                     </div>
                 </div>
-            </div>
-            <div class="col-md-4 mb-3" data-aos="fade-up" data-aos-delay="200">
-                <div class="card shadow-sm h-100">
-                    <div class="card-body">
-                        <h3 class="card-title">€50</h3>
-                        <p class="card-text">{% trans "Medische basiszorg en medicijnen voor één maand." %}</p>
+                
+                <div class="carousel-item">
+                    <div class="row justify-content-center text-center row-gap-3">
+                        <div class="col-md-3 mx-2">
+                            <div class="card shadow-sm h-100">
+                                <div class="card-body">
+                                    <h3 class="card-title">€30</h3>
+                                    <p class="card-text">{% trans "Schoolboeken voor één kind" %}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mx-2">
+                            <div class="card shadow-sm h-100">
+                                <div class="card-body">
+                                    <h3 class="card-title">€35</h3>
+                                    <p class="card-text">{% trans "Ontbijt voor alle kinderen" %}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mx-2">
+                            <div class="card shadow-sm h-100">
+                                <div class="card-body">
+                                    <h3 class="card-title">€45</h3>
+                                    <p class="card-text">{% trans "Warme maaltijd voor alle kinderen" %}</p>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
-            </div>
-            <div class="col-md-4 mb-3" data-aos="fade-up" data-aos-delay="300">
-                <div class="card shadow-sm h-100">
-                    <div class="card-body">
-                        <h3 class="card-title">€200</h3>
-                        <p class="card-text">{% trans "Schoolgeld, uniform en materiaal voor één kind gedurende een maand." %}</p>
+
+                <div class="carousel-item">
+                    <div class="row justify-content-center text-center row-gap-3">
+                        <div class="col-md-3 mx-2">
+                            <div class="card shadow-sm h-100">
+                                <div class="card-body">
+                                    <h3 class="card-title">€50</h3>
+                                    <p class="card-text">{% trans "Pillow & bedsheet for one child" %}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mx-2">
+                            <div class="card shadow-sm h-100">
+                                <div class="card-body">
+                                    <h3 class="card-title">€110</h3>
+                                    <p class="card-text">{% trans "Fruit voor één maand" %}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mx-2">
+                            <div class="card shadow-sm h-100">
+                                <div class="card-body">
+                                    <h3 class="card-title">€225</h3>
+                                    <p class="card-text">{% trans "Financiële adoptie van één kind" %}</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
+
             </div>
+
+            <!-- Carousel Controls -->
+            <button class="carousel-control-prev" type="button" data-bs-target="#donationCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#donationCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+              </button>
         </div>
     </div>
 </section>
+
+<style>
+    .carousel-control-prev,
+    .carousel-control-next {
+        width: 5%; /* Makes the buttons smaller */
+    }
+</style>
+
+
 <!-- /Steun Betekent Section -->
 
 <!-- Financiële Adoptie -->

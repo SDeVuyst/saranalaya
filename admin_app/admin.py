@@ -234,6 +234,9 @@ class DonationInline(StackedInline):
     ordering = ['-date']
 
 
+class ExtraImagesInline(StackedInline):
+    model = ExtraImage
+    extra = 1
 
 # MODELS #
 
@@ -304,6 +307,11 @@ class AdoptionParentAdmin(SimpleHistoryAdmin, NotiModelAdmin):
         return qs
     
 
+@admin.register(SiblingGroup, site=saranalaya_admin_site)
+class SiblingGroupAdmin(ModelAdmin):
+    list_display = ('name', )
+
+
 @admin.register(Child, site=saranalaya_admin_site)
 class ChildAdmin(SimpleHistoryAdmin, NotiModelAdmin):
 
@@ -327,7 +335,7 @@ class ChildAdmin(SimpleHistoryAdmin, NotiModelAdmin):
             None,
             instance.name,
             {
-                "path": instance.image.url if instance.image else static("img/kinderen/default.JPG"),
+                "path": instance.image.url if instance.image else static("img/kinderen/default.jpg"),
                 "height": 30,
                 "width": 30,
                 "borderless": False,
@@ -364,7 +372,8 @@ class ChildAdmin(SimpleHistoryAdmin, NotiModelAdmin):
     
     ordering = ('name',)
     inlines = [
-        AdoptionInlineParent
+        AdoptionInlineParent,
+        ExtraImagesInline
     ]
 
     search_fields = ('name', 'adoptionparent__first_name', 'adoptionparent__last_name', 'adoptionparent__firm', 'adoptionparent__description', 'day_of_birth', 'date_of_admission', 'date_of_leave', 'indian_parent_status', 'status', 'website_description', 'description')

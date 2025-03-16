@@ -56,9 +56,12 @@ class ParentStatusChoices(models.TextChoices):
 
 class StatusChoices(models.TextChoices):
     ACTIVE = 'a', _('Active')
-    LEFT = 'l', _('Left')
     SUPPORT = 's', _('Support')
-
+    LEFT = 'l', _('Left')
+    
+    @classmethod
+    def get_ordered_choices(cls):
+        return [cls.ACTIVE, cls.SUPPORT, cls.LEFT]
 
 class ModelChoices(models.TextChoices):
     CHILD = 'Child', _('Child')
@@ -70,6 +73,13 @@ class ModelChoices(models.TextChoices):
 
 
 # MODELS #
+class SiblingGroup(models.Model):
+
+    name = models.CharField(verbose_name=_("Name"), max_length=100)
+
+    def __str__(self):
+        return self.name
+    
 class Child(models.Model):
     class Meta:
         verbose_name = _("Child")
@@ -97,7 +107,6 @@ class Child(models.Model):
     def get_adoption_parents(self):
         return self.adoptionparent_set.all()
 
-
     name = models.CharField(max_length=60, verbose_name=_("name"))
     gender = models.CharField(max_length = 1, choices = GenderChoices.choices, verbose_name=_("gender"))
     day_of_birth = models.DateField(verbose_name=_("Day of Birth"))
@@ -105,6 +114,7 @@ class Child(models.Model):
     date_of_leave = models.DateField(blank=True, null=True, verbose_name=_("Date of Leave"))
     indian_parent_status = models.CharField(max_length = 1, choices = ParentStatusChoices.choices, verbose_name=_("Indian Parent Status"))
     status = models.CharField( max_length = 1, choices = StatusChoices.choices, verbose_name=_("Status"))
+    sibling_group = models.ForeignKey(SiblingGroup, related_name='siblings', on_delete=models.SET_NULL, blank=True, null=True)
     description = models.TextField(blank=True, null=True, verbose_name=_("Description"))
     show_on_website = models.BooleanField(default=False, verbose_name=_("Show on Website"))
     image = models.ImageField(upload_to='children/', blank=True, null=True, verbose_name=_("Image"))
@@ -113,6 +123,19 @@ class Child(models.Model):
 
     history = HistoricalRecords(verbose_name=_("History"))
 
+
+class ExtraImage(models.Model):
+    class Meta:
+        verbose_name = _('Extra Image')
+        verbose_name_plural = _('Extra Images')
+
+    image = models.ImageField(upload_to='children/', verbose_name=_("Image"))
+    child = models.ForeignKey(to='Child', on_delete=models.DO_NOTHING)
+    date = models.DateField(_("Date of picture"), auto_now_add=True)
+    extra_info = models.CharField(verbose_name=_("Extra Info"), null=True, blank=True)
+    active = models.BooleanField(default=True, verbose_name=_("Active"))
+    order = models.IntegerField(verbose_name=_('Order'), default=0)
+    
 
 class Supporter(models.Model):
     class Meta:

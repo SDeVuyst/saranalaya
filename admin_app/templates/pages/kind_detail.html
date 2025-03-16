@@ -9,12 +9,12 @@
 <meta name="robots" content="index, follow">
 <meta property="og:title" content="{{ kind.name }} | Care India">
 <meta property="og:description" content="{{ kind.website_description|safe }}">
-<meta property="og:image" content="{% if kind.image %}{{ kind.image.url }}{% else %}{% static 'img/kinderen/default.JPG' %}{% endif %}">
+<meta property="og:image" content="{% if kind.image %}{{ kind.image.url }}{% else %}{% static 'img/kinderen/default.jpg' %}{% endif %}">
 
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{{ kind.name }} | Care India">
 <meta name="twitter:description" content="{{ kind.website_description|safe }}">
-<meta name="twitter:image" content="{% if kind.image %}{{ kind.image.url }}{% else %}{% static 'img/kinderen/default.JPG' %}{% endif %}">
+<meta name="twitter:image" content="{% if kind.image %}{{ kind.image.url }}{% else %}{% static 'img/kinderen/default.jpg' %}{% endif %}">
 {% endblock %}
 
 {% block main %}
@@ -39,17 +39,42 @@
     </p>
     <div class="container">
         <div class="row gx-5">
-            
-            <div class="col-md-6 px-4 d-flex align-items-center">
-            <div style="text-align: justify;">
-                {% if kind.website_description %}
-                    {{ kind.website_description|safe }}
-                {% else %}
-                    <span>{% trans 'No extra info available yet' %}</span>
+            <div class="col-md-6 px-4 gap-5 d-flex flex-column justify-content-center align-items-center mb-5">
+                <div>
+                    <h3 class="pb-2 text-center">{% trans 'Info' %}</h3>
+                    <div class="w-100 d-flex justify-content-between" style="text-align: justify;">
+                        {% if kind.website_description %}
+                            {{ kind.website_description|safe }}
+                        {% else %}
+                            <span>{% trans 'No extra info available yet' %}</span>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                {% if siblings %}
+                <div>
+                    <h3 class="pb-2 text-center">{% trans 'Siblings' %}</h3>
+                    
+                    <div class="container">
+                        <div class="row gx-5 column-gap-5">
+                            {% for sibling in siblings %}
+                            <div class="col-md-4 mb-2 d-flex justify-content-between">
+                                <div class="d-flex align-items-center">
+                                    <a href="{% url 'child_detail' sibling.id %}" class="d-flex align-items-center text-decoration-none text-dark">
+                                        <img src="{% if kind.image %}{{ kind.image.url }}{% else %}{% static 'img/kinderen/default.jpg' %}{% endif %}" alt="{{ sibling.name }}" class="rounded-circle me-3" width="50" height="50">
+                                        <span class="fw-bold">{{ sibling.name }}</span>
+                                    </a>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    
+                    
+                </div>
                 {% endif %}
             </div>
-            </div>
-        
+
             <div class="col-md-1"></div>
 
             <div data-aos="fade-in" data-aos-delay="100" class="col-md-4 px-4">
@@ -57,13 +82,46 @@
                 <img src="{{ kind.image.url }}" alt="Picture of {{ kind.name }}" class="img-fluid">
             {% else %}
             <!-- TODO default image kiezen  -->
-                <img src="{% static 'img/kinderen/default.JPG' %}" alt="Default Image" class="img-fluid">
+                <img src="{% static 'img/kinderen/default.jpg' %}" alt="Default Image" class="img-fluid">
             {% endif %}
             </div>
             
         </div>
-        </div>
+    </div>
 </section>
+
+{% if extra_images %}
+<section id="portfolio" class="portfolio section">
+
+    <h2 class="text-center mb-5">{% trans 'Extra Images' %}</h2>
+
+    <div class="container">
+
+      <div class="isotope-layout" data-layout="masonry" data-sort="original-order">
+
+        <div class="row gy-4 isotope-container" data-aos="fade-up" data-aos-delay="200">
+
+          <div class="col-lg-4 col-md-6 afbeelding-item isotope-item filter-school">
+
+            {% for image in extra_images %}
+
+            <img src="{{ image.image.url }}" class="img-fluid" alt="{{ image.date }}{% if image.extra_info %} | {{ image.extra_info }}{% endif %}" loading="lazy">
+            <div class="portfolio-info">
+              <h4>{{ image.date }}{% if image.extra_info %} | {{ image.extra_info }}{% endif %}</h4>
+              <a href="{{ image.image.url }}" title="{{ image.date }}{% if image.extra_info %} | {{ image.extra_info }}{% endif %}" data-gallery="portfolio-gallery-product" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+            </div>
+
+            {% endfor %}
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+</section>
+{% endif %}
 
 </main>
 {% endblock %}

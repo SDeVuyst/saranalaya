@@ -4,7 +4,7 @@ from django.conf import settings
 from django.http import BadHeaderError, Http404, JsonResponse
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
-from .models import Child, News
+from .models import Child, ExtraImage, News
 from django.db.models import Sum
 from django.core.mail import send_mail
 from email.utils import formataddr
@@ -22,7 +22,7 @@ from .utils.helper import *
 
 
 def index(request):
-    kinderen = Child.objects.all().filter(show_on_website=True).order_by('-date_of_admission')[:4]
+    kinderen = Child.objects.filter(show_on_website=True).order_by('status', '-date_of_admission')[:4]
     for index, kind in enumerate(kinderen):
         kind.delay = (index + 1) * 100
 
@@ -37,7 +37,7 @@ def index(request):
     return TemplateResponse(request, "pages/index.html", context)
 
 def kinderen(request):
-    queryset = Child.objects.all().filter(show_on_website=True).order_by('-date_of_admission')
+    queryset = Child.objects.filter(show_on_website=True).order_by('status', '-date_of_admission')
     filterset = KindFilter(request.GET, queryset=queryset)
     kinderen = filterset.qs
 
@@ -55,12 +55,19 @@ def kinderen(request):
 
 def kind_detail(request, id):
     kind = get_object_or_404(Child, id=id)
-
+    extra_images = ExtraImage.objects.filter(child_id=kind.id, active=True).order_by('-order')
+    if kind.sibling_group is not None:
+        siblings = kind.sibling_group.siblings.exclude(id=kind.id)
+    else:
+        siblings = None
+        
     if kind.show_on_website == False:
         raise Http404("Child not found.")
 
     context = {
         'kind': kind,
+        'siblings': siblings,
+        'extra_images': extra_images
     }
     return TemplateResponse(request, "pages/kind_detail.html", context)
 
@@ -75,7 +82,7 @@ def steun_ons(request):
     return TemplateResponse(request, "pages/steun-ons.html", context)
 
 def nieuws(request):
-    queryset = News.objects.all().filter(show_on_website=True).order_by('-date')
+    queryset = News.objects.filter(show_on_website=True).order_by('-date')
     filterset = NewsFilter(request.GET, queryset=queryset)
     artikels = filterset.qs
 
