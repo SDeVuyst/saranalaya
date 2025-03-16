@@ -26,7 +26,7 @@
         <h1 class="pt-3" data-aos="fade-left" data-aos-delay="100">{% trans 'Support Us' %}</h1>
         <!-- TODO tekst -->
         <p data-aos="fade-left" data-aos-delay="200">
-            {% trans "Jouw steun maakt écht een verschil in het leven van onze kinderen in Saranalaya. Ontdek de verschillende manieren waarop je kan bijdragen." %}
+            {% trans "Your support really makes a difference in the lives of our children in Saranalaya. Explore the different ways you can contribute." %}
         </p>
     
 
@@ -46,10 +46,9 @@
 </section>
 
 <!-- Steun Betekent Section -->
-<!-- TODO translations -->
 <section class="section px-5">
     <div class="container">
-        <h2 data-aos="fade-in" data-aos-delay="100" class="text-center mb-4">{% trans "Wat jouw steun betekent" %}</h2>
+        <h2 data-aos="fade-in" data-aos-delay="100" class="text-center mb-4">{% trans "What your support means" %}</h2>
         
         <div id="donationCarousel" class="carousel carousel-dark slide" data-bs-ride="carousel" data-bs-interval="5000">            
             <div class="carousel-inner">
@@ -59,7 +58,7 @@
                             <div class="card shadow-sm h-100">
                                 <div class="card-body">
                                     <h3 class="card-title">€10</h3>
-                                    <p class="card-text">{% trans "Nieuwe outfit voor één kind" %}</p>
+                                    <p class="card-text">{% trans "New outfit for one child" %}</p>
                                 </div>
                             </div>
                         </div>
@@ -67,7 +66,7 @@
                             <div class="card shadow-sm h-100">
                                 <div class="card-body">
                                     <h3 class="card-title">€12</h3>
-                                    <p class="card-text">{% trans "Twee schooluniformen voor één kind" %}</p>
+                                    <p class="card-text">{% trans "Two school uniforms for one child" %}</p>
                                 </div>
                             </div>
                         </div>
@@ -75,7 +74,7 @@
                             <div class="card shadow-sm h-100">
                                 <div class="card-body">
                                     <h3 class="card-title">€15</h3>
-                                    <p class="card-text">{% trans "Snacks en thee voor alle kinderen" %}</p>
+                                    <p class="card-text">{% trans "Snacks and tea for all children" %}</p>
                                 </div>
                             </div>
                         </div>
@@ -89,7 +88,7 @@
                             <div class="card shadow-sm h-100">
                                 <div class="card-body">
                                     <h3 class="card-title">€30</h3>
-                                    <p class="card-text">{% trans "Schoolboeken voor één kind" %}</p>
+                                    <p class="card-text">{% trans "Textbooks for one child" %}</p>
                                 </div>
                             </div>
                         </div>
@@ -97,7 +96,7 @@
                             <div class="card shadow-sm h-100">
                                 <div class="card-body">
                                     <h3 class="card-title">€35</h3>
-                                    <p class="card-text">{% trans "Ontbijt voor alle kinderen" %}</p>
+                                    <p class="card-text">{% trans "Breakfast for all children" %}</p>
                                 </div>
                             </div>
                         </div>
@@ -105,7 +104,7 @@
                             <div class="card shadow-sm h-100">
                                 <div class="card-body">
                                     <h3 class="card-title">€45</h3>
-                                    <p class="card-text">{% trans "Warme maaltijd voor alle kinderen" %}</p>
+                                    <p class="card-text">{% trans "Hot meal for all children" %}</p>
                                 </div>
                             </div>
                         </div>
@@ -127,7 +126,7 @@
                             <div class="card shadow-sm h-100">
                                 <div class="card-body">
                                     <h3 class="card-title">€110</h3>
-                                    <p class="card-text">{% trans "Fruit voor één maand" %}</p>
+                                    <p class="card-text">{% trans "Fruit for one month" %}</p>
                                 </div>
                             </div>
                         </div>
@@ -135,7 +134,7 @@
                             <div class="card shadow-sm h-100">
                                 <div class="card-body">
                                     <h3 class="card-title">€225</h3>
-                                    <p class="card-text">{% trans "Financiële adoptie van één kind" %}</p>
+                                    <p class="card-text">{% trans "Financial adoption of one child" %}</p>
                                 </div>
                             </div>
                         </div>
@@ -147,11 +146,11 @@
             <!-- Carousel Controls -->
             <button class="carousel-control-prev" type="button" data-bs-target="#donationCarousel" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
+                <span class="visually-hidden">{% trans 'Previous' %}</span>
               </button>
               <button class="carousel-control-next" type="button" data-bs-target="#donationCarousel" data-bs-slide="next">
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
+                <span class="visually-hidden">{% trans 'Next' %}</span>
               </button>
         </div>
     </div>
@@ -170,18 +169,36 @@
 <!-- Financiële Adoptie -->
 <section id="adoptie" class="section px-5">
     <div class="container">
-        <h2 data-aos="fade-left">{% trans "Word Financiële Adoptieouder" %}</h2>
+        <h2 data-aos="fade-left">{% trans "Become a Financial Adoption Parent" %}</h2>
         <p data-aos="fade-left" data-aos-delay="100">
-            {% trans "Dit is geen echte adoptie, maar een manier om persoonlijk betrokken te zijn bij één van onze kinderen. Voor €225 per jaar steun je de volledige zorg van een kind." %}
+            {% trans "Would you like to build a personal relationship with a Saranalaya child and thus make a commitment for a number of years? Then it might be a nice idea for you to become uncle or auntie of one of the children." %}
         </p>
-        <ul data-aos="fade-left" data-aos-delay="200">
-            <li>{% trans "€225 per jaar = €0,62 per dag" %}</li>
-            <li>{% trans "Fiscaal aftrekbaar" %}</li>
-            <li>{% trans "Persoonlijk contact met je adoptiekind" %}</li>
-            <li>{% trans "Updates via onze Facebookgroep" %}</li>
-        </ul>
+        <p data-aos="fade-left" data-aos-delay="100">
+            {% blocktrans %}
+            The cost is <b>225 euros</b> per year (or about 60 ct per day), tax deductible.
+            {% endblocktrans %}
+        </p>
+        <p data-aos="fade-left" data-aos-delay="200">
+            {% blocktrans %}
+            You choose what bond you want with your Indian child, sending a photo of yourself or your family with a bill in simple English, is greatly appreciated. The children are very proud to have a family abroad helping to care for them, and photos and bills are cherished.
+            {% endblocktrans %}
+        </p>
+        <p data-aos="fade-left" data-aos-delay="200">
+            {% blocktrans %}
+            Some uncles and aunties send New Year and birthday cards or have their child treats on his/her birthday, others have even visited Saranalaya.  
+            {% endblocktrans %}
+        </p>
+        
         <p data-aos="fade-left" data-aos-delay="300">
-            {% trans "Interesse? Contacteer ons en we bespreken samen welk kind nog op zoek is naar een Uncle of Auntie." %}
+            {% blocktrans %}
+            Via onze <a href="https://www.facebook.com/groups/366106623433788" target="_blank">facebookpagina</a> en de <a href="/#contact">3 maandelijkse nieuwsbrief</a> kan je het reilen en zeilen van de Saranalaya kinderen wat volgen en kan je zo meeleven met het dagelijkse leven daar.
+            {% endblocktrans %}
+        </p>
+
+        <p data-aos="fade-left" data-aos-delay="300">
+            {% blocktrans %}
+            More info? Feel free to contact <a href="mailto:linademan@telenet.be">Lina</a>, she will be happy to explain more.
+            {% endblocktrans %}
         </p>
     </div>
 </section>
@@ -189,14 +206,14 @@
 <!-- Doe een Gift -->
 <section id="gift" class="section px-5">
     <div class="container">
-        <h2 data-aos="fade-left">{% trans "Doe een Vrije Gift" %}</h2>
+        <h2 data-aos="fade-left">{% trans "Make a Donation" %}</h2>
         <p data-aos="fade-left" data-aos-delay="100">
-            {% trans "Elke gift, groot of klein, maakt een verschil. En vanaf €40 per jaar is je gift fiscaal aftrekbaar." %}
+            {% trans "Every gift, big or small, makes a difference. And starting at €40 a year, your gift is tax-deductible." %}
         </p>
         <div class="bg-light p-3 rounded" data-aos="fade-left" data-aos-delay="200">
-            <p><strong>{% trans "Rekeningnummer" %}:</strong> IBAN: BE66 7380 3734 7143 | BIC: KREDBEBB</p>
-            <p><strong>{% trans "Vermelding" %}:</strong> Saranalaya + uw rijksregisternummer</p>
-            <p><small>{% trans "Zonder juiste vermelding gaat je gift naar de algemene werking van Kontinenten vzw." %}</small></p>
+            <p><strong>{% trans "Bank account number" %}:</strong> IBAN: BE66 7380 3734 7143 | BIC: KREDBEBB</p>
+            <p><strong>{% trans "Mention" %}:</strong> {% trans 'Saranalaya + your national registration number' %}</p>
+            <p><small>{% trans "Without proper disclosure, your donation will go to the general operation of Kontinenten vzw." %}</small></p>
         </div>
     </div>
 </section>
@@ -204,20 +221,20 @@
 <!-- Steunacties -->
 <section id="acties" class="section px-5">
     <div class="container">
-        <h2 data-aos="fade-left">{% trans "Creatieve Steunacties" %}</h2>
-        <p data-aos="fade-left" data-aos-delay="100">
-            {% trans "Scholen, verenigingen of vriendengroepen die in actie willen schieten voor Saranalaya kunnen hun creativiteit helemaal kwijt!" %}
+        <h2 data-aos="fade-left">{% trans "Creative Support Actions" %}</h2>
+        <p data-aos="fade-left">
+            {% trans "Schools, clubs or groups of friends who want to shoot into action for Saranalaya can get all creative!" %}
         </p>
-        <p data-aos="fade-left" data-aos-delay="200">{% trans "Enkele inspirerende ideeën:" %}</p>
-        <ul class="list" data-aos="fade-left" data-aos-delay="300">
-            <li><i class="bi bi-person-walking"></i> {% trans "Sponsorloop" %}</li>
-            <li><i class="bi bi-shop-window"></i> {% trans "Rommel- of kerstmarkt" %}</li>
-            <li><i class="bi bi-cup-straw"></i> {% trans "Taarten- of pannenkoekenverkoop" %}</li>
-            <li><i class="bi bi-house-door"></i> {% trans "Ontbijt aan huis voor Vaderdag of Moederdag" %}</li>
+        <p data-aos="fade-left" data-aos-delay="100">{% trans "Some inspiring ideas:" %}</p>
+        <ul class="list" data-aos="fade-left" data-aos-delay="100">
+            <li><i class="bi bi-person-walking"></i> {% trans "Sponsor Run" %}</li>
+            <li><i class="bi bi-shop-window"></i> {% trans "Rummage sale or Christmas market" %}</li>
+            <li><i class="bi bi-cup-straw"></i> {% trans "Cake or pancake sale" %}</li>
+            <li><i class="bi bi-house-door"></i> {% trans "Breakfast at home for Father's Day or Mother's Day" %}</li>
             <li><i class="bi bi-car-front"></i> {% trans "Carwash" %}</li>
         </ul>
-        <p data-aos="fade-left" data-aos-delay="400">
-            {% trans "Laat ons weten welke actie je wil organiseren, we ondersteunen jullie graag met info en materiaal!" %}
+        <p data-aos="fade-left" data-aos-delay="200">
+            {% trans "Let us know what action you would like to organize, we would be happy to support you with info and materials!" %}
         </p>
     </div>
 </section>
