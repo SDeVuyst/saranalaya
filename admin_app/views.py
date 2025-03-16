@@ -22,11 +22,11 @@ from .utils.helper import *
 
 
 def index(request):
-    kinderen = Child.objects.filter(show_on_website=True).order_by('status', '-date_of_admission')[:4]
+    kinderen = Child.objects.filter(show_on_website=True).order_by('status', '-date_of_admission')[:3]
     for index, kind in enumerate(kinderen):
         kind.delay = (index + 1) * 100
 
-    nieuws = News.objects.all().order_by('-last_updated')[:4]
+    nieuws = News.objects.all().order_by('-last_updated')[:3]
     kinderen_count = Child.objects.all().count()
     context = {
         'kinderen': kinderen,

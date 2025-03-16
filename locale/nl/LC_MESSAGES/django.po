@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-09 14:16+0200\n"
-"PO-Revision-Date: 2024-08-09 14:19+0200\n"
+"POT-Creation-Date: 2025-03-16 21:18+0100\n"
+"PO-Revision-Date: 2025-03-16 21:27+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -19,325 +19,364 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 3.4.4\n"
 
-#: .\admin_app\admin.py:78
+#: .\admin_app\admin.py:129
 msgid "Amount of Adoption Parents"
 msgstr "Hoeveelheid Adoptie-ouders"
 
-#: .\admin_app\admin.py:79
+#: .\admin_app\admin.py:130
 msgid "amount_of_adoption_parents"
 msgstr "hoeveelheid_adoptieouders"
 
-#: .\admin_app\admin.py:83
+#: .\admin_app\admin.py:134
 msgid "No Adoption Parents"
 msgstr "Geen Adoptie-ouders"
 
-#: .\admin_app\admin.py:84
+#: .\admin_app\admin.py:135
 msgid "1 Adoption Parent"
 msgstr "1 Adoptie-ouder"
 
-#: .\admin_app\admin.py:85
+#: .\admin_app\admin.py:136
 msgid "2 Adoption Parents"
 msgstr "2 Adoptie-ouders"
 
-#: .\admin_app\admin.py:86
+#: .\admin_app\admin.py:137
 msgid "3 Adoption Parents"
 msgstr "3 Adoptie-ouders"
 
-#: .\admin_app\admin.py:87
+#: .\admin_app\admin.py:138
 msgid "More than 3 Adoption Parents"
 msgstr "Meer dan 3 Adoptie-ouders"
 
-#: .\admin_app\admin.py:163
+#: .\admin_app\admin.py:214
 msgid "Adoption Parent - Child"
 msgstr "Adoptie-ouder - Kind"
 
-#: .\admin_app\admin.py:164
+#: .\admin_app\admin.py:215
 msgid "Adoption Parents - Children"
 msgstr "Adoptie-ouders - Kinderen"
 
-#: .\admin_app\admin.py:170
+#: .\admin_app\admin.py:221
 msgid "Child - Adoption Parent"
 msgstr "Kind - Adoptie-ouder"
 
-#: .\admin_app\admin.py:171
+#: .\admin_app\admin.py:222
 msgid "Children - Adoption Parents"
 msgstr "Kinderen - Adoptie-ouders"
 
-#: .\admin_app\admin.py:215
+#: .\admin_app\admin.py:269
 msgid "Add New Payment"
 msgstr "Voeg Nieuwe Betaling Toe"
 
-#: .\admin_app\admin.py:238
+#: .\admin_app\admin.py:292
 #, python-brace-format
 msgid "Added {amount_of_sponsors_saved} Payments!"
 msgstr "{amount_of_sponsors_saved} betalingen toegevoegd!"
 
-#: .\admin_app\admin.py:240 .\admin_app\admin.py:465 .\admin_app\admin.py:578
+#: .\admin_app\admin.py:294 .\admin_app\admin.py:346 .\admin_app\admin.py:424
+#: .\admin_app\admin.py:468
 msgid "Generate Address List"
 msgstr "Genereer Adres Lijst"
 
-#: .\admin_app\admin.py:244 .\admin_app\admin.py:472 .\admin_app\admin.py:582
+#: .\admin_app\admin.py:298 .\admin_app\admin.py:356 .\admin_app\admin.py:431
+#: .\admin_app\admin.py:472
 msgid "Generate Mailing List"
 msgstr "Genereer Mail Lijst"
 
-#: .\admin_app\admin.py:250 .\admin_app\admin.py:403 .\admin_app\admin.py:481
-#: .\admin_app\admin.py:588 .\admin_app\admin.py:680
-msgid "Mark as read"
-msgstr "Markeer als gelezen"
+#: .\admin_app\admin.py:331 .\admin_app\filters.py:9 .\admin_app\models.py:78
+#: .\admin_app\templates\pages\index.html:142
+msgid "Name"
+msgstr "Naam"
 
-#: .\admin_app\admin.py:266
-#, python-brace-format
-msgid "{updated_count} adoption parents were successfully marked as read."
-msgstr "{updated_count} adoptie-ouders zijn gemarkeerd als gelezen."
-
-#: .\admin_app\admin.py:269 .\admin_app\admin.py:422 .\admin_app\admin.py:500
-#: .\admin_app\admin.py:607 .\admin_app\admin.py:699
-msgid "Mark as unread"
-msgstr "Markeer als ongelezen"
-
-#: .\admin_app\admin.py:283
-#, python-brace-format
-msgid "{deleted_count} adoption parents were successfully marked as unread."
-msgstr "{deleted_count} adoptie-ouders zijn gemarkeerd als ongelezen."
-
-#: .\admin_app\admin.py:419
-#, python-brace-format
-msgid "{updated_count} children were successfully marked as read."
-msgstr "{updated_count} kinderen zijn gemarkeerd als gelezen."
-
-#: .\admin_app\admin.py:436
-#, python-brace-format
-msgid "{deleted_count} children were successfully marked as unread."
-msgstr "{deleted_count} kinderen zijn gemarkeerd als ongelezen."
-
-#: .\admin_app\admin.py:497
-#, python-brace-format
-msgid "{updated_count} payments were successfully marked as read."
-msgstr "{updated_count} betalingen zijn gemarkeerd als gelezen."
-
-#: .\admin_app\admin.py:514
-#, python-brace-format
-msgid "{deleted_count} payments were successfully marked as unread."
-msgstr "{deleted_count} betalingen zijn gemarkeerd als ongelezen."
-
-#: .\admin_app\admin.py:604
-#, python-brace-format
-msgid "{updated_count} sponsors were successfully marked as read."
-msgstr "{updated_count} sponsers zijn gemarkeerd als gelezen."
-
-#: .\admin_app\admin.py:621
-#, python-brace-format
-msgid "{deleted_count} sponsors were successfully marked as unread."
-msgstr "{deleted_count} sponsors zijn gemarkeerd als ongelezen."
-
-#: .\admin_app\admin.py:696
-#, python-brace-format
-msgid "{updated_count} donations were successfully marked as read."
-msgstr "{updated_count} donaties zijn gemarkeerd als gelezen."
-
-#: .\admin_app\admin.py:713
-#, python-brace-format
-msgid "{deleted_count} donations were successfully marked as unread."
-msgstr "{deleted_count} donaties zijn gemarkeerd als ongelezen."
+#: .\admin_app\admin.py:514 .\admin_app\filters.py:49 .\admin_app\models.py:274
+#: .\events\models.py:41 .\events\models.py:91
+msgid "Title"
+msgstr "Titel"
 
 #: .\admin_app\apps.py:7
 msgid "Saranalaya Admin"
 msgstr "Saranalaya Admin"
 
-#: .\admin_app\models.py:45
-msgid "Male"
-msgstr "Mannelijk"
+#: .\admin_app\filters.py:10
+msgid "Search by name"
+msgstr "Zoek op naam"
 
-#: .\admin_app\models.py:46
-msgid "Female"
-msgstr "Vrouwelijk"
+#: .\admin_app\filters.py:14
+msgid "Gender"
+msgstr "Geslacht"
 
-#: .\admin_app\models.py:50
-msgid "No Parents"
-msgstr "Geen Ouders"
-
-#: .\admin_app\models.py:51
-msgid "One Parent"
-msgstr "1 Ouder"
-
-#: .\admin_app\models.py:52
-msgid "Two Parents"
-msgstr "2 Ouders"
-
-#: .\admin_app\models.py:56 .\admin_app\models.py:147 .\admin_app\models.py:156
-msgid "Active"
-msgstr "Actief"
-
-#: .\admin_app\models.py:57
-msgid "Left"
-msgstr "Weg"
-
-#: .\admin_app\models.py:58
-msgid "Support"
-msgstr "Ondersteuning"
-
-#: .\admin_app\models.py:66 .\admin_app\models.py:181
-msgid "Child"
-msgstr "Kind"
-
-#: .\admin_app\models.py:67 .\admin_app\models.py:134 .\admin_app\models.py:146
-#: .\admin_app\views.py:73 .\admin_app\views.py:126 .\admin_app\views.py:139
-#: .\saranalaya\settings.py:237
-msgid "Children"
-msgstr "Kinderen"
-
-#: .\admin_app\models.py:73 .\admin_app\models.py:132 .\admin_app\views.py:89
-#: .\saranalaya\settings.py:243
-msgid "Adoption Parents"
-msgstr "Adoptie-ouders"
-
-#: .\admin_app\models.py:90
-msgid "name"
-msgstr "naam"
-
-#: .\admin_app\models.py:91
-msgid "gender"
-msgstr "gender"
-
-#: .\admin_app\models.py:92
-msgid "Day of Birth"
-msgstr "Geboortedag"
-
-#: .\admin_app\models.py:93
-msgid "Date of Admission"
-msgstr "Dag van Aankomst"
-
-#: .\admin_app\models.py:94
-msgid "Date of Leave"
-msgstr "Dag van Weggaan"
-
-#: .\admin_app\models.py:95
-msgid "Indian Parent Status"
-msgstr "Status van Indische ouders"
-
-#: .\admin_app\models.py:96
+#: .\admin_app\filters.py:19 .\admin_app\models.py:116
 msgid "Status"
 msgstr "Status"
 
-#: .\admin_app\models.py:97
-msgid "Link website"
-msgstr "Link naar Website"
+#: .\admin_app\filters.py:24
+msgid "Admitted After"
+msgstr "Opgenomen Na"
 
-#: .\admin_app\models.py:98 .\admin_app\models.py:124 .\admin_app\models.py:179
-#: .\admin_app\models.py:208 .\events\models.py:43 .\events\models.py:92
-#: .\events\models.py:231
-msgid "Description"
-msgstr "Beschrijving"
+#: .\admin_app\filters.py:31
+msgid "Born After"
+msgstr "Geboren na"
 
-#: .\admin_app\models.py:101 .\admin_app\models.py:149
-#: .\admin_app\models.py:184 .\admin_app\models.py:194
-#: .\admin_app\models.py:211 .\events\models.py:54 .\events\models.py:97
-#: .\events\models.py:156 .\events\models.py:237
-msgid "History"
-msgstr "Geschiedenis"
+#: .\admin_app\filters.py:37
+msgid "Born Before"
+msgstr "Geboren voor"
 
-#: .\admin_app\models.py:108
-msgid "Supporter"
-msgstr "Supporter"
+#: .\admin_app\filters.py:50
+msgid "Search by title"
+msgstr "Zoeken op titel"
 
-#: .\admin_app\models.py:109
-msgid "Supporters"
-msgstr "Supporters"
+#: .\admin_app\filters.py:56
+msgid "Written After"
+msgstr "Geschreven na"
 
-#: .\admin_app\models.py:114 .\events\models.py:150 .\events\models.py:226
-msgid "First Name"
-msgstr "Voornaam"
+#: .\admin_app\filters.py:62
+msgid "Written Before"
+msgstr "Geschreven voor"
 
-#: .\admin_app\models.py:115 .\events\models.py:151 .\events\models.py:227
-msgid "Last Name"
-msgstr "Achternaam"
+#: .\admin_app\models.py:47
+msgid "Male"
+msgstr "Mannelijk"
 
-#: .\admin_app\models.py:116
-msgid "Firm"
-msgstr "Firma"
+#: .\admin_app\models.py:48
+msgid "Female"
+msgstr "Vrouwelijk"
 
-#: .\admin_app\models.py:117
-msgid "Street Name"
-msgstr "Straatnaam"
+#: .\admin_app\models.py:52
+msgid "No Parents"
+msgstr "Geen Ouders"
 
-#: .\admin_app\models.py:118
-msgid "Address Number"
-msgstr "Adres Nummer"
+#: .\admin_app\models.py:53
+msgid "One Parent"
+msgstr "1 Ouder"
 
-#: .\admin_app\models.py:119
-msgid "Bus"
-msgstr "Bus"
+#: .\admin_app\models.py:54
+msgid "Two Parents"
+msgstr "2 Ouders"
 
-#: .\admin_app\models.py:120
-msgid "Postcode"
-msgstr "Postcode"
+#: .\admin_app\models.py:58 .\admin_app\models.py:136 .\admin_app\models.py:183
+#: .\admin_app\models.py:205
+msgid "Active"
+msgstr "Actief"
 
-#: .\admin_app\models.py:121
-msgid "City"
-msgstr "Stad"
+#: .\admin_app\models.py:59 .\admin_app\templates\blocks\kind.html:13
+msgid "Support"
+msgstr "Ondersteuning"
 
-#: .\admin_app\models.py:122
-msgid "Country"
-msgstr "Land"
+#: .\admin_app\models.py:60 .\admin_app\templates\blocks\kind.html:11
+msgid "Left"
+msgstr "Weg"
 
-#: .\admin_app\models.py:123
-msgid "E-mail"
-msgstr "E-mail"
+#: .\admin_app\models.py:67 .\admin_app\models.py:85 .\admin_app\models.py:230
+msgid "Child"
+msgstr "Kind"
 
-#: .\admin_app\models.py:125
-msgid "Phone Number"
-msgstr "GSM-nummer"
-
-#: .\admin_app\models.py:131
+#: .\admin_app\models.py:68 .\admin_app\models.py:167
 msgid "Adoption Parent"
 msgstr "Adoptie-ouder"
 
-#: .\admin_app\models.py:161
+#: .\admin_app\models.py:69 .\admin_app\models.py:199
+msgid "Adoption"
+msgstr "Adoptie"
+
+#: .\admin_app\models.py:70 .\admin_app\models.py:210
 msgid "Adoption Parent Payment"
 msgstr "Adoptie-ouder Betaling"
 
-#: .\admin_app\models.py:162 .\saranalaya\settings.py:249
-msgid "Adoption Parent Payments"
-msgstr "Adoptie-ouder Betalingen"
-
-#: .\admin_app\models.py:169
-msgid "Amount remaining"
-msgstr "Resterend"
-
-#: .\admin_app\models.py:177 .\admin_app\models.py:207
-msgid "Date"
-msgstr "Datum"
-
-#: .\admin_app\models.py:178 .\admin_app\models.py:206
-msgid "Amount"
-msgstr "Hoeveelheid"
-
-#: .\admin_app\models.py:180
-msgid "Parent"
-msgstr "Ouder"
-
-#: .\admin_app\models.py:189 .\admin_app\models.py:205
+#: .\admin_app\models.py:71 .\admin_app\models.py:238 .\admin_app\models.py:254
 msgid "Sponsor"
 msgstr "Sponser"
 
-#: .\admin_app\models.py:190 .\saranalaya\settings.py:255
-msgid "Sponsors"
-msgstr "Sponsers"
-
-#: .\admin_app\models.py:192
-msgid "Letters"
-msgstr "Brieven"
-
-#: .\admin_app\models.py:199
+#: .\admin_app\models.py:72 .\admin_app\models.py:248
 msgid "Donation"
 msgstr "Donatie"
 
-#: .\admin_app\models.py:200 .\admin_app\views.py:80 .\admin_app\views.py:110
-#: .\saranalaya\settings.py:261
+#: .\admin_app\models.py:86 .\admin_app\models.py:170 .\admin_app\models.py:182
+#: .\admin_app\templates\pages\kinderen.html:5 .\admin_app\views.py:222
+#: .\admin_app\views.py:275 .\admin_app\views.py:288
+#: .\saranalaya\settings.py:308
+msgid "Children"
+msgstr "Kinderen"
+
+#: .\admin_app\models.py:96 .\admin_app\models.py:168 .\admin_app\views.py:238
+#: .\saranalaya\settings.py:313
+msgid "Adoption Parents"
+msgstr "Adoptie-ouders"
+
+#: .\admin_app\models.py:110
+msgid "name"
+msgstr "naam"
+
+#: .\admin_app\models.py:111
+msgid "gender"
+msgstr "gender"
+
+#: .\admin_app\models.py:112
+msgid "Day of Birth"
+msgstr "Geboortedag"
+
+#: .\admin_app\models.py:113
+msgid "Date of Admission"
+msgstr "Dag van Aankomst"
+
+#: .\admin_app\models.py:114
+msgid "Date of Leave"
+msgstr "Dag van Weggaan"
+
+#: .\admin_app\models.py:115
+msgid "Indian Parent Status"
+msgstr "Status van Indische ouders"
+
+#: .\admin_app\models.py:118 .\admin_app\models.py:160
+#: .\admin_app\models.py:228 .\admin_app\models.py:257 .\events\models.py:43
+#: .\events\models.py:92 .\events\models.py:231
+msgid "Description"
+msgstr "Beschrijving"
+
+#: .\admin_app\models.py:119 .\admin_app\models.py:279
+msgid "Show on Website"
+msgstr "Weergeven op website"
+
+#: .\admin_app\models.py:120 .\admin_app\models.py:132
+#: .\admin_app\models.py:277 .\events\models.py:50
+msgid "Image"
+msgstr "Afbeelding"
+
+#: .\admin_app\models.py:121
+msgid "Website Description"
+msgstr "Beschrijving op website"
+
+#: .\admin_app\models.py:124 .\admin_app\models.py:185
+#: .\admin_app\models.py:233 .\admin_app\models.py:243
+#: .\admin_app\models.py:260 .\admin_app\models.py:281 .\events\models.py:54
+#: .\events\models.py:97 .\events\models.py:156 .\events\models.py:237
+msgid "History"
+msgstr "Geschiedenis"
+
+#: .\admin_app\models.py:129
+msgid "Extra Image"
+msgstr "Extra afbeelding"
+
+#: .\admin_app\models.py:130 .\admin_app\templates\pages\kind_detail.html:95
+msgid "Extra Images"
+msgstr "Extra afbeeldingen"
+
+#: .\admin_app\models.py:134
+msgid "Date of picture"
+msgstr "Datum van de foto"
+
+#: .\admin_app\models.py:135
+msgid "Extra Info"
+msgstr "Extra informatie"
+
+#: .\admin_app\models.py:137
+msgid "Order"
+msgstr "Bestelling"
+
+#: .\admin_app\models.py:144
+msgid "Supporter"
+msgstr "Supporter"
+
+#: .\admin_app\models.py:145
+msgid "Supporters"
+msgstr "Supporters"
+
+#: .\admin_app\models.py:150 .\events\models.py:150 .\events\models.py:226
+msgid "First Name"
+msgstr "Voornaam"
+
+#: .\admin_app\models.py:151 .\events\models.py:151 .\events\models.py:227
+msgid "Last Name"
+msgstr "Achternaam"
+
+#: .\admin_app\models.py:152
+msgid "Firm"
+msgstr "Firma"
+
+#: .\admin_app\models.py:153
+msgid "Street Name"
+msgstr "Straatnaam"
+
+#: .\admin_app\models.py:154
+msgid "Address Number"
+msgstr "Adres Nummer"
+
+#: .\admin_app\models.py:155
+msgid "Bus"
+msgstr "Bus"
+
+#: .\admin_app\models.py:156
+msgid "Postcode"
+msgstr "Postcode"
+
+#: .\admin_app\models.py:157
+msgid "City"
+msgstr "Stad"
+
+#: .\admin_app\models.py:158
+msgid "Country"
+msgstr "Land"
+
+#: .\admin_app\models.py:159
+msgid "E-mail"
+msgstr "E-mail"
+
+#: .\admin_app\models.py:161
+msgid "Phone Number"
+msgstr "GSM-nummer"
+
+#: .\admin_app\models.py:200
+msgid "Adoptions"
+msgstr "Adopties"
+
+#: .\admin_app\models.py:211
+msgid "Adoption Parent Payments"
+msgstr "Adoptie-ouder Betalingen"
+
+#: .\admin_app\models.py:218
+msgid "Amount remaining"
+msgstr "Resterend"
+
+#: .\admin_app\models.py:226 .\admin_app\models.py:256
+#: .\admin_app\models.py:276
+msgid "Date"
+msgstr "Datum"
+
+#: .\admin_app\models.py:227 .\admin_app\models.py:255
+msgid "Amount"
+msgstr "Hoeveelheid"
+
+#: .\admin_app\models.py:229
+msgid "Parent"
+msgstr "Ouder"
+
+#: .\admin_app\models.py:239 .\saranalaya\settings.py:323
+msgid "Sponsors"
+msgstr "Sponsers"
+
+#: .\admin_app\models.py:241
+msgid "Letters"
+msgstr "Brieven"
+
+#: .\admin_app\models.py:249 .\admin_app\views.py:229 .\admin_app\views.py:259
+#: .\saranalaya\settings.py:328
 msgid "Donations"
 msgstr "Donaties"
 
-#: .\admin_app\templates\admin\index.html:8 .\saranalaya\settings.py:232
+#: .\admin_app\models.py:264 .\admin_app\models.py:265
+#: .\admin_app\templates\blocks\header.html:13
+#: .\admin_app\templates\pages\nieuws.html:5
+#: .\admin_app\templates\pages\nieuws.html:25 .\saranalaya\settings.py:333
+msgid "News"
+msgstr "Nieuws"
+
+#: .\admin_app\models.py:275
+msgid "Content"
+msgstr "Inhoud"
+
+#: .\admin_app\models.py:287
+msgid "Model"
+msgstr "Model"
+
+#: .\admin_app\templates\admin\index.html:8 .\saranalaya\settings.py:303
 msgid "Dashboard"
 msgstr "Dashboard"
 
@@ -349,36 +388,752 @@ msgstr "Django site admin"
 msgid "Income"
 msgstr "Inkomsten"
 
-#: .\admin_app\views.py:21
+#: .\admin_app\templates\blocks\footer.html:11
+msgid "Care India"
+msgstr "Care India"
+
+#: .\admin_app\templates\blocks\header.html:11
+#: .\admin_app\templates\pages\over-ons.html:5
+#: .\admin_app\templates\pages\over-ons.html:25
+msgid "About Us"
+msgstr "Over ons"
+
+#: .\admin_app\templates\blocks\header.html:12
+#: .\admin_app\templates\pages\index.html:91
+#: .\admin_app\templates\pages\kinderen.html:25
+msgid "Our Children"
+msgstr "Onze Kinderen"
+
+#: .\admin_app\templates\blocks\header.html:14
+msgid "Latest Event"
+msgstr "Laatste evenement"
+
+#: .\admin_app\templates\blocks\header.html:15
+#: .\admin_app\templates\pages\index.html:127
+msgid "Contact"
+msgstr "Contact"
+
+#: .\admin_app\templates\blocks\header.html:18
+msgid "Language"
+msgstr "Taal"
+
+#: .\admin_app\templates\blocks\header.html:41
+#: .\admin_app\templates\pages\index.html:65
+#: .\admin_app\templates\pages\steun-ons.html:5
+#: .\admin_app\templates\pages\steun-ons.html:25
+msgid "Support Us"
+msgstr "Steun ons"
+
+#: .\admin_app\templates\blocks\kind.html:26
+#, python-format
+msgid ""
+"\n"
+"                        %(age)s years old\n"
+"                    "
+msgstr ""
+"\n"
+"%(age)s jaar oud\n"
+"                    "
+
+#: .\admin_app\templates\blocks\kind.html:32
+#, python-format
+msgid ""
+"\n"
+"                            Left Saranalaya on %(date)s\n"
+"                        "
+msgstr ""
+"\n"
+"Verliet Saranalaya op %(date)s\n"
+"                        "
+
+#: .\admin_app\templates\blocks\kind.html:38
+#, python-format
+msgid ""
+"\n"
+"                            In Saranalaya since %(date)s\n"
+"                        "
+msgstr ""
+"\n"
+"In Saranalaya sinds %(date)s\n"
+"                        "
+
+#: .\admin_app\templates\pages\artikel_detail.html:28
+#, python-format
+msgid "Written on %(date)s"
+msgstr "Geschreven op %(date)s"
+
+#: .\admin_app\templates\pages\artikel_detail.html:29
+#, python-format
+msgid "Updated on %(date)s"
+msgstr "Bijgewerkt op %(date)s"
+
+#: .\admin_app\templates\pages\index.html:19
+#: .\admin_app\templates\pages\index.html:22
+#: .\admin_app\templates\pages\index.html:27
+#: .\admin_app\templates\pages\index.html:60
+msgid ""
+"C.A.R.E. is een Vlaamse, kleinschalige en onafhankelijke organisatie die "
+"zich inzet voor straatkinderen in Chennai."
+msgstr ""
+
+#: .\admin_app\templates\pages\index.html:43
+msgid "A heart for the street children"
+msgstr "Een hart voor de straatkinderen"
+
+#: .\admin_app\templates\pages\index.html:44
+msgid "Discover our children"
+msgstr "Ontdek onze kinderen"
+
+#: .\admin_app\templates\pages\index.html:58
+msgid "About our organisation"
+msgstr "Over onze organisatie"
+
+#: .\admin_app\templates\pages\index.html:61
+msgid ""
+"C.A.R.E. is de oprichter en sponsor van een uniek kindertehuis, Saranalaya "
+"genaamd, waar de familiale en gemoedelijke sfeer overheerst. Wij werken "
+"uitsluitend met vrijwilligers, waardoor er geen gelden verloren gaan aan "
+"Belgische verloning. Ook blijven de adminstratieve kosten heel gering."
+msgstr ""
+
+#: .\admin_app\templates\pages\index.html:62
+msgid ""
+"Bent u geïnteresseerd om ons project te steunen, dan zijn er verschillende "
+"mogelijkheden."
+msgstr ""
+
+#: .\admin_app\templates\pages\index.html:64
+msgid "More Info"
+msgstr "Meer informatie"
+
+#: .\admin_app\templates\pages\index.html:77
+msgid "Small-scale independent organization since 1996"
+msgstr "Kleinschalige onafhankelijke organisatie sinds 1996"
+
+#: .\admin_app\templates\pages\index.html:79
+msgid "Raising and growing in your own culture"
+msgstr "Opvoeden en groeien in je eigen cultuur"
+
+#: .\admin_app\templates\pages\index.html:80
+msgid "Breaking the vicious circle of poverty"
+msgstr "Het doorbreken van de vicieuze cirkel van armoede"
+
+#: .\admin_app\templates\pages\index.html:92
+msgid "See all children"
+msgstr "Bekijk alle kinderen"
+
+#: .\admin_app\templates\pages\index.html:109
+msgid "Latest News"
+msgstr "Laatste nieuws"
+
+#: .\admin_app\templates\pages\index.html:110
+msgid "See all news"
+msgstr "Bekijk al het nieuws"
+
+#: .\admin_app\templates\pages\index.html:128
+msgid "Send us a message!"
+msgstr "Stuur ons een berichtje!"
+
+#: .\admin_app\templates\pages\index.html:147 .\events\models.py:152
+#: .\events\models.py:228
+msgid "Email"
+msgstr "E-mail"
+
+#: .\admin_app\templates\pages\index.html:152
+msgid "Subject"
+msgstr "Onderwerp"
+
+#: .\admin_app\templates\pages\index.html:157
+msgid "Message"
+msgstr "Bericht"
+
+#: .\admin_app\templates\pages\index.html:165
+msgid "Loading..."
+msgstr "Laden…"
+
+#: .\admin_app\templates\pages\index.html:167
+msgid "Your message has been sent!"
+msgstr "Je bericht is verzonden!"
+
+#: .\admin_app\templates\pages\index.html:168
+msgid "Send message"
+msgstr "Verstuur bericht"
+
+#: .\admin_app\templates\pages\kind_detail.html:27
+#, python-format
+msgid "%(age)s years old"
+msgstr "%(age)s jaar oud"
+
+#: .\admin_app\templates\pages\kind_detail.html:30
+#, python-format
+msgid "Left Saranalaya on %(date)s"
+msgstr "Verliet Saranalaya op %(date)s"
+
+#: .\admin_app\templates\pages\kind_detail.html:32
+#, python-format
+msgid "In Saranalaya since %(date)s"
+msgstr "In Saranalaya sinds %(date)s"
+
+#: .\admin_app\templates\pages\kind_detail.html:36
+#, python-format
+msgid "We are still supporting %(name)s"
+msgstr "We steunen %(name)s nog steeds"
+
+#: .\admin_app\templates\pages\kind_detail.html:44
+msgid "Info"
+msgstr "Info"
+
+#: .\admin_app\templates\pages\kind_detail.html:49
+msgid "No extra info available yet"
+msgstr "Nog geen extra info beschikbaar"
+
+#: .\admin_app\templates\pages\kind_detail.html:56
+msgid "Siblings"
+msgstr "Broers en zussen"
+
+#: .\admin_app\templates\pages\kinderen.html:8
+#: .\admin_app\templates\pages\kinderen.html:11
+#: .\admin_app\templates\pages\kinderen.html:16
+msgid ""
+"Meet the children supported by C.A.R.E. in Chennai. Learn about their "
+"stories, challenges, and how our Flemish organization helps them build a "
+"better future."
+msgstr ""
+"Maak kennis met de kinderen die door C.A.R.E. in Chennai worden ondersteund. "
+"Lees meer over hun verhalen, uitdagingen en hoe onze Vlaamse organisatie hen "
+"helpt een betere toekomst op te bouwen."
+
+#: .\admin_app\templates\pages\kinderen.html:10
+#: .\admin_app\templates\pages\kinderen.html:15
+msgid "Children | Care India"
+msgstr "Kinderen | Care India"
+
+#: .\admin_app\templates\pages\kinderen.html:26
+msgid ""
+"Saranalaya Children's Home consists of about 50 street children from the "
+"Chennai area of southern India."
+msgstr ""
+"Saranalaya Children's Home bestaat uit ongeveer 50 straatkinderen uit de "
+"omgeving van Chennai in het zuiden van India."
+
+#: .\admin_app\templates\pages\kinderen.html:27
+msgid ""
+"Most of our children are half orphans. Often the mother is left alone after "
+"the father (and thus breadwinner) has left the family or died. Life in the "
+"slums is hard and often it is impossible for the mother to provide for her "
+"child, let alone send it to school. There are also some children in "
+"Saranalaya who no longer have parents."
+msgstr ""
+"De meeste van onze kinderen zijn halfweeskinderen. Vaak blijft de moeder "
+"alleen achter nadat de vader (en dus kostwinner) het gezin heeft verlaten of "
+"is overleden. Het leven in de sloppenwijken is zwaar en vaak is het voor de "
+"moeder onmogelijk om voor haar kind te zorgen, laat staan het naar school te "
+"sturen. Er zijn ook enkele kinderen in Saranalaya die geen ouders meer "
+"hebben."
+
+#: .\admin_app\templates\pages\kinderen.html:77
+#: .\admin_app\templates\pages\nieuws.html:59
+msgid "Filter"
+msgstr "Filter"
+
+#: .\admin_app\templates\pages\kinderen.html:80
+#: .\admin_app\templates\pages\nieuws.html:62
+msgid "Reset"
+msgstr "Reset"
+
+#: .\admin_app\templates\pages\kinderen.html:93
+msgid "No children found."
+msgstr "Geen kinderen gevonden."
+
+#: .\admin_app\templates\pages\kinderen.html:103
+#: .\admin_app\templates\pages\nieuws.html:85
+msgid "First"
+msgstr "Eerste"
+
+#: .\admin_app\templates\pages\kinderen.html:106
+#: .\admin_app\templates\pages\nieuws.html:88
+#: .\admin_app\templates\pages\steun-ons.html:147
+msgid "Previous"
+msgstr "Vorige"
+
+#: .\admin_app\templates\pages\kinderen.html:111
+#: .\admin_app\templates\pages\nieuws.html:93
+msgid "Page"
+msgstr "Pagina"
+
+#: .\admin_app\templates\pages\kinderen.html:111
+#: .\admin_app\templates\pages\nieuws.html:93
+msgid "of"
+msgstr "van"
+
+#: .\admin_app\templates\pages\kinderen.html:116
+#: .\admin_app\templates\pages\nieuws.html:98
+#: .\admin_app\templates\pages\steun-ons.html:151
+msgid "Next"
+msgstr "Volgende"
+
+#: .\admin_app\templates\pages\kinderen.html:119
+#: .\admin_app\templates\pages\nieuws.html:101
+msgid "Last"
+msgstr "Laatste"
+
+#: .\admin_app\templates\pages\nieuws.html:8
+#: .\admin_app\templates\pages\nieuws.html:11
+#: .\admin_app\templates\pages\nieuws.html:16
+msgid ""
+"Stay up to date with the latest news from C.A.R.E., a Flemish organization "
+"dedicated to helping street children in Chennai. Discover our project, "
+"initiatives, and updates."
+msgstr ""
+"Blijf op de hoogte van het laatste nieuws van C.A.R.E., een Vlaamse "
+"organisatie die zich inzet voor straatkinderen in Chennai. Ontdek ons "
+"project, onze initiatieven en onze updates."
+
+#: .\admin_app\templates\pages\nieuws.html:10
+#: .\admin_app\templates\pages\nieuws.html:15
+msgid "News | Care India"
+msgstr "Nieuws | Care India"
+
+#: .\admin_app\templates\pages\nieuws.html:27
+msgid ""
+"Het kindertehuis Saranalaya bestaat uit een 50-tal straatartikels uit de "
+"streek rond Chennai in het zuiden van India."
+msgstr ""
+
+#: .\admin_app\templates\pages\nieuws.html:28
+msgid ""
+"De meeste van onze artikels zijn halve wezen. Vaak blijft de moeder alleen "
+"achter nadat de vader (en dus de kostwinner) het gezin verlaten heeft of "
+"gestorven is. Het leven in de sloppenwijken is hard en dikwijls is het "
+"onmogelijk voor de moeder om in het onderhoud van haar kindje te voldoen, "
+"laat staan om het naar school te sturen. Er zijn ook enkele artikels in "
+"Saranalaya die geen ouders meer hebben."
+msgstr ""
+
+#: .\admin_app\templates\pages\nieuws.html:75
+msgid "No articles found."
+msgstr "Geen artikelen gevonden."
+
+#: .\admin_app\templates\pages\over-ons.html:8
+#: .\admin_app\templates\pages\over-ons.html:11
+#: .\admin_app\templates\pages\over-ons.html:16
+msgid ""
+"Learn more about C.A.R.E., a small, independent Flemish organization "
+"committed to improving the lives of street children in Chennai through "
+"education, care, and support."
+msgstr ""
+"Kom meer te weten over C.A.R.E., een kleine, onafhankelijke Vlaamse "
+"organisatie die zich inzet voor het verbeteren van het leven van "
+"straatkinderen in Chennai door middel van onderwijs, zorg en ondersteuning."
+
+#: .\admin_app\templates\pages\over-ons.html:10
+msgid " About Us | Care India"
+msgstr " Over ons | Care India"
+
+#: .\admin_app\templates\pages\over-ons.html:15
+msgid "About Us | Care India"
+msgstr " Over ons | Care India"
+
+#: .\admin_app\templates\pages\over-ons.html:27
+msgid ""
+"\n"
+"            Saranalaya is a small and independent children's home in "
+"Chennai, southeastern India. There are 45-50 children living there and the "
+"family feeling is central. We take in children who do not have a (good) home "
+"situation and do our utmost to let them grow up without worries. In "
+"Saranalaya there is a strong emphasis on education. Every child gets the "
+"chance to go to school and after high school also to continue studying if "
+"they want to. Even the children who have left Saranalaya and are already on "
+"their own, are always welcome and often receive a push from Sundar as well. "
+"Thanks to Saranalaya, more than 150 underprivileged children have already "
+"been given a chance for a better life.\n"
+"            "
+msgstr ""
+"\n"
+"Saranalaya is een klein en onafhankelijk kindertehuis in Chennai, in het "
+"zuidoosten van India. Er wonen 45-50 kinderen en het familiegevoel staat "
+"centraal. Wij vangen kinderen op die geen (goede) thuissituatie hebben en "
+"doen ons uiterste best om ze zorgeloos te laten opgroeien. In Saranalaya "
+"ligt er een sterke nadruk op onderwijs. Ieder kind krijgt de kans om naar "
+"school te gaan en na de middelbare school ook om verder te studeren als ze "
+"dat willen. Zelfs de kinderen die Saranalaya hebben verlaten en er al alleen "
+"voor staan, zijn altijd welkom en krijgen vaak ook een duwtje van Sundar. "
+"Dankzij Saranalaya hebben al meer dan 150 kansarme kinderen een kans "
+"gekregen op een beter leven.\n"
+"            "
+
+#: .\admin_app\templates\pages\over-ons.html:33
+msgid ""
+"\n"
+"            The children's home is run on a daily basis by Sundar, his wife "
+"Kavitha and a team of chefs, cleaners and teachers. The sponsorship needed "
+"to keep the home running comes mainly from Flemish aunties and uncles. Your "
+"support really makes a difference in the lives of our children in "
+"Saranalaya.\n"
+"            "
+msgstr ""
+"\n"
+"Het kindertehuis wordt dagelijks gerund door Sundar, zijn vrouw Kavitha en "
+"een team van chef-koks, schoonmakers en leraren. De sponsoring die nodig is "
+"om het huis draaiende te houden, komt vooral van Vlaamse tantes en ooms. Uw "
+"steun maakt echt een verschil in het leven van onze kinderen in Saranalaya.\n"
+"            "
+
+#: .\admin_app\templates\pages\over-ons.html:43
+msgid "How it started"
+msgstr "Hoe het begon"
+
+#: .\admin_app\templates\pages\over-ons.html:45
+msgid ""
+"\n"
+"            In 1996, Veerle was doing an internship at a hospital in "
+"Chennai. One day she passed two young children tied to a tree, one of them "
+"battered with a shard of glass in the face. Together with Sundar, who was in "
+"charge of her, they got out of the rickshaw and waited with the young boys "
+"for their parents. When their father came home drunk several hours later, he "
+"made the unforgettable statement; “This is the best day of my life, you can "
+"have them,” and gave the boys' birth certificates to Veerle and Sundar. A "
+"few days later they gave shelter to a dozen street children in a rented "
+"house. In 2003, Saranalaya's final building was built in Thandalam, a small "
+"village just outside Chennai. \n"
+"            "
+msgstr ""
+"\n"
+"In 1996 liep Veerle stage in een ziekenhuis in Chennai. Op een dag passeerde "
+"ze twee jonge kinderen die aan een boom waren vastgebonden, een van hen "
+"gehavend met een glasscherf in het gezicht. Samen met Sundar, die de leiding "
+"over haar had, stapten ze uit de riksja en wachtten ze met de jonge jongens "
+"op hun ouders. Toen hun vader enkele uren later dronken thuiskwam, deed hij "
+"de onvergetelijke uitspraak; \"Dit is de mooiste dag van mijn leven, je mag "
+"ze hebben\", en gaf de geboorteaktes van de jongens aan Veerle en Sundar. "
+"Een paar dagen later boden ze onderdak aan een tiental straatkinderen in een "
+"gehuurd huis. In 2003 werd het laatste gebouw van Saranalaya gebouwd in "
+"Thandalam, een klein dorpje net buiten Chennai. \n"
+"            "
+
+#: .\admin_app\templates\pages\over-ons.html:55
+msgid "Daily life at Saranalaya"
+msgstr "Dagelijks leven in Saranalaya"
+
+#: .\admin_app\templates\pages\steun-ons.html:8
+#: .\admin_app\templates\pages\steun-ons.html:11
+#: .\admin_app\templates\pages\steun-ons.html:16
+msgid ""
+"Support C.A.R.E. and help improve the lives of street children in Chennai. "
+"Discover how you can donate, volunteer, or contribute to our organization’s "
+"mission."
+msgstr ""
+"Steun C.A.R.E. en help het leven van straatkinderen in Chennai te "
+"verbeteren. Ontdek hoe u kunt doneren, vrijwilligerswerk kunt doen of kunt "
+"bijdragen aan de missie van onze organisatie."
+
+#: .\admin_app\templates\pages\steun-ons.html:10
+#: .\admin_app\templates\pages\steun-ons.html:15
+msgid "Support Us | Care India"
+msgstr "Steun ons | Care India"
+
+#: .\admin_app\templates\pages\steun-ons.html:27
+msgid ""
+"Your support really makes a difference in the lives of our children in "
+"Saranalaya. Explore the different ways you can contribute."
+msgstr ""
+"Uw steun maakt echt een verschil in het leven van onze kinderen in "
+"Saranalaya. Ontdek de verschillende manieren waarop u kunt bijdragen."
+
+#: .\admin_app\templates\pages\steun-ons.html:34
+msgid "Financial Adoption"
+msgstr "Financiële adoptie"
+
+#: .\admin_app\templates\pages\steun-ons.html:37
+msgid "Make a donation"
+msgstr "Doe een gift"
+
+#: .\admin_app\templates\pages\steun-ons.html:40
+msgid "Support actions"
+msgstr "Ondersteunende acties"
+
+#: .\admin_app\templates\pages\steun-ons.html:49
+msgid "What your support means"
+msgstr "Wat uw ondersteuning betekent"
+
+#: .\admin_app\templates\pages\steun-ons.html:59
+msgid "New outfit for one child"
+msgstr "Nieuwe outfit voor één kind"
+
+#: .\admin_app\templates\pages\steun-ons.html:67
+msgid "Two school uniforms for one child"
+msgstr "Twee schooluniformen voor één kind"
+
+#: .\admin_app\templates\pages\steun-ons.html:75
+msgid "Snacks and tea for all children"
+msgstr "Snacks en thee voor alle kinderen"
+
+#: .\admin_app\templates\pages\steun-ons.html:89
+msgid "Textbooks for one child"
+msgstr "Studieboeken voor één kind"
+
+#: .\admin_app\templates\pages\steun-ons.html:97
+msgid "Breakfast for all children"
+msgstr "Ontbijt voor alle kinderen"
+
+#: .\admin_app\templates\pages\steun-ons.html:105
+msgid "Hot meal for all children"
+msgstr "Warme maaltijd voor alle kinderen"
+
+#: .\admin_app\templates\pages\steun-ons.html:119
+msgid "Pillow & bedsheet for one child"
+msgstr "Kussen & laken voor één kind"
+
+#: .\admin_app\templates\pages\steun-ons.html:127
+msgid "Fruit for one month"
+msgstr "Fruit voor een maand"
+
+#: .\admin_app\templates\pages\steun-ons.html:135
+msgid "Financial adoption of one child"
+msgstr "Financiële adoptie van één kind"
+
+#: .\admin_app\templates\pages\steun-ons.html:170
+msgid "Become a Financial Adoption Parent"
+msgstr "Word een financiële adoptieouder"
+
+#: .\admin_app\templates\pages\steun-ons.html:172
+msgid ""
+"Would you like to build a personal relationship with a Saranalaya child and "
+"thus make a commitment for a number of years? Then it might be a nice idea "
+"for you to become uncle or auntie of one of the children."
+msgstr ""
+"Wil je graag een persoonlijke band opbouwen met een Saranalaya kind en zo "
+"een verbintenis aangaan voor een aantal jaren? Dan is het misschien een leuk "
+"idee voor je om oom of tante te worden van een van de kinderen."
+
+#: .\admin_app\templates\pages\steun-ons.html:175
+msgid ""
+"\n"
+"            The cost is <b>225 euros</b> per year (or about 60 ct per day), "
+"tax deductible.\n"
+"            "
+msgstr ""
+"\n"
+"De kosten bedragen <b>225 euro</b> per jaar (of ongeveer 60 cent per dag), "
+"fiscaal aftrekbaar.            "
+
+#: .\admin_app\templates\pages\steun-ons.html:180
+msgid ""
+"\n"
+"            You choose what bond you want with your Indian child, sending a "
+"photo of yourself or your family with a bill in simple English, is greatly "
+"appreciated. The children are very proud to have a family abroad helping to "
+"care for them, and photos and bills are cherished.\n"
+"            "
+msgstr ""
+"\n"
+"U kiest zelf welke band u wilt met uw Indiase kind, het sturen van een foto "
+"van uzelf of uw gezin met een rekening in eenvoudig Engels, wordt zeer op "
+"prijs gesteld. De kinderen zijn erg trots dat ze een familie in het "
+"buitenland hebben die voor hen zorgt, en foto's en rekeningen worden "
+"gekoesterd.\n"
+"            "
+
+#: .\admin_app\templates\pages\steun-ons.html:185
+msgid ""
+"\n"
+"            Some uncles and aunties send New Year and birthday cards or have "
+"their child treats on his/her birthday, others have even visited "
+"Saranalaya.  \n"
+"            "
+msgstr ""
+"\n"
+"Sommige ooms en tantes sturen nieuwjaars- en verjaardagskaarten of laten hun "
+"kind traktaties doen op zijn/haar verjaardag, anderen hebben zelfs "
+"Saranalaya bezocht.  \n"
+"            "
+
+#: .\admin_app\templates\pages\steun-ons.html:191
+msgid ""
+"\n"
+"            Via onze <a href=\"https://www.facebook.com/"
+"groups/366106623433788\" target=\"_blank\">facebookpagina</a> en de <a "
+"href=\"/#contact\">3 maandelijkse nieuwsbrief</a> kan je het reilen en "
+"zeilen van de Saranalaya kinderen wat volgen en kan je zo meeleven met het "
+"dagelijkse leven daar.\n"
+"            "
+msgstr ""
+"\n"
+"Via onze <a href=\"https://www.facebook.com/groups/366106623433788\" "
+"target=\"_blank\">facebookpagina</a> en de <a href=\"/#contact\">3 "
+"maandelijkse nieuwsbrief</a> kan je het reilen en zeilen van de Saranalaya "
+"kinderen wat volgen en kan je zo meeleven met het dagelijkse leven "
+"daar.            "
+
+#: .\admin_app\templates\pages\steun-ons.html:197
+msgid ""
+"\n"
+"            More info? Feel free to contact <a href=\"mailto:"
+"linademan@telenet.be\">Lina</a>, she will be happy to explain more.\n"
+"            "
+msgstr ""
+"\n"
+"Meer info? Neem gerust contact op met <a href=\"mailto:linademan@telenet."
+"be\">Lina</a>, zij legt je graag meer uit.            "
+
+#: .\admin_app\templates\pages\steun-ons.html:207
+msgid "Make a Donation"
+msgstr "Doe een donatie"
+
+#: .\admin_app\templates\pages\steun-ons.html:209
+msgid ""
+"Every gift, big or small, makes a difference. And starting at €40 a year, "
+"your gift is tax-deductible."
+msgstr ""
+"Elk geschenk, groot of klein, maakt een verschil. En vanaf € 40 per jaar is "
+"je gift aftrekbaar van de belasting."
+
+#: .\admin_app\templates\pages\steun-ons.html:212
+msgid "Bank account number"
+msgstr "Bankrekeningnummer"
+
+#: .\admin_app\templates\pages\steun-ons.html:213
+msgid "Mention"
+msgstr "Met vermelding"
+
+#: .\admin_app\templates\pages\steun-ons.html:213
+msgid "Saranalaya + your national registration number"
+msgstr "Saranalaya + uw rijksregisternummer"
+
+#: .\admin_app\templates\pages\steun-ons.html:214
+msgid ""
+"Without proper disclosure, your donation will go to the general operation of "
+"Kontinenten vzw."
+msgstr ""
+"Zonder vermelding gaat uw gift naar de algemene werking van Kontinenten vzw."
+
+#: .\admin_app\templates\pages\steun-ons.html:222
+msgid "Creative Support Actions"
+msgstr "Creatieve ondersteunende acties"
+
+#: .\admin_app\templates\pages\steun-ons.html:224
+msgid ""
+"Schools, clubs or groups of friends who want to shoot into action for "
+"Saranalaya can get all creative!"
+msgstr ""
+"Scholen, clubs of groepen vrienden die in actie willen komen voor Saranalaya "
+"kunnen helemaal creatief worden!"
+
+#: .\admin_app\templates\pages\steun-ons.html:226
+msgid "Some inspiring ideas:"
+msgstr "Enkele inspirerende ideeën:"
+
+#: .\admin_app\templates\pages\steun-ons.html:228
+msgid "Sponsor Run"
+msgstr "Sponsorloop"
+
+#: .\admin_app\templates\pages\steun-ons.html:229
+msgid "Rummage sale or Christmas market"
+msgstr "Rommelmarkt of kerstmarkt"
+
+#: .\admin_app\templates\pages\steun-ons.html:230
+msgid "Cake or pancake sale"
+msgstr "Taart of pannenkoek verkoop"
+
+#: .\admin_app\templates\pages\steun-ons.html:231
+msgid "Breakfast at home for Father's Day or Mother's Day"
+msgstr "Ontbijt aan huis voor Vaderdag of Moederdag"
+
+#: .\admin_app\templates\pages\steun-ons.html:232
+msgid "Carwash"
+msgstr "Wasstraat"
+
+#: .\admin_app\templates\pages\steun-ons.html:235
+msgid ""
+"Let us know what action you would like to organize, we would be happy to "
+"support you with info and materials!"
+msgstr ""
+"Laat ons weten welke actie je graag wilt organiseren, we ondersteunen je "
+"graag met info en materialen!"
+
+#: .\admin_app\urls.py:9
+msgid "children/"
+msgstr "kinderen/"
+
+#: .\admin_app\urls.py:10
+msgid "children/<int:id>/"
+msgstr "kinderen/<int:id>/"
+
+#: .\admin_app\urls.py:11
+msgid "about-us/"
+msgstr "over-ons/"
+
+#: .\admin_app\urls.py:12
+msgid "support-us/"
+msgstr "steun-ons/"
+
+#: .\admin_app\urls.py:13
+msgid "news/"
+msgstr "nieuws/"
+
+#: .\admin_app\urls.py:14
+msgid "news/<int:id>/"
+msgstr "nieuws/<int:id>/"
+
+#: .\admin_app\urls.py:15
+msgid "contact/"
+msgstr "contact/"
+
+#: .\admin_app\views.py:34
+#, python-brace-format
+msgid "Helped {kinderen_count} children through the years"
+msgstr "{kinderen_count} kinderen door de jaren heen geholpen"
+
+#: .\admin_app\views.py:144
+msgid "Message Received"
+msgstr "Bericht ontvangen"
+
+#: .\admin_app\views.py:145
+msgid ""
+"Thank you for completing the contact form. We have received your message in "
+"good order and will contact you as soon as possible.\n"
+"\n"
+"Kind regards\n"
+"\n"
+"The Care India Team"
+msgstr ""
+"Bedankt voor het invullen van het contactformulier. Wij hebben uw bericht in "
+"goede orde ontvangen en nemen zo spoedig mogelijk contact met u op.\n"
+"\n"
+"Vriendelijke groeten\n"
+"\n"
+"Het Care India Team"
+
+#: .\admin_app\views.py:170
 #, python-brace-format
 msgid "progress from {last_year}"
 msgstr "vooruitgang van {last_year}"
 
-#: .\admin_app\views.py:74
+#: .\admin_app\views.py:223
 msgid "Current"
 msgstr "Huidig"
 
-#: .\admin_app\views.py:76
+#: .\admin_app\views.py:225
 msgid "Only active children are counted"
 msgstr "Alleen actieve kinderen worden meegeteld"
 
-#: .\admin_app\views.py:90
+#: .\admin_app\views.py:239
 msgid "All Time"
 msgstr "Sinds begin"
 
-#: .\admin_app\views.py:92
+#: .\admin_app\views.py:241
 msgid "Only active parents are counted"
 msgstr "Alleen actieve ouders worden meegeteld"
 
-#: .\admin_app\views.py:96 .\admin_app\views.py:117
+#: .\admin_app\views.py:245 .\admin_app\views.py:266
 msgid "Parent Payments"
 msgstr "Adoptie-ouder Betalingen"
 
-#: .\admin_app\views.py:127
+#: .\admin_app\views.py:276
 msgid "By Admission Date"
 msgstr "Door Dag van Aankomst"
 
-#: .\admin_app\views.py:140
+#: .\admin_app\views.py:289
 msgid "By Status"
 msgstr "Door Status"
 
@@ -430,10 +1185,6 @@ msgstr "Genereer Alle Tickets"
 msgid "Generate Ticket"
 msgstr "Genereer Ticket"
 
-#: .\events\models.py:41 .\events\models.py:91
-msgid "Title"
-msgstr "Titel"
-
 #: .\events\models.py:42
 msgid "Title Subscript"
 msgstr "Titel Subscript"
@@ -461,10 +1212,6 @@ msgstr "Locatie (kort)"
 #: .\events\models.py:49
 msgid "Location (long)"
 msgstr "Locatie (lang)"
-
-#: .\events\models.py:50
-msgid "Image"
-msgstr "Afbeelding"
 
 #: .\events\models.py:51
 msgid "Google Maps embed URL"
@@ -507,10 +1254,6 @@ msgstr "Gefaald"
 msgid "Mollie id"
 msgstr "Mollie id"
 
-#: .\events\models.py:152 .\events\models.py:228
-msgid "Email"
-msgstr "E-mail"
-
 #: .\events\models.py:232
 msgid "Ticket"
 msgstr "Ticket"
@@ -533,37 +1276,94 @@ msgstr "Ongeldige E-mail: %(mail)s"
 msgid "QR code not recognised!"
 msgstr "QR-code wordt niet herkend!"
 
-#: .\events\views.py:136
+#: .\events\views.py:136 .\events\views.py:140
 msgid "Fraud Detected!"
 msgstr "Fraude Gedetecteerd!"
 
-#: .\events\views.py:140
+#: .\events\views.py:144
 msgid "Participant already attended!"
 msgstr "Deelnemer is reeds aanwezig!"
 
-#: .\events\views.py:148
+#: .\events\views.py:152
 msgid "unknown request."
 msgstr "onbekend verzoek."
 
-#: .\saranalaya\settings.py:229
+#: .\saranalaya\settings.py:245 .\saranalaya\settings.py:318
+msgid "Adoption Payments"
+msgstr "Adoptie Betalingen"
+
+#: .\saranalaya\settings.py:284
+msgid "All"
+msgstr "Alle"
+
+#: .\saranalaya\settings.py:300
 msgid "Navigation"
 msgstr "Navigatie"
 
-#: .\saranalaya\settings.py:273
+#: .\saranalaya\settings.py:344
 msgid "Events"
 msgstr "Evenementen"
 
-#: .\saranalaya\settings.py:278
+#: .\saranalaya\settings.py:349
 msgid "Tickets"
 msgstr "Tickets"
 
-#: .\saranalaya\settings.py:283
+#: .\saranalaya\settings.py:354
 msgid "Participants"
 msgstr "Deelnemers"
 
-#: .\saranalaya\settings.py:294
+#: .\saranalaya\settings.py:365
 msgid "Scanner"
 msgstr "Scanner"
+
+#~ msgid "Mark as read"
+#~ msgstr "Markeer als gelezen"
+
+#, python-brace-format
+#~ msgid "{updated_count} adoption parents were successfully marked as read."
+#~ msgstr "{updated_count} adoptie-ouders zijn gemarkeerd als gelezen."
+
+#~ msgid "Mark as unread"
+#~ msgstr "Markeer als ongelezen"
+
+#, python-brace-format
+#~ msgid "{deleted_count} adoption parents were successfully marked as unread."
+#~ msgstr "{deleted_count} adoptie-ouders zijn gemarkeerd als ongelezen."
+
+#, python-brace-format
+#~ msgid "{updated_count} children were successfully marked as read."
+#~ msgstr "{updated_count} kinderen zijn gemarkeerd als gelezen."
+
+#, python-brace-format
+#~ msgid "{deleted_count} children were successfully marked as unread."
+#~ msgstr "{deleted_count} kinderen zijn gemarkeerd als ongelezen."
+
+#, python-brace-format
+#~ msgid "{updated_count} payments were successfully marked as read."
+#~ msgstr "{updated_count} betalingen zijn gemarkeerd als gelezen."
+
+#, python-brace-format
+#~ msgid "{deleted_count} payments were successfully marked as unread."
+#~ msgstr "{deleted_count} betalingen zijn gemarkeerd als ongelezen."
+
+#, python-brace-format
+#~ msgid "{updated_count} sponsors were successfully marked as read."
+#~ msgstr "{updated_count} sponsers zijn gemarkeerd als gelezen."
+
+#, python-brace-format
+#~ msgid "{deleted_count} sponsors were successfully marked as unread."
+#~ msgstr "{deleted_count} sponsors zijn gemarkeerd als ongelezen."
+
+#, python-brace-format
+#~ msgid "{updated_count} donations were successfully marked as read."
+#~ msgstr "{updated_count} donaties zijn gemarkeerd als gelezen."
+
+#, python-brace-format
+#~ msgid "{deleted_count} donations were successfully marked as unread."
+#~ msgstr "{deleted_count} donaties zijn gemarkeerd als ongelezen."
+
+#~ msgid "Link website"
+#~ msgstr "Link naar Website"
 
 #~ msgid "By Amount"
 #~ msgstr "Door Hoeveelheid"
