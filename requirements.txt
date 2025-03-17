@@ -3,9 +3,9 @@ psycopg2-binary>=2.9.8
 django-dbbackup==4.2.1
 boto3==1.35.26
 django-storages==1.14.4
-django-unfold==0.49.1
+django-unfold==0.52.0
 django-filter==25.1
-django-simple-history==3.7.0
+django-simple-history==3.8.0
 django-payments==3.0.1
 django-money==3.5.3
 django-ckeditor==6.7.1

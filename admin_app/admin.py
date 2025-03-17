@@ -316,7 +316,8 @@ class SiblingGroupAdmin(ModelAdmin):
 class ChildAdmin(SimpleHistoryAdmin, NotiModelAdmin):
 
     list_display = ('display_header', 'status_colored', 'day_of_birth', 'get_adoption_parents_formatted')
-
+    history_list_per_page = 10
+    
     @display(
         description=_lazy_('Status'), 
         label={
