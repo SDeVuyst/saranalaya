@@ -88,7 +88,9 @@ ROOT_URLCONF = 'saranalaya.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],
+        'DIRS': [
+            os.path.normpath(os.path.join(BASE_DIR, "saranalaya/templates")),
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
