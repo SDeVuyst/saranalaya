@@ -4,8 +4,8 @@ from django.conf import settings
 from django.http import BadHeaderError, Http404, JsonResponse
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
-from .models import Child, ExtraImage, News
-from django.db.models import Sum
+from .models import Child, ExtraImage, News, StatusChoices
+from django.db.models import Sum, Case, When, Value, IntegerField
 from django.core.mail import send_mail
 from email.utils import formataddr
 from django.core.paginator import Paginator
@@ -37,7 +37,14 @@ def index(request):
     return TemplateResponse(request, "pages/index.html", context)
 
 def kinderen(request):
-    queryset = Child.objects.filter(show_on_website=True).order_by('status', '-date_of_admission')
+    queryset = Child.objects.filter(show_on_website=True).annotate(
+        status_order=Case(
+            When(status=StatusChoices.ACTIVE, then=Value(1)),
+            When(status=StatusChoices.SUPPORT, then=Value(2)),
+            When(status=StatusChoices.LEFT, then=Value(3)),
+            output_field=IntegerField()
+        )
+    ).order_by('status_order', '-date_of_admission')
     filterset = KindFilter(request.GET, queryset=queryset)
     kinderen = filterset.qs
 
