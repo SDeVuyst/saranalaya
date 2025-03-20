@@ -9,6 +9,7 @@ from .models import *
 from django.templatetags.static import static
 from .utils import helper
 from datetime import datetime
+from django.db.models import Case, When, Value, IntegerField
 from django.utils import timezone
 from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy as _lazy_
@@ -317,6 +318,18 @@ class ChildAdmin(SimpleHistoryAdmin, NotiModelAdmin):
 
     list_display = ('display_header', 'status_colored', 'day_of_birth', 'get_adoption_parents_formatted')
     history_list_per_page = 10
+
+    def get_ordering(self, request):
+        return [
+            Case(
+                When(status=StatusChoices.ACTIVE, then=Value(1)),
+                When(status=StatusChoices.SUPPORT, then=Value(2)),
+                When(status=StatusChoices.LEFT, then=Value(3)),
+                default=Value(4),  # Ensures any other statuses are sorted last
+                output_field=IntegerField()
+            ),
+            'name'
+        ]
     
     @display(
         description=_lazy_('Status'), 
