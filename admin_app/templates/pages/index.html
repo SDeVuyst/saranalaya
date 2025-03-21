@@ -16,15 +16,15 @@
 {% endblock %}
 
 {% block meta %}
-<meta name="description" content="{% blocktrans %}C.A.R.E. is een Vlaamse, kleinschalige en onafhankelijke organisatie die zich inzet voor straatkinderen in Chennai.{% endblocktrans %}">
+<meta name="description" content="{% blocktrans %}Care India is a Flemish, small-scale and independent organization dedicated to street children in Chennai.{% endblocktrans %}">
 <meta name="robots" content="index, follow">
 <meta property="og:title" content="Care India">
-<meta property="og:description" content="{% blocktrans %}C.A.R.E. is een Vlaamse, kleinschalige en onafhankelijke organisatie die zich inzet voor straatkinderen in Chennai.{% endblocktrans %}">
+<meta property="og:description" content="{% blocktrans %}Care India is a Flemish, small-scale and independent organization dedicated to street children in Chennai.{% endblocktrans %}">
 <meta property="og:image" content="{% static 'img/logo.png' %}">
 
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Care India">
-<meta name="twitter:description" content="{% blocktrans %}C.A.R.E. is een Vlaamse, kleinschalige en onafhankelijke organisatie die zich inzet voor straatkinderen in Chennai.{% endblocktrans %}">
+<meta name="twitter:description" content="{% blocktrans %}Care India is a Flemish, small-scale and independent organization dedicated to street children in Chennai.{% endblocktrans %}">
 <meta name="twitter:image" content="{% static 'img/logo.png' %}">
 {% endblock %}
 
@@ -56,10 +56,8 @@
           </div>
           <div class="col-md-6 d-flex flex-column justify-content-center">
             <h1 data-aos="fade-left" data-aos-delay="100" class="pb-3">{% trans 'About our organisation' %}</h1>
-            <!-- TODO tekst -->
-            <p data-aos="fade-left" data-aos-delay="200"><b>{% blocktrans %}C.A.R.E. is een Vlaamse, kleinschalige en onafhankelijke organisatie die zich inzet voor straatkinderen in Chennai.{% endblocktrans %}</b></p>
-            <p data-aos="fade-left" data-aos-delay="200">{% blocktrans %}C.A.R.E. is de oprichter en sponsor van een uniek kindertehuis, Saranalaya genaamd, waar de familiale en gemoedelijke sfeer overheerst. Wij werken uitsluitend met vrijwilligers, waardoor er geen gelden verloren gaan aan Belgische verloning. Ook blijven de adminstratieve kosten heel gering.{% endblocktrans %}</p>
-            <p data-aos="fade-left" data-aos-delay="200">{% blocktrans %}Bent u geïnteresseerd om ons project te steunen, dan zijn er verschillende mogelijkheden.{% endblocktrans %}</p>
+            <p data-aos="fade-left" data-aos-delay="200"><b>{% blocktrans %}Care India is a Flemish, small-scale and independent organization dedicated to street children in Chennai.{% endblocktrans %}</b></p>
+            <p data-aos="fade-left" data-aos-delay="200">{% blocktrans %}Care India supports the Saranalaya orphanage in Thandalam, South India. Because it is a small-scale project, we only work with volunteers in Belgium and every euro collected goes entirely to the project.{% endblocktrans %}</p>
             <div>
               <a data-aos="fade-left" data-aos-delay="200" class="btn btn-primary btn-fit-content" href="{% url 'about-us' %}">{% trans 'More Info' %}</a>
               <a data-aos="fade-left" data-aos-delay="200" class="btn btn-secondary btn-fit-content" href="{% url 'support-us' %}">{% trans 'Support Us' %}</a>
@@ -84,7 +82,6 @@
     </section><!-- /Icons Section -->
 
     <!-- Kinderen Section -->
-    <!-- TODO maak dit een carousel / slider  -->
     <section class="section kinderen mx-5">
       <div class="container">
         <div data-aos="fade-in" data-aos-delay="100" class="title mb-3 mx-5">
@@ -102,7 +99,6 @@
 
     {% if nieuws %}
     <!-- Nieuws Section -->
-    <!-- TODO maak dit een carousel / slider  -->
     <section class="section kinderen mx-5">
       <div class="container">
         <div data-aos="fade-in" data-aos-delay="100" class="title mb-3 mx-5">
@@ -173,7 +169,7 @@
             </div>
           </div>
 
-          <div class="col-lg-5 pt-4" data-aos="fade" data-aos-delay="200">
+          <div class="col-lg-5 pt-4" data-aos="fade" data-aos-delay="200" id="nieuwsbrief">
             <div class="ml-embedded" data-form="d6pXww"></div>
           </div>
         </div>

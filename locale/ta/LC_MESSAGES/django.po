@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-10 15:57+0200\n"
-"PO-Revision-Date: 2024-07-10 15:57+0200\n"
+"POT-Creation-Date: 2025-03-21 13:42+0100\n"
+"PO-Revision-Date: 2025-03-21 13:45+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ta\n"
@@ -19,305 +19,1315 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 3.4.4\n"
 
-#: .\admin_app\admin.py:30
-msgid "By Amount"
-msgstr "தொகை வாரியாக"
-
-#: .\admin_app\admin.py:35
+#: .\admin_app\admin.py:130
 msgid "Amount of Adoption Parents"
 msgstr "தத்தெடுப்பு பெற்றோரின் தொகை"
 
-#: .\admin_app\admin.py:36
+#: .\admin_app\admin.py:131
 msgid "amount_of_adoption_parents"
 msgstr "amount_of_adoption_parents"
 
-#: .\admin_app\admin.py:40
+#: .\admin_app\admin.py:135
 msgid "No Adoption Parents"
 msgstr "தத்தெடுப்பு பெற்றோர் இல்லை"
 
-#: .\admin_app\admin.py:41
+#: .\admin_app\admin.py:136
 msgid "1 Adoption Parent"
 msgstr "1 தத்தெடுப்பு பெற்றோர்"
 
-#: .\admin_app\admin.py:42
+#: .\admin_app\admin.py:137
 msgid "2 Adoption Parents"
 msgstr "2 தத்தெடுப்பு பெற்றோர்"
 
-#: .\admin_app\admin.py:43
+#: .\admin_app\admin.py:138
 msgid "3 Adoption Parents"
 msgstr "3 தத்தெடுப்பு பெற்றோர்"
 
-#: .\admin_app\admin.py:44
+#: .\admin_app\admin.py:139
 msgid "More than 3 Adoption Parents"
 msgstr "3 க்கும் மேற்பட்ட தத்தெடுப்பு பெற்றோர்கள்"
 
-#: .\admin_app\admin.py:120
+#: .\admin_app\admin.py:215
 msgid "Adoption Parent - Child"
 msgstr "தத்தெடுப்பு பெற்றோர் - குழந்தை"
 
-#: .\admin_app\admin.py:121
+#: .\admin_app\admin.py:216
 msgid "Adoption Parents - Children"
 msgstr "தத்தெடுப்பு பெற்றோர் - குழந்தைகள்"
 
-#: .\admin_app\admin.py:156
+#: .\admin_app\admin.py:222
+msgid "Child - Adoption Parent"
+msgstr "குழந்தை - தத்தெடுப்பு பெற்றோர்"
+
+#: .\admin_app\admin.py:223
+msgid "Children - Adoption Parents"
+msgstr "குழந்தைகள் - தத்தெடுப்பு பெற்றோர்"
+
+#: .\admin_app\admin.py:270
 msgid "Add New Payment"
 msgstr "புதிய கட்டணத்தைச் சேர்க்கவும்"
 
-#: .\admin_app\admin.py:178
+#: .\admin_app\admin.py:293
 #, python-brace-format
 msgid "Added {amount_of_sponsors_saved} Payments!"
 msgstr "{amount_of_sponsors_saved} பேமெண்ட்கள் சேர்க்கப்பட்டன!"
 
-#: .\admin_app\admin.py:180 .\admin_app\admin.py:246
+#: .\admin_app\admin.py:295 .\admin_app\admin.py:360 .\admin_app\admin.py:438
+#: .\admin_app\admin.py:482
 msgid "Generate Address List"
 msgstr "முகவரி பட்டியலை உருவாக்கு"
 
-#: .\admin_app\admin.py:184 .\admin_app\admin.py:250
+#: .\admin_app\admin.py:299 .\admin_app\admin.py:370 .\admin_app\admin.py:445
+#: .\admin_app\admin.py:486
 msgid "Generate Mailing List"
 msgstr "அஞ்சல் பட்டியலை உருவாக்கவும்"
+
+#: .\admin_app\admin.py:345 .\admin_app\filters.py:9 .\admin_app\models.py:78
+#: .\admin_app\templates\pages\index.html:138
+msgid "Name"
+msgstr "பெயர்"
+
+#: .\admin_app\admin.py:528 .\admin_app\filters.py:49 .\admin_app\models.py:274
+#: .\events\models.py:41 .\events\models.py:91
+msgid "Title"
+msgstr "தலைப்பு"
 
 #: .\admin_app\apps.py:7
 msgid "Saranalaya Admin"
 msgstr "சரணாலயா நிர்வாகம்"
 
-#: .\admin_app\models.py:15
-msgid "Male"
-msgstr "ஆண்"
+#: .\admin_app\filters.py:10
+msgid "Search by name"
+msgstr "பெயரால் தேடுங்கள்"
 
-#: .\admin_app\models.py:16
-msgid "Female"
-msgstr "பெண்"
-
-#: .\admin_app\models.py:20
-msgid "No Parents"
-msgstr "பெற்றோர் இல்லை"
-
-#: .\admin_app\models.py:21
-msgid "One Parent"
-msgstr "ஒரு பெற்றோர்"
-
-#: .\admin_app\models.py:22
-msgid "Two Parents"
-msgstr "இரண்டு பெற்றோர்"
-
-#: .\admin_app\models.py:26 .\admin_app\models.py:112
-msgid "Active"
-msgstr "சுறுசுறுப்பான"
-
-#: .\admin_app\models.py:27
-msgid "Left"
-msgstr "இடதுபுறம்"
-
-#: .\admin_app\models.py:28
-msgid "Support"
-msgstr "ஆதரவு"
-
-#: .\admin_app\models.py:36 .\admin_app\models.py:139
-msgid "Child"
-msgstr "குழந்தை"
-
-#: .\admin_app\models.py:37 .\admin_app\models.py:99 .\admin_app\models.py:111
-#: .\admin_app\views.py:70 .\admin_app\views.py:123 .\admin_app\views.py:136
-#: .\saranalaya\settings.py:206
-msgid "Children"
-msgstr "குழந்தைகள்"
-
-#: .\admin_app\models.py:42 .\admin_app\models.py:97 .\admin_app\views.py:86
-#: .\saranalaya\settings.py:211
-msgid "Adoption Parents"
-msgstr "தத்தெடுப்பு பெற்றோர்"
-
-#: .\admin_app\models.py:57
-msgid "name"
-msgstr "பெயர்"
-
-#: .\admin_app\models.py:58
-msgid "gender"
+#: .\admin_app\filters.py:14
+msgid "Gender"
 msgstr "பாலினம்"
 
-#: .\admin_app\models.py:59
-msgid "Day of Birth"
-msgstr "பிறந்த நாள்"
-
-#: .\admin_app\models.py:60
-msgid "Date of Admission"
-msgstr "சேர்க்கை தேதி"
-
-#: .\admin_app\models.py:61
-msgid "Date of Leave"
-msgstr "விடுப்பு தேதி"
-
-#: .\admin_app\models.py:62
-msgid "Indian Parent Status"
-msgstr "இந்திய பெற்றோர் நிலை"
-
-#: .\admin_app\models.py:63
+#: .\admin_app\filters.py:19 .\admin_app\models.py:116
 msgid "Status"
 msgstr "அந்தஸ்து"
 
-#: .\admin_app\models.py:64
-msgid "Link website"
-msgstr "இணைப்பு வலைத்தளம்"
+#: .\admin_app\filters.py:24
+msgid "Admitted After"
+msgstr "பிறகு ஒப்புக் கொண்டார்"
 
-#: .\admin_app\models.py:65 .\admin_app\models.py:90 .\admin_app\models.py:137
-#: .\admin_app\models.py:165
-msgid "Description"
-msgstr "வருணனை"
+#: .\admin_app\filters.py:31
+msgid "Born After"
+msgstr "பிறகு பிறந்த பிறகு"
 
-#: .\admin_app\models.py:67 .\admin_app\models.py:114 .\admin_app\models.py:141
-#: .\admin_app\models.py:151 .\admin_app\models.py:167
-msgid "History"
-msgstr "வரலாறு"
+#: .\admin_app\filters.py:37
+msgid "Born Before"
+msgstr "முன் பிறந்த"
 
-#: .\admin_app\models.py:74
-msgid "Supporter"
-msgstr "ஆதரவாளர்"
+#: .\admin_app\filters.py:50
+msgid "Search by title"
+msgstr "தலைப்பு மூலம் தேடல்"
 
-#: .\admin_app\models.py:75
-msgid "Supporters"
-msgstr "ஆதரவாளர்கள்"
+#: .\admin_app\filters.py:56
+msgid "Written After"
+msgstr "பிறகு எழுதப்பட்டது"
 
-#: .\admin_app\models.py:80
-msgid "First Name"
-msgstr "முதல் பெயர்"
+#: .\admin_app\filters.py:62
+msgid "Written Before"
+msgstr "முன் எழுதியது"
 
-#: .\admin_app\models.py:81
-msgid "Last Name"
-msgstr "கடைசி பெயர்"
+#: .\admin_app\models.py:47
+msgid "Male"
+msgstr "ஆண்"
 
-#: .\admin_app\models.py:82
-msgid "Firm"
-msgstr "நிறுவனம்"
+#: .\admin_app\models.py:48
+msgid "Female"
+msgstr "பெண்"
 
-#: .\admin_app\models.py:83
-msgid "Street Name"
-msgstr "தெரு பெயர்"
+#: .\admin_app\models.py:52
+msgid "No Parents"
+msgstr "பெற்றோர் இல்லை"
 
-#: .\admin_app\models.py:84
-msgid "Address Number"
-msgstr "முகவரி எண்"
+#: .\admin_app\models.py:53
+msgid "One Parent"
+msgstr "ஒரு பெற்றோர்"
 
-#: .\admin_app\models.py:85
-msgid "Bus"
-msgstr "பேருந்து"
+#: .\admin_app\models.py:54
+msgid "Two Parents"
+msgstr "இரண்டு பெற்றோர்"
 
-#: .\admin_app\models.py:86
-msgid "Postcode"
-msgstr "அஞ்சல் குறியீடு"
+#: .\admin_app\models.py:58 .\admin_app\models.py:136 .\admin_app\models.py:183
+#: .\admin_app\models.py:205
+msgid "Active"
+msgstr "சுறுசுறுப்பான"
 
-#: .\admin_app\models.py:87
-msgid "City"
-msgstr "நகரம்"
+#: .\admin_app\models.py:59 .\admin_app\templates\blocks\kind.html:13
+msgid "Support"
+msgstr "ஆதரவு"
 
-#: .\admin_app\models.py:88
-msgid "Country"
-msgstr "நாடு"
+#: .\admin_app\models.py:60 .\admin_app\templates\blocks\kind.html:11
+msgid "Left"
+msgstr "இடதுபுறம்"
 
-#: .\admin_app\models.py:89
-msgid "E-mail"
-msgstr "மின்னஞ்சல்"
+#: .\admin_app\models.py:67 .\admin_app\models.py:85 .\admin_app\models.py:230
+msgid "Child"
+msgstr "குழந்தை"
 
-#: .\admin_app\models.py:91
-msgid "Phone Number"
-msgstr "தொலைபேசி எண்"
-
-#: .\admin_app\models.py:96
+#: .\admin_app\models.py:68 .\admin_app\models.py:167
 msgid "Adoption Parent"
 msgstr "தத்தெடுப்பு பெற்றோர்"
 
-#: .\admin_app\models.py:119
+#: .\admin_app\models.py:69 .\admin_app\models.py:199
+msgid "Adoption"
+msgstr "அகற்றல்"
+
+#: .\admin_app\models.py:70 .\admin_app\models.py:210
 msgid "Adoption Parent Payment"
 msgstr "தத்தெடுப்பு பெற்றோர் கொடுப்பனவு"
 
-#: .\admin_app\models.py:120 .\saranalaya\settings.py:216
-msgid "Adoption Parent Payments"
-msgstr "தத்தெடுப்பு பெற்றோர் கொடுப்பனவுகள்"
-
-#: .\admin_app\models.py:127
-msgid "Amount remaining"
-msgstr "மீதமுள்ள தொகை"
-
-#: .\admin_app\models.py:135 .\admin_app\models.py:164
-msgid "Date"
-msgstr "தேதி"
-
-#: .\admin_app\models.py:136 .\admin_app\models.py:163
-msgid "Amount"
-msgstr "தொகை"
-
-#: .\admin_app\models.py:138
-msgid "Parent"
-msgstr "பெற்றோர்"
-
-#: .\admin_app\models.py:146 .\admin_app\models.py:162
+#: .\admin_app\models.py:71 .\admin_app\models.py:238 .\admin_app\models.py:254
 msgid "Sponsor"
 msgstr "உபயத்தார்"
 
-#: .\admin_app\models.py:147 .\saranalaya\settings.py:221
-msgid "Sponsors"
-msgstr "ஸ்பான்சர்கள்"
-
-#: .\admin_app\models.py:149
-msgid "Letters"
-msgstr "கடிதங்கள்"
-
-#: .\admin_app\models.py:156
+#: .\admin_app\models.py:72 .\admin_app\models.py:248
 msgid "Donation"
 msgstr "நன்கொடை"
 
-#: .\admin_app\models.py:157 .\admin_app\views.py:77 .\admin_app\views.py:107
-#: .\saranalaya\settings.py:226
+#: .\admin_app\models.py:86 .\admin_app\models.py:170 .\admin_app\models.py:182
+#: .\admin_app\templates\pages\kinderen.html:5 .\admin_app\views.py:229
+#: .\admin_app\views.py:282 .\admin_app\views.py:295
+#: .\saranalaya\settings.py:310
+msgid "Children"
+msgstr "குழந்தைகள்"
+
+#: .\admin_app\models.py:96 .\admin_app\models.py:168 .\admin_app\views.py:245
+#: .\saranalaya\settings.py:315
+msgid "Adoption Parents"
+msgstr "தத்தெடுப்பு பெற்றோர்"
+
+#: .\admin_app\models.py:110
+msgid "name"
+msgstr "பெயர்"
+
+#: .\admin_app\models.py:111
+msgid "gender"
+msgstr "பாலினம்"
+
+#: .\admin_app\models.py:112
+msgid "Day of Birth"
+msgstr "பிறந்த நாள்"
+
+#: .\admin_app\models.py:113
+msgid "Date of Admission"
+msgstr "சேர்க்கை தேதி"
+
+#: .\admin_app\models.py:114
+msgid "Date of Leave"
+msgstr "விடுப்பு தேதி"
+
+#: .\admin_app\models.py:115
+msgid "Indian Parent Status"
+msgstr "இந்திய பெற்றோர் நிலை"
+
+#: .\admin_app\models.py:118 .\admin_app\models.py:160
+#: .\admin_app\models.py:228 .\admin_app\models.py:257 .\events\models.py:43
+#: .\events\models.py:92 .\events\models.py:231
+msgid "Description"
+msgstr "வருணனை"
+
+#: .\admin_app\models.py:119 .\admin_app\models.py:279
+msgid "Show on Website"
+msgstr "இணையதளத்தில் காட்டு"
+
+#: .\admin_app\models.py:120 .\admin_app\models.py:132
+#: .\admin_app\models.py:277 .\events\models.py:50
+msgid "Image"
+msgstr "பிம்பம்"
+
+#: .\admin_app\models.py:121
+msgid "Website Description"
+msgstr "இணையதள விளக்கம்"
+
+#: .\admin_app\models.py:124 .\admin_app\models.py:185
+#: .\admin_app\models.py:233 .\admin_app\models.py:243
+#: .\admin_app\models.py:260 .\admin_app\models.py:281 .\events\models.py:54
+#: .\events\models.py:97 .\events\models.py:156 .\events\models.py:237
+msgid "History"
+msgstr "வரலாறு"
+
+#: .\admin_app\models.py:129
+msgid "Extra Image"
+msgstr "கூடுதல் படம்"
+
+#: .\admin_app\models.py:130 .\admin_app\templates\pages\kind_detail.html:95
+msgid "Extra Images"
+msgstr "கூடுதல் படங்கள்"
+
+#: .\admin_app\models.py:134
+msgid "Date of picture"
+msgstr "படத்தின் தேதி"
+
+#: .\admin_app\models.py:135
+msgid "Extra Info"
+msgstr "கூடுதல் தகவல்"
+
+#: .\admin_app\models.py:137
+msgid "Order"
+msgstr "ஆணை"
+
+#: .\admin_app\models.py:144
+msgid "Supporter"
+msgstr "ஆதரவாளர்"
+
+#: .\admin_app\models.py:145
+msgid "Supporters"
+msgstr "ஆதரவாளர்கள்"
+
+#: .\admin_app\models.py:150 .\events\models.py:150 .\events\models.py:226
+msgid "First Name"
+msgstr "முதல் பெயர்"
+
+#: .\admin_app\models.py:151 .\events\models.py:151 .\events\models.py:227
+msgid "Last Name"
+msgstr "கடைசி பெயர்"
+
+#: .\admin_app\models.py:152
+msgid "Firm"
+msgstr "நிறுவனம்"
+
+#: .\admin_app\models.py:153
+msgid "Street Name"
+msgstr "தெரு பெயர்"
+
+#: .\admin_app\models.py:154
+msgid "Address Number"
+msgstr "முகவரி எண்"
+
+#: .\admin_app\models.py:155
+msgid "Bus"
+msgstr "பேருந்து"
+
+#: .\admin_app\models.py:156
+msgid "Postcode"
+msgstr "அஞ்சல் குறியீடு"
+
+#: .\admin_app\models.py:157
+msgid "City"
+msgstr "நகரம்"
+
+#: .\admin_app\models.py:158
+msgid "Country"
+msgstr "நாடு"
+
+#: .\admin_app\models.py:159
+msgid "E-mail"
+msgstr "மின்னஞ்சல்"
+
+#: .\admin_app\models.py:161
+msgid "Phone Number"
+msgstr "தொலைபேசி எண்"
+
+#: .\admin_app\models.py:200
+msgid "Adoptions"
+msgstr "தத்தெடுப்பு"
+
+#: .\admin_app\models.py:211
+msgid "Adoption Parent Payments"
+msgstr "தத்தெடுப்பு பெற்றோர் கொடுப்பனவுகள்"
+
+#: .\admin_app\models.py:218
+msgid "Amount remaining"
+msgstr "மீதமுள்ள தொகை"
+
+#: .\admin_app\models.py:226 .\admin_app\models.py:256
+#: .\admin_app\models.py:276
+msgid "Date"
+msgstr "தேதி"
+
+#: .\admin_app\models.py:227 .\admin_app\models.py:255
+msgid "Amount"
+msgstr "தொகை"
+
+#: .\admin_app\models.py:229
+msgid "Parent"
+msgstr "பெற்றோர்"
+
+#: .\admin_app\models.py:239 .\saranalaya\settings.py:325
+msgid "Sponsors"
+msgstr "ஸ்பான்சர்கள்"
+
+#: .\admin_app\models.py:241
+msgid "Letters"
+msgstr "கடிதங்கள்"
+
+#: .\admin_app\models.py:249 .\admin_app\views.py:236 .\admin_app\views.py:266
+#: .\saranalaya\settings.py:330
 msgid "Donations"
 msgstr "நன்கொடைகள்"
 
-#: .\admin_app\templates\admin\index.html:8 .\saranalaya\settings.py:201
-msgid "Dashboard"
-msgstr "கட்டுப்பாட்டகம்"
+#: .\admin_app\models.py:264 .\admin_app\models.py:265
+#: .\admin_app\templates\blocks\header.html:13
+#: .\admin_app\templates\pages\nieuws.html:5
+#: .\admin_app\templates\pages\nieuws.html:25 .\saranalaya\settings.py:335
+msgid "News"
+msgstr "செய்தி"
 
-#: .\admin_app\templates\admin\index.html:8
-msgid "Django site admin"
-msgstr "ஜாங்கோ தள நிர்வாகம்"
+#: .\admin_app\models.py:275
+msgid "Content"
+msgstr "உள்ளடக்கம்"
 
-#: .\admin_app\templates\admin\index.html:44
-msgid "Income"
-msgstr "வருமானம்"
+#: .\admin_app\models.py:287
+msgid "Model"
+msgstr "மாதிரி"
 
-#: .\admin_app\views.py:20
+#: .\admin_app\templates\blocks\footer.html:11
+msgid "Care India"
+msgstr "Care India"
+
+#: .\admin_app\templates\blocks\header.html:11
+#: .\admin_app\templates\pages\over-ons.html:5
+#: .\admin_app\templates\pages\over-ons.html:25
+msgid "About Us"
+msgstr "நம்மை பற்றி"
+
+#: .\admin_app\templates\blocks\header.html:12
+#: .\admin_app\templates\pages\index.html:88
+#: .\admin_app\templates\pages\kinderen.html:25
+msgid "Our Children"
+msgstr "எங்கள் குழந்தைகள்"
+
+#: .\admin_app\templates\blocks\header.html:14
+msgid "Latest Event"
+msgstr "சமீபத்திய நிகழ்வுகள்"
+
+#: .\admin_app\templates\blocks\header.html:15
+#: .\admin_app\templates\pages\index.html:123
+msgid "Contact"
+msgstr "தொடர்பு"
+
+#: .\admin_app\templates\blocks\header.html:18
+msgid "Language"
+msgstr "மொழி"
+
+#: .\admin_app\templates\blocks\header.html:41
+#: .\admin_app\templates\pages\index.html:63
+#: .\admin_app\templates\pages\steun-ons.html:5
+#: .\admin_app\templates\pages\steun-ons.html:25
+msgid "Support Us"
+msgstr "எங்களை ஆதரியுங்கள்"
+
+#: .\admin_app\templates\blocks\kind.html:26
+#, python-format
+msgid ""
+"\n"
+"                        %(age)s years old\n"
+"                    "
+msgstr ""
+"\n"
+"%(age)s வயது\n"
+"                    "
+
+#: .\admin_app\templates\blocks\kind.html:32
+#, python-format
+msgid ""
+"\n"
+"                            Left Saranalaya on %(date)s\n"
+"                        "
+msgstr ""
+"\n"
+"%(date)s அன்று சரணாலயத்தை விட்டு வெளியேறினார்\n"
+"                        "
+
+#: .\admin_app\templates\blocks\kind.html:38
+#, python-format
+msgid ""
+"\n"
+"                            In Saranalaya since %(date)s\n"
+"                        "
+msgstr ""
+"\n"
+"%(date)s முதல் சரணாலயத்தில்\n"
+"                        "
+
+#: .\admin_app\templates\pages\artikel_detail.html:28
+#, python-format
+msgid "Written on %(date)s"
+msgstr "அன்று எழுதப்பட்டது %(date)s"
+
+#: .\admin_app\templates\pages\artikel_detail.html:29
+#, python-format
+msgid "Updated on %(date)s"
+msgstr "புதுப்பிக்கப்பட்டது: %(date)s"
+
+#: .\admin_app\templates\pages\index.html:19
+#: .\admin_app\templates\pages\index.html:22
+#: .\admin_app\templates\pages\index.html:27
+#: .\admin_app\templates\pages\index.html:59
+msgid ""
+"Care India is a Flemish, small-scale and independent organization dedicated "
+"to street children in Chennai."
+msgstr ""
+"கேர் இந்தியா என்பது சென்னையில் உள்ள தெருவோரக் குழந்தைகளுக்காக அர்ப்பணிக்கப்பட்ட ஒரு சிறிய "
+"அளவிலான மற்றும் சுயாதீன அமைப்பாகும்."
+
+#: .\admin_app\templates\pages\index.html:43
+msgid "A heart for the street children"
+msgstr "தெருவோரக் குழந்தைகளுக்கான இதயம்"
+
+#: .\admin_app\templates\pages\index.html:44
+msgid "Discover our children"
+msgstr "எங்கள் குழந்தைகளைக் கண்டறியவும்"
+
+#: .\admin_app\templates\pages\index.html:58
+msgid "About our organisation"
+msgstr "எங்கள் நிறுவனத்தைப் பற்றி"
+
+#: .\admin_app\templates\pages\index.html:60
+msgid ""
+"Care India supports the Saranalaya orphanage in Thandalam, South India. "
+"Because it is a small-scale project, we only work with volunteers in Belgium "
+"and every euro collected goes entirely to the project."
+msgstr ""
+"கேர் இந்தியா தென்னிந்தியாவின் தாண்டளத்தில் உள்ள சரணாலய அனாதை இல்லத்தை ஆதரிக்கிறது. இது "
+"ஒரு சிறிய அளவிலான திட்டம் என்பதால், நாங்கள் பெல்ஜியத்தில் உள்ள தன்னார்வலர்களுடன் மட்டுமே "
+"வேலை செய்கிறோம், சேகரிக்கப்பட்ட ஒவ்வொரு யூரோவும் முற்றிலும் திட்டத்திற்கு செல்கிறது."
+
+#: .\admin_app\templates\pages\index.html:62
+msgid "More Info"
+msgstr "மேலும் தகவல்"
+
+#: .\admin_app\templates\pages\index.html:75
+msgid "Small-scale independent organization since 1996"
+msgstr "1996 முதல் சிறிய அளவிலான சுயாதீன அமைப்பு"
+
+#: .\admin_app\templates\pages\index.html:77
+msgid "Raising and growing in your own culture"
+msgstr "உங்கள் சொந்த கலாச்சாரத்தில் வளர்த்தல் மற்றும் வளர்த்தல்"
+
+#: .\admin_app\templates\pages\index.html:78
+msgid "Breaking the vicious circle of poverty"
+msgstr "வறுமையின் தீய வட்டத்தை உடைத்தல்"
+
+#: .\admin_app\templates\pages\index.html:89
+msgid "See all children"
+msgstr "எல்லா குழந்தைகளையும் பார்"
+
+#: .\admin_app\templates\pages\index.html:105
+msgid "Latest News"
+msgstr "சமீபத்திய செய்திகள்"
+
+#: .\admin_app\templates\pages\index.html:106
+msgid "See all news"
+msgstr "அனைத்து செய்திகளையும் காண்க"
+
+#: .\admin_app\templates\pages\index.html:124
+msgid "Send us a message!"
+msgstr "எங்களுக்கு ஒரு செய்தியை அனுப்புங்கள்!"
+
+#: .\admin_app\templates\pages\index.html:143 .\events\models.py:152
+#: .\events\models.py:228
+msgid "Email"
+msgstr "மின்னஞ்சல்"
+
+#: .\admin_app\templates\pages\index.html:148
+msgid "Subject"
+msgstr "பொருள்"
+
+#: .\admin_app\templates\pages\index.html:153
+msgid "Message"
+msgstr "உங்களது செய்தி"
+
+#: .\admin_app\templates\pages\index.html:161
+msgid "Loading..."
+msgstr "ஏற்றப்படுகிறது..."
+
+#: .\admin_app\templates\pages\index.html:163
+msgid "Your message has been sent!"
+msgstr "உங்கள் செய்தி அனுப்பப்பட்டது!"
+
+#: .\admin_app\templates\pages\index.html:164
+msgid "Send message"
+msgstr "செய்தி அனுப்பு"
+
+#: .\admin_app\templates\pages\kind_detail.html:27
+#, python-format
+msgid "%(age)s years old"
+msgstr "%(age)s வயது"
+
+#: .\admin_app\templates\pages\kind_detail.html:30
+#, python-format
+msgid "Left Saranalaya on %(date)s"
+msgstr "%(date)s அன்று சரணாலயத்தை விட்டு வெளியேறினார்"
+
+#: .\admin_app\templates\pages\kind_detail.html:32
+#, python-format
+msgid "In Saranalaya since %(date)s"
+msgstr "%(date)s முதல் சரணாலயத்தில்"
+
+#: .\admin_app\templates\pages\kind_detail.html:36
+#, python-format
+msgid "We are still supporting %(name)s"
+msgstr "நாங்கள் இன்னும் ஆதரிக்கிறோம்%(name)s"
+
+#: .\admin_app\templates\pages\kind_detail.html:44
+msgid "Info"
+msgstr "தகவல்"
+
+#: .\admin_app\templates\pages\kind_detail.html:49
+msgid "No extra info available yet"
+msgstr "கூடுதல் தகவல் இன்னும் கிடைக்கவில்லை"
+
+#: .\admin_app\templates\pages\kind_detail.html:56
+msgid "Siblings"
+msgstr "உடன்பிறப்புகள்"
+
+#: .\admin_app\templates\pages\kinderen.html:8
+#: .\admin_app\templates\pages\kinderen.html:11
+#: .\admin_app\templates\pages\kinderen.html:16
+msgid ""
+"Meet the children supported by C.A.R.E. in Chennai. Learn about their "
+"stories, challenges, and how our Flemish organization helps them build a "
+"better future."
+msgstr ""
+"சென்னையில் C.A.R.E. ஆல் ஆதரிக்கப்படும் குழந்தைகளை சந்திக்கவும். அவர்களின் கதைகள், சவால்கள் "
+"மற்றும் சிறந்த எதிர்காலத்தை உருவாக்க எங்கள் பிளெமிஷ் அமைப்பு அவர்களுக்கு எவ்வாறு "
+"உதவுகிறது என்பதைப் பற்றி அறிக."
+
+#: .\admin_app\templates\pages\kinderen.html:10
+#: .\admin_app\templates\pages\kinderen.html:15
+msgid "Children | Care India"
+msgstr "குழந்தைகள் | கேர் இந்தியா"
+
+#: .\admin_app\templates\pages\kinderen.html:26
+msgid ""
+"Saranalaya Children's Home takes care of about 50 street children from the "
+"Chennai area of southern India."
+msgstr ""
+"தென்னிந்தியாவின் சென்னைப் பகுதியைச் சேர்ந்த சுமார் 50 தெருவோரக் குழந்தைகளை சரணாலய "
+"குழந்தைகள் இல்லம் பராமரித்து வருகிறது."
+
+#: .\admin_app\templates\pages\kinderen.html:27
+msgid ""
+"Most of our children are half orphans. Often the mother is left alone after "
+"the father (and thus breadwinner) has left the family or died. Life in the "
+"slums is hard and often it is impossible for the mother to provide for her "
+"child, let alone send it to school. There are also some children in "
+"Saranalaya who no longer have parents."
+msgstr ""
+"எங்கள் குழந்தைகளில் பெரும்பாலோர் அரை அனாதைகள். தந்தை (இதனால் சம்பாதிப்பவர்) குடும்பத்தை "
+"விட்டு வெளியேறிய பிறகு அல்லது இறந்த பிறகு பெரும்பாலும் தாய் தனியாக விடப்படுகிறார். "
+"சேரிகளில் வாழ்க்கை கடினமாக உள்ளது மற்றும் பெரும்பாலும் தாய் தனது குழந்தையை பள்ளிக்கு "
+"அனுப்புவது ஒருபுறம் இருக்க, அதை வழங்குவது கூட சாத்தியமற்றது. சரணாலயத்தில் பெற்றோர் "
+"இல்லாத சில குழந்தைகளும் உள்ளனர்."
+
+#: .\admin_app\templates\pages\kinderen.html:77
+#: .\admin_app\templates\pages\nieuws.html:57
+msgid "Filter"
+msgstr "வடிகட்டு"
+
+#: .\admin_app\templates\pages\kinderen.html:80
+#: .\admin_app\templates\pages\nieuws.html:60
+msgid "Reset"
+msgstr "மீட்டமை"
+
+#: .\admin_app\templates\pages\kinderen.html:93
+msgid "No children found."
+msgstr "குழந்தைகள் கிடைக்கவில்லை."
+
+#: .\admin_app\templates\pages\kinderen.html:103
+#: .\admin_app\templates\pages\nieuws.html:83
+msgid "First"
+msgstr "முதல்"
+
+#: .\admin_app\templates\pages\kinderen.html:106
+#: .\admin_app\templates\pages\nieuws.html:86
+#: .\admin_app\templates\pages\steun-ons.html:147
+msgid "Previous"
+msgstr "முந்தையது"
+
+#: .\admin_app\templates\pages\kinderen.html:111
+#: .\admin_app\templates\pages\nieuws.html:91
+msgid "Page"
+msgstr "பக்கம்"
+
+#: .\admin_app\templates\pages\kinderen.html:111
+#: .\admin_app\templates\pages\nieuws.html:91
+msgid "of"
+msgstr "உடைய"
+
+#: .\admin_app\templates\pages\kinderen.html:116
+#: .\admin_app\templates\pages\nieuws.html:96
+#: .\admin_app\templates\pages\steun-ons.html:151
+msgid "Next"
+msgstr "அடுத்தது"
+
+#: .\admin_app\templates\pages\kinderen.html:119
+#: .\admin_app\templates\pages\nieuws.html:99
+msgid "Last"
+msgstr "இறுதி"
+
+#: .\admin_app\templates\pages\nieuws.html:8
+#: .\admin_app\templates\pages\nieuws.html:11
+#: .\admin_app\templates\pages\nieuws.html:16
+msgid ""
+"Stay up to date with the latest news from C.A.R.E., a Flemish organization "
+"dedicated to helping street children in Chennai. Discover our project, "
+"initiatives, and updates."
+msgstr ""
+"சென்னையில் தெருவோரக் குழந்தைகளுக்கு உதவுவதற்காக அர்ப்பணிக்கப்பட்ட ஒரு ஃபிளெமிஷ் அமைப்பான "
+"C.A.R.E. இன் சமீபத்திய செய்திகளுடன் புதுப்பித்த நிலையில் இருங்கள். எங்கள் திட்டம், "
+"முயற்சிகள் மற்றும் புதுப்பிப்புகளைக் கண்டறியவும்."
+
+#: .\admin_app\templates\pages\nieuws.html:10
+#: .\admin_app\templates\pages\nieuws.html:15
+msgid "News | Care India"
+msgstr "செய்திகள் | கேர் இந்தியா"
+
+#: .\admin_app\templates\pages\nieuws.html:26
+msgid ""
+"Keep up with what's happening at our children's home—news, events, and more."
+msgstr ""
+"எங்கள் குழந்தைகளின் வீட்டில் என்ன நடக்கிறது - செய்திகள், நிகழ்வுகள் மற்றும் பலவற்றைத் "
+"தெரிந்துகொள்ளுங்கள்."
+
+#: .\admin_app\templates\pages\nieuws.html:73
+msgid "No articles found."
+msgstr "கட்டுரைகள் எதுவும் காணப்படவில்லை."
+
+#: .\admin_app\templates\pages\over-ons.html:8
+#: .\admin_app\templates\pages\over-ons.html:11
+#: .\admin_app\templates\pages\over-ons.html:16
+msgid ""
+"Learn more about C.A.R.E., a small, independent Flemish organization "
+"committed to improving the lives of street children in Chennai through "
+"education, care, and support."
+msgstr ""
+"சென்னையில் உள்ள தெருவோரக் குழந்தைகளின் வாழ்க்கையை கல்வி, பராமரிப்பு மற்றும் ஆதரவு மூலம் "
+"மேம்படுத்த உறுதிபூண்டுள்ள ஒரு சிறிய, சுதந்திரமான ஃபிளெமிஷ் அமைப்பான சி.ஏ.ஆர்.இ. பற்றி "
+"மேலும் அறிக."
+
+#: .\admin_app\templates\pages\over-ons.html:10
+msgid " About Us | Care India"
+msgstr " எங்களை பற்றி | கேர் இந்தியா"
+
+#: .\admin_app\templates\pages\over-ons.html:15
+msgid "About Us | Care India"
+msgstr "எங்களை பற்றி | கேர் இந்தியா"
+
+#: .\admin_app\templates\pages\over-ons.html:27
+msgid ""
+"\n"
+"            Saranalaya is a small and independent children's home in "
+"Chennai, southeastern India. There are 45-50 children living there and the "
+"family feeling is central. We take in children who do not have a (good) home "
+"situation and do our utmost to let them grow up without worries. In "
+"Saranalaya there is a strong emphasis on education. Every child gets the "
+"chance to go to school and after high school also to continue studying if "
+"they want to. Even the children who have left Saranalaya and are already on "
+"their own, are always welcome and often receive a push from Sundar as well. "
+"Thanks to Saranalaya, more than 150 underprivileged children have already "
+"been given a chance for a better life.\n"
+"            "
+msgstr ""
+"\n"
+"சரணாலயா தென்கிழக்கு இந்தியாவின் சென்னையில் உள்ள ஒரு சிறிய மற்றும் சுயாதீனமான குழந்தைகள் "
+"இல்லமாகும். அங்கு 45-50 குழந்தைகள் வசிக்கின்றனர் மற்றும் குடும்ப உணர்வு மையமாக உள்ளது. "
+"(நல்ல) வீட்டு சூழ்நிலை இல்லாத குழந்தைகளை நாங்கள் எடுத்துக்கொள்கிறோம், மேலும் அவர்கள் "
+"கவலையின்றி வளர அனுமதிக்க எங்களால் முடிந்த அனைத்தையும் செய்கிறோம். சரணாலயத்தில் கல்விக்கு "
+"அதிக முக்கியத்துவம் அளிக்கப்படுகிறது. ஒவ்வொரு குழந்தைக்கும் பள்ளிக்குச் செல்லவும், "
+"உயர்நிலைப் பள்ளிக்குப் பிறகும் அவர்கள் விரும்பினால் தொடர்ந்து படிக்கவும் வாய்ப்பு "
+"கிடைக்கிறது. சரணாலயத்தை விட்டு வெளியேறி ஏற்கனவே தனியாக இருக்கும் குழந்தைகள் கூட "
+"எப்போதும் வரவேற்கப்படுகிறார்கள், பெரும்பாலும் சுந்தரிடமிருந்து ஒரு உந்துதலைப் "
+"பெறுகிறார்கள். சரணாலயத்திற்கு நன்றி, 150 க்கும் மேற்பட்ட ஏழை குழந்தைகளுக்கு ஏற்கனவே "
+"சிறந்த வாழ்க்கைக்கான வாய்ப்பு வழங்கப்பட்டுள்ளது.\n"
+"            "
+
+#: .\admin_app\templates\pages\over-ons.html:33
+msgid ""
+"\n"
+"            The children's home is run on a daily basis by Sundar, his wife "
+"Kavitha and a team of chefs, cleaners and teachers. The sponsorship needed "
+"to keep the home running comes mainly from Flemish aunties and uncles. Your "
+"support really makes a difference in the lives of our children in "
+"Saranalaya.\n"
+"            "
+msgstr ""
+"\n"
+"சுந்தர், அவரது மனைவி கவிதா மற்றும் சமையல்காரர்கள், துப்புரவாளர்கள் மற்றும் ஆசிரியர்கள் "
+"அடங்கிய குழுவினர் இந்த குழந்தைகள் இல்லத்தை தினசரி அடிப்படையில் நடத்தி வருகின்றனர். வீட்டை "
+"இயங்க வைக்க தேவையான ஸ்பான்சர்ஷிப் முக்கியமாக பிளெமிஷ் அத்தைகள் மற்றும் மாமாக்களிடமிருந்து "
+"வருகிறது. உங்கள் ஆதரவு உண்மையில் சரணாலயத்தில் உள்ள எங்கள் குழந்தைகளின் வாழ்க்கையில் ஒரு "
+"மாற்றத்தை ஏற்படுத்துகிறது.\n"
+"            "
+
+#: .\admin_app\templates\pages\over-ons.html:43
+msgid "How it started"
+msgstr "இது எப்படி தொடங்கியது"
+
+#: .\admin_app\templates\pages\over-ons.html:45
+msgid ""
+"\n"
+"            In 1996, Veerle was doing an internship at a hospital in "
+"Chennai. One day she passed two young children tied to a tree, one of them "
+"battered with a shard of glass in the face. Together with Sundar, who was in "
+"charge of her, they got out of the rickshaw and waited with the young boys "
+"for their parents. When their father came home drunk several hours later, he "
+"made the unforgettable statement; “This is the best day of my life, you can "
+"have them,” and gave the boys' birth certificates to Veerle and Sundar. A "
+"few days later they gave shelter to a dozen street children in a rented "
+"house. In 2003, Saranalaya's final building was built in Thandalam, a small "
+"village just outside Chennai. \n"
+"            "
+msgstr ""
+"\n"
+"1996 ஆம் ஆண்டில், வீர்லே சென்னையில் உள்ள ஒரு மருத்துவமனையில் இன்டர்ன்ஷிப் செய்து "
+"கொண்டிருந்தார். ஒரு நாள் மரத்தில் கட்டப்பட்டிருந்த இரண்டு சிறு குழந்தைகளைக் கடந்து சென்றாள். "
+"அவர்களில் ஒருவன் முகத்தில் கண்ணாடித் துண்டால் தாக்கப்பட்டிருந்தான். அவளுக்கு பொறுப்பாக இருந்த "
+"சுந்தருடன் சேர்ந்து ரிக்ஷாவில் இருந்து இறங்கி சிறுவர்களுடன் பெற்றோருக்காக காத்திருந்தனர். "
+"பல மணி நேரம் கழித்து குடிபோதையில் வீடு திரும்பிய அவர்களின் தந்தை, மறக்க முடியாத "
+"வாக்குமூலத்தை அளித்தார்; \"இது என் வாழ்க்கையின் சிறந்த நாள், நீங்கள் அவற்றை வைத்திருக்கலாம்\" "
+"என்று கூறி சிறுவர்களின் பிறப்புச் சான்றிதழை வீர்லே மற்றும் சுந்தரிடம் கொடுத்தார். சில "
+"நாட்களுக்குப் பிறகு அவர்கள் ஒரு டஜன் தெருவோரக் குழந்தைகளை ஒரு வாடகை வீட்டில் அடைக்கலம் "
+"கொடுத்தனர். 2003 ஆம் ஆண்டில், சரணாலயாவின் இறுதி கட்டிடம் சென்னைக்கு வெளியே உள்ள ஒரு "
+"சிறிய கிராமமான தண்டளத்தில் கட்டப்பட்டது. \n"
+"            "
+
+#: .\admin_app\templates\pages\over-ons.html:55
+msgid "Daily life at Saranalaya"
+msgstr "சரணாலயத்தில் தினசரி வாழ்க்கை"
+
+#: .\admin_app\templates\pages\steun-ons.html:8
+#: .\admin_app\templates\pages\steun-ons.html:11
+#: .\admin_app\templates\pages\steun-ons.html:16
+msgid ""
+"Support C.A.R.E. and help improve the lives of street children in Chennai. "
+"Discover how you can donate, volunteer, or contribute to our organization’s "
+"mission."
+msgstr ""
+"C.A.R.E. க்கு ஆதரவளித்து சென்னையில் உள்ள தெருவோரக் குழந்தைகளின் வாழ்க்கையை மேம்படுத்த "
+"உதவுங்கள். எங்கள் நிறுவனத்தின் பணிக்கு நீங்கள் எவ்வாறு நன்கொடை அளிக்கலாம், தன்னார்வத் தொண்டு "
+"செய்யலாம் அல்லது பங்களிக்கலாம் என்பதைக் கண்டறியவும்."
+
+#: .\admin_app\templates\pages\steun-ons.html:10
+#: .\admin_app\templates\pages\steun-ons.html:15
+msgid "Support Us | Care India"
+msgstr "எங்களை ஆதரியுங்கள் | கேர் இந்தியா"
+
+#: .\admin_app\templates\pages\steun-ons.html:27
+msgid ""
+"Your support really makes a difference in the lives of our children in "
+"Saranalaya. Explore the different ways you can contribute."
+msgstr ""
+"உங்கள் ஆதரவு உண்மையில் சரணாலயத்தில் உள்ள எங்கள் குழந்தைகளின் வாழ்க்கையில் ஒரு மாற்றத்தை "
+"ஏற்படுத்துகிறது. நீங்கள் பங்களிக்கக்கூடிய பல்வேறு வழிகளை ஆராயுங்கள்."
+
+#: .\admin_app\templates\pages\steun-ons.html:34
+msgid "Financial Adoption"
+msgstr "நிதி தத்தெடுப்பு"
+
+#: .\admin_app\templates\pages\steun-ons.html:37
+msgid "Make a donation"
+msgstr "நன்கொடை கொடுங்கள்"
+
+#: .\admin_app\templates\pages\steun-ons.html:40
+msgid "Support actions"
+msgstr "ஆதரவு செயல்கள்"
+
+#: .\admin_app\templates\pages\steun-ons.html:49
+msgid "What your support means"
+msgstr "உங்கள் ஆதரவு எதைக் குறிக்கிறது"
+
+#: .\admin_app\templates\pages\steun-ons.html:59
+msgid "New outfit for one child"
+msgstr "ஒரு குழந்தைக்கு புதிய ஆடை"
+
+#: .\admin_app\templates\pages\steun-ons.html:67
+msgid "Two school uniforms for one child"
+msgstr "ஒரு குழந்தைக்கு இரண்டு பள்ளிச் சீருடைகள்"
+
+#: .\admin_app\templates\pages\steun-ons.html:75
+msgid "Snacks and tea for all children"
+msgstr "அனைத்து குழந்தைகளுக்கும் சிற்றுண்டி மற்றும் தேநீர்"
+
+#: .\admin_app\templates\pages\steun-ons.html:89
+msgid "Textbooks for one child"
+msgstr "ஒரு குழந்தைக்கான பாடப்புத்தகங்கள்"
+
+#: .\admin_app\templates\pages\steun-ons.html:97
+msgid "Breakfast for all children"
+msgstr "அனைத்து குழந்தைகளுக்கும் காலை உணவு"
+
+#: .\admin_app\templates\pages\steun-ons.html:105
+msgid "Hot meal for all children"
+msgstr "அனைத்து குழந்தைகளுக்கும் சூடான உணவு"
+
+#: .\admin_app\templates\pages\steun-ons.html:119
+msgid "Pillow & bedsheet for one child"
+msgstr "ஒரு குழந்தைக்கு தலையணை & பெட்ஷீட்"
+
+#: .\admin_app\templates\pages\steun-ons.html:127
+msgid "Fruit for one month"
+msgstr "ஒரு மாதத்திற்கு பழம்"
+
+#: .\admin_app\templates\pages\steun-ons.html:135
+msgid "Financial adoption of one child"
+msgstr "ஒரு குழந்தையை பொருளாதார ரீதியாக தத்தெடுத்தல்"
+
+#: .\admin_app\templates\pages\steun-ons.html:170
+msgid "Become a Financial Adoption Parent"
+msgstr "நிதி தத்தெடுப்பு பெற்றோராகுங்கள்"
+
+#: .\admin_app\templates\pages\steun-ons.html:172
+msgid ""
+"Would you like to build a personal relationship with a Saranalaya child and "
+"thus make a commitment for a number of years? Then it might be a nice idea "
+"for you to become uncle or auntie of one of the children."
+msgstr ""
+"நீங்கள் ஒரு சரணாலய குழந்தையுடன் தனிப்பட்ட உறவை உருவாக்க விரும்புகிறீர்களா, இதனால் பல "
+"ஆண்டுகளாக ஒரு உறுதிப்பாட்டை செய்ய விரும்புகிறீர்களா? பின்னர் நீங்கள் குழந்தைகளில் "
+"ஒருவருக்கு மாமா அல்லது அத்தை ஆக ஒரு நல்ல யோசனையாக இருக்கலாம்."
+
+#: .\admin_app\templates\pages\steun-ons.html:175
+msgid ""
+"\n"
+"            The cost is <b>225 euros</b> per year (or about 60 ct per day), "
+"tax deductible.\n"
+"            "
+msgstr ""
+"\n"
+"செலவு வருடத்திற்கு <b>225 யூரோக்கள்</b> (அல்லது ஒரு நாளைக்கு சுமார் 60 ct), வரி "
+"விலக்கு.            "
+
+#: .\admin_app\templates\pages\steun-ons.html:180
+msgid ""
+"\n"
+"            You choose what bond you want with your Indian child, sending a "
+"photo of yourself or your family with a bill in simple English, is greatly "
+"appreciated. The children are very proud to have a family abroad helping to "
+"care for them, and photos and bills are cherished.\n"
+"            "
+msgstr ""
+"\n"
+"உங்கள் இந்திய குழந்தையுடன் நீங்கள் என்ன பிணைப்பை விரும்புகிறீர்கள் என்பதை நீங்கள் தேர்வு "
+"செய்கிறீர்கள், உங்கள் அல்லது உங்கள் குடும்பத்தின் புகைப்படத்தை எளிய ஆங்கிலத்தில் ஒரு "
+"மசோதாவுடன் அனுப்புவது மிகவும் பாராட்டத்தக்கது. குழந்தைகள் வெளிநாட்டில் ஒரு குடும்பம் "
+"அவர்களை கவனித்துக்கொள்ள உதவுவதில் மிகவும் பெருமைப்படுகிறார்கள், மேலும் புகைப்படங்கள் "
+"மற்றும் பில்கள் போற்றப்படுகின்றன.\n"
+"            "
+
+#: .\admin_app\templates\pages\steun-ons.html:185
+msgid ""
+"\n"
+"            Some uncles and aunties send New Year and birthday cards or have "
+"their child treats on his/her birthday, others have even visited "
+"Saranalaya.  \n"
+"            "
+msgstr ""
+"\n"
+"சில மாமாக்கள் மற்றும் அத்தைகள் புத்தாண்டு மற்றும் பிறந்தநாள் அட்டைகளை அனுப்புகிறார்கள் அல்லது "
+"அவர்களின் பிறந்தநாளில் தங்கள் குழந்தைக்கு விருந்தளிக்கிறார்கள், மற்றவர்கள் சரணாலயத்திற்கு கூட "
+"வந்திருக்கிறார்கள்.  \n"
+"            "
+
+#: .\admin_app\templates\pages\steun-ons.html:191
+msgid ""
+"\n"
+"            Via onze <a href=\"https://www.facebook.com/"
+"groups/366106623433788\" target=\"_blank\">facebookpagina</a> en de <a "
+"href=\"/#contact\">3 maandelijkse nieuwsbrief</a> kan je het reilen en "
+"zeilen van de Saranalaya kinderen wat volgen en kan je zo meeleven met het "
+"dagelijkse leven daar.\n"
+"            "
+msgstr ""
+"\n"
+"Via onze <a href=\"https://www.facebook.com/groups/366106623433788\" "
+"target=\"_blank\">facebookpagina</a> en de <a href=\"/#contact\">3 "
+"maandelijkse nieuwsbrief</a> kan je het reilen en zeilen van de Saranalaya "
+"kinderen wat volgen en kan je zo meeleven met het dagelijkse leven "
+"daar.            "
+
+#: .\admin_app\templates\pages\steun-ons.html:197
+msgid ""
+"\n"
+"            More info? Feel free to contact <a href=\"mailto:"
+"linademan@telenet.be\">Lina</a>, she will be happy to explain more.\n"
+"            "
+msgstr ""
+"\n"
+"மேலும் தகவல்? <a href=\"mailto:linademan@telenet.be\">லினாவை</a> தொடர்பு கொள்ள "
+"தயங்க, மேலும் விளக்க அவள் மகிழ்ச்சியாக இருப்பாள்.            "
+
+#: .\admin_app\templates\pages\steun-ons.html:207
+msgid "Make a Donation"
+msgstr "நன்கொடை கொடுங்கள்"
+
+#: .\admin_app\templates\pages\steun-ons.html:209
+msgid ""
+"Every gift, big or small, makes a difference. And starting at €40 a year, "
+"your gift is tax-deductible."
+msgstr ""
+"ஒவ்வொரு பரிசும், பெரியதோ சிறியதோ, ஒரு வித்தியாசத்தை ஏற்படுத்துகிறது. வருடத்திற்கு "
+"€40 இல் தொடங்கி, உங்கள் பரிசுக்கு வரி விலக்கு அளிக்கப்படுகிறது."
+
+#: .\admin_app\templates\pages\steun-ons.html:212
+msgid "Bank account number"
+msgstr "வங்கி கணக்கு எண்"
+
+#: .\admin_app\templates\pages\steun-ons.html:213
+msgid "Mention"
+msgstr "குறிப்பிடு"
+
+#: .\admin_app\templates\pages\steun-ons.html:213
+msgid "Saranalaya + your national registration number"
+msgstr "சரணாலயா + உங்கள் தேசிய பதிவு எண்"
+
+#: .\admin_app\templates\pages\steun-ons.html:214
+msgid ""
+"Without proper disclosure, your donation will go to the general operation of "
+"Kontinenten vzw."
+msgstr ""
+"சரியான வெளிப்படுத்தல் இல்லாமல், உங்கள் நன்கொடை Kontinenten vzw இன் பொது செயல்பாட்டிற்குச் "
+"செல்லும்."
+
+#: .\admin_app\templates\pages\steun-ons.html:222
+msgid "Creative Support Actions"
+msgstr "ஆக்கப்பூர்வமான ஆதரவு செயல்கள்"
+
+#: .\admin_app\templates\pages\steun-ons.html:224
+msgid ""
+"Schools, clubs or groups of friends who want to shoot into action for "
+"Saranalaya can get all creative!"
+msgstr ""
+"சரணாலயத்திற்காக சுட விரும்பும் பள்ளிகள், கிளப்புகள் அல்லது நண்பர்களின் குழுக்கள் அனைத்தும் "
+"படைப்பாற்றலைப் பெறலாம்!"
+
+#: .\admin_app\templates\pages\steun-ons.html:226
+msgid "Some inspiring ideas:"
+msgstr "சில எழுச்சியூட்டும் யோசனைகள்:"
+
+#: .\admin_app\templates\pages\steun-ons.html:228
+msgid "Sponsor Run"
+msgstr "ஸ்பான்சர் ரன்"
+
+#: .\admin_app\templates\pages\steun-ons.html:229
+msgid "Rummage sale or Christmas market"
+msgstr "ரம்மேஜ் விற்பனை அல்லது கிறிஸ்துமஸ் சந்தை"
+
+#: .\admin_app\templates\pages\steun-ons.html:230
+msgid "Cake or pancake sale"
+msgstr "கேக் அல்லது பான்கேக் விற்பனை"
+
+#: .\admin_app\templates\pages\steun-ons.html:231
+msgid "Breakfast at home for Father's Day or Mother's Day"
+msgstr "தந்தையர் தினம் அல்லது அன்னையர் தினம் வீட்டில் காலை உணவு"
+
+#: .\admin_app\templates\pages\steun-ons.html:232
+msgid "Carwash"
+msgstr "கார்வாஷ்"
+
+#: .\admin_app\templates\pages\steun-ons.html:235
+msgid ""
+"Let us know what action you would like to organize, we would be happy to "
+"support you with info and materials!"
+msgstr ""
+"நீங்கள் என்ன நடவடிக்கையை ஏற்பாடு செய்ய விரும்புகிறீர்கள் என்பதை எங்களுக்குத் "
+"தெரியப்படுத்துங்கள், தகவல் மற்றும் பொருட்களுடன் உங்களுக்கு ஆதரவளிப்பதில் நாங்கள் "
+"மகிழ்ச்சியடைவோம்!"
+
+#: .\admin_app\urls.py:9
+#, fuzzy
+#| msgid "Children"
+msgid "children/"
+msgstr "குழந்தைகள்"
+
+#: .\admin_app\urls.py:10
+msgid "children/<int:id>/"
+msgstr "குழந்தைகள்/<int:id>/</int:id>"
+
+#: .\admin_app\urls.py:11
+msgid "about-us/"
+msgstr "எங்களைப் பற்றி/"
+
+#: .\admin_app\urls.py:12
+#, fuzzy
+#| msgid "Support"
+msgid "support-us/"
+msgstr "ஆதரவு"
+
+#: .\admin_app\urls.py:13
+msgid "news/"
+msgstr "செய்தி/"
+
+#: .\admin_app\urls.py:14
+msgid "news/<int:id>/"
+msgstr "செய்திகள்/<int:id>/</int:id>"
+
+#: .\admin_app\urls.py:15
+msgid "contact/"
+msgstr "தொடர்பு/"
+
+#: .\admin_app\views.py:34
+#, python-brace-format
+msgid "Helped {kinderen_count} children through the years"
+msgstr "பல ஆண்டுகளாக {kinderen_count} குழந்தைகளுக்கு உதவியது"
+
+#: .\admin_app\views.py:151
+msgid "Message Received"
+msgstr "செய்தி பெறப்பட்டது"
+
+#: .\admin_app\views.py:152
+msgid ""
+"Thank you for completing the contact form. We have received your message in "
+"good order and will contact you as soon as possible.\n"
+"\n"
+"Kind regards\n"
+"\n"
+"The Care India Team"
+msgstr ""
+"தொடர்பு படிவத்தை பூர்த்தி செய்ததற்கு நன்றி. உங்கள் செய்தியை நல்ல வரிசையில் பெற்றுள்ளோம், "
+"விரைவில் உங்களைத் தொடர்புகொள்வோம்.\n"
+"\n"
+"தங்கள் அன்புள்ள\n"
+"\n"
+"கேர் இந்தியா குழு"
+
+#: .\admin_app\views.py:177
 #, python-brace-format
 msgid "progress from {last_year}"
 msgstr "{last_year} இருந்து முன்னேற்றம்"
 
-#: .\admin_app\views.py:71
+#: .\admin_app\views.py:230
 msgid "Current"
 msgstr "நடப்பிலுள்ள"
 
-#: .\admin_app\views.py:73
+#: .\admin_app\views.py:232
 msgid "Only active children are counted"
 msgstr "சுறுசுறுப்பான குழந்தைகள் மட்டுமே கணக்கிடப்படுகிறார்கள்"
 
-#: .\admin_app\views.py:87
+#: .\admin_app\views.py:246
 msgid "All Time"
 msgstr "எல்லா நேரமும்"
 
-#: .\admin_app\views.py:89
+#: .\admin_app\views.py:248
 msgid "Only active parents are counted"
 msgstr "செயலில் உள்ள பெற்றோர் மட்டுமே கணக்கிடப்படுகிறார்கள்"
 
-#: .\admin_app\views.py:93 .\admin_app\views.py:114
+#: .\admin_app\views.py:252 .\admin_app\views.py:273
 msgid "Parent Payments"
 msgstr "பெற்றோர் கொடுப்பனவுகள்"
 
-#: .\admin_app\views.py:124
+#: .\admin_app\views.py:283
 msgid "By Admission Date"
 msgstr "சேர்க்கை தேதி மூலம்"
 
-#: .\admin_app\views.py:137
+#: .\admin_app\views.py:296
 msgid "By Status"
 msgstr "நிலை மூலம்"
 
-#: .\saranalaya\settings.py:198
+#: .\events\admin.py:21
+msgid "Event Ticket"
+msgstr "நிகழ்வு டிக்கெட்"
+
+#: .\events\admin.py:22
+msgid "Event Tickets"
+msgstr "நிகழ்வு டிக்கெட்டுகள்"
+
+#: .\events\admin.py:42 .\events\admin.py:142
+msgid "Sold out"
+msgstr "விற்றுத் தீர்ந்தது"
+
+#: .\events\admin.py:49 .\events\admin.py:149
+msgid "Sold out!"
+msgstr "விற்றுத் தீர்ந்தது!"
+
+#: .\events\admin.py:49 .\events\admin.py:149
+msgid "Available"
+msgstr "கிடைக்கக்கூடிய"
+
+#: .\events\admin.py:60
+#, fuzzy
+#| msgid "Indian Parent Status"
+msgid "Payment Status"
+msgstr "இந்திய பெற்றோர் நிலை"
+
+#: .\events\admin.py:74 .\events\models.py:230
+msgid "Attended"
+msgstr "கலந்து கொண்டது"
+
+#: .\events\admin.py:81
+msgid "Yes"
+msgstr "ஆம்"
+
+#: .\events\admin.py:81
+msgid "No"
+msgstr "இல்லை"
+
+#: .\events\admin.py:94
+msgid "Generate QR-code"
+msgstr "QR குறியீட்டை உருவாக்கவும்"
+
+#: .\events\admin.py:108
+#, fuzzy
+#| msgid "Generate Address List"
+msgid "Generate All Tickets"
+msgstr "முகவரி பட்டியலை உருவாக்கு"
+
+#: .\events\admin.py:115 .\events\admin.py:127
+#, fuzzy
+#| msgid "Generate Address List"
+msgid "Generate Ticket"
+msgstr "முகவரி பட்டியலை உருவாக்கு"
+
+#: .\events\models.py:42
+msgid "Title Subscript"
+msgstr "தலைப்பு துணை எழுத்து"
+
+#: .\events\models.py:44
+#, fuzzy
+#| msgid "E-mail"
+msgid "Email Text"
+msgstr "மின்னஞ்சல்"
+
+#: .\events\models.py:45
+msgid "Start Date"
+msgstr "தொடக்க தேதி"
+
+#: .\events\models.py:46
+#, fuzzy
+#| msgid "By Date"
+msgid "End Date"
+msgstr "தேதி வாரியாக"
+
+#: .\events\models.py:47 .\events\models.py:94
+msgid "Max Participants"
+msgstr "அதிகபட்ச பங்கேற்பாளர்கள்"
+
+#: .\events\models.py:48
+msgid "Location (short)"
+msgstr "இடம் (குறுகிய)"
+
+#: .\events\models.py:49
+msgid "Location (long)"
+msgstr "இடம் (நீண்ட)"
+
+#: .\events\models.py:51
+msgid "Google Maps embed URL"
+msgstr "Google Maps உட்பொதி URL"
+
+#: .\events\models.py:52
+msgid "Enable Selling"
+msgstr "விற்பனையை இயக்கு"
+
+#: .\events\models.py:95
+msgid "Event"
+msgstr "நிகழ்வு"
+
+#: .\events\models.py:131
+msgctxt "payment status"
+msgid "Paid"
+msgstr "பணம் செலுத்தப்பட்டது"
+
+#: .\events\models.py:132
+msgctxt "payment status"
+msgid "Open"
+msgstr "திற"
+
+#: .\events\models.py:133
+msgctxt "payment status"
+msgid "Canceled"
+msgstr "ரத்து செய்யப்பட்டது"
+
+#: .\events\models.py:134
+msgctxt "payment status"
+msgid "Expired"
+msgstr "காலாவதியான"
+
+#: .\events\models.py:135
+msgctxt "payment status"
+msgid "Failed"
+msgstr "தோல்வியுற்றது"
+
+#: .\events\models.py:149
+msgid "Mollie id"
+msgstr "மோலி ஐடி"
+
+#: .\events\models.py:232
+msgid "Ticket"
+msgstr "டிக்கெட்"
+
+#: .\events\views.py:43
+msgid "Event is not selling tickets"
+msgstr "நிகழ்வு டிக்கெட் விற்கவில்லை"
+
+#: .\events\views.py:58
+#, python-format
+msgid "Invalid tickets: %(value)s"
+msgstr "செல்லாத டிக்கெட்: %(value)s"
+
+#: .\events\views.py:65
+#, python-format
+msgid "Invalid email: %(mail)s"
+msgstr "தவறான மின்னஞ்சல்: %(mail)s"
+
+#: .\events\views.py:130
+msgid "QR code not recognised!"
+msgstr "QR குறியீடு அங்கீகரிக்கப்படவில்லை!"
+
+#: .\events\views.py:136 .\events\views.py:140
+msgid "Fraud Detected!"
+msgstr "மோசடி கண்டுபிடிப்பு!"
+
+#: .\events\views.py:144
+msgid "Participant already attended!"
+msgstr "பங்கேற்பாளர் ஏற்கனவே கலந்து கொண்டார்!"
+
+#: .\events\views.py:152
+msgid "unknown request."
+msgstr "தெரியாத வேண்டுகோள்."
+
+#: .\saranalaya\settings.py:247 .\saranalaya\settings.py:320
+#, fuzzy
+#| msgid "Adoption Parents"
+msgid "Adoption Payments"
+msgstr "தத்தெடுப்பு பெற்றோர்"
+
+#: .\saranalaya\settings.py:286
+msgid "All"
+msgstr "எல்லாம்"
+
+#: .\saranalaya\settings.py:302
 msgid "Navigation"
 msgstr "ஊடாடுதல்"
+
+#: .\saranalaya\settings.py:305 .\saranalaya\templates\admin\index.html:8
+msgid "Dashboard"
+msgstr "கட்டுப்பாட்டகம்"
+
+#: .\saranalaya\settings.py:346
+msgid "Events"
+msgstr "நிகழ்வுகள்"
+
+#: .\saranalaya\settings.py:351
+msgid "Tickets"
+msgstr "டிக்கெட்"
+
+#: .\saranalaya\settings.py:356
+msgid "Participants"
+msgstr "பங்கேற்பாளர்கள்"
+
+#: .\saranalaya\settings.py:367
+msgid "Scanner"
+msgstr "ஸ்கேனர்"
+
+#: .\saranalaya\templates\admin\index.html:8
+msgid "Django site admin"
+msgstr "ஜாங்கோ தள நிர்வாகம்"
+
+#: .\saranalaya\templates\admin\index.html:44
+msgid "Income"
+msgstr "வருமானம்"
+
+#~ msgid "By Amount"
+#~ msgstr "தொகை வாரியாக"
+
+#~ msgid "Link website"
+#~ msgstr "இணைப்பு வலைத்தளம்"
 
 #~ msgid "By Adoption Parents"
 #~ msgstr "தத்தெடுப்பு பெற்றோர் மூலம்"
@@ -345,6 +1355,3 @@ msgstr "ஊடாடுதல்"
 
 #~ msgid "By Day of Leave"
 #~ msgstr "விடுமுறை நாளில்"
-
-#~ msgid "By Date"
-#~ msgstr "தேதி வாரியாக"
