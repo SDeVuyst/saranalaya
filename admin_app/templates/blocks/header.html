@@ -3,7 +3,7 @@
 <div class="container-fluid position-relative d-flex align-items-center justify-content-between">
   
   <a href="{% url 'index' %}#hero" class="logo d-flex align-items-center me-auto me-xl-0">
-    <img src="{% static "img/logo.png" %}" alt="Logo Care India">
+    <img src="{% static "img/logo.png" %}" alt="Logo Care India" class="img-fluid w-75 w-md-100 w-lg-150">
   </a>
 
   <nav id="navmenu" class="navmenu">
@@ -38,6 +38,6 @@
 
   </nav>
 
-  <a class="btn-getstarted" href="{% url 'support-us' %}">{% trans 'Support Us' %}</a>
+  <a class="btn-getstarted text-nowrap fs-6 fs-md-5" href="{% url 'support-us' %}">{% trans 'Support Us' %}</a>
 
 </div>
