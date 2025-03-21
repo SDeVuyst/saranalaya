@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-03-21 13:42+0100\n"
-"PO-Revision-Date: 2025-03-21 13:45+0100\n"
+"PO-Revision-Date: 2025-03-21 16:22+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ta\n"
@@ -190,9 +190,8 @@ msgid "Donation"
 msgstr "நன்கொடை"
 
 #: .\admin_app\models.py:86 .\admin_app\models.py:170 .\admin_app\models.py:182
-#: .\admin_app\templates\pages\kinderen.html:5 .\admin_app\views.py:229
-#: .\admin_app\views.py:282 .\admin_app\views.py:295
-#: .\saranalaya\settings.py:310
+#: .\admin_app\templates\pages\kinderen.html:5 .\admin_app\views.py:229 .\admin_app\views.py:282
+#: .\admin_app\views.py:295 .\saranalaya\settings.py:310
 msgid "Children"
 msgstr "குழந்தைகள்"
 
@@ -225,9 +224,8 @@ msgstr "விடுப்பு தேதி"
 msgid "Indian Parent Status"
 msgstr "இந்திய பெற்றோர் நிலை"
 
-#: .\admin_app\models.py:118 .\admin_app\models.py:160
-#: .\admin_app\models.py:228 .\admin_app\models.py:257 .\events\models.py:43
-#: .\events\models.py:92 .\events\models.py:231
+#: .\admin_app\models.py:118 .\admin_app\models.py:160 .\admin_app\models.py:228
+#: .\admin_app\models.py:257 .\events\models.py:43 .\events\models.py:92 .\events\models.py:231
 msgid "Description"
 msgstr "வருணனை"
 
@@ -235,8 +233,8 @@ msgstr "வருணனை"
 msgid "Show on Website"
 msgstr "இணையதளத்தில் காட்டு"
 
-#: .\admin_app\models.py:120 .\admin_app\models.py:132
-#: .\admin_app\models.py:277 .\events\models.py:50
+#: .\admin_app\models.py:120 .\admin_app\models.py:132 .\admin_app\models.py:277
+#: .\events\models.py:50
 msgid "Image"
 msgstr "பிம்பம்"
 
@@ -244,10 +242,9 @@ msgstr "பிம்பம்"
 msgid "Website Description"
 msgstr "இணையதள விளக்கம்"
 
-#: .\admin_app\models.py:124 .\admin_app\models.py:185
-#: .\admin_app\models.py:233 .\admin_app\models.py:243
-#: .\admin_app\models.py:260 .\admin_app\models.py:281 .\events\models.py:54
-#: .\events\models.py:97 .\events\models.py:156 .\events\models.py:237
+#: .\admin_app\models.py:124 .\admin_app\models.py:185 .\admin_app\models.py:233
+#: .\admin_app\models.py:243 .\admin_app\models.py:260 .\admin_app\models.py:281
+#: .\events\models.py:54 .\events\models.py:97 .\events\models.py:156 .\events\models.py:237
 msgid "History"
 msgstr "வரலாறு"
 
@@ -335,8 +332,7 @@ msgstr "தத்தெடுப்பு பெற்றோர் கொடு�
 msgid "Amount remaining"
 msgstr "மீதமுள்ள தொகை"
 
-#: .\admin_app\models.py:226 .\admin_app\models.py:256
-#: .\admin_app\models.py:276
+#: .\admin_app\models.py:226 .\admin_app\models.py:256 .\admin_app\models.py:276
 msgid "Date"
 msgstr "தேதி"
 
@@ -362,8 +358,7 @@ msgid "Donations"
 msgstr "நன்கொடைகள்"
 
 #: .\admin_app\models.py:264 .\admin_app\models.py:265
-#: .\admin_app\templates\blocks\header.html:13
-#: .\admin_app\templates\pages\nieuws.html:5
+#: .\admin_app\templates\blocks\header.html:13 .\admin_app\templates\pages\nieuws.html:5
 #: .\admin_app\templates\pages\nieuws.html:25 .\saranalaya\settings.py:335
 msgid "News"
 msgstr "செய்தி"
@@ -380,14 +375,12 @@ msgstr "மாதிரி"
 msgid "Care India"
 msgstr "Care India"
 
-#: .\admin_app\templates\blocks\header.html:11
-#: .\admin_app\templates\pages\over-ons.html:5
+#: .\admin_app\templates\blocks\header.html:11 .\admin_app\templates\pages\over-ons.html:5
 #: .\admin_app\templates\pages\over-ons.html:25
 msgid "About Us"
 msgstr "நம்மை பற்றி"
 
-#: .\admin_app\templates\blocks\header.html:12
-#: .\admin_app\templates\pages\index.html:88
+#: .\admin_app\templates\blocks\header.html:12 .\admin_app\templates\pages\index.html:88
 #: .\admin_app\templates\pages\kinderen.html:25
 msgid "Our Children"
 msgstr "எங்கள் குழந்தைகள்"
@@ -396,8 +389,7 @@ msgstr "எங்கள் குழந்தைகள்"
 msgid "Latest Event"
 msgstr "சமீபத்திய நிகழ்வுகள்"
 
-#: .\admin_app\templates\blocks\header.html:15
-#: .\admin_app\templates\pages\index.html:123
+#: .\admin_app\templates\blocks\header.html:15 .\admin_app\templates\pages\index.html:123
 msgid "Contact"
 msgstr "தொடர்பு"
 
@@ -405,10 +397,8 @@ msgstr "தொடர்பு"
 msgid "Language"
 msgstr "மொழி"
 
-#: .\admin_app\templates\blocks\header.html:41
-#: .\admin_app\templates\pages\index.html:63
-#: .\admin_app\templates\pages\steun-ons.html:5
-#: .\admin_app\templates\pages\steun-ons.html:25
+#: .\admin_app\templates\blocks\header.html:41 .\admin_app\templates\pages\index.html:63
+#: .\admin_app\templates\pages\steun-ons.html:5 .\admin_app\templates\pages\steun-ons.html:25
 msgid "Support Us"
 msgstr "எங்களை ஆதரியுங்கள்"
 
@@ -455,16 +445,14 @@ msgstr "அன்று எழுதப்பட்டது %(date)s"
 msgid "Updated on %(date)s"
 msgstr "புதுப்பிக்கப்பட்டது: %(date)s"
 
-#: .\admin_app\templates\pages\index.html:19
-#: .\admin_app\templates\pages\index.html:22
-#: .\admin_app\templates\pages\index.html:27
-#: .\admin_app\templates\pages\index.html:59
+#: .\admin_app\templates\pages\index.html:19 .\admin_app\templates\pages\index.html:22
+#: .\admin_app\templates\pages\index.html:27 .\admin_app\templates\pages\index.html:59
 msgid ""
-"Care India is a Flemish, small-scale and independent organization dedicated "
-"to street children in Chennai."
+"Care India is a Flemish, small-scale and independent organization dedicated to street "
+"children in Chennai."
 msgstr ""
-"கேர் இந்தியா என்பது சென்னையில் உள்ள தெருவோரக் குழந்தைகளுக்காக அர்ப்பணிக்கப்பட்ட ஒரு சிறிய "
-"அளவிலான மற்றும் சுயாதீன அமைப்பாகும்."
+"கேர் இந்தியா என்பது சென்னையில் உள்ள தெருவோரக் குழந்தைகளுக்காக அர்ப்பணிக்கப்பட்ட ஒரு சிறிய அளவிலான மற்றும் "
+"சுயாதீன அமைப்பாகும்."
 
 #: .\admin_app\templates\pages\index.html:43
 msgid "A heart for the street children"
@@ -480,13 +468,13 @@ msgstr "எங்கள் நிறுவனத்தைப் பற்றி"
 
 #: .\admin_app\templates\pages\index.html:60
 msgid ""
-"Care India supports the Saranalaya orphanage in Thandalam, South India. "
-"Because it is a small-scale project, we only work with volunteers in Belgium "
-"and every euro collected goes entirely to the project."
+"Care India supports the Saranalaya orphanage in Thandalam, South India. Because it is a small-"
+"scale project, we only work with volunteers in Belgium and every euro collected goes entirely "
+"to the project."
 msgstr ""
-"கேர் இந்தியா தென்னிந்தியாவின் தாண்டளத்தில் உள்ள சரணாலய அனாதை இல்லத்தை ஆதரிக்கிறது. இது "
-"ஒரு சிறிய அளவிலான திட்டம் என்பதால், நாங்கள் பெல்ஜியத்தில் உள்ள தன்னார்வலர்களுடன் மட்டுமே "
-"வேலை செய்கிறோம், சேகரிக்கப்பட்ட ஒவ்வொரு யூரோவும் முற்றிலும் திட்டத்திற்கு செல்கிறது."
+"கேர் இந்தியா தென்னிந்தியாவின் தாண்டளத்தில் உள்ள சரணாலய அனாதை இல்லத்தை ஆதரிக்கிறது. இது ஒரு சிறிய அளவிலான "
+"திட்டம் என்பதால், நாங்கள் பெல்ஜியத்தில் உள்ள தன்னார்வலர்களுடன் மட்டுமே வேலை செய்கிறோம், சேகரிக்கப்பட்ட ஒவ்வொரு "
+"யூரோவும் முற்றிலும் திட்டத்திற்கு செல்கிறது."
 
 #: .\admin_app\templates\pages\index.html:62
 msgid "More Info"
@@ -520,8 +508,7 @@ msgstr "அனைத்து செய்திகளையும் காண�
 msgid "Send us a message!"
 msgstr "எங்களுக்கு ஒரு செய்தியை அனுப்புங்கள்!"
 
-#: .\admin_app\templates\pages\index.html:143 .\events\models.py:152
-#: .\events\models.py:228
+#: .\admin_app\templates\pages\index.html:143 .\events\models.py:152 .\events\models.py:228
 msgid "Email"
 msgstr "மின்னஞ்சல்"
 
@@ -577,52 +564,44 @@ msgstr "கூடுதல் தகவல் இன்னும் கிடை
 msgid "Siblings"
 msgstr "உடன்பிறப்புகள்"
 
-#: .\admin_app\templates\pages\kinderen.html:8
-#: .\admin_app\templates\pages\kinderen.html:11
+#: .\admin_app\templates\pages\kinderen.html:8 .\admin_app\templates\pages\kinderen.html:11
 #: .\admin_app\templates\pages\kinderen.html:16
 msgid ""
-"Meet the children supported by C.A.R.E. in Chennai. Learn about their "
-"stories, challenges, and how our Flemish organization helps them build a "
-"better future."
+"Meet the children supported by C.A.R.E. in Chennai. Learn about their stories, challenges, "
+"and how our Flemish organization helps them build a better future."
 msgstr ""
-"சென்னையில் C.A.R.E. ஆல் ஆதரிக்கப்படும் குழந்தைகளை சந்திக்கவும். அவர்களின் கதைகள், சவால்கள் "
-"மற்றும் சிறந்த எதிர்காலத்தை உருவாக்க எங்கள் பிளெமிஷ் அமைப்பு அவர்களுக்கு எவ்வாறு "
-"உதவுகிறது என்பதைப் பற்றி அறிக."
+"சென்னையில் C.A.R.E. ஆல் ஆதரிக்கப்படும் குழந்தைகளை சந்திக்கவும். அவர்களின் கதைகள், சவால்கள் மற்றும் சிறந்த "
+"எதிர்காலத்தை உருவாக்க எங்கள் பிளெமிஷ் அமைப்பு அவர்களுக்கு எவ்வாறு உதவுகிறது என்பதைப் பற்றி அறிக."
 
-#: .\admin_app\templates\pages\kinderen.html:10
-#: .\admin_app\templates\pages\kinderen.html:15
+#: .\admin_app\templates\pages\kinderen.html:10 .\admin_app\templates\pages\kinderen.html:15
 msgid "Children | Care India"
 msgstr "குழந்தைகள் | கேர் இந்தியா"
 
 #: .\admin_app\templates\pages\kinderen.html:26
 msgid ""
-"Saranalaya Children's Home takes care of about 50 street children from the "
-"Chennai area of southern India."
+"Saranalaya Children's Home takes care of about 50 street children from the Chennai area of "
+"southern India."
 msgstr ""
-"தென்னிந்தியாவின் சென்னைப் பகுதியைச் சேர்ந்த சுமார் 50 தெருவோரக் குழந்தைகளை சரணாலய "
-"குழந்தைகள் இல்லம் பராமரித்து வருகிறது."
+"தென்னிந்தியாவின் சென்னைப் பகுதியைச் சேர்ந்த சுமார் 50 தெருவோரக் குழந்தைகளை சரணாலய குழந்தைகள் இல்லம் "
+"பராமரித்து வருகிறது."
 
 #: .\admin_app\templates\pages\kinderen.html:27
 msgid ""
-"Most of our children are half orphans. Often the mother is left alone after "
-"the father (and thus breadwinner) has left the family or died. Life in the "
-"slums is hard and often it is impossible for the mother to provide for her "
-"child, let alone send it to school. There are also some children in "
-"Saranalaya who no longer have parents."
+"Most of our children are half orphans. Often the mother is left alone after the father (and "
+"thus breadwinner) has left the family or died. Life in the slums is hard and often it is "
+"impossible for the mother to provide for her child, let alone send it to school. There are "
+"also some children in Saranalaya who no longer have parents."
 msgstr ""
-"எங்கள் குழந்தைகளில் பெரும்பாலோர் அரை அனாதைகள். தந்தை (இதனால் சம்பாதிப்பவர்) குடும்பத்தை "
-"விட்டு வெளியேறிய பிறகு அல்லது இறந்த பிறகு பெரும்பாலும் தாய் தனியாக விடப்படுகிறார். "
-"சேரிகளில் வாழ்க்கை கடினமாக உள்ளது மற்றும் பெரும்பாலும் தாய் தனது குழந்தையை பள்ளிக்கு "
-"அனுப்புவது ஒருபுறம் இருக்க, அதை வழங்குவது கூட சாத்தியமற்றது. சரணாலயத்தில் பெற்றோர் "
-"இல்லாத சில குழந்தைகளும் உள்ளனர்."
+"எங்கள் குழந்தைகளில் பெரும்பாலோர் அரை அனாதைகள். தந்தை (இதனால் சம்பாதிப்பவர்) குடும்பத்தை விட்டு வெளியேறிய "
+"பிறகு அல்லது இறந்த பிறகு பெரும்பாலும் தாய் தனியாக விடப்படுகிறார். சேரிகளில் வாழ்க்கை கடினமாக உள்ளது "
+"மற்றும் பெரும்பாலும் தாய் தனது குழந்தையை பள்ளிக்கு அனுப்புவது ஒருபுறம் இருக்க, அதை வழங்குவது கூட "
+"சாத்தியமற்றது. சரணாலயத்தில் பெற்றோர் இல்லாத சில குழந்தைகளும் உள்ளனர்."
 
-#: .\admin_app\templates\pages\kinderen.html:77
-#: .\admin_app\templates\pages\nieuws.html:57
+#: .\admin_app\templates\pages\kinderen.html:77 .\admin_app\templates\pages\nieuws.html:57
 msgid "Filter"
 msgstr "வடிகட்டு"
 
-#: .\admin_app\templates\pages\kinderen.html:80
-#: .\admin_app\templates\pages\nieuws.html:60
+#: .\admin_app\templates\pages\kinderen.html:80 .\admin_app\templates\pages\nieuws.html:60
 msgid "Reset"
 msgstr "மீட்டமை"
 
@@ -630,77 +609,62 @@ msgstr "மீட்டமை"
 msgid "No children found."
 msgstr "குழந்தைகள் கிடைக்கவில்லை."
 
-#: .\admin_app\templates\pages\kinderen.html:103
-#: .\admin_app\templates\pages\nieuws.html:83
+#: .\admin_app\templates\pages\kinderen.html:103 .\admin_app\templates\pages\nieuws.html:83
 msgid "First"
 msgstr "முதல்"
 
-#: .\admin_app\templates\pages\kinderen.html:106
-#: .\admin_app\templates\pages\nieuws.html:86
+#: .\admin_app\templates\pages\kinderen.html:106 .\admin_app\templates\pages\nieuws.html:86
 #: .\admin_app\templates\pages\steun-ons.html:147
 msgid "Previous"
 msgstr "முந்தையது"
 
-#: .\admin_app\templates\pages\kinderen.html:111
-#: .\admin_app\templates\pages\nieuws.html:91
+#: .\admin_app\templates\pages\kinderen.html:111 .\admin_app\templates\pages\nieuws.html:91
 msgid "Page"
 msgstr "பக்கம்"
 
-#: .\admin_app\templates\pages\kinderen.html:111
-#: .\admin_app\templates\pages\nieuws.html:91
+#: .\admin_app\templates\pages\kinderen.html:111 .\admin_app\templates\pages\nieuws.html:91
 msgid "of"
 msgstr "உடைய"
 
-#: .\admin_app\templates\pages\kinderen.html:116
-#: .\admin_app\templates\pages\nieuws.html:96
+#: .\admin_app\templates\pages\kinderen.html:116 .\admin_app\templates\pages\nieuws.html:96
 #: .\admin_app\templates\pages\steun-ons.html:151
 msgid "Next"
 msgstr "அடுத்தது"
 
-#: .\admin_app\templates\pages\kinderen.html:119
-#: .\admin_app\templates\pages\nieuws.html:99
+#: .\admin_app\templates\pages\kinderen.html:119 .\admin_app\templates\pages\nieuws.html:99
 msgid "Last"
 msgstr "இறுதி"
 
-#: .\admin_app\templates\pages\nieuws.html:8
-#: .\admin_app\templates\pages\nieuws.html:11
+#: .\admin_app\templates\pages\nieuws.html:8 .\admin_app\templates\pages\nieuws.html:11
 #: .\admin_app\templates\pages\nieuws.html:16
 msgid ""
-"Stay up to date with the latest news from C.A.R.E., a Flemish organization "
-"dedicated to helping street children in Chennai. Discover our project, "
-"initiatives, and updates."
+"Stay up to date with the latest news from C.A.R.E., a Flemish organization dedicated to "
+"helping street children in Chennai. Discover our project, initiatives, and updates."
 msgstr ""
-"சென்னையில் தெருவோரக் குழந்தைகளுக்கு உதவுவதற்காக அர்ப்பணிக்கப்பட்ட ஒரு ஃபிளெமிஷ் அமைப்பான "
-"C.A.R.E. இன் சமீபத்திய செய்திகளுடன் புதுப்பித்த நிலையில் இருங்கள். எங்கள் திட்டம், "
-"முயற்சிகள் மற்றும் புதுப்பிப்புகளைக் கண்டறியவும்."
+"சென்னையில் தெருவோரக் குழந்தைகளுக்கு உதவுவதற்காக அர்ப்பணிக்கப்பட்ட ஒரு ஃபிளெமிஷ் அமைப்பான C.A.R.E. இன் "
+"சமீபத்திய செய்திகளுடன் புதுப்பித்த நிலையில் இருங்கள். எங்கள் திட்டம், முயற்சிகள் மற்றும் புதுப்பிப்புகளைக் "
+"கண்டறியவும்."
 
-#: .\admin_app\templates\pages\nieuws.html:10
-#: .\admin_app\templates\pages\nieuws.html:15
+#: .\admin_app\templates\pages\nieuws.html:10 .\admin_app\templates\pages\nieuws.html:15
 msgid "News | Care India"
 msgstr "செய்திகள் | கேர் இந்தியா"
 
 #: .\admin_app\templates\pages\nieuws.html:26
-msgid ""
-"Keep up with what's happening at our children's home—news, events, and more."
-msgstr ""
-"எங்கள் குழந்தைகளின் வீட்டில் என்ன நடக்கிறது - செய்திகள், நிகழ்வுகள் மற்றும் பலவற்றைத் "
-"தெரிந்துகொள்ளுங்கள்."
+msgid "Keep up with what's happening at our children's home—news, events, and more."
+msgstr "எங்கள் குழந்தைகளின் வீட்டில் என்ன நடக்கிறது - செய்திகள், நிகழ்வுகள் மற்றும் பலவற்றைத் தெரிந்துகொள்ளுங்கள்."
 
 #: .\admin_app\templates\pages\nieuws.html:73
 msgid "No articles found."
 msgstr "கட்டுரைகள் எதுவும் காணப்படவில்லை."
 
-#: .\admin_app\templates\pages\over-ons.html:8
-#: .\admin_app\templates\pages\over-ons.html:11
+#: .\admin_app\templates\pages\over-ons.html:8 .\admin_app\templates\pages\over-ons.html:11
 #: .\admin_app\templates\pages\over-ons.html:16
 msgid ""
-"Learn more about C.A.R.E., a small, independent Flemish organization "
-"committed to improving the lives of street children in Chennai through "
-"education, care, and support."
+"Learn more about C.A.R.E., a small, independent Flemish organization committed to improving "
+"the lives of street children in Chennai through education, care, and support."
 msgstr ""
-"சென்னையில் உள்ள தெருவோரக் குழந்தைகளின் வாழ்க்கையை கல்வி, பராமரிப்பு மற்றும் ஆதரவு மூலம் "
-"மேம்படுத்த உறுதிபூண்டுள்ள ஒரு சிறிய, சுதந்திரமான ஃபிளெமிஷ் அமைப்பான சி.ஏ.ஆர்.இ. பற்றி "
-"மேலும் அறிக."
+"சென்னையில் உள்ள தெருவோரக் குழந்தைகளின் வாழ்க்கையை கல்வி, பராமரிப்பு மற்றும் ஆதரவு மூலம் மேம்படுத்த "
+"உறுதிபூண்டுள்ள ஒரு சிறிய, சுதந்திரமான ஃபிளெமிஷ் அமைப்பான சி.ஏ.ஆர்.இ. பற்றி மேலும் அறிக."
 
 #: .\admin_app\templates\pages\over-ons.html:10
 msgid " About Us | Care India"
@@ -713,47 +677,41 @@ msgstr "எங்களை பற்றி | கேர் இந்தியா"
 #: .\admin_app\templates\pages\over-ons.html:27
 msgid ""
 "\n"
-"            Saranalaya is a small and independent children's home in "
-"Chennai, southeastern India. There are 45-50 children living there and the "
-"family feeling is central. We take in children who do not have a (good) home "
-"situation and do our utmost to let them grow up without worries. In "
-"Saranalaya there is a strong emphasis on education. Every child gets the "
-"chance to go to school and after high school also to continue studying if "
-"they want to. Even the children who have left Saranalaya and are already on "
-"their own, are always welcome and often receive a push from Sundar as well. "
-"Thanks to Saranalaya, more than 150 underprivileged children have already "
-"been given a chance for a better life.\n"
+"            Saranalaya is a small and independent children's home in Chennai, southeastern "
+"India. There are 45-50 children living there and the family feeling is central. We take in "
+"children who do not have a (good) home situation and do our utmost to let them grow up "
+"without worries. In Saranalaya there is a strong emphasis on education. Every child gets the "
+"chance to go to school and after high school also to continue studying if they want to. Even "
+"the children who have left Saranalaya and are already on their own, are always welcome and "
+"often receive a push from Sundar as well. Thanks to Saranalaya, more than 150 underprivileged "
+"children have already been given a chance for a better life.\n"
 "            "
 msgstr ""
 "\n"
-"சரணாலயா தென்கிழக்கு இந்தியாவின் சென்னையில் உள்ள ஒரு சிறிய மற்றும் சுயாதீனமான குழந்தைகள் "
-"இல்லமாகும். அங்கு 45-50 குழந்தைகள் வசிக்கின்றனர் மற்றும் குடும்ப உணர்வு மையமாக உள்ளது. "
-"(நல்ல) வீட்டு சூழ்நிலை இல்லாத குழந்தைகளை நாங்கள் எடுத்துக்கொள்கிறோம், மேலும் அவர்கள் "
-"கவலையின்றி வளர அனுமதிக்க எங்களால் முடிந்த அனைத்தையும் செய்கிறோம். சரணாலயத்தில் கல்விக்கு "
-"அதிக முக்கியத்துவம் அளிக்கப்படுகிறது. ஒவ்வொரு குழந்தைக்கும் பள்ளிக்குச் செல்லவும், "
-"உயர்நிலைப் பள்ளிக்குப் பிறகும் அவர்கள் விரும்பினால் தொடர்ந்து படிக்கவும் வாய்ப்பு "
-"கிடைக்கிறது. சரணாலயத்தை விட்டு வெளியேறி ஏற்கனவே தனியாக இருக்கும் குழந்தைகள் கூட "
-"எப்போதும் வரவேற்கப்படுகிறார்கள், பெரும்பாலும் சுந்தரிடமிருந்து ஒரு உந்துதலைப் "
-"பெறுகிறார்கள். சரணாலயத்திற்கு நன்றி, 150 க்கும் மேற்பட்ட ஏழை குழந்தைகளுக்கு ஏற்கனவே "
-"சிறந்த வாழ்க்கைக்கான வாய்ப்பு வழங்கப்பட்டுள்ளது.\n"
+"சரணாலயா தென்கிழக்கு இந்தியாவின் சென்னையில் உள்ள ஒரு சிறிய மற்றும் சுயாதீனமான குழந்தைகள் இல்லமாகும். அங்கு "
+"45-50 குழந்தைகள் வசிக்கின்றனர் மற்றும் குடும்ப உணர்வு மையமாக உள்ளது. (நல்ல) வீட்டு சூழ்நிலை இல்லாத குழந்தைகளை "
+"நாங்கள் எடுத்துக்கொள்கிறோம், மேலும் அவர்கள் கவலையின்றி வளர அனுமதிக்க எங்களால் முடிந்த அனைத்தையும் செய்கிறோம். "
+"சரணாலயத்தில் கல்விக்கு அதிக முக்கியத்துவம் அளிக்கப்படுகிறது. ஒவ்வொரு குழந்தைக்கும் பள்ளிக்குச் செல்லவும், "
+"உயர்நிலைப் பள்ளிக்குப் பிறகும் அவர்கள் விரும்பினால் தொடர்ந்து படிக்கவும் வாய்ப்பு கிடைக்கிறது. சரணாலயத்தை விட்டு "
+"வெளியேறி ஏற்கனவே தனியாக இருக்கும் குழந்தைகள் கூட எப்போதும் வரவேற்கப்படுகிறார்கள், பெரும்பாலும் "
+"சுந்தரிடமிருந்து ஒரு உந்துதலைப் பெறுகிறார்கள். சரணாலயத்திற்கு நன்றி, 150 க்கும் மேற்பட்ட ஏழை குழந்தைகளுக்கு "
+"ஏற்கனவே சிறந்த வாழ்க்கைக்கான வாய்ப்பு வழங்கப்பட்டுள்ளது.\n"
 "            "
 
 #: .\admin_app\templates\pages\over-ons.html:33
 msgid ""
 "\n"
-"            The children's home is run on a daily basis by Sundar, his wife "
-"Kavitha and a team of chefs, cleaners and teachers. The sponsorship needed "
-"to keep the home running comes mainly from Flemish aunties and uncles. Your "
-"support really makes a difference in the lives of our children in "
-"Saranalaya.\n"
+"            The children's home is run on a daily basis by Sundar, his wife Kavitha and a "
+"team of chefs, cleaners and teachers. The sponsorship needed to keep the home running comes "
+"mainly from Flemish aunties and uncles. Your support really makes a difference in the lives "
+"of our children in Saranalaya.\n"
 "            "
 msgstr ""
 "\n"
-"சுந்தர், அவரது மனைவி கவிதா மற்றும் சமையல்காரர்கள், துப்புரவாளர்கள் மற்றும் ஆசிரியர்கள் "
-"அடங்கிய குழுவினர் இந்த குழந்தைகள் இல்லத்தை தினசரி அடிப்படையில் நடத்தி வருகின்றனர். வீட்டை "
-"இயங்க வைக்க தேவையான ஸ்பான்சர்ஷிப் முக்கியமாக பிளெமிஷ் அத்தைகள் மற்றும் மாமாக்களிடமிருந்து "
-"வருகிறது. உங்கள் ஆதரவு உண்மையில் சரணாலயத்தில் உள்ள எங்கள் குழந்தைகளின் வாழ்க்கையில் ஒரு "
-"மாற்றத்தை ஏற்படுத்துகிறது.\n"
+"சுந்தர், அவரது மனைவி கவிதா மற்றும் சமையல்காரர்கள், துப்புரவாளர்கள் மற்றும் ஆசிரியர்கள் அடங்கிய குழுவினர் இந்த "
+"குழந்தைகள் இல்லத்தை தினசரி அடிப்படையில் நடத்தி வருகின்றனர். வீட்டை இயங்க வைக்க தேவையான ஸ்பான்சர்ஷிப் முக்கியமாக "
+"பிளெமிஷ் அத்தைகள் மற்றும் மாமாக்களிடமிருந்து வருகிறது. உங்கள் ஆதரவு உண்மையில் சரணாலயத்தில் உள்ள எங்கள் "
+"குழந்தைகளின் வாழ்க்கையில் ஒரு மாற்றத்தை ஏற்படுத்துகிறது.\n"
 "            "
 
 #: .\admin_app\templates\pages\over-ons.html:43
@@ -763,59 +721,52 @@ msgstr "இது எப்படி தொடங்கியது"
 #: .\admin_app\templates\pages\over-ons.html:45
 msgid ""
 "\n"
-"            In 1996, Veerle was doing an internship at a hospital in "
-"Chennai. One day she passed two young children tied to a tree, one of them "
-"battered with a shard of glass in the face. Together with Sundar, who was in "
-"charge of her, they got out of the rickshaw and waited with the young boys "
-"for their parents. When their father came home drunk several hours later, he "
-"made the unforgettable statement; “This is the best day of my life, you can "
-"have them,” and gave the boys' birth certificates to Veerle and Sundar. A "
-"few days later they gave shelter to a dozen street children in a rented "
-"house. In 2003, Saranalaya's final building was built in Thandalam, a small "
-"village just outside Chennai. \n"
+"            In 1996, Veerle was doing an internship at a hospital in Chennai. One day she "
+"passed two young children tied to a tree, one of them battered with a shard of glass in the "
+"face. Together with Sundar, who was in charge of her, they got out of the rickshaw and waited "
+"with the young boys for their parents. When their father came home drunk several hours later, "
+"he made the unforgettable statement; “This is the best day of my life, you can have them,” "
+"and gave the boys' birth certificates to Veerle and Sundar. A few days later they gave "
+"shelter to a dozen street children in a rented house. In 2003, Saranalaya's final building "
+"was built in Thandalam, a small village just outside Chennai. \n"
 "            "
 msgstr ""
 "\n"
-"1996 ஆம் ஆண்டில், வீர்லே சென்னையில் உள்ள ஒரு மருத்துவமனையில் இன்டர்ன்ஷிப் செய்து "
-"கொண்டிருந்தார். ஒரு நாள் மரத்தில் கட்டப்பட்டிருந்த இரண்டு சிறு குழந்தைகளைக் கடந்து சென்றாள். "
-"அவர்களில் ஒருவன் முகத்தில் கண்ணாடித் துண்டால் தாக்கப்பட்டிருந்தான். அவளுக்கு பொறுப்பாக இருந்த "
-"சுந்தருடன் சேர்ந்து ரிக்ஷாவில் இருந்து இறங்கி சிறுவர்களுடன் பெற்றோருக்காக காத்திருந்தனர். "
-"பல மணி நேரம் கழித்து குடிபோதையில் வீடு திரும்பிய அவர்களின் தந்தை, மறக்க முடியாத "
-"வாக்குமூலத்தை அளித்தார்; \"இது என் வாழ்க்கையின் சிறந்த நாள், நீங்கள் அவற்றை வைத்திருக்கலாம்\" "
-"என்று கூறி சிறுவர்களின் பிறப்புச் சான்றிதழை வீர்லே மற்றும் சுந்தரிடம் கொடுத்தார். சில "
-"நாட்களுக்குப் பிறகு அவர்கள் ஒரு டஜன் தெருவோரக் குழந்தைகளை ஒரு வாடகை வீட்டில் அடைக்கலம் "
-"கொடுத்தனர். 2003 ஆம் ஆண்டில், சரணாலயாவின் இறுதி கட்டிடம் சென்னைக்கு வெளியே உள்ள ஒரு "
-"சிறிய கிராமமான தண்டளத்தில் கட்டப்பட்டது. \n"
+"1996 ஆம் ஆண்டில், வீர்லே சென்னையில் உள்ள ஒரு மருத்துவமனையில் இன்டர்ன்ஷிப் செய்து கொண்டிருந்தார். ஒரு நாள் மரத்தில் "
+"கட்டப்பட்டிருந்த இரண்டு சிறு குழந்தைகளைக் கடந்து சென்றாள். அவர்களில் ஒருவன் முகத்தில் கண்ணாடித் துண்டால் "
+"தாக்கப்பட்டிருந்தான். அவளுக்கு பொறுப்பாக இருந்த சுந்தருடன் சேர்ந்து ரிக்ஷாவில் இருந்து இறங்கி சிறுவர்களுடன் "
+"பெற்றோருக்காக காத்திருந்தனர். பல மணி நேரம் கழித்து குடிபோதையில் வீடு திரும்பிய அவர்களின் தந்தை, மறக்க "
+"முடியாத வாக்குமூலத்தை அளித்தார்; \"இது என் வாழ்க்கையின் சிறந்த நாள், நீங்கள் அவற்றை வைத்திருக்கலாம்\" என்று "
+"கூறி சிறுவர்களின் பிறப்புச் சான்றிதழை வீர்லே மற்றும் சுந்தரிடம் கொடுத்தார். சில நாட்களுக்குப் பிறகு அவர்கள் ஒரு "
+"டஜன் தெருவோரக் குழந்தைகளை ஒரு வாடகை வீட்டில் அடைக்கலம் கொடுத்தனர். 2003 ஆம் ஆண்டில், சரணாலயாவின் இறுதி "
+"கட்டிடம் சென்னைக்கு வெளியே உள்ள ஒரு சிறிய கிராமமான தண்டளத்தில் கட்டப்பட்டது. \n"
 "            "
 
 #: .\admin_app\templates\pages\over-ons.html:55
 msgid "Daily life at Saranalaya"
 msgstr "சரணாலயத்தில் தினசரி வாழ்க்கை"
 
-#: .\admin_app\templates\pages\steun-ons.html:8
-#: .\admin_app\templates\pages\steun-ons.html:11
+#: .\admin_app\templates\pages\steun-ons.html:8 .\admin_app\templates\pages\steun-ons.html:11
 #: .\admin_app\templates\pages\steun-ons.html:16
 msgid ""
-"Support C.A.R.E. and help improve the lives of street children in Chennai. "
-"Discover how you can donate, volunteer, or contribute to our organization’s "
-"mission."
+"Support C.A.R.E. and help improve the lives of street children in Chennai. Discover how you "
+"can donate, volunteer, or contribute to our organization’s mission."
 msgstr ""
-"C.A.R.E. க்கு ஆதரவளித்து சென்னையில் உள்ள தெருவோரக் குழந்தைகளின் வாழ்க்கையை மேம்படுத்த "
-"உதவுங்கள். எங்கள் நிறுவனத்தின் பணிக்கு நீங்கள் எவ்வாறு நன்கொடை அளிக்கலாம், தன்னார்வத் தொண்டு "
-"செய்யலாம் அல்லது பங்களிக்கலாம் என்பதைக் கண்டறியவும்."
+"C.A.R.E. க்கு ஆதரவளித்து சென்னையில் உள்ள தெருவோரக் குழந்தைகளின் வாழ்க்கையை மேம்படுத்த உதவுங்கள். எங்கள் "
+"நிறுவனத்தின் பணிக்கு நீங்கள் எவ்வாறு நன்கொடை அளிக்கலாம், தன்னார்வத் தொண்டு செய்யலாம் அல்லது பங்களிக்கலாம் என்பதைக் "
+"கண்டறியவும்."
 
-#: .\admin_app\templates\pages\steun-ons.html:10
-#: .\admin_app\templates\pages\steun-ons.html:15
+#: .\admin_app\templates\pages\steun-ons.html:10 .\admin_app\templates\pages\steun-ons.html:15
 msgid "Support Us | Care India"
 msgstr "எங்களை ஆதரியுங்கள் | கேர் இந்தியா"
 
 #: .\admin_app\templates\pages\steun-ons.html:27
 msgid ""
-"Your support really makes a difference in the lives of our children in "
-"Saranalaya. Explore the different ways you can contribute."
+"Your support really makes a difference in the lives of our children in Saranalaya. Explore "
+"the different ways you can contribute."
 msgstr ""
-"உங்கள் ஆதரவு உண்மையில் சரணாலயத்தில் உள்ள எங்கள் குழந்தைகளின் வாழ்க்கையில் ஒரு மாற்றத்தை "
-"ஏற்படுத்துகிறது. நீங்கள் பங்களிக்கக்கூடிய பல்வேறு வழிகளை ஆராயுங்கள்."
+"உங்கள் ஆதரவு உண்மையில் சரணாலயத்தில் உள்ள எங்கள் குழந்தைகளின் வாழ்க்கையில் ஒரு மாற்றத்தை ஏற்படுத்துகிறது. நீங்கள் "
+"பங்களிக்கக்கூடிய பல்வேறு வழிகளை ஆராயுங்கள்."
 
 #: .\admin_app\templates\pages\steun-ons.html:34
 msgid "Financial Adoption"
@@ -875,83 +826,75 @@ msgstr "நிதி தத்தெடுப்பு பெற்றோரா�
 
 #: .\admin_app\templates\pages\steun-ons.html:172
 msgid ""
-"Would you like to build a personal relationship with a Saranalaya child and "
-"thus make a commitment for a number of years? Then it might be a nice idea "
-"for you to become uncle or auntie of one of the children."
+"Would you like to build a personal relationship with a Saranalaya child and thus make a "
+"commitment for a number of years? Then it might be a nice idea for you to become uncle or "
+"auntie of one of the children."
 msgstr ""
-"நீங்கள் ஒரு சரணாலய குழந்தையுடன் தனிப்பட்ட உறவை உருவாக்க விரும்புகிறீர்களா, இதனால் பல "
-"ஆண்டுகளாக ஒரு உறுதிப்பாட்டை செய்ய விரும்புகிறீர்களா? பின்னர் நீங்கள் குழந்தைகளில் "
-"ஒருவருக்கு மாமா அல்லது அத்தை ஆக ஒரு நல்ல யோசனையாக இருக்கலாம்."
+"நீங்கள் ஒரு சரணாலய குழந்தையுடன் தனிப்பட்ட உறவை உருவாக்க விரும்புகிறீர்களா, இதனால் பல ஆண்டுகளாக ஒரு "
+"உறுதிப்பாட்டை செய்ய விரும்புகிறீர்களா? பின்னர் நீங்கள் குழந்தைகளில் ஒருவருக்கு மாமா அல்லது அத்தை ஆக ஒரு நல்ல "
+"யோசனையாக இருக்கலாம்."
 
 #: .\admin_app\templates\pages\steun-ons.html:175
 msgid ""
 "\n"
-"            The cost is <b>225 euros</b> per year (or about 60 ct per day), "
-"tax deductible.\n"
+"            The cost is <b>225 euros</b> per year (or about 60 ct per day), tax deductible.\n"
 "            "
 msgstr ""
 "\n"
-"செலவு வருடத்திற்கு <b>225 யூரோக்கள்</b> (அல்லது ஒரு நாளைக்கு சுமார் 60 ct), வரி "
-"விலக்கு.            "
+"செலவு வருடத்திற்கு <b>225 யூரோக்கள்</b> (அல்லது ஒரு நாளைக்கு சுமார் 60 ct), வரி விலக்கு.            "
 
 #: .\admin_app\templates\pages\steun-ons.html:180
 msgid ""
 "\n"
-"            You choose what bond you want with your Indian child, sending a "
-"photo of yourself or your family with a bill in simple English, is greatly "
-"appreciated. The children are very proud to have a family abroad helping to "
-"care for them, and photos and bills are cherished.\n"
+"            You choose what bond you want with your Indian child, sending a photo of yourself "
+"or your family with a bill in simple English, is greatly appreciated. The children are very "
+"proud to have a family abroad helping to care for them, and photos and bills are cherished.\n"
 "            "
 msgstr ""
 "\n"
-"உங்கள் இந்திய குழந்தையுடன் நீங்கள் என்ன பிணைப்பை விரும்புகிறீர்கள் என்பதை நீங்கள் தேர்வு "
-"செய்கிறீர்கள், உங்கள் அல்லது உங்கள் குடும்பத்தின் புகைப்படத்தை எளிய ஆங்கிலத்தில் ஒரு "
-"மசோதாவுடன் அனுப்புவது மிகவும் பாராட்டத்தக்கது. குழந்தைகள் வெளிநாட்டில் ஒரு குடும்பம் "
-"அவர்களை கவனித்துக்கொள்ள உதவுவதில் மிகவும் பெருமைப்படுகிறார்கள், மேலும் புகைப்படங்கள் "
-"மற்றும் பில்கள் போற்றப்படுகின்றன.\n"
+"உங்கள் இந்திய குழந்தையுடன் நீங்கள் என்ன பிணைப்பை விரும்புகிறீர்கள் என்பதை நீங்கள் தேர்வு செய்கிறீர்கள், உங்கள் அல்லது "
+"உங்கள் குடும்பத்தின் புகைப்படத்தை எளிய ஆங்கிலத்தில் ஒரு மசோதாவுடன் அனுப்புவது மிகவும் பாராட்டத்தக்கது. "
+"குழந்தைகள் வெளிநாட்டில் ஒரு குடும்பம் அவர்களை கவனித்துக்கொள்ள உதவுவதில் மிகவும் பெருமைப்படுகிறார்கள், மேலும் "
+"புகைப்படங்கள் மற்றும் பில்கள் போற்றப்படுகின்றன.\n"
 "            "
 
 #: .\admin_app\templates\pages\steun-ons.html:185
 msgid ""
 "\n"
-"            Some uncles and aunties send New Year and birthday cards or have "
-"their child treats on his/her birthday, others have even visited "
-"Saranalaya.  \n"
+"            Some uncles and aunties send New Year and birthday cards or have their child "
+"treats on his/her birthday, others have even visited Saranalaya.  \n"
 "            "
 msgstr ""
 "\n"
-"சில மாமாக்கள் மற்றும் அத்தைகள் புத்தாண்டு மற்றும் பிறந்தநாள் அட்டைகளை அனுப்புகிறார்கள் அல்லது "
-"அவர்களின் பிறந்தநாளில் தங்கள் குழந்தைக்கு விருந்தளிக்கிறார்கள், மற்றவர்கள் சரணாலயத்திற்கு கூட "
-"வந்திருக்கிறார்கள்.  \n"
+"சில மாமாக்கள் மற்றும் அத்தைகள் புத்தாண்டு மற்றும் பிறந்தநாள் அட்டைகளை அனுப்புகிறார்கள் அல்லது அவர்களின் "
+"பிறந்தநாளில் தங்கள் குழந்தைக்கு விருந்தளிக்கிறார்கள், மற்றவர்கள் சரணாலயத்திற்கு கூட வந்திருக்கிறார்கள்.  \n"
 "            "
 
 #: .\admin_app\templates\pages\steun-ons.html:191
 msgid ""
 "\n"
-"            Via onze <a href=\"https://www.facebook.com/"
-"groups/366106623433788\" target=\"_blank\">facebookpagina</a> en de <a "
-"href=\"/#contact\">3 maandelijkse nieuwsbrief</a> kan je het reilen en "
-"zeilen van de Saranalaya kinderen wat volgen en kan je zo meeleven met het "
-"dagelijkse leven daar.\n"
+"            Via onze <a href=\"https://www.facebook.com/groups/366106623433788\" "
+"target=\"_blank\">facebookpagina</a> en de <a href=\"/#contact\">3 maandelijkse nieuwsbrief</"
+"a> kan je het reilen en zeilen van de Saranalaya kinderen wat volgen en kan je zo meeleven "
+"met het dagelijkse leven daar.\n"
 "            "
 msgstr ""
 "\n"
 "Via onze <a href=\"https://www.facebook.com/groups/366106623433788\" "
-"target=\"_blank\">facebookpagina</a> en de <a href=\"/#contact\">3 "
-"maandelijkse nieuwsbrief</a> kan je het reilen en zeilen van de Saranalaya "
-"kinderen wat volgen en kan je zo meeleven met het dagelijkse leven "
-"daar.            "
+"target=\"_blank\">facebookpagina</a> en de <a href=\"/#contact\">3 maandelijkse nieuwsbrief</"
+"a> kan je het reilen en zeilen van de Saranalaya kinderen wat volgen en kan je zo meeleven "
+"met het dagelijkse leven daar.            "
 
 #: .\admin_app\templates\pages\steun-ons.html:197
 msgid ""
 "\n"
-"            More info? Feel free to contact <a href=\"mailto:"
-"linademan@telenet.be\">Lina</a>, she will be happy to explain more.\n"
+"            More info? Feel free to contact <a href=\"mailto:linademan@telenet.be\">Lina</a>, "
+"she will be happy to explain more.\n"
 "            "
 msgstr ""
 "\n"
-"மேலும் தகவல்? <a href=\"mailto:linademan@telenet.be\">லினாவை</a> தொடர்பு கொள்ள "
-"தயங்க, மேலும் விளக்க அவள் மகிழ்ச்சியாக இருப்பாள்.            "
+"மேலும் தகவல்? <a href=\"mailto:linademan@telenet.be\">லினாவை</a> தொடர்பு கொள்ள தயங்க, மேலும் விளக்க "
+"அவள் மகிழ்ச்சியாக இருப்பாள்.            "
 
 #: .\admin_app\templates\pages\steun-ons.html:207
 msgid "Make a Donation"
@@ -959,11 +902,11 @@ msgstr "நன்கொடை கொடுங்கள்"
 
 #: .\admin_app\templates\pages\steun-ons.html:209
 msgid ""
-"Every gift, big or small, makes a difference. And starting at €40 a year, "
-"your gift is tax-deductible."
+"Every gift, big or small, makes a difference. And starting at €40 a year, your gift is tax-"
+"deductible."
 msgstr ""
-"ஒவ்வொரு பரிசும், பெரியதோ சிறியதோ, ஒரு வித்தியாசத்தை ஏற்படுத்துகிறது. வருடத்திற்கு "
-"€40 இல் தொடங்கி, உங்கள் பரிசுக்கு வரி விலக்கு அளிக்கப்படுகிறது."
+"ஒவ்வொரு பரிசும், பெரியதோ சிறியதோ, ஒரு வித்தியாசத்தை ஏற்படுத்துகிறது. வருடத்திற்கு €40 இல் தொடங்கி, உங்கள் "
+"பரிசுக்கு வரி விலக்கு அளிக்கப்படுகிறது."
 
 #: .\admin_app\templates\pages\steun-ons.html:212
 msgid "Bank account number"
@@ -979,11 +922,8 @@ msgstr "சரணாலயா + உங்கள் தேசிய பதிவ�
 
 #: .\admin_app\templates\pages\steun-ons.html:214
 msgid ""
-"Without proper disclosure, your donation will go to the general operation of "
-"Kontinenten vzw."
-msgstr ""
-"சரியான வெளிப்படுத்தல் இல்லாமல், உங்கள் நன்கொடை Kontinenten vzw இன் பொது செயல்பாட்டிற்குச் "
-"செல்லும்."
+"Without proper disclosure, your donation will go to the general operation of Kontinenten vzw."
+msgstr "சரியான வெளிப்படுத்தல் இல்லாமல், உங்கள் நன்கொடை Kontinenten vzw இன் பொது செயல்பாட்டிற்குச் செல்லும்."
 
 #: .\admin_app\templates\pages\steun-ons.html:222
 msgid "Creative Support Actions"
@@ -991,11 +931,10 @@ msgstr "ஆக்கப்பூர்வமான ஆதரவு செயல�
 
 #: .\admin_app\templates\pages\steun-ons.html:224
 msgid ""
-"Schools, clubs or groups of friends who want to shoot into action for "
-"Saranalaya can get all creative!"
+"Schools, clubs or groups of friends who want to shoot into action for Saranalaya can get all "
+"creative!"
 msgstr ""
-"சரணாலயத்திற்காக சுட விரும்பும் பள்ளிகள், கிளப்புகள் அல்லது நண்பர்களின் குழுக்கள் அனைத்தும் "
-"படைப்பாற்றலைப் பெறலாம்!"
+"சரணாலயத்திற்காக சுட விரும்பும் பள்ளிகள், கிளப்புகள் அல்லது நண்பர்களின் குழுக்கள் அனைத்தும் படைப்பாற்றலைப் பெறலாம்!"
 
 #: .\admin_app\templates\pages\steun-ons.html:226
 msgid "Some inspiring ideas:"
@@ -1023,44 +962,39 @@ msgstr "கார்வாஷ்"
 
 #: .\admin_app\templates\pages\steun-ons.html:235
 msgid ""
-"Let us know what action you would like to organize, we would be happy to "
-"support you with info and materials!"
+"Let us know what action you would like to organize, we would be happy to support you with "
+"info and materials!"
 msgstr ""
-"நீங்கள் என்ன நடவடிக்கையை ஏற்பாடு செய்ய விரும்புகிறீர்கள் என்பதை எங்களுக்குத் "
-"தெரியப்படுத்துங்கள், தகவல் மற்றும் பொருட்களுடன் உங்களுக்கு ஆதரவளிப்பதில் நாங்கள் "
-"மகிழ்ச்சியடைவோம்!"
+"நீங்கள் என்ன நடவடிக்கையை ஏற்பாடு செய்ய விரும்புகிறீர்கள் என்பதை எங்களுக்குத் தெரியப்படுத்துங்கள், தகவல் மற்றும் "
+"பொருட்களுடன் உங்களுக்கு ஆதரவளிப்பதில் நாங்கள் மகிழ்ச்சியடைவோம்!"
 
 #: .\admin_app\urls.py:9
-#, fuzzy
-#| msgid "Children"
 msgid "children/"
-msgstr "குழந்தைகள்"
+msgstr ""
 
 #: .\admin_app\urls.py:10
 msgid "children/<int:id>/"
-msgstr "குழந்தைகள்/<int:id>/</int:id>"
+msgstr ""
 
 #: .\admin_app\urls.py:11
 msgid "about-us/"
-msgstr "எங்களைப் பற்றி/"
+msgstr ""
 
 #: .\admin_app\urls.py:12
-#, fuzzy
-#| msgid "Support"
 msgid "support-us/"
-msgstr "ஆதரவு"
+msgstr ""
 
 #: .\admin_app\urls.py:13
 msgid "news/"
-msgstr "செய்தி/"
+msgstr ""
 
 #: .\admin_app\urls.py:14
 msgid "news/<int:id>/"
-msgstr "செய்திகள்/<int:id>/</int:id>"
+msgstr ""
 
 #: .\admin_app\urls.py:15
 msgid "contact/"
-msgstr "தொடர்பு/"
+msgstr ""
 
 #: .\admin_app\views.py:34
 #, python-brace-format
@@ -1073,15 +1007,15 @@ msgstr "செய்தி பெறப்பட்டது"
 
 #: .\admin_app\views.py:152
 msgid ""
-"Thank you for completing the contact form. We have received your message in "
-"good order and will contact you as soon as possible.\n"
+"Thank you for completing the contact form. We have received your message in good order and "
+"will contact you as soon as possible.\n"
 "\n"
 "Kind regards\n"
 "\n"
 "The Care India Team"
 msgstr ""
-"தொடர்பு படிவத்தை பூர்த்தி செய்ததற்கு நன்றி. உங்கள் செய்தியை நல்ல வரிசையில் பெற்றுள்ளோம், "
-"விரைவில் உங்களைத் தொடர்புகொள்வோம்.\n"
+"தொடர்பு படிவத்தை பூர்த்தி செய்ததற்கு நன்றி. உங்கள் செய்தியை நல்ல வரிசையில் பெற்றுள்ளோம், விரைவில் உங்களைத் "
+"தொடர்புகொள்வோம்.\n"
 "\n"
 "தங்கள் அன்புள்ள\n"
 "\n"
