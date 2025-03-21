@@ -5,10 +5,8 @@
 {% block title %}{{ kind.name }} | Care India{% endblock %}
 
 {% block meta %}
-<meta name="description" content="{{ kind.website_description|safe }}">
 <meta name="robots" content="index, follow">
 <meta property="og:title" content="{{ kind.name }} | Care India">
-<meta property="og:description" content="{{ kind.website_description|safe }}">
 <meta property="og:image" content="{% if kind.image %}{{ kind.image.url }}{% else %}{% static 'img/kinderen/kind_default.jpg' %}{% endif %}">
 
 <meta name="twitter:card" content="summary_large_image">
