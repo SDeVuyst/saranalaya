@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-21 13:42+0100\n"
-"PO-Revision-Date: 2025-03-21 21:20+0100\n"
+"POT-Creation-Date: 2025-03-21 21:35+0100\n"
+"PO-Revision-Date: 2025-03-21 21:35+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -63,31 +63,31 @@ msgstr "Kind - Adoptie-ouder"
 msgid "Children - Adoption Parents"
 msgstr "Kinderen - Adoptie-ouders"
 
-#: .\admin_app\admin.py:270
+#: .\admin_app\admin.py:274
 msgid "Add New Payment"
 msgstr "Voeg Nieuwe Betaling Toe"
 
-#: .\admin_app\admin.py:293
+#: .\admin_app\admin.py:297
 #, python-brace-format
 msgid "Added {amount_of_sponsors_saved} Payments!"
 msgstr "{amount_of_sponsors_saved} betalingen toegevoegd!"
 
-#: .\admin_app\admin.py:295 .\admin_app\admin.py:360 .\admin_app\admin.py:438
-#: .\admin_app\admin.py:482
+#: .\admin_app\admin.py:299 .\admin_app\admin.py:364 .\admin_app\admin.py:443
+#: .\admin_app\admin.py:487
 msgid "Generate Address List"
 msgstr "Genereer Adres Lijst"
 
-#: .\admin_app\admin.py:299 .\admin_app\admin.py:370 .\admin_app\admin.py:445
-#: .\admin_app\admin.py:486
+#: .\admin_app\admin.py:303 .\admin_app\admin.py:374 .\admin_app\admin.py:450
+#: .\admin_app\admin.py:491
 msgid "Generate Mailing List"
 msgstr "Genereer Mail Lijst"
 
-#: .\admin_app\admin.py:345 .\admin_app\filters.py:9 .\admin_app\models.py:78
+#: .\admin_app\admin.py:349 .\admin_app\filters.py:9 .\admin_app\models.py:98
 #: .\admin_app\templates\pages\index.html:138
 msgid "Name"
 msgstr "Naam"
 
-#: .\admin_app\admin.py:528 .\admin_app\filters.py:49 .\admin_app\models.py:274
+#: .\admin_app\admin.py:533 .\admin_app\filters.py:49 .\admin_app\models.py:310
 #: .\events\models.py:41 .\events\models.py:91
 msgid "Title"
 msgstr "Titel"
@@ -104,7 +104,7 @@ msgstr "Zoek op naam"
 msgid "Gender"
 msgstr "Geslacht"
 
-#: .\admin_app\filters.py:19 .\admin_app\models.py:116
+#: .\admin_app\filters.py:19 .\admin_app\models.py:136
 msgid "Status"
 msgstr "Status"
 
@@ -152,8 +152,8 @@ msgstr "1 Ouder"
 msgid "Two Parents"
 msgstr "2 Ouders"
 
-#: .\admin_app\models.py:58 .\admin_app\models.py:136 .\admin_app\models.py:183
-#: .\admin_app\models.py:205
+#: .\admin_app\models.py:58 .\admin_app\models.py:172 .\admin_app\models.py:219
+#: .\admin_app\models.py:241
 msgid "Active"
 msgstr "Actief"
 
@@ -165,214 +165,247 @@ msgstr "Ondersteuning"
 msgid "Left"
 msgstr "Weg"
 
-#: .\admin_app\models.py:67 .\admin_app\models.py:85 .\admin_app\models.py:230
+#: .\admin_app\models.py:67 .\admin_app\models.py:105 .\admin_app\models.py:148
+#: .\admin_app\models.py:266
 msgid "Child"
 msgstr "Kind"
 
-#: .\admin_app\models.py:68 .\admin_app\models.py:167
+#: .\admin_app\models.py:68 .\admin_app\models.py:203
 msgid "Adoption Parent"
 msgstr "Adoptie-ouder"
 
-#: .\admin_app\models.py:69 .\admin_app\models.py:199
+#: .\admin_app\models.py:69 .\admin_app\models.py:235
 msgid "Adoption"
 msgstr "Adoptie"
 
-#: .\admin_app\models.py:70 .\admin_app\models.py:210
+#: .\admin_app\models.py:70 .\admin_app\models.py:246
 msgid "Adoption Parent Payment"
 msgstr "Adoptie-ouder Betaling"
 
-#: .\admin_app\models.py:71 .\admin_app\models.py:238 .\admin_app\models.py:254
+#: .\admin_app\models.py:71 .\admin_app\models.py:274 .\admin_app\models.py:290
 msgid "Sponsor"
 msgstr "Sponser"
 
-#: .\admin_app\models.py:72 .\admin_app\models.py:248
+#: .\admin_app\models.py:72 .\admin_app\models.py:284
 msgid "Donation"
 msgstr "Donatie"
 
-#: .\admin_app\models.py:86 .\admin_app\models.py:170 .\admin_app\models.py:182
-#: .\admin_app\templates\pages\kinderen.html:5 .\admin_app\views.py:229
-#: .\admin_app\views.py:282 .\admin_app\views.py:295
+#: .\admin_app\models.py:76
+msgid "Color"
+msgstr "Kleur"
+
+#: .\admin_app\models.py:77
+msgid "Food"
+msgstr "Eten"
+
+#: .\admin_app\models.py:78
+msgid "Animal"
+msgstr "Dier"
+
+#: .\admin_app\models.py:79
+msgid "Ambition"
+msgstr "Ambitie"
+
+#: .\admin_app\models.py:80
+msgid "Hobby"
+msgstr "Hobby"
+
+#: .\admin_app\models.py:81 .\admin_app\templates\pages\index.html:148
+msgid "Subject"
+msgstr "Onderwerp"
+
+#: .\admin_app\models.py:106 .\admin_app\models.py:206
+#: .\admin_app\models.py:218 .\admin_app\templates\pages\kinderen.html:5
+#: .\admin_app\views.py:230 .\admin_app\views.py:283 .\admin_app\views.py:296
 #: .\saranalaya\settings.py:310
 msgid "Children"
 msgstr "Kinderen"
 
-#: .\admin_app\models.py:96 .\admin_app\models.py:168 .\admin_app\views.py:245
+#: .\admin_app\models.py:116 .\admin_app\models.py:204 .\admin_app\views.py:246
 #: .\saranalaya\settings.py:315
 msgid "Adoption Parents"
 msgstr "Adoptie-ouders"
 
-#: .\admin_app\models.py:110
+#: .\admin_app\models.py:130
 msgid "name"
 msgstr "naam"
 
-#: .\admin_app\models.py:111
+#: .\admin_app\models.py:131
 msgid "gender"
 msgstr "gender"
 
-#: .\admin_app\models.py:112
+#: .\admin_app\models.py:132
 msgid "Day of Birth"
 msgstr "Geboortedag"
 
-#: .\admin_app\models.py:113
+#: .\admin_app\models.py:133
 msgid "Date of Admission"
 msgstr "Dag van Aankomst"
 
-#: .\admin_app\models.py:114
+#: .\admin_app\models.py:134
 msgid "Date of Leave"
 msgstr "Dag van Weggaan"
 
-#: .\admin_app\models.py:115
+#: .\admin_app\models.py:135
 msgid "Indian Parent Status"
 msgstr "Status van Indische ouders"
 
-#: .\admin_app\models.py:118 .\admin_app\models.py:160
-#: .\admin_app\models.py:228 .\admin_app\models.py:257 .\events\models.py:43
+#: .\admin_app\models.py:138 .\admin_app\models.py:196
+#: .\admin_app\models.py:264 .\admin_app\models.py:293 .\events\models.py:43
 #: .\events\models.py:92 .\events\models.py:231
 msgid "Description"
 msgstr "Beschrijving"
 
-#: .\admin_app\models.py:119 .\admin_app\models.py:279
+#: .\admin_app\models.py:139 .\admin_app\models.py:315
 msgid "Show on Website"
 msgstr "Weergeven op website"
 
-#: .\admin_app\models.py:120 .\admin_app\models.py:132
-#: .\admin_app\models.py:277 .\events\models.py:50
+#: .\admin_app\models.py:140 .\admin_app\models.py:168
+#: .\admin_app\models.py:313 .\events\models.py:50
 msgid "Image"
 msgstr "Afbeelding"
 
-#: .\admin_app\models.py:121
+#: .\admin_app\models.py:141
 msgid "Website Description"
 msgstr "Beschrijving op website"
 
-#: .\admin_app\models.py:124 .\admin_app\models.py:185
-#: .\admin_app\models.py:233 .\admin_app\models.py:243
-#: .\admin_app\models.py:260 .\admin_app\models.py:281 .\events\models.py:54
+#: .\admin_app\models.py:144 .\admin_app\models.py:221
+#: .\admin_app\models.py:269 .\admin_app\models.py:279
+#: .\admin_app\models.py:296 .\admin_app\models.py:317 .\events\models.py:54
 #: .\events\models.py:97 .\events\models.py:156 .\events\models.py:237
 msgid "History"
 msgstr "Geschiedenis"
 
-#: .\admin_app\models.py:129
+#: .\admin_app\models.py:152
+msgid "Trait Choice"
+msgstr "Keuze van eigenschappen"
+
+#: .\admin_app\models.py:154
+msgid "Text"
+msgstr "Tekst"
+
+#: .\admin_app\models.py:165
 msgid "Extra Image"
 msgstr "Extra afbeelding"
 
-#: .\admin_app\models.py:130 .\admin_app\templates\pages\kind_detail.html:95
+#: .\admin_app\models.py:166 .\admin_app\templates\pages\kind_detail.html:109
 msgid "Extra Images"
 msgstr "Extra afbeeldingen"
 
-#: .\admin_app\models.py:134
+#: .\admin_app\models.py:170
 msgid "Date of picture"
 msgstr "Datum van de foto"
 
-#: .\admin_app\models.py:135
+#: .\admin_app\models.py:171
 msgid "Extra Info"
 msgstr "Extra informatie"
 
-#: .\admin_app\models.py:137
+#: .\admin_app\models.py:173
 msgid "Order"
 msgstr "Bestelling"
 
-#: .\admin_app\models.py:144
+#: .\admin_app\models.py:180
 msgid "Supporter"
 msgstr "Supporter"
 
-#: .\admin_app\models.py:145
+#: .\admin_app\models.py:181
 msgid "Supporters"
 msgstr "Supporters"
 
-#: .\admin_app\models.py:150 .\events\models.py:150 .\events\models.py:226
+#: .\admin_app\models.py:186 .\events\models.py:150 .\events\models.py:226
 msgid "First Name"
 msgstr "Voornaam"
 
-#: .\admin_app\models.py:151 .\events\models.py:151 .\events\models.py:227
+#: .\admin_app\models.py:187 .\events\models.py:151 .\events\models.py:227
 msgid "Last Name"
 msgstr "Achternaam"
 
-#: .\admin_app\models.py:152
+#: .\admin_app\models.py:188
 msgid "Firm"
 msgstr "Firma"
 
-#: .\admin_app\models.py:153
+#: .\admin_app\models.py:189
 msgid "Street Name"
 msgstr "Straatnaam"
 
-#: .\admin_app\models.py:154
+#: .\admin_app\models.py:190
 msgid "Address Number"
 msgstr "Adres Nummer"
 
-#: .\admin_app\models.py:155
+#: .\admin_app\models.py:191
 msgid "Bus"
 msgstr "Bus"
 
-#: .\admin_app\models.py:156
+#: .\admin_app\models.py:192
 msgid "Postcode"
 msgstr "Postcode"
 
-#: .\admin_app\models.py:157
+#: .\admin_app\models.py:193
 msgid "City"
 msgstr "Stad"
 
-#: .\admin_app\models.py:158
+#: .\admin_app\models.py:194
 msgid "Country"
 msgstr "Land"
 
-#: .\admin_app\models.py:159
+#: .\admin_app\models.py:195
 msgid "E-mail"
 msgstr "E-mail"
 
-#: .\admin_app\models.py:161
+#: .\admin_app\models.py:197
 msgid "Phone Number"
 msgstr "GSM-nummer"
 
-#: .\admin_app\models.py:200
+#: .\admin_app\models.py:236
 msgid "Adoptions"
 msgstr "Adopties"
 
-#: .\admin_app\models.py:211
+#: .\admin_app\models.py:247
 msgid "Adoption Parent Payments"
 msgstr "Adoptie-ouder Betalingen"
 
-#: .\admin_app\models.py:218
+#: .\admin_app\models.py:254
 msgid "Amount remaining"
 msgstr "Resterend"
 
-#: .\admin_app\models.py:226 .\admin_app\models.py:256
-#: .\admin_app\models.py:276
+#: .\admin_app\models.py:262 .\admin_app\models.py:292
+#: .\admin_app\models.py:312
 msgid "Date"
 msgstr "Datum"
 
-#: .\admin_app\models.py:227 .\admin_app\models.py:255
+#: .\admin_app\models.py:263 .\admin_app\models.py:291
 msgid "Amount"
 msgstr "Hoeveelheid"
 
-#: .\admin_app\models.py:229
+#: .\admin_app\models.py:265
 msgid "Parent"
 msgstr "Ouder"
 
-#: .\admin_app\models.py:239 .\saranalaya\settings.py:325
+#: .\admin_app\models.py:275 .\saranalaya\settings.py:325
 msgid "Sponsors"
 msgstr "Sponsers"
 
-#: .\admin_app\models.py:241
+#: .\admin_app\models.py:277
 msgid "Letters"
 msgstr "Brieven"
 
-#: .\admin_app\models.py:249 .\admin_app\views.py:236 .\admin_app\views.py:266
+#: .\admin_app\models.py:285 .\admin_app\views.py:237 .\admin_app\views.py:267
 #: .\saranalaya\settings.py:330
 msgid "Donations"
 msgstr "Donaties"
 
-#: .\admin_app\models.py:264 .\admin_app\models.py:265
+#: .\admin_app\models.py:300 .\admin_app\models.py:301
 #: .\admin_app\templates\blocks\header.html:13
 #: .\admin_app\templates\pages\nieuws.html:5
 #: .\admin_app\templates\pages\nieuws.html:25 .\saranalaya\settings.py:335
 msgid "News"
 msgstr "Nieuws"
 
-#: .\admin_app\models.py:275
+#: .\admin_app\models.py:311
 msgid "Content"
 msgstr "Inhoud"
 
-#: .\admin_app\models.py:287
+#: .\admin_app\models.py:323
 msgid "Model"
 msgstr "Model"
 
@@ -445,12 +478,12 @@ msgstr ""
 "In Saranalaya sinds %(date)s\n"
 "                        "
 
-#: .\admin_app\templates\pages\artikel_detail.html:28
+#: .\admin_app\templates\pages\artikel_detail.html:25
 #, python-format
 msgid "Written on %(date)s"
 msgstr "Geschreven op %(date)s"
 
-#: .\admin_app\templates\pages\artikel_detail.html:29
+#: .\admin_app\templates\pages\artikel_detail.html:26
 #, python-format
 msgid "Updated on %(date)s"
 msgstr "Bijgewerkt op %(date)s"
@@ -526,10 +559,6 @@ msgstr "Stuur ons een berichtje!"
 msgid "Email"
 msgstr "E-mail"
 
-#: .\admin_app\templates\pages\index.html:148
-msgid "Subject"
-msgstr "Onderwerp"
-
 #: .\admin_app\templates\pages\index.html:153
 msgid "Message"
 msgstr "Bericht"
@@ -546,35 +575,35 @@ msgstr "Je bericht is verzonden!"
 msgid "Send message"
 msgstr "Verstuur bericht"
 
-#: .\admin_app\templates\pages\kind_detail.html:27
+#: .\admin_app\templates\pages\kind_detail.html:24
 #, python-format
 msgid "%(age)s years old"
 msgstr "%(age)s jaar oud"
 
-#: .\admin_app\templates\pages\kind_detail.html:30
+#: .\admin_app\templates\pages\kind_detail.html:27
 #, python-format
 msgid "Left Saranalaya on %(date)s"
 msgstr "Verliet Saranalaya op %(date)s"
 
-#: .\admin_app\templates\pages\kind_detail.html:32
+#: .\admin_app\templates\pages\kind_detail.html:29
 #, python-format
 msgid "In Saranalaya since %(date)s"
 msgstr "In Saranalaya sinds %(date)s"
 
-#: .\admin_app\templates\pages\kind_detail.html:36
+#: .\admin_app\templates\pages\kind_detail.html:33
 #, python-format
 msgid "We are still supporting %(name)s"
 msgstr "We steunen %(name)s nog steeds"
 
-#: .\admin_app\templates\pages\kind_detail.html:44
+#: .\admin_app\templates\pages\kind_detail.html:41
 msgid "Info"
 msgstr "Info"
 
-#: .\admin_app\templates\pages\kind_detail.html:49
+#: .\admin_app\templates\pages\kind_detail.html:46
 msgid "No extra info available yet"
 msgstr "Nog geen extra info beschikbaar"
 
-#: .\admin_app\templates\pages\kind_detail.html:56
+#: .\admin_app\templates\pages\kind_detail.html:53
 msgid "Siblings"
 msgstr "Broers en zussen"
 
@@ -1057,16 +1086,16 @@ msgstr "nieuws/<int:id>/"
 msgid "contact/"
 msgstr "contact/"
 
-#: .\admin_app\views.py:34
-#, python-brace-format
-msgid "Helped {kinderen_count} children through the years"
-msgstr "{kinderen_count} kinderen door de jaren heen geholpen"
+#: .\admin_app\views.py:35
+#, python-format
+msgid "Helped %(count)s children through the years"
+msgstr "%(count)s kinderen door de jaren heen geholpen"
 
-#: .\admin_app\views.py:151
+#: .\admin_app\views.py:152
 msgid "Message Received"
 msgstr "Bericht ontvangen"
 
-#: .\admin_app\views.py:152
+#: .\admin_app\views.py:153
 msgid ""
 "Thank you for completing the contact form. We have received your message in "
 "good order and will contact you as soon as possible.\n"
@@ -1082,36 +1111,36 @@ msgstr ""
 "\n"
 "Het Care India Team"
 
-#: .\admin_app\views.py:177
+#: .\admin_app\views.py:178
 #, python-brace-format
 msgid "progress from {last_year}"
 msgstr "vooruitgang van {last_year}"
 
-#: .\admin_app\views.py:230
+#: .\admin_app\views.py:231
 msgid "Current"
 msgstr "Huidig"
 
-#: .\admin_app\views.py:232
+#: .\admin_app\views.py:233
 msgid "Only active children are counted"
 msgstr "Alleen actieve kinderen worden meegeteld"
 
-#: .\admin_app\views.py:246
+#: .\admin_app\views.py:247
 msgid "All Time"
 msgstr "Sinds begin"
 
-#: .\admin_app\views.py:248
+#: .\admin_app\views.py:249
 msgid "Only active parents are counted"
 msgstr "Alleen actieve ouders worden meegeteld"
 
-#: .\admin_app\views.py:252 .\admin_app\views.py:273
+#: .\admin_app\views.py:253 .\admin_app\views.py:274
 msgid "Parent Payments"
 msgstr "Adoptie-ouder Betalingen"
 
-#: .\admin_app\views.py:283
+#: .\admin_app\views.py:284
 msgid "By Admission Date"
 msgstr "Door Dag van Aankomst"
 
-#: .\admin_app\views.py:296
+#: .\admin_app\views.py:297
 msgid "By Status"
 msgstr "Door Status"
 
