@@ -72,6 +72,26 @@ class ModelChoices(models.TextChoices):
     DONATION = 'Donation', _('Donation')
 
 
+class TraitsChoices(models.TextChoices):
+    COLOR = 'c', _('Color')
+    FOOD = 'f', _('Food')
+    ANIMAL = 'a', _('Animal')
+    AMBITION = 'am', _('Ambition')
+    HOBBY = 'h', _('Hobby')
+    SUBJECT = 's', _('Subject')
+
+    @staticmethod
+    def get_filename(choice):
+        filenames = {
+            TraitsChoices.COLOR: 'icons/color-palette.png',
+            TraitsChoices.FOOD: 'icons/cooking.png',
+            TraitsChoices.ANIMAL: 'icons/elephant.png',
+            TraitsChoices.AMBITION: 'icons/goal.png',
+            TraitsChoices.HOBBY: 'icons/volleyball.png',
+            TraitsChoices.SUBJECT: 'icons/open-book.png',
+        }
+        return filenames.get(choice)
+
 # MODELS #
 class SiblingGroup(models.Model):
 
@@ -124,6 +144,22 @@ class Child(models.Model):
     history = HistoricalRecords(verbose_name=_("History"))
 
 
+class ChildTrait(models.Model):
+    child = models.ForeignKey(Child, on_delete=models.CASCADE, related_name='traits', verbose_name=_("Child"))
+    trait_choice = models.CharField(
+        max_length=2,
+        choices=TraitsChoices.choices,
+        verbose_name=_("Trait Choice")
+    )
+    text = models.CharField(max_length=255, verbose_name=_("Text"))
+
+    def __str__(self):
+        return f"{self.get_trait_choice_display()} - {self.text}"
+    
+    def get_filename(self):
+        return TraitsChoices.get_filename(self.trait_choice)
+    
+    
 class ExtraImage(models.Model):
     class Meta:
         verbose_name = _('Extra Image')

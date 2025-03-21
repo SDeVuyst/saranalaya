@@ -239,6 +239,10 @@ class ExtraImagesInline(StackedInline):
     model = ExtraImage
     extra = 1
 
+class TraitInline(TabularInline):
+    model = ChildTrait
+    extra = 1
+
 # MODELS #
 
 @admin.register(AdoptionParent, site=saranalaya_admin_site)
@@ -387,6 +391,7 @@ class ChildAdmin(SimpleHistoryAdmin, NotiModelAdmin):
     ordering = ('name',)
     inlines = [
         AdoptionInlineParent,
+        TraitInline,
         ExtraImagesInline
     ]
 

@@ -88,6 +88,23 @@
     </div>
 </section>
 
+
+{% if kind.traits %}
+<section id="character-traits" class="section py-5">
+    <div class="container" data-aos="fade-up">
+        <div class="row gy-4 text-center justify-content-center">
+        
+            {% for trait in kind.traits.all %}
+            <div class="col-lg-2 col-md-3 col-6 trait-card">
+                <img src="/static/{{ trait.get_filename }}" style="width: 50px; height: auto;" alt="{{ trait.get_trait_choice_display }} Icon" class="fs-2 text-dark">
+            <p class="fw-semibold mt-2">{{ trait.text }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
 {% if extra_images %}
 <section id="portfolio" class="portfolio section">
 
