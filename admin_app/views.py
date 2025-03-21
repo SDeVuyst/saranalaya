@@ -31,7 +31,7 @@ def index(request):
     context = {
         'kinderen': kinderen,
         'nieuws': nieuws,
-        'kinderen_tekst': _(f'Helped {kinderen_count} children through the years'),
+        'kinderen_tekst': _('Helped {count} children through the years').format(count=kinderen_count),
     }
 
     return TemplateResponse(request, "pages/index.html", context)
