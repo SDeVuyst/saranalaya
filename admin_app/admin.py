@@ -237,11 +237,11 @@ class DonationInline(StackedInline):
 
 class ExtraImagesInline(StackedInline):
     model = ExtraImage
-    extra = 1
+    extra = 0
 
 class TraitInline(TabularInline):
     model = ChildTrait
-    extra = 1
+    extra = 0
 
 # MODELS #
 
