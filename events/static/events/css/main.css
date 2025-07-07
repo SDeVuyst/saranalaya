@@ -395,7 +395,7 @@ strong {
 }
 
 .pricing-list {
-  column-count: 2;
+  /* column-count: 2; */
   padding-left: 20px;
 }
 
