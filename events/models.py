@@ -159,7 +159,7 @@ class Payment(models.Model):
     def success_url(self) -> str:
         # Return a URL where users are redirected after
         # they successfully complete a payment:
-        return f"http://vanakaam.be/events/ticket/{self.pk}/success"
+        return f"http://vanakaam.be/ticket/{self.pk}/success"
 
 
     def generate_ticket(self, for_email=False):

@@ -13,6 +13,6 @@ class MollieClient():
                 'value': str(format(amount, ".2f"))
             },
             'description': description,
-            'redirectUrl': f'https://vanakaam.be/events/ticket/{payment_id}/success',
-            'webhookUrl': 'https://vanakaam.be/events/mollie-webhook/',
+            'redirectUrl': f'https://vanakaam.be/ticket/{payment_id}/success',
+            'webhookUrl': 'https://vanakaam.be/mollie-webhook/',
         })
