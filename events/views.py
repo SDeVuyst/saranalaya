@@ -173,11 +173,15 @@ def mollie_webhook(request):
         if not mollie_payment_id:
             print("Missing 'id' in POST")
             return HttpResponse(status=400)
+        
+        print(f"Received Mollie payment ID: {mollie_payment_id}")
 
         mollie_payment = MollieClient().client.payments.get(mollie_payment_id)
-        payment = Payment.objects.get(mollie_id=mollie_payment_id)
+        print(f"Mollie payment details: {mollie_payment}")
 
-        payment.status = mollie_payment.get("status").lower()
+        payment = get_object_or_404(Payment, mollie_id=mollie_payment_id)
+
+        payment.status = mollie_payment.status.lower()
         payment.save()
 
         return HttpResponse(status=200)
