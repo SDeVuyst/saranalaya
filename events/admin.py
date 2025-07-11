@@ -126,7 +126,7 @@ class ParticipantAdmin(SimpleHistoryAdmin, ModelAdmin):
 
         payment.send_mail()
 
-        messages.success(request, f"Confirmation email sent to {participant.email}.")
+        messages.success(request, f"Confirmation email sent to {participant.mail}.")
 
         return HttpResponseRedirect(
             reverse("admin:events_participant_change", args=[participant.pk])
