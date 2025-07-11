@@ -165,20 +165,31 @@ def beleid(request):
 
 @csrf_exempt
 def mollie_webhook(request):
-    if request.method == 'POST':
-        if 'id' not in request.POST:
+    if request.method != 'POST':
+        return HttpResponseNotFound("Invalid request method")
+
+    try:
+        data = json.loads(request.body)
+        mollie_payment_id = data.get('id')
+        if not mollie_payment_id:
             return HttpResponse(status=400)
 
-        mollie_payment_id = request.POST['id']
         mollie_payment = MollieClient().client.payments.get(mollie_payment_id)
-        payment = get_object_or_404(Payment, mollie_id=mollie_payment_id)
+        payment = Payment.objects.get(mollie_id=mollie_payment_id)
 
         payment.status = mollie_payment.get("status").lower()
         payment.save()
 
         return HttpResponse(status=200)
 
-    return HttpResponseNotFound("Invalid request method")
+    except Payment.DoesNotExist:
+        print("Payment not found")
+        return HttpResponse(status=404)
+
+    except Exception as e:
+        print("Webhook error:", e)
+        return HttpResponse(status=500)
+
 
 def redirect_to_care(request):
     return redirect('https://care-india.be/admin/')
