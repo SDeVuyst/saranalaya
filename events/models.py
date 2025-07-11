@@ -206,9 +206,9 @@ class Payment(models.Model):
         # add tickets as attachment
         email.attach(f'tickets-{self.pk}.pdf', tickets_pdf.getvalue(), 'application/pdf')
 
-        helpers.attach_image(email, "events/logo")
-        helpers.attach_image(email, "events/facebook")
-        helpers.attach_image(email, "events/mail")
+        helpers.attach_image(email, "logo")
+        helpers.attach_image(email, "facebook")
+        helpers.attach_image(email, "mail")
 
         # Send the email
         email.send()
