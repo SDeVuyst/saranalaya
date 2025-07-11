@@ -186,7 +186,7 @@ class Payment(models.Model):
 
         print(f"Sending confirmation email for event '{event.title}' to {participant.mail}")
         
-        email_body = render_to_string('events/confirmation-email.html', {
+        email_body = render_to_string('confirmation-email.html', {
             'event': event,
             'participant': participant,
         })
