@@ -89,7 +89,7 @@ class ParticipantAdmin(SimpleHistoryAdmin, ModelAdmin):
     )
 
     list_filter_submit = True
-    actions_detail = ["generate_tickets", "generate_ticket", "generate_qr_code"]
+    actions_detail = ["generate_tickets", "generate_ticket", "generate_qr_code", "send_confirmation_email"]
 
     @action(description=_("Generate QR-code"))
     def generate_qr_code(modeladmin, request, object_id: int):
@@ -118,6 +118,12 @@ class ParticipantAdmin(SimpleHistoryAdmin, ModelAdmin):
 
         return participant.generate_ticket()
 
+    @action(description=_("Send Confirmation Email"))
+    def send_confirmation_email(modeladmin, request, object_id: int):
+        participant = get_object_or_404(Participant, pk=object_id)
+        payment = get_object_or_404(Payment, pk=participant.payment.id)
+
+        return payment.send_mail()
 
 
 @admin.register(Payment, site=saranalaya_admin_site)

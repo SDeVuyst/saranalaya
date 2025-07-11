@@ -182,11 +182,11 @@ class Payment(models.Model):
     def send_mail(self):
         # we only need first because all info is the same for the matching participants
         participant = Participant.objects.filter(payment=self).first()
-        print(participant)
         event = participant.ticket.event
-        print(event)
+
+        print(f"Sending confirmation email for event '{event.title}' to {participant.mail}")
         
-        email_body = render_to_string('confirmation-email.html', {
+        email_body = render_to_string('events/confirmation-email.html', {
             'event': event,
             'participant': participant,
         })
@@ -204,7 +204,7 @@ class Payment(models.Model):
         email.content_subtype = 'html'
 
         # add tickets as attachment
-        email.attach(f'tickets-{self.pk}.pdf', tickets_pdf.getvalue(), 'application/pdf')
+        # email.attach(f'tickets-{self.pk}.pdf', tickets_pdf.getvalue(), 'application/pdf')
 
         helpers.attach_image(email, "logo")
         helpers.attach_image(email, "facebook")
