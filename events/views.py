@@ -169,9 +169,9 @@ def mollie_webhook(request):
         return HttpResponseNotFound("Invalid request method")
 
     try:
-        data = json.loads(request.body)
-        mollie_payment_id = data.get('id')
+        mollie_payment_id = request.POST.get('id')
         if not mollie_payment_id:
+            print("Missing 'id' in POST")
             return HttpResponse(status=400)
 
         mollie_payment = MollieClient().client.payments.get(mollie_payment_id)
@@ -183,7 +183,7 @@ def mollie_webhook(request):
         return HttpResponse(status=200)
 
     except Payment.DoesNotExist:
-        print("Payment not found")
+        print("Payment not found:", mollie_payment_id)
         return HttpResponse(status=404)
 
     except Exception as e:
