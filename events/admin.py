@@ -1,8 +1,9 @@
 from io import BytesIO
 
-from django.contrib import admin
-from django.http import HttpResponse
+from django.contrib import admin, messages
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404
+from django.urls import reverse
 from django.utils.translation import gettext as _
 from simple_history.admin import SimpleHistoryAdmin
 from unfold.admin import ModelAdmin
@@ -123,7 +124,13 @@ class ParticipantAdmin(SimpleHistoryAdmin, ModelAdmin):
         participant = get_object_or_404(Participant, pk=object_id)
         payment = get_object_or_404(Payment, pk=participant.payment.id)
 
-        return payment.send_mail()
+        payment.send_mail()
+
+        messages.success(request, f"Confirmation email sent to {participant.email}.")
+
+        return HttpResponseRedirect(
+            reverse("admin:events_participant_change", args=[participant.pk])
+        )
 
 
 @admin.register(Payment, site=saranalaya_admin_site)
