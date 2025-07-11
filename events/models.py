@@ -278,12 +278,18 @@ class Participant(models.Model):
         temp_path = "/tmp/qr_code.png"
         qr_image.save(temp_path)
 
+        print(f"QR code saved to {temp_path}")
+
         # Draw the QR code image onto the PDF
         p.drawImage(temp_path, 400, 590, 170, 170)
 
+        print(f"QR code drawn on PDF at position (400, 590) with size (170, 170)")
+
         # Add Care India logo
-        logo_path = finders.find('images/logo-with-bg.jpg')
+        logo_path = finders.find('events/images/logo-with-bg.jpg')
         p.drawImage(logo_path, 100, 730, 427 * 0.3, 58 * 0.3)
+
+        print(f"Logo drawn on PDF at position (100, 730) with size (128.1, 17.4)")
 
         # get info about event
         event = self.ticket.event
@@ -294,15 +300,19 @@ class Participant(models.Model):
 
         # Add ticket details
         # Set correct font for title
-        font_path = finders.find('fonts/Outfit-Bold.ttf')
+        font_path = finders.find('events/fonts/Outfit-Bold.ttf')
         pdfmetrics.registerFont(TTFont('Outfit', font_path))
         p.setFont("Outfit", 25)
         p.drawString(100, 690, str(event))
 
+        print(f"Event title '{event}' drawn on PDF at position (100, 690) with font size 25")
+
         # Set correct font for description
-        font_path = finders.find('fonts/Outfit-Regular.ttf')
+        font_path = finders.find('events/fonts/Outfit-Regular.ttf')
         pdfmetrics.registerFont(TTFont('Outfit', font_path))
         p.setFont("Outfit", 18)
+
+        print(f"Description font set to 'Outfit' with size 18")
 
         p.drawString(100, 660, formatted_date)
         p.drawString(100, 635, str(self.ticket))
