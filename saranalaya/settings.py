@@ -368,6 +368,11 @@ UNFOLD = {
                         "icon": "qr_code_scanner",
                         "link": "/events/scanner/",
                     },
+                    {
+                        "title": _("Mail List"),
+                        "icon": "forward_to_inbox",
+                        "link": "https://www.mailerlite.com/",
+                    }
                 ]
             }
         ],
