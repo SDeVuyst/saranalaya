@@ -901,29 +901,24 @@ msgid "Make a Donation"
 msgstr "நன்கொடை கொடுங்கள்"
 
 #: .\admin_app\templates\pages\steun-ons.html:209
-msgid ""
-"Every gift, big or small, makes a difference. And starting at €40 a year, your gift is tax-"
-"deductible."
-msgstr ""
-"ஒவ்வொரு பரிசும், பெரியதோ சிறியதோ, ஒரு வித்தியாசத்தை ஏற்படுத்துகிறது. வருடத்திற்கு €40 இல் தொடங்கி, உங்கள் "
-"பரிசுக்கு வரி விலக்கு அளிக்கப்படுகிறது."
+msgid "Every gift, big or small, makes a difference."
+msgstr "ஒவ்வொரு பரிசும், பெரியதோ சிறியதோ, ஒரு வித்தியாசத்தை ஏற்படுத்துகிறது."
 
 #: .\admin_app\templates\pages\steun-ons.html:212
 msgid "Bank account number"
 msgstr "வங்கி கணக்கு எண்"
 
 #: .\admin_app\templates\pages\steun-ons.html:213
-msgid "Mention"
-msgstr "குறிப்பிடு"
+msgid "Beneficiary"
+msgstr "பயனாளி"
 
 #: .\admin_app\templates\pages\steun-ons.html:213
-msgid "Saranalaya + your national registration number"
-msgstr "சரணாலயா + உங்கள் தேசிய பதிவு எண்"
+msgid "C.A.R.E. India VZW Torhoutsesteenweg 441, 8210, Zedelgem"
+msgstr "C.A.R.E. India VZW Torhoutsesteenweg 441, 8210, Zedelgem"
 
 #: .\admin_app\templates\pages\steun-ons.html:214
-msgid ""
-"Without proper disclosure, your donation will go to the general operation of Kontinenten vzw."
-msgstr "சரியான வெளிப்படுத்தல் இல்லாமல், உங்கள் நன்கொடை Kontinenten vzw இன் பொது செயல்பாட்டிற்குச் செல்லும்."
+msgid "If you support a child, please mention the name of this child."
+msgstr "நீங்கள் ஒரு குழந்தையை ஆதரிக்கிறீர்கள் என்றால், அந்த குழந்தையின் பெயரைக் குறிப்பிடவும்."
 
 #: .\admin_app\templates\pages\steun-ons.html:222
 msgid "Creative Support Actions"
