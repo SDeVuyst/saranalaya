@@ -916,13 +916,10 @@ msgstr ""
 #: .\admin_app\templates\pages\steun-ons.html:175
 msgid ""
 "\n"
-"            The cost is <b>225 euros</b> per year (or about 60 ct per day), "
-"tax deductible.\n"
-"            "
+"            The cost is <b>225 euros</b> per year (or about 60 ct per day)"
 msgstr ""
 "\n"
-"De kosten bedragen <b>225 euro</b> per jaar (of ongeveer 60 cent per dag), "
-"fiscaal aftrekbaar.            "
+"De kosten bedragen <b>225 euro</b> per jaar (of ongeveer 60 cent per dag)"
 
 #: .\admin_app\templates\pages\steun-ons.html:180
 msgid ""

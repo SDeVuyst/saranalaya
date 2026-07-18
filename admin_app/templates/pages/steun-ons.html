@@ -1,241 +1,323 @@
-{% extends 'detail_page.html' %}
+{% extends 'detail_page.html' %} {% load static i18n %} {% block title %}{%
+trans 'Support Us' %} | Care India{% endblock %} {% block meta %}
+<meta
+  name="description"
+  content="{% blocktrans %}Support C.A.R.E. and help improve the lives of street children in Chennai. Discover how you can donate, volunteer, or contribute to our organization’s mission.{% endblocktrans %}"
+/>
+<meta name="robots" content="index, follow" />
+<meta
+  property="og:title"
+  content="{% blocktrans %}Support Us | Care India{% endblocktrans %}"
+/>
+<meta
+  property="og:description"
+  content="{% blocktrans %}Support C.A.R.E. and help improve the lives of street children in Chennai. Discover how you can donate, volunteer, or contribute to our organization’s mission.{% endblocktrans %}"
+/>
+<meta property="og:image" content="{% static 'img/logo.png' %}" />
 
-{% load static i18n %}
-
-{% block title %}{% trans 'Support Us' %} | Care India{% endblock %}
-
-{% block meta %}
-<meta name="description" content="{% blocktrans %}Support C.A.R.E. and help improve the lives of street children in Chennai. Discover how you can donate, volunteer, or contribute to our organization’s mission.{% endblocktrans %}">
-<meta name="robots" content="index, follow">
-<meta property="og:title" content="{% blocktrans %}Support Us | Care India{% endblocktrans %}">
-<meta property="og:description" content="{% blocktrans %}Support C.A.R.E. and help improve the lives of street children in Chennai. Discover how you can donate, volunteer, or contribute to our organization’s mission.{% endblocktrans %}">
-<meta property="og:image" content="{% static 'img/logo.png' %}">
-
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="{% blocktrans %}Support Us | Care India{% endblocktrans %}">
-<meta name="twitter:description" content="{% blocktrans %}Support C.A.R.E. and help improve the lives of street children in Chennai. Discover how you can donate, volunteer, or contribute to our organization’s mission.{% endblocktrans %}">
-<meta name="twitter:image" content="{% static 'img/logo.png' %}">
-{% endblock %}
-
-{% block main %}
+<meta name="twitter:card" content="summary_large_image" />
+<meta
+  name="twitter:title"
+  content="{% blocktrans %}Support Us | Care India{% endblocktrans %}"
+/>
+<meta
+  name="twitter:description"
+  content="{% blocktrans %}Support C.A.R.E. and help improve the lives of street children in Chennai. Discover how you can donate, volunteer, or contribute to our organization’s mission.{% endblocktrans %}"
+/>
+<meta name="twitter:image" content="{% static 'img/logo.png' %}" />
+{% endblock %} {% block main %}
 <main class="main mx-5">
-<!-- Intro Section -->
-<section id="intro" class="intro section px-2 px-md-5 mt-5">
+  <!-- Intro Section -->
+  <section id="intro" class="intro section px-2 px-md-5 mt-5">
     <div class="container">
-        <h1 class="pt-3" data-aos="fade-left" data-aos-delay="100">{% trans 'Support Us' %}</h1>
-        <p data-aos="fade-left" data-aos-delay="200">
-            {% trans "Your support really makes a difference in the lives of our children in Saranalaya. Explore the different ways you can contribute." %}
-        </p>
-    
+      <h1 class="pt-3" data-aos="fade-left" data-aos-delay="100">
+        {% trans 'Support Us' %}
+      </h1>
+      <p data-aos="fade-left" data-aos-delay="200">
+        {% trans "Your support really makes a difference in the lives of our
+        children in Saranalaya. Explore the different ways you can contribute."
+        %}
+      </p>
 
-        <!-- Quick Links to Each Type of Support -->
-        <div class="d-flex flex-wrap gap-2 mt-3" data-aos="fade-left" data-aos-delay="300">
-            <a href="#adoptie" class="btn btn-secondary">
-                <i class="bi bi-heart"></i> {% trans "Financial Adoption" %}
-            </a>
-            <a href="#gift" class="btn btn-secondary">
-                <i class="bi bi-cash-stack"></i> {% trans "Make a donation" %}
-            </a>
-            <a href="#acties" class="btn btn-secondary">
-                <i class="bi bi-lightbulb"></i> {% trans "Support actions" %}
-            </a>
-        </div>
+      <!-- Quick Links to Each Type of Support -->
+      <div
+        class="d-flex flex-wrap gap-2 mt-3"
+        data-aos="fade-left"
+        data-aos-delay="300"
+      >
+        <a href="#adoptie" class="btn btn-secondary">
+          <i class="bi bi-heart"></i> {% trans "Financial Adoption" %}
+        </a>
+        <a href="#gift" class="btn btn-secondary">
+          <i class="bi bi-cash-stack"></i> {% trans "Make a donation" %}
+        </a>
+        <a href="#acties" class="btn btn-secondary">
+          <i class="bi bi-lightbulb"></i> {% trans "Support actions" %}
+        </a>
+      </div>
     </div>
-</section>
+  </section>
 
-<!-- Steun Betekent Section -->
-<section class="section px-2 px-md-5">
+  <!-- Steun Betekent Section -->
+  <section class="section px-2 px-md-5">
     <div class="container">
-        <h2 data-aos="fade-in" data-aos-delay="100" class="text-center mb-4">{% trans "What your support means" %}</h2>
-        
-        <div id="donationCarousel" class="carousel carousel-dark slide" data-bs-ride="carousel" data-bs-interval="5000">            
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <div class="row justify-content-center text-center row-gap-3">
-                        <div class="col-md-3 mx-2">
-                            <div class="card shadow-sm h-100">
-                                <div class="card-body">
-                                    <h3 class="card-title">€10</h3>
-                                    <p class="card-text">{% trans "New outfit for one child" %}</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 mx-2">
-                            <div class="card shadow-sm h-100">
-                                <div class="card-body">
-                                    <h3 class="card-title">€12</h3>
-                                    <p class="card-text">{% trans "Two school uniforms for one child" %}</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 mx-2">
-                            <div class="card shadow-sm h-100">
-                                <div class="card-body">
-                                    <h3 class="card-title">€15</h3>
-                                    <p class="card-text">{% trans "Snacks and tea for all children" %}</p>
-                                </div>
-                            </div>
-                        </div>
-                        
-                    </div>
-                </div>
-                
-                <div class="carousel-item">
-                    <div class="row justify-content-center text-center row-gap-3">
-                        <div class="col-md-3 mx-2">
-                            <div class="card shadow-sm h-100">
-                                <div class="card-body">
-                                    <h3 class="card-title">€30</h3>
-                                    <p class="card-text">{% trans "Textbooks for one child" %}</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 mx-2">
-                            <div class="card shadow-sm h-100">
-                                <div class="card-body">
-                                    <h3 class="card-title">€35</h3>
-                                    <p class="card-text">{% trans "Breakfast for all children" %}</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 mx-2">
-                            <div class="card shadow-sm h-100">
-                                <div class="card-body">
-                                    <h3 class="card-title">€45</h3>
-                                    <p class="card-text">{% trans "Hot meal for all children" %}</p>
-                                </div>
-                            </div>
-                        </div>
+      <h2 data-aos="fade-in" data-aos-delay="100" class="text-center mb-4">
+        {% trans "What your support means" %}
+      </h2>
 
-                    </div>
+      <div
+        id="donationCarousel"
+        class="carousel carousel-dark slide"
+        data-bs-ride="carousel"
+        data-bs-interval="5000"
+      >
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <div class="row justify-content-center text-center row-gap-3">
+              <div class="col-md-3 mx-2">
+                <div class="card shadow-sm h-100">
+                  <div class="card-body">
+                    <h3 class="card-title">€10</h3>
+                    <p class="card-text">
+                      {% trans "New outfit for one child" %}
+                    </p>
+                  </div>
                 </div>
-
-                <div class="carousel-item">
-                    <div class="row justify-content-center text-center row-gap-3">
-                        <div class="col-md-3 mx-2">
-                            <div class="card shadow-sm h-100">
-                                <div class="card-body">
-                                    <h3 class="card-title">€50</h3>
-                                    <p class="card-text">{% trans "Pillow & bedsheet for one child" %}</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 mx-2">
-                            <div class="card shadow-sm h-100">
-                                <div class="card-body">
-                                    <h3 class="card-title">€110</h3>
-                                    <p class="card-text">{% trans "Fruit for one month" %}</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 mx-2">
-                            <div class="card shadow-sm h-100">
-                                <div class="card-body">
-                                    <h3 class="card-title">€225</h3>
-                                    <p class="card-text">{% trans "Financial adoption of one child" %}</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+              </div>
+              <div class="col-md-3 mx-2">
+                <div class="card shadow-sm h-100">
+                  <div class="card-body">
+                    <h3 class="card-title">€12</h3>
+                    <p class="card-text">
+                      {% trans "Two school uniforms for one child" %}
+                    </p>
+                  </div>
                 </div>
-
+              </div>
+              <div class="col-md-3 mx-2">
+                <div class="card shadow-sm h-100">
+                  <div class="card-body">
+                    <h3 class="card-title">€15</h3>
+                    <p class="card-text">
+                      {% trans "Snacks and tea for all children" %}
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
+          </div>
 
-            <!-- Carousel Controls -->
-            <button class="carousel-control-prev" type="button" data-bs-target="#donationCarousel" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">{% trans 'Previous' %}</span>
-              </button>
-              <button class="carousel-control-next" type="button" data-bs-target="#donationCarousel" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">{% trans 'Next' %}</span>
-              </button>
+          <div class="carousel-item">
+            <div class="row justify-content-center text-center row-gap-3">
+              <div class="col-md-3 mx-2">
+                <div class="card shadow-sm h-100">
+                  <div class="card-body">
+                    <h3 class="card-title">€30</h3>
+                    <p class="card-text">
+                      {% trans "Textbooks for one child" %}
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3 mx-2">
+                <div class="card shadow-sm h-100">
+                  <div class="card-body">
+                    <h3 class="card-title">€35</h3>
+                    <p class="card-text">
+                      {% trans "Breakfast for all children" %}
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3 mx-2">
+                <div class="card shadow-sm h-100">
+                  <div class="card-body">
+                    <h3 class="card-title">€45</h3>
+                    <p class="card-text">
+                      {% trans "Hot meal for all children" %}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="carousel-item">
+            <div class="row justify-content-center text-center row-gap-3">
+              <div class="col-md-3 mx-2">
+                <div class="card shadow-sm h-100">
+                  <div class="card-body">
+                    <h3 class="card-title">€50</h3>
+                    <p class="card-text">
+                      {% trans "Pillow & bedsheet for one child" %}
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3 mx-2">
+                <div class="card shadow-sm h-100">
+                  <div class="card-body">
+                    <h3 class="card-title">€110</h3>
+                    <p class="card-text">{% trans "Fruit for one month" %}</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3 mx-2">
+                <div class="card shadow-sm h-100">
+                  <div class="card-body">
+                    <h3 class="card-title">€225</h3>
+                    <p class="card-text">
+                      {% trans "Financial adoption of one child" %}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-    </div>
-</section>
 
-<style>
+        <!-- Carousel Controls -->
+        <button
+          class="carousel-control-prev"
+          type="button"
+          data-bs-target="#donationCarousel"
+          data-bs-slide="prev"
+        >
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">{% trans 'Previous' %}</span>
+        </button>
+        <button
+          class="carousel-control-next"
+          type="button"
+          data-bs-target="#donationCarousel"
+          data-bs-slide="next"
+        >
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">{% trans 'Next' %}</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <style>
     .carousel-control-prev,
     .carousel-control-next {
-        width: 5%; /* Makes the buttons smaller */
+      width: 5%; /* Makes the buttons smaller */
     }
-</style>
+  </style>
 
+  <!-- /Steun Betekent Section -->
 
-<!-- /Steun Betekent Section -->
-
-<!-- Financiële Adoptie -->
-<section id="adoptie" class="section px-2 px-md-5">
+  <!-- Financiële Adoptie -->
+  <section id="adoptie" class="section px-2 px-md-5">
     <div class="container">
-        <h2 data-aos="fade-left">{% trans "Become a Financial Adoption Parent" %}</h2>
-        <p data-aos="fade-left" data-aos-delay="100">
-            {% trans "Would you like to build a personal relationship with a Saranalaya child and thus make a commitment for a number of years? Then it might be a nice idea for you to become uncle or auntie of one of the children." %}
-        </p>
-        <p data-aos="fade-left" data-aos-delay="100">
-            {% blocktrans %}
-            The cost is <b>225 euros</b> per year (or about 60 ct per day), tax deductible.
-            {% endblocktrans %}
-        </p>
-        <p data-aos="fade-left" data-aos-delay="200">
-            {% blocktrans %}
-            You choose what bond you want with your Indian child, sending a photo of yourself or your family with a bill in simple English, is greatly appreciated. The children are very proud to have a family abroad helping to care for them, and photos and bills are cherished.
-            {% endblocktrans %}
-        </p>
-        <p data-aos="fade-left" data-aos-delay="200">
-            {% blocktrans %}
-            Some uncles and aunties send New Year and birthday cards or have their child treats on his/her birthday, others have even visited Saranalaya.  
-            {% endblocktrans %}
-        </p>
-        
-        <p data-aos="fade-left" data-aos-delay="300">
-            {% blocktrans %}
-            Via onze <a href="https://www.facebook.com/groups/366106623433788" target="_blank">facebookpagina</a> en de <a href="/#contact">3 maandelijkse nieuwsbrief</a> kan je het reilen en zeilen van de Saranalaya kinderen wat volgen en kan je zo meeleven met het dagelijkse leven daar.
-            {% endblocktrans %}
-        </p>
+      <h2 data-aos="fade-left">
+        {% trans "Become a Financial Adoption Parent" %}
+      </h2>
+      <p data-aos="fade-left" data-aos-delay="100">
+        {% trans "Would you like to build a personal relationship with a
+        Saranalaya child and thus make a commitment for a number of years? Then
+        it might be a nice idea for you to become uncle or auntie of one of the
+        children." %}
+      </p>
+      <p data-aos="fade-left" data-aos-delay="100">
+        {% blocktrans %} The cost is <b>225 euros</b> per year (or about 60 ct
+        per day). {% endblocktrans %}
+      </p>
+      <p data-aos="fade-left" data-aos-delay="200">
+        {% blocktrans %} You choose what bond you want with your Indian child,
+        sending a photo of yourself or your family with a bill in simple
+        English, is greatly appreciated. The children are very proud to have a
+        family abroad helping to care for them, and photos and bills are
+        cherished. {% endblocktrans %}
+      </p>
+      <p data-aos="fade-left" data-aos-delay="200">
+        {% blocktrans %} Some uncles and aunties send New Year and birthday
+        cards or have their child treats on his/her birthday, others have even
+        visited Saranalaya. {% endblocktrans %}
+      </p>
 
-        <p data-aos="fade-left" data-aos-delay="300">
-            {% blocktrans %}
-            More info? Feel free to contact <a href="mailto:linademan@telenet.be">Lina</a>, she will be happy to explain more.
-            {% endblocktrans %}
-        </p>
+      <p data-aos="fade-left" data-aos-delay="300">
+        {% blocktrans %} Via onze
+        <a
+          href="https://www.facebook.com/groups/366106623433788"
+          target="_blank"
+          >facebookpagina</a
+        >
+        en de <a href="/#contact">3 maandelijkse nieuwsbrief</a> kan je het
+        reilen en zeilen van de Saranalaya kinderen wat volgen en kan je zo
+        meeleven met het dagelijkse leven daar. {% endblocktrans %}
+      </p>
+
+      <p data-aos="fade-left" data-aos-delay="300">
+        {% blocktrans %} More info? Feel free to contact
+        <a href="mailto:linademan@telenet.be">Lina</a>, she will be happy to
+        explain more. {% endblocktrans %}
+      </p>
     </div>
-</section>
+  </section>
 
-<!-- Doe een Gift -->
-<section id="gift" class="section px-2 px-md-5">
+  <!-- Doe een Gift -->
+  <section id="gift" class="section px-2 px-md-5">
     <div class="container">
-        <h2 data-aos="fade-left">{% trans "Make a Donation" %}</h2>
-        <p data-aos="fade-left" data-aos-delay="100">
-            {% trans "Every gift, big or small, makes a difference." %}
+      <h2 data-aos="fade-left">{% trans "Make a Donation" %}</h2>
+      <p data-aos="fade-left" data-aos-delay="100">
+        {% trans "Every gift, big or small, makes a difference." %}
+      </p>
+      <div
+        class="bg-light p-3 rounded"
+        data-aos="fade-left"
+        data-aos-delay="200"
+      >
+        <p>
+          <strong>{% trans "Bank account number" %}:</strong> IBAN: BE23 0689
+          4789 0491
         </p>
-        <div class="bg-light p-3 rounded" data-aos="fade-left" data-aos-delay="200">
-            <p><strong>{% trans "Bank account number" %}:</strong> IBAN: BE23 0689 4789 0491</p>
-            <p><strong>{% trans "Beneficiary" %}:</strong> {% trans 'C.A.R.E. India VZW Torhoutsesteenweg 441, 8210, Zedelgem' %}</p>
-            <p><small>{% trans "If you support a child, please mention the name of this child." %}</small></p>
-        </div>
+        <p>
+          <strong>{% trans "Beneficiary" %}:</strong> {% trans 'C.A.R.E. India
+          VZW Torhoutsesteenweg 441, 8210, Zedelgem' %}
+        </p>
+        <p>
+          <small
+            >{% trans "If you support a child, please mention the name of this
+            child." %}</small
+          >
+        </p>
+      </div>
     </div>
-</section>
+  </section>
 
-<!-- Steunacties -->
-<section id="acties" class="section px-2 px-md-5">
+  <!-- Steunacties -->
+  <section id="acties" class="section px-2 px-md-5">
     <div class="container">
-        <h2 data-aos="fade-left">{% trans "Creative Support Actions" %}</h2>
-        <p data-aos="fade-left">
-            {% trans "Schools, clubs or groups of friends who want to shoot into action for Saranalaya can get all creative!" %}
-        </p>
-        <p data-aos="fade-left" data-aos-delay="100">{% trans "Some inspiring ideas:" %}</p>
-        <ul class="list" data-aos="fade-left" data-aos-delay="100">
-            <li><i class="bi bi-person-walking"></i> {% trans "Sponsor Run" %}</li>
-            <li><i class="bi bi-shop-window"></i> {% trans "Rummage sale or Christmas market" %}</li>
-            <li><i class="bi bi-cup-straw"></i> {% trans "Cake or pancake sale" %}</li>
-            <li><i class="bi bi-house-door"></i> {% trans "Breakfast at home for Father's Day or Mother's Day" %}</li>
-            <li><i class="bi bi-car-front"></i> {% trans "Carwash" %}</li>
-        </ul>
-        <p data-aos="fade-left" data-aos-delay="200">
-            {% trans "Let us know what action you would like to organize, we would be happy to support you with info and materials!" %}
-        </p>
+      <h2 data-aos="fade-left">{% trans "Creative Support Actions" %}</h2>
+      <p data-aos="fade-left">
+        {% trans "Schools, clubs or groups of friends who want to shoot into
+        action for Saranalaya can get all creative!" %}
+      </p>
+      <p data-aos="fade-left" data-aos-delay="100">
+        {% trans "Some inspiring ideas:" %}
+      </p>
+      <ul class="list" data-aos="fade-left" data-aos-delay="100">
+        <li><i class="bi bi-person-walking"></i> {% trans "Sponsor Run" %}</li>
+        <li>
+          <i class="bi bi-shop-window"></i> {% trans "Rummage sale or Christmas
+          market" %}
+        </li>
+        <li>
+          <i class="bi bi-cup-straw"></i> {% trans "Cake or pancake sale" %}
+        </li>
+        <li>
+          <i class="bi bi-house-door"></i> {% trans "Breakfast at home for
+          Father's Day or Mother's Day" %}
+        </li>
+        <li><i class="bi bi-car-front"></i> {% trans "Carwash" %}</li>
+      </ul>
+      <p data-aos="fade-left" data-aos-delay="200">
+        {% trans "Let us know what action you would like to organize, we would
+        be happy to support you with info and materials!" %}
+      </p>
     </div>
-</section>
-
+  </section>
 </main>
 {% endblock %}
