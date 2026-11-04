@@ -1,5 +1,6 @@
-{% extends 'detail_page.html' %} {% load static i18n %} {% block title %}{%
-trans 'Support Us' %} | Care India{% endblock %} {% block meta %}
+{% extends 'detail_page.html' %} {% load static i18n %}
+{% block title %}{% trans 'Support Us' %} | Care India{% endblock %}
+{% block meta %}
 <meta
   name="description"
   content="{% blocktrans %}Support C.A.R.E. and help improve the lives of street children in Chennai. Discover how you can donate, volunteer, or contribute to our organization’s mission.{% endblocktrans %}"
@@ -25,7 +26,8 @@ trans 'Support Us' %} | Care India{% endblock %} {% block meta %}
   content="{% blocktrans %}Support C.A.R.E. and help improve the lives of street children in Chennai. Discover how you can donate, volunteer, or contribute to our organization’s mission.{% endblocktrans %}"
 />
 <meta name="twitter:image" content="{% static 'img/logo.png' %}" />
-{% endblock %} {% block main %}
+{% endblock %}
+{% block main %}
 <main class="main mx-5">
   <!-- Intro Section -->
   <section id="intro" class="intro section px-2 px-md-5 mt-5">
@@ -34,9 +36,10 @@ trans 'Support Us' %} | Care India{% endblock %} {% block meta %}
         {% trans 'Support Us' %}
       </h1>
       <p data-aos="fade-left" data-aos-delay="200">
-        {% trans "Your support really makes a difference in the lives of our
-        children in Saranalaya. Explore the different ways you can contribute."
-        %}
+        {% blocktrans %}
+        Your support really makes a difference in the lives of our
+        children in Saranalaya. Explore the different ways you can contribute.
+        {% endblocktrans %}
       </p>
 
       <!-- Quick Links to Each Type of Support -->
@@ -215,10 +218,12 @@ trans 'Support Us' %} | Care India{% endblock %} {% block meta %}
         {% trans "Become a Financial Adoption Parent" %}
       </h2>
       <p data-aos="fade-left" data-aos-delay="100">
-        {% trans "Would you like to build a personal relationship with a
+        {% blocktrans %}
+        Would you like to build a personal relationship with a
         Saranalaya child and thus make a commitment for a number of years? Then
         it might be a nice idea for you to become uncle or auntie of one of the
-        children." %}
+        children.
+        {% endblocktrans %}
       </p>
       <p data-aos="fade-left" data-aos-delay="100">
         {% blocktrans %} The cost is <b>225 euros</b> per year (or about 60 ct
@@ -274,14 +279,17 @@ trans 'Support Us' %} | Care India{% endblock %} {% block meta %}
           4789 0491
         </p>
         <p>
-          <strong>{% trans "Beneficiary" %}:</strong> {% trans 'C.A.R.E. India
-          VZW Torhoutsesteenweg 441, 8210, Zedelgem' %}
+          <strong>{% trans "Beneficiary" %}:</strong>
+          {% blocktrans %}
+          C.A.R.E. India VZW Torhoutsesteenweg 441, 8210, Zedelgem
+          {% endblocktrans %}
         </p>
         <p>
-          <small
-            >{% trans "If you support a child, please mention the name of this
-            child." %}</small
-          >
+          <small>
+            {% blocktrans %}
+            If you support a child, please mention the name of this child.
+            {% endblocktrans %}
+          </small>
         </p>
       </div>
     </div>
@@ -292,8 +300,10 @@ trans 'Support Us' %} | Care India{% endblock %} {% block meta %}
     <div class="container">
       <h2 data-aos="fade-left">{% trans "Creative Support Actions" %}</h2>
       <p data-aos="fade-left">
-        {% trans "Schools, clubs or groups of friends who want to shoot into
-        action for Saranalaya can get all creative!" %}
+        {% blocktrans %}
+        Schools, clubs or groups of friends who want to shoot into
+        action for Saranalaya can get all creative!
+        {% endblocktrans %}
       </p>
       <p data-aos="fade-left" data-aos-delay="100">
         {% trans "Some inspiring ideas:" %}
@@ -301,21 +311,23 @@ trans 'Support Us' %} | Care India{% endblock %} {% block meta %}
       <ul class="list" data-aos="fade-left" data-aos-delay="100">
         <li><i class="bi bi-person-walking"></i> {% trans "Sponsor Run" %}</li>
         <li>
-          <i class="bi bi-shop-window"></i> {% trans "Rummage sale or Christmas
-          market" %}
+          <i class="bi bi-shop-window"></i>
+          {% blocktrans %}Rummage sale or Christmas market{% endblocktrans %}
         </li>
         <li>
           <i class="bi bi-cup-straw"></i> {% trans "Cake or pancake sale" %}
         </li>
         <li>
-          <i class="bi bi-house-door"></i> {% trans "Breakfast at home for
-          Father's Day or Mother's Day" %}
+          <i class="bi bi-house-door"></i>
+          {% blocktrans %}Breakfast at home for Father's Day or Mother's Day{% endblocktrans %}
         </li>
         <li><i class="bi bi-car-front"></i> {% trans "Carwash" %}</li>
       </ul>
       <p data-aos="fade-left" data-aos-delay="200">
-        {% trans "Let us know what action you would like to organize, we would
-        be happy to support you with info and materials!" %}
+        {% blocktrans %}
+        Let us know what action you would like to organize, we would
+        be happy to support you with info and materials!
+        {% endblocktrans %}
       </p>
     </div>
   </section>
