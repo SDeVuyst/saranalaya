@@ -1,14 +1,17 @@
+import json
 from email.utils import formataddr
 from django.contrib import admin, messages
-from django.http import HttpResponseRedirect
-from django.urls import reverse
+from django.core.exceptions import PermissionDenied
+from django.http import HttpResponseNotAllowed, HttpResponseRedirect, JsonResponse
+from django.shortcuts import get_object_or_404
+from django.template.response import TemplateResponse
+from django.urls import path, reverse
 from django.utils.http import urlencode
 from django.core.mail import send_mail
 from django.conf import settings
 from .models import *
 from django.templatetags.static import static
 from .utils import helper
-from datetime import datetime
 from django.db.models import Case, When, Value, IntegerField
 from django.utils import timezone
 from django.utils.translation import gettext as _
@@ -20,6 +23,28 @@ from unfold.decorators import action, display
 from unfold.contrib.inlines.admin import StackedInline, TabularInline
 from simple_history.admin import SimpleHistoryAdmin
 from django import forms
+from .donations import (
+    DonationError,
+    SponsorQuickForm,
+    build_donation_grid,
+    donation_payload,
+    form_error,
+    new_donation,
+    request_payload,
+    update_donation,
+    visible_sponsor_ids,
+)
+from .payments import (
+    LINK_CHOICES,
+    STANDING_CHOICES,
+    STANDING_DUE,
+    AmountError,
+    CreateError,
+    build_payment_grid,
+    create_current_year_payments,
+    create_pair_payment,
+    set_payment_amount,
+)
 from .sites import saranalaya_admin_site
 from django_celery_beat.models import (
     ClockedSchedule,
@@ -266,35 +291,9 @@ class AdoptionParentAdmin(SimpleHistoryAdmin, NotiModelAdmin):
     list_filter_submit = True
 
     actions = [
-        "add_new_sponsoring",
         "generate_address_list",
         "generate_mail_list",
     ]
-
-    @action(description=_('Add New Payment'))
-    def add_new_sponsoring(modeladmin, request, queryset):
-        amount_of_sponsors_saved = 0
-        all_children = Child.objects.all()
-
-        for sponsor in queryset:
-            if not sponsor.active:
-                continue
-
-            children_of_sponsor = [c for c in all_children if sponsor in c.get_adoption_parents() and sponsor.active]
-            
-            for child in children_of_sponsor:
-                sp = AdoptionParentSponsoring(
-                    date=datetime.now(),
-                    amount=0, 
-                    parent=sponsor,
-                    child=child
-                )
-
-                sp.save()
-                amount_of_sponsors_saved += 1
-
-
-        return messages.success(request, _(f"Added {amount_of_sponsors_saved} Payments!"))
 
     @action(description=_("Generate Address List"))
     def generate_address_list(modeladmin, request, queryset):
@@ -414,12 +413,128 @@ class ChildAdmin(SimpleHistoryAdmin, NotiModelAdmin):
     ]
 
 
+def _payment_grid_query(request, **updates):
+    params = request.GET.copy()
+    for key, value in updates.items():
+        if value is None or value == "":
+            params.pop(key, None)
+        else:
+            params[key] = value
+    encoded = params.urlencode()
+    return f"?{encoded}" if encoded else ""
+
+
+def _amount_from_request(request):
+    if request.content_type == "application/json":
+        try:
+            payload = json.loads(request.body.decode() or "{}")
+        except json.JSONDecodeError:
+            return None
+        return payload.get("amount")
+    return request.POST.get("amount")
+
+
 @admin.register(AdoptionParentSponsoring, site=saranalaya_admin_site)
 class AdoptionParentSponsoringAdmin(SimpleHistoryAdmin, NotiModelAdmin):
     class Media:
-        js = ('js/paymentcolor.js',)   
+        js = ('js/paymentcolor.js',)
 
     form = AdoptionSponsoringForm
+    list_before_template = "admin/adoption_payment_switcher.html"
+
+    def get_urls(self):
+        custom_urls = [
+            path(
+                "grid/",
+                self.admin_site.admin_view(self.payment_grid_view),
+                name="adoption_payment_grid",
+            ),
+            path(
+                "grid/amount/<int:pk>/",
+                self.admin_site.admin_view(self.payment_amount_view),
+                name="adoption_payment_amount",
+            ),
+            path(
+                "grid/create/",
+                self.admin_site.admin_view(self.payment_create_view),
+                name="adoption_payment_create",
+            ),
+        ]
+        return custom_urls + super().get_urls()
+
+    def payment_grid_view(self, request):
+        if not self.has_view_permission(request):
+            raise PermissionDenied
+
+        if request.method == "POST" and request.POST.get("action") == "create_year":
+            if not self.has_add_permission(request):
+                raise PermissionDenied
+            result = create_current_year_payments()
+            messages.success(
+                request,
+                _("Added %(created)d payments for %(year)d. %(already)d were already present.")
+                % {"created": result.created, "year": result.year, "already": result.already},
+            )
+            return HttpResponseRedirect(request.get_full_path())
+
+        grid = build_payment_grid(
+            axis=request.GET.get("axis") or "parents",
+            name=request.GET.get("q") or "",
+            link=request.GET.get("link") or "all",
+            child_status=request.GET.getlist("child_status"),
+            standing=request.GET.get("standing") or STANDING_DUE,
+        )
+        context = {
+            **self.admin_site.each_context(request),
+            "title": _("Adoption Payments"),
+            "grid": grid,
+            "link_choices": LINK_CHOICES,
+            "standing_choices": STANDING_CHOICES,
+            "child_statuses": StatusChoices.choices,
+            "can_add": self.has_add_permission(request),
+            "can_change": self.has_change_permission(request),
+            "list_url": reverse("admin:admin_app_adoptionparentsponsoring_changelist"),
+            "parents_query": _payment_grid_query(request, axis="parents"),
+            "children_query": _payment_grid_query(request, axis="children"),
+            "create_url": reverse("admin:adoption_payment_create"),
+        }
+        return TemplateResponse(request, "admin/adoption_payment_grid.html", context)
+
+    def payment_amount_view(self, request, pk):
+        if request.method != "POST":
+            return HttpResponseNotAllowed(["POST"])
+        payment = get_object_or_404(AdoptionParentSponsoring, pk=pk)
+        if not self.has_change_permission(request, payment):
+            raise PermissionDenied
+        raw = _amount_from_request(request)
+        try:
+            payload = set_payment_amount(payment, raw)
+        except AmountError as exc:
+            return JsonResponse({"error": str(exc)}, status=400)
+        return JsonResponse(payload)
+
+    def payment_create_view(self, request):
+        if request.method != "POST":
+            return HttpResponseNotAllowed(["POST"])
+        if not self.has_add_permission(request):
+            raise PermissionDenied
+        if request.content_type == "application/json":
+            try:
+                payload = json.loads(request.body.decode() or "{}")
+            except json.JSONDecodeError:
+                payload = {}
+        else:
+            payload = request.POST
+        try:
+            result = create_pair_payment(
+                payload.get("parent"),
+                payload.get("child"),
+                payload.get("year"),
+                payload.get("amount"),
+            )
+        except (CreateError, AmountError) as exc:
+            return JsonResponse({"error": str(exc)}, status=400)
+        return JsonResponse(result)
 
     list_display = ('date', 'amount', 'parent', 'child', 'get_amount_left')
     ordering = ('-date', 'amount')
@@ -471,6 +586,113 @@ class SponsorAdmin(SimpleHistoryAdmin, NotiModelAdmin):
         DonationInline
     ]
 
+    def get_urls(self):
+        custom_urls = [
+            path(
+                "grid/amount/<int:pk>/",
+                self.admin_site.admin_view(self.donation_amount_view),
+                name="sponsor_donation_amount",
+            ),
+            path(
+                "grid/donation/",
+                self.admin_site.admin_view(self.donation_create_view),
+                name="sponsor_donation_create",
+            ),
+            path(
+                "grid/sponsor/",
+                self.admin_site.admin_view(self.sponsor_create_view),
+                name="sponsor_quick_create",
+            ),
+        ]
+        return custom_urls + super().get_urls()
+
+    def changelist_view(self, request, extra_context=None):
+        if not self.has_view_permission(request):
+            raise PermissionDenied
+        if request.method == "POST" and request.POST.get("action") in {"address", "mail"}:
+            return self._export_sponsors(request)
+        grid = build_donation_grid(name=request.GET.get("q") or "")
+        donation_admin = DonationAdmin(Donation, self.admin_site)
+        context = {
+            **self.admin_site.each_context(request),
+            "title": _("Sponsors"),
+            "grid": grid,
+            "can_add_sponsor": self.has_add_permission(request),
+            "can_add_donation": donation_admin.has_add_permission(request),
+            "can_change_donation": donation_admin.has_change_permission(request),
+            "create_url": reverse("admin:sponsor_donation_create"),
+        }
+        return TemplateResponse(request, "admin/sponsor_donation_grid.html", context)
+
+    def _export_sponsors(self, request):
+        sponsors = Sponsor.objects.filter(
+            pk__in=visible_sponsor_ids(request.POST.get("q") or request.GET.get("q") or "")
+        ).order_by("first_name", "last_name")
+        if not sponsors.exists():
+            messages.error(request, _("No sponsors to export."))
+            return HttpResponseRedirect(request.get_full_path())
+        if request.POST.get("action") == "address":
+            return helper.generateAddressList(self, request, sponsors)
+        link = helper.generateMailList(self, request, sponsors)
+        query_string = urlencode({"emails": link})
+        return HttpResponseRedirect(reverse("admin:generate_mailto_link") + "?" + query_string)
+
+    def donation_amount_view(self, request, pk):
+        if request.method != "POST":
+            return HttpResponseNotAllowed(["POST"])
+        donation = get_object_or_404(Donation, pk=pk)
+        donation_admin = DonationAdmin(Donation, self.admin_site)
+        if not donation_admin.has_change_permission(request, donation):
+            raise PermissionDenied
+        payload = request_payload(request)
+        try:
+            result = update_donation(
+                donation,
+                payload.get("amount"),
+                payload.get("date") or donation.date,
+                payload.get("description", donation.description),
+            )
+        except (DonationError, AmountError) as exc:
+            return JsonResponse({"error": str(exc)}, status=400)
+        return JsonResponse(result)
+
+    def donation_create_view(self, request):
+        if request.method != "POST":
+            return HttpResponseNotAllowed(["POST"])
+        donation_admin = DonationAdmin(Donation, self.admin_site)
+        if not donation_admin.has_add_permission(request):
+            raise PermissionDenied
+        payload = request_payload(request)
+        try:
+            donation = new_donation(
+                payload.get("sponsor"),
+                payload.get("amount"),
+                payload.get("date"),
+                payload.get("description") or "",
+            )
+        except (DonationError, AmountError) as exc:
+            return JsonResponse({"error": str(exc)}, status=400)
+        donation_admin.save_model(request, donation, None, False)
+        return JsonResponse(donation_payload(donation))
+
+    def sponsor_create_view(self, request):
+        if request.method != "POST":
+            return HttpResponseNotAllowed(["POST"])
+        if not self.has_add_permission(request):
+            raise PermissionDenied
+        payload = request_payload(request)
+        if not hasattr(payload, "getlist"):
+            payload = dict(payload)
+            payload.setdefault("letters", True)
+            if not str(payload.get("country") or "").strip():
+                payload["country"] = "Belgium"
+        form = SponsorQuickForm(payload)
+        if not form.is_valid():
+            return JsonResponse({"error": form_error(form)}, status=400)
+        sponsor = form.save(commit=False)
+        self.save_model(request, sponsor, form, False)
+        return JsonResponse({"pk": sponsor.pk, "name": str(sponsor)})
+
     search_fields = ('first_name', 'last_name', 'firm', 'street_name', 'address_number', 'bus', 'postcode', 'city', 'country', 'mail', 'description', 'phone_number')
     list_filter = (
         'letters', 
@@ -503,6 +725,12 @@ class SponsorAdmin(SimpleHistoryAdmin, NotiModelAdmin):
 
 @admin.register(Donation, site=saranalaya_admin_site)
 class DonationAdmin(SimpleHistoryAdmin, NotiModelAdmin):
+    def has_module_permission(self, request):
+        return False
+
+    def changelist_view(self, request, extra_context=None):
+        return HttpResponseRedirect(reverse("admin:admin_app_sponsor_changelist"))
+
     list_display = ('date', 'amount', 'sponsor')
     ordering = ('-date', 'amount')
     search_fields = ('sponsor__first_name', 'sponsor__last_name', 'sponsor__firm', 'sponsor__street_name', 'sponsor__postcode', 'sponsor__city', 'sponsor__country', 'sponsor__mail', 'sponsor__description', 'sponsor__phone_number', 'amount', 'date', 'description')

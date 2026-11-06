@@ -1,0 +1,485 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+{% block title %}{{ title }} | {{ site_title }}{% endblock %}
+
+{% block content %}
+<style>
+    .pay-page { display: flex; flex-direction: column; gap: 1rem; }
+    .pay-heading { display: flex; flex-wrap: wrap; gap: 0.75rem 1.5rem; align-items: center; justify-content: space-between; }
+    .pay-heading h1 { margin: 0; font-size: 1.5rem; font-weight: 600; }
+    .pay-legend { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0; padding: 0; list-style: none; }
+    .pay-legend li { border-radius: 0.25rem; padding: 0.15rem 0.45rem; font-size: 0.75rem; font-weight: 600; }
+    .pay-legend .pay-cell-unpaid { background: #dc2626; color: #fff; }
+    .pay-legend .pay-cell-partial { background: #facc15; color: #422006; }
+    .pay-legend .pay-cell-paid { background: #16a34a; color: #fff; }
+    .pay-legend .pay-cell-closed { background: #f5f5f4; color: #78716c; }
+    .pay-toolbar { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: flex-end; }
+    .pay-toolbar label, .pay-checks { display: flex; flex-direction: column; gap: 0.25rem; font-size: 0.75rem; }
+    .pay-checks { border: 0; margin: 0; padding: 0; }
+    .pay-checks legend { padding: 0; }
+    .pay-check-row { display: flex; flex-wrap: wrap; gap: 0.35rem 0.7rem; }
+    .pay-checks label { flex-direction: row; align-items: center; gap: 0.3rem; font-size: 0.8rem; }
+    .pay-toolbar select, .pay-toolbar input[type="search"] {
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        border-radius: 0.375rem;
+        padding: 0.4rem 0.5rem;
+        background-color: #fff;
+        background-image: none;
+        color: inherit;
+        min-width: 9rem;
+    }
+    .dark .pay-toolbar select, .dark .pay-toolbar input[type="search"] {
+        background-color: rgb(15, 23, 42);
+        border-color: rgba(255, 255, 255, 0.2);
+        color: #e5e7eb;
+    }
+    .pay-axis { display: flex; gap: 0.25rem; }
+    .pay-axis a {
+        padding: 0.4rem 0.7rem;
+        border-radius: 0.375rem;
+        text-decoration: none;
+        color: inherit;
+        border: 1px solid rgba(0, 0, 0, 0.15);
+    }
+    .pay-axis a.is-active { background: #7e22ce; color: #fff; border-color: #7e22ce; }
+    .pay-button, .pay-filter {
+        border: 0;
+        border-radius: 0.375rem;
+        padding: 0.45rem 0.8rem;
+        background: #7e22ce;
+        color: #fff;
+        cursor: pointer;
+        font-weight: 600;
+    }
+    .pay-actions { margin-left: auto; }
+    .pay-grid {
+        overflow: auto;
+        max-height: calc(100vh - 16rem);
+        border: 1px solid rgba(0, 0, 0, 0.12);
+        border-radius: 0.5rem;
+    }
+    .pay-grid table { border-collapse: separate; border-spacing: 0; min-width: 100%; }
+    .pay-grid th, .pay-grid td {
+        box-sizing: border-box;
+        padding: 0.45rem 0.6rem;
+        border-right: 1px solid rgba(0, 0, 0, 0.28);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.28);
+        vertical-align: middle;
+        white-space: nowrap;
+        background: #fff;
+    }
+    .dark .pay-grid th, .dark .pay-grid td {
+        background: rgb(15, 23, 42);
+        border-right-color: rgba(255, 255, 255, 0.22);
+        border-bottom-color: rgba(255, 255, 255, 0.22);
+        color: #e5e7eb;
+    }
+    .pay-bar { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: flex-end; justify-content: space-between; }
+    .pay-grid td.pay-name, .pay-grid th.pay-name {
+        position: sticky;
+        left: 0;
+        z-index: 3;
+        width: 18rem;
+        min-width: 18rem;
+        max-width: 18rem;
+        white-space: normal;
+        overflow: hidden;
+        border-right: 3px solid #a8a29e;
+    }
+    .dark .pay-name { border-right-color: #78716c; }
+    .pay-current {
+        position: sticky;
+        left: 18rem;
+        z-index: 2;
+        min-width: 7.5rem;
+        padding-left: 0.9rem;
+        box-shadow: 4px 0 6px -4px rgba(0, 0, 0, 0.25);
+    }
+    .pay-grid thead th { position: sticky; top: 0; z-index: 3; font-weight: 600; }
+    .pay-grid thead .pay-name { z-index: 5; }
+    .pay-grid thead .pay-current { z-index: 4; }
+    .pay-group td { font-weight: 600; background: #f8fafc; }
+    .dark .pay-group td { background: rgb(30, 41, 59); }
+    .pay-leaf .pay-name { padding-left: 1.35rem; font-weight: 400; }
+    .pay-who { display: grid; grid-template-columns: 36px minmax(0, 1fr); column-gap: 0.55rem; align-items: center; }
+    .pay-who-plain { grid-template-columns: minmax(0, 1fr); }
+    .pay-avatar { grid-column: 1; grid-row: 1; width: 36px; height: 36px; border-radius: 999px; object-fit: cover; }
+    .pay-who-name {
+        grid-column: 2;
+        grid-row: 1;
+        min-width: 0;
+        color: inherit;
+        font-weight: 600;
+        text-decoration: none;
+        line-height: 1.25;
+        white-space: normal;
+        overflow-wrap: break-word;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+    .pay-who-plain .pay-who-name, .pay-who-plain .pay-meta { grid-column: 1; }
+    .pay-meta { grid-column: 2; grid-row: 2; display: flex; flex-wrap: wrap; gap: 0.15rem 0.45rem; margin-top: 0.15rem; font-size: 0.68rem; font-weight: 600; line-height: 1.2; color: #78716c; }
+    .dark .pay-meta { color: #d6d3d1; }
+    .pay-grid td.pay-cell-missing,
+    .pay-grid td.pay-cell-unpaid { background: #dc2626; color: #fff; box-shadow: none; border-color: rgba(0, 0, 0, 0.35); }
+    .pay-grid td.pay-cell-partial { background: #facc15; color: #422006; box-shadow: none; border-color: rgba(0, 0, 0, 0.35); }
+    .pay-grid td.pay-cell-paid { background: #16a34a; color: #fff; box-shadow: none; border-color: rgba(0, 0, 0, 0.35); }
+    .pay-closed { color: #9ca3af; }
+    .pay-sum-value { font-weight: 700; }
+    .pay-amount-btn {
+        border: 0;
+        padding: 0;
+        background: transparent;
+        color: inherit;
+        font-weight: 700;
+        font-size: 1rem;
+        cursor: pointer;
+    }
+    .pay-dialog {
+        border: 0;
+        border-radius: 0.75rem;
+        padding: 1.25rem;
+        max-width: 22rem;
+        width: calc(100% - 2rem);
+        background: #fff;
+        color: inherit;
+    }
+    .pay-dialog::backdrop { background: rgba(0, 0, 0, 0.45); }
+    .dark .pay-dialog { background: rgb(15, 23, 42); color: #e5e7eb; }
+    .pay-dialog h2 { margin: 0 0 0.75rem; font-size: 1.05rem; }
+    .pay-dialog label { display: flex; flex-direction: column; gap: 0.3rem; font-size: 0.8rem; }
+    .pay-dialog input {
+        font-size: 1.1rem;
+        padding: 0.4rem 0.5rem;
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        border-radius: 0.375rem;
+        background: #fff;
+        color: inherit;
+    }
+    .dark .pay-dialog input { background: rgb(30, 41, 59); border-color: rgba(255, 255, 255, 0.2); color: #e5e7eb; }
+    .pay-dialog-actions { display: flex; gap: 0.5rem; margin-top: 1rem; align-items: center; }
+    .pay-dialog .pay-edit { font-size: 0.85rem; color: #7e22ce; }
+    .pay-dialog-cancel {
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        border-radius: 0.375rem;
+        padding: 0.45rem 0.8rem;
+        background: transparent;
+        color: inherit;
+        cursor: pointer;
+    }
+    .pay-cell-body { display: flex; flex-direction: column; align-items: flex-start; gap: 0.15rem; }
+    .pay-entry { display: flex; align-items: center; gap: 0.35rem; }
+    .pay-note { display: block; font-size: 0.68rem; font-weight: 600; line-height: 1.2; }
+    .pay-input {
+        width: 5rem;
+        border: 0;
+        border-radius: 0.25rem;
+        padding: 0.15rem 0.35rem;
+        font-weight: 700;
+        color: #fff;
+    }
+    .pay-amount {
+        display: inline-block;
+        font-weight: 700;
+        color: inherit;
+    }
+    .pay-empty { padding: 1rem 0; }
+    .pay-error { color: #b91c1c; font-size: 0.7rem; }
+</style>
+
+<div class="pay-page">
+    <div class="pay-heading">
+        <h1>{{ title }}</h1>
+        <div>
+            {% include "admin/adoption_payment_switcher.html" with pay_view=grid.axis parents_url=parents_query children_url=children_query %}
+        </div>
+    </div>
+    <ul class="pay-legend" aria-label="{% trans 'Cell meanings' %}">
+        <li class="pay-cell-unpaid">{% trans "Unpaid" %}</li>
+        <li class="pay-cell-partial">{% trans "Part paid" %}</li>
+        <li class="pay-cell-paid">{% trans "Paid" %}</li>
+        <li class="pay-cell-closed">{% trans "Not expected" %}</li>
+    </ul>
+
+    <form id="pay-csrf-form" hidden>{% csrf_token %}</form>
+    <div class="pay-bar">
+        <form class="pay-toolbar" method="get">
+            <input type="hidden" name="axis" value="{{ grid.axis }}">
+            <label>
+                {% trans "Name" %}
+                <input type="search" name="q" value="{{ grid.filters.name }}" placeholder="{% trans 'Parent or child' %}">
+            </label>
+            <label>
+                {% trans "Relationship" %}
+                <select class="bg-none" name="link">
+                    {% for value, label in link_choices %}
+                        <option value="{{ value }}" {% if grid.filters.link == value %}selected{% endif %}>{{ label }}</option>
+                    {% endfor %}
+                </select>
+            </label>
+            <fieldset class="pay-checks">
+                <legend>{% trans "Child status" %}</legend>
+                <div class="pay-check-row">
+                    {% for value, label in child_statuses %}
+                        <label>
+                            <input type="checkbox" name="child_status" value="{{ value }}" {% if value in grid.filters.child_status %}checked{% endif %}>
+                            {{ label }}
+                        </label>
+                    {% endfor %}
+                </div>
+            </fieldset>
+            <label>
+                {% trans "Who to show" %}
+                <select class="bg-none" name="standing">
+                    {% for value, label in standing_choices %}
+                        <option value="{{ value }}" {% if grid.filters.standing == value %}selected{% endif %}>{{ label }}</option>
+                    {% endfor %}
+                </select>
+            </label>
+            <button class="pay-filter" type="submit">{% trans "Filter" %}</button>
+        </form>
+    </div>
+
+    {% if not grid.groups %}
+        <p class="pay-empty">{% trans "No adoption payments match these filters." %}</p>
+    {% else %}
+        <div class="pay-grid">
+            <table data-target="{{ grid.target }}" data-create-url="{{ create_url }}">
+                <thead>
+                    <tr>
+                        <th class="pay-name">
+                            {% if grid.axis == "parents" %}{% trans "Adoption parent" %}{% else %}{% trans "Child" %}{% endif %}
+                        </th>
+                        {% for year in grid.years %}
+                            <th class="{% if forloop.first %}pay-current{% endif %}">
+                                <span class="pay-year">{{ year }}</span>
+                            </th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for group in grid.groups %}
+                        <tr class="pay-group">
+                            <td class="pay-name">
+                                <div class="pay-who {% if not group.image_url %}pay-who-plain{% endif %}">
+                                    {% if group.image_url %}<img class="pay-avatar" src="{{ group.image_url }}" alt="">{% endif %}
+                                    <a class="pay-who-name" href="{{ group.url }}">{{ group.name }}</a>
+                                    {% if group.badges %}<div class="pay-meta">{% for badge in group.badges %}<span>{{ badge }}</span>{% endfor %}</div>{% endif %}
+                                </div>
+                            </td>
+                            {% for sum in group.sums %}
+                                <td class="pay-sum {% if forloop.first %}pay-current{% endif %}" data-sum-group="{{ group.id }}" data-sum-year="{{ sum.year }}" title="{% trans 'Total' %}">
+                                    <span class="pay-sum-value">{% if sum.total is None %}—{% else %}€{{ sum.total|floatformat:"-2" }}{% endif %}</span>
+                                </td>
+                            {% endfor %}
+                        </tr>
+                        {% for leaf in group.leaves %}
+                            <tr class="pay-leaf">
+                                <td class="pay-name">
+                                    <div class="pay-who {% if not leaf.image_url %}pay-who-plain{% endif %}">
+                                        {% if leaf.image_url %}<img class="pay-avatar" src="{{ leaf.image_url }}" alt="">{% endif %}
+                                        <a class="pay-who-name" href="{{ leaf.url }}">{{ leaf.name }}</a>
+                                        {% if leaf.badges %}<div class="pay-meta">{% for badge in leaf.badges %}<span>{{ badge }}</span>{% endfor %}</div>{% endif %}
+                                    </div>
+                                </td>
+                                {% for cell in leaf.cells %}
+                                    <td class="pay-cell pay-cell-{% if cell.status == 'missing' %}unpaid{% else %}{{ cell.status }}{% endif %} {% if forloop.first %}pay-current{% endif %}" data-target="{{ cell.target }}">
+                                        {% if cell.kind == "payments" or cell.kind == "missing" %}
+                                            <div class="pay-cell-body">
+                                                {% if cell.kind == "payments" %}
+                                                    {% for payment in cell.payments %}
+                                                        <div class="pay-entry">
+                                                            {% if can_change %}
+                                                                <button
+                                                                    type="button"
+                                                                    class="pay-amount-btn"
+                                                                    data-amount="{{ payment.amount }}"
+                                                                    data-url="{{ payment.amount_url }}"
+                                                                    data-details="{{ payment.change_url }}"
+                                                                    data-group="{{ group.id }}"
+                                                                    data-year="{{ cell.year }}"
+                                                                    data-label="{{ group.name }} — {{ leaf.name }} {{ cell.year }}"
+                                                                >€{{ payment.amount }}</button>
+                                                            {% else %}
+                                                                <span class="pay-amount">€{{ payment.amount }}</span>
+                                                            {% endif %}
+                                                        </div>
+                                                    {% endfor %}
+                                                {% else %}
+                                                    <div class="pay-entry">
+                                                        {% if can_add %}
+                                                            <button
+                                                                type="button"
+                                                                class="pay-amount-btn"
+                                                                data-amount="0"
+                                                                data-url=""
+                                                                data-details=""
+                                                                data-parent="{{ leaf.parent_id }}"
+                                                                data-child="{{ leaf.child_id }}"
+                                                                data-group="{{ group.id }}"
+                                                                data-year="{{ cell.year }}"
+                                                                data-label="{{ group.name }} — {{ leaf.name }} {{ cell.year }}"
+                                                            >€0</button>
+                                                        {% else %}
+                                                            <span class="pay-amount">€0</span>
+                                                        {% endif %}
+                                                    </div>
+                                                {% endif %}
+                                                {% if cell.marker %}
+                                                    <span class="pay-note">{{ cell.marker }}</span>
+                                                {% endif %}
+                                            </div>
+                                        {% else %}
+                                            <span class="pay-closed" title="{% trans 'Not expected to pay for this year' %}">—</span>
+                                        {% endif %}
+                                    </td>
+                                {% endfor %}
+                            </tr>
+                        {% endfor %}
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endif %}
+</div>
+
+<dialog id="pay-dialog" class="pay-dialog">
+    <form>
+        <h2 id="pay-dialog-title"></h2>
+        <label>
+            {% trans "Amount" %}
+            <input id="pay-dialog-amount" type="number" min="0" step="0.01" required>
+        </label>
+        <p id="pay-dialog-error" class="pay-error"></p>
+        <div class="pay-dialog-actions">
+            <button type="submit" class="pay-button">{% trans "Save" %}</button>
+            <button type="button" id="pay-dialog-cancel" class="pay-dialog-cancel">{% trans "Cancel" %}</button>
+            <a id="pay-dialog-details" class="pay-edit" href="#">{% trans "Open payment" %}</a>
+        </div>
+    </form>
+</dialog>
+
+<script>
+(function () {
+    var csrfInput = document.querySelector("#pay-csrf-form input[name=csrfmiddlewaretoken]");
+    var csrf = csrfInput ? csrfInput.value : "";
+    var table = document.querySelector(".pay-grid table");
+    if (!table) return;
+    var dialog = document.getElementById("pay-dialog");
+    var dialogForm = dialog.querySelector("form");
+    var dialogTitle = document.getElementById("pay-dialog-title");
+    var dialogAmount = document.getElementById("pay-dialog-amount");
+    var dialogError = document.getElementById("pay-dialog-error");
+    var dialogDetails = document.getElementById("pay-dialog-details");
+    var currentButton = null;
+
+    function formatTotal(total) {
+        var rounded = Math.round(total * 100) / 100;
+        if (Math.abs(rounded - Math.round(rounded)) < 0.001) return String(Math.round(rounded));
+        return rounded.toFixed(2);
+    }
+
+    function postJson(url, body) {
+        return fetch(url, {
+            method: "POST",
+            headers: {
+                "X-CSRFToken": csrf,
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(body)
+        }).then(function (response) {
+            return response.json().then(function (payload) {
+                return {ok: response.ok, payload: payload};
+            });
+        });
+    }
+
+    function refreshSums(groupId) {
+        table.querySelectorAll('[data-sum-group="' + groupId + '"]').forEach(function (cell) {
+            var year = cell.getAttribute("data-sum-year");
+            var buttons = table.querySelectorAll('.pay-amount-btn[data-group="' + groupId + '"][data-year="' + year + '"]');
+            var value = cell.querySelector(".pay-sum-value");
+            if (!buttons.length) {
+                value.textContent = "—";
+                return;
+            }
+            var total = 0;
+            buttons.forEach(function (button) {
+                total += parseFloat(button.getAttribute("data-amount")) || 0;
+            });
+            value.textContent = "€" + formatTotal(total);
+        });
+    }
+
+    function refreshCellStatus(cell) {
+        var buttons = cell.querySelectorAll(".pay-amount-btn");
+        var total = 0;
+        buttons.forEach(function (button) {
+            total += parseFloat(button.getAttribute("data-amount")) || 0;
+        });
+        var target = parseFloat(cell.getAttribute("data-target")) || parseFloat(table.getAttribute("data-target")) || 0;
+        var status = "unpaid";
+        if (total > 0 && total < target) status = "partial";
+        else if (total >= target && target > 0) status = "paid";
+        cell.classList.remove("pay-cell-missing", "pay-cell-unpaid", "pay-cell-partial", "pay-cell-paid");
+        cell.classList.add("pay-cell-" + status);
+    }
+
+    function openDialog(button) {
+        currentButton = button;
+        dialogTitle.textContent = button.getAttribute("data-label");
+        dialogAmount.value = button.getAttribute("data-amount");
+        var detailsUrl = button.getAttribute("data-details");
+        dialogDetails.hidden = !detailsUrl;
+        if (detailsUrl) dialogDetails.href = detailsUrl;
+        dialogError.textContent = "";
+        dialog.showModal();
+        dialogAmount.focus();
+        dialogAmount.select();
+    }
+
+    table.querySelectorAll(".pay-amount-btn").forEach(function (button) {
+        button.addEventListener("click", function () { openDialog(button); });
+    });
+
+    document.getElementById("pay-dialog-cancel").addEventListener("click", function () {
+        dialog.close();
+    });
+
+    dialogForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+        if (!currentButton) return;
+        dialogError.textContent = "";
+        var url = currentButton.getAttribute("data-url");
+        var request = url
+            ? postJson(url, {amount: dialogAmount.value})
+            : postJson(table.getAttribute("data-create-url"), {
+                parent: currentButton.getAttribute("data-parent"),
+                child: currentButton.getAttribute("data-child"),
+                year: currentButton.getAttribute("data-year"),
+                amount: dialogAmount.value
+            });
+        request.then(function (result) {
+            if (!result.ok) {
+                dialogError.textContent = result.payload.error || "Could not save";
+                return;
+            }
+            currentButton.textContent = "€" + result.payload.amount;
+            currentButton.setAttribute("data-amount", result.payload.amount);
+            if (result.payload.amount_url) currentButton.setAttribute("data-url", result.payload.amount_url);
+            if (result.payload.change_url) {
+                currentButton.setAttribute("data-details", result.payload.change_url);
+            }
+            refreshCellStatus(currentButton.closest("td"));
+            refreshSums(currentButton.getAttribute("data-group"));
+            dialog.close();
+        }).catch(function () {
+            dialogError.textContent = "Could not save";
+        });
+    });
+})();
+</script>
+{% endblock %}

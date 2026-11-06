@@ -1,0 +1,25 @@
+{% load i18n %}
+{% url 'admin:adoption_payment_grid' as grid_url %}
+{% url 'admin:admin_app_adoptionparentsponsoring_changelist' as payment_list_url %}
+
+<style>
+    .pay-switch { display: flex; flex-wrap: wrap; gap: 0.35rem; align-items: center; }
+    .pay-switch a {
+        padding: 0.45rem 0.8rem;
+        border-radius: 0.375rem;
+        text-decoration: none;
+        color: inherit;
+        border: 1px solid rgba(0, 0, 0, 0.18);
+        background: #fff;
+        font-weight: 600;
+    }
+    .pay-switch a.is-active { background: #7e22ce; color: #fff; border-color: #7e22ce; }
+    .dark .pay-switch a { background: rgb(15, 23, 42); border-color: rgba(255, 255, 255, 0.2); }
+    .dark .pay-switch a.is-active { background: #7e22ce; color: #fff; }
+</style>
+
+<nav class="pay-switch" aria-label="{% trans 'Payment views' %}">
+    <a href="{% if parents_url %}{{ parents_url }}{% else %}{{ grid_url }}?axis=parents&amp;standing=due{% endif %}" {% if pay_view == "parents" %}class="is-active"{% endif %}>{% trans "By parent" %}</a>
+    <a href="{% if children_url %}{{ children_url }}{% else %}{{ grid_url }}?axis=children&amp;standing=due{% endif %}" {% if pay_view == "children" %}class="is-active"{% endif %}>{% trans "By child" %}</a>
+    <a href="{{ payment_list_url }}" {% if pay_view != "parents" and pay_view != "children" %}class="is-active"{% endif %}>{% trans "Payment list" %}</a>
+</nav>

@@ -319,17 +319,12 @@ UNFOLD = {
                     {
                         "title": _("Adoption Payments"),
                         "icon": "account_balance",
-                        "link": reverse_lazy("admin:admin_app_adoptionparentsponsoring_changelist"),
+                        "link": reverse_lazy("admin:adoption_payment_grid"),
                     },
                     {
                         "title": _("Sponsors"),
                         "icon": "patient_list",
                         "link": reverse_lazy("admin:admin_app_sponsor_changelist"),
-                    },
-                    {
-                        "title": _("Donations"),
-                        "icon": "credit_card_heart",
-                        "link": reverse_lazy("admin:admin_app_donation_changelist"),
                     },
                     {
                         "title": _("News"),

@@ -18,6 +18,7 @@ from unfold.admin import ModelAdmin
 from .sites import saranalaya_admin_site
 
 import os
+from datetime import date
 
 
 # Unfold model admin
@@ -241,6 +242,21 @@ class Adoption(models.Model):
     active = models.BooleanField(verbose_name=_("Active"), default=True)
 
 
+def adoption_payment_target(year):
+    if hasattr(year, "year"):
+        year = year.year
+    try:
+        year = int(year)
+    except (TypeError, ValueError):
+        year = date.today().year
+    if year <= 2024:
+        return 186.0
+    raw = os.environ.get("AMOUNT_ADOPTION_PARENTS")
+    if raw is None or raw == "":
+        return 225.0
+    return float(raw)
+
+
 class AdoptionParentSponsoring(models.Model):
     class Meta:
         verbose_name = _("Adoption Parent Payment")
@@ -248,16 +264,21 @@ class AdoptionParentSponsoring(models.Model):
         get_latest_by = "date"
 
     def __str__(self) -> str:
-        return str(self.parent) + f" ({str(self.date)})" + " - " + str(self.amount) + "/186"
+        target = adoption_payment_target(self.date.year if self.date else None)
+        shown = int(target) if target == int(target) else target
+        return str(self.parent) + f" ({str(self.date)})" + " - " + str(self.amount) + f"/{shown}"
 
     @property
     @admin.display(description=_("Amount remaining"))
     def get_amount_left(self):
-        return max(0, float(os.environ.get("AMOUNT_ADOPTION_PARENTS")) - self.amount)
-    
+        target = adoption_payment_target(self.date.year if self.date else None)
+        remaining = max(0.0, target - float(self.amount or 0))
+        shown = int(remaining) if remaining == int(remaining) else round(remaining, 2)
+        return format_html('<span data-target="{}">{}</span>', target, shown)
 
     def is_enough(self):
-        return int(os.environ.get("AMOUNT_ADOPTION_PARENTS")) <= self.amount
+        target = adoption_payment_target(self.date.year if self.date else None)
+        return float(self.amount or 0) >= target
 
     date = models.DateField(verbose_name=_("Date"))
     amount = models.FloatField(verbose_name=_("Amount"))

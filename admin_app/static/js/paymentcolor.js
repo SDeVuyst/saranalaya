@@ -1,15 +1,18 @@
-document.addEventListener("DOMContentLoaded", function(event) { 
-    
-    // background color of amount left field
-    var allFields = document.querySelectorAll(".field-get_amount_left");
-    var allFieldsArr = [...allFields];
-
-    allFieldsArr.forEach(field => {
-        var innerValue = parseFloat(field.innerHTML)
-        percent = (innerValue /186) * 100
-        field.style.backgroundColor = `rgb(${percent *2}, ${(100 - percent) *2}, 0)`
-        field.style.fontWeight = "700"
-        field.style.color = "white"
-    })
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll(".field-get_amount_left").forEach(function (field) {
+        var node = field.querySelector("[data-target]");
+        var remaining = parseFloat(node ? node.textContent : field.textContent);
+        var target = node ? parseFloat(node.getAttribute("data-target")) : remaining;
+        var color = "#dc2626";
+        var text = "#fff";
+        if (remaining <= 0) {
+            color = "#16a34a";
+        } else if (target > 0 && remaining < target) {
+            color = "#facc15";
+            text = "#422006";
+        }
+        field.style.backgroundColor = color;
+        field.style.color = text;
+        field.style.fontWeight = "700";
+    });
 });
-

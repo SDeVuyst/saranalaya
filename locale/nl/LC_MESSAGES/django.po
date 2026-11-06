@@ -184,7 +184,7 @@ msgstr "Adoptie-ouder Betaling"
 
 #: .\admin_app\models.py:71 .\admin_app\models.py:274 .\admin_app\models.py:290
 msgid "Sponsor"
-msgstr "Sponser"
+msgstr "Sponsor"
 
 #: .\admin_app\models.py:72 .\admin_app\models.py:284
 msgid "Donation"
@@ -375,7 +375,7 @@ msgstr "Datum"
 
 #: .\admin_app\models.py:263 .\admin_app\models.py:291
 msgid "Amount"
-msgstr "Hoeveelheid"
+msgstr "Bedrag"
 
 #: .\admin_app\models.py:265
 msgid "Parent"
@@ -383,7 +383,7 @@ msgstr "Ouder"
 
 #: .\admin_app\models.py:275 .\saranalaya\settings.py:325
 msgid "Sponsors"
-msgstr "Sponsers"
+msgstr "Sponsors"
 
 #: .\admin_app\models.py:277
 msgid "Letters"
@@ -1324,6 +1324,151 @@ msgstr "Django site admin"
 #: .\saranalaya\templates\admin\index.html:44
 msgid "Income"
 msgstr "Inkomsten"
+
+#: admin_app/payments.py
+msgid "Active only"
+msgstr "Alleen actief"
+
+msgid "Ended only"
+msgstr "Alleen beëindigd"
+
+msgid "Still to pay"
+msgstr "Nog te betalen"
+
+msgid "Anyone"
+msgstr "Iedereen"
+
+msgid "Paid in full"
+msgstr "Volledig betaald"
+
+msgid "By parent"
+msgstr "Per ouder"
+
+msgid "By child"
+msgstr "Per kind"
+
+msgid "Payment list"
+msgstr "Betalingslijst"
+
+msgid "Cell meanings"
+msgstr "Betekenis van de kleuren"
+
+msgid "Unpaid"
+msgstr "Niet betaald"
+
+msgid "Part paid"
+msgstr "Deels betaald"
+
+msgid "Paid"
+msgstr "Betaald"
+
+msgid "Not expected"
+msgstr "Niet verwacht"
+
+msgid "Parent or child"
+msgstr "Ouder of kind"
+
+msgid "Relationship"
+msgstr "Relatie"
+
+msgid "Child status"
+msgstr "Status kind"
+
+msgid "Who to show"
+msgstr "Wie tonen"
+
+msgid "Adoption parent"
+msgstr "Adoptie-ouder"
+
+msgid "This year"
+msgstr "Dit jaar"
+
+msgid "Total"
+msgstr "Totaal"
+
+msgid "No adoption payments match these filters."
+msgstr "Geen adoptiebetalingen voor deze filters."
+
+msgid "Not expected to pay for this year"
+msgstr "Geen betaling verwacht voor dit jaar"
+
+msgid "Open payment"
+msgstr "Betaling openen"
+
+msgid "Save"
+msgstr "Opslaan"
+
+msgid "Cancel"
+msgstr "Annuleren"
+
+msgid "Ended"
+msgstr "Beëindigd"
+
+msgid "After leave"
+msgstr "Na vertrek"
+
+msgid "Inactive"
+msgstr "Inactief"
+
+msgid "No longer linked"
+msgstr "Niet meer gekoppeld"
+
+msgid "Left, no leave date"
+msgstr "Weg, geen vertrekdatum"
+
+#, python-format
+msgid "Left %(year)s"
+msgstr "Weg %(year)s"
+
+msgid "Enter a number."
+msgstr "Vul een getal in."
+
+msgid "Amount cannot be negative."
+msgstr "Het bedrag kan niet negatief zijn."
+
+msgid "That adoption could not be found."
+msgstr "Die adoptie is niet gevonden."
+
+msgid "This payment should not be created."
+msgstr "Deze betaling hoort niet aangemaakt te worden."
+
+#, python-format
+msgid "Added %(created)d payments for %(year)d. %(already)d were already present."
+msgstr "%(created)d betalingen toegevoegd voor %(year)d. %(already)d waren er al."
+
+msgid "No letters"
+msgstr "Geen brieven"
+
+msgid "Could not save this sponsor."
+msgstr "Deze sponsor kon niet worden opgeslagen."
+
+msgid "That sponsor could not be found."
+msgstr "Die sponsor is niet gevonden."
+
+msgid "Enter a valid date."
+msgstr "Vul een geldige datum in."
+
+msgid "No sponsors to export."
+msgstr "Geen sponsors om te exporteren."
+
+msgid "Name or firm"
+msgstr "Naam of firma"
+
+msgid "Add sponsor"
+msgstr "Sponsor toevoegen"
+
+msgid "Add donation"
+msgstr "Donatie toevoegen"
+
+msgid "No sponsors match these filters."
+msgstr "Geen sponsors voor deze filters."
+
+msgid "Open donation"
+msgstr "Donatie openen"
+
+#, python-format
+msgid "Add donation for %(name)s %(year)s"
+msgstr "Donatie toevoegen voor %(name)s %(year)s"
 
 #~ msgid "Mark as read"
 #~ msgstr "Markeer als gelezen"

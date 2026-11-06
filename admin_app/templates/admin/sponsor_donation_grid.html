@@ -1,0 +1,554 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+{% block title %}{{ title }} | {{ site_title }}{% endblock %}
+
+{% block content %}
+<style>
+    .pay-page { display: flex; flex-direction: column; gap: 1rem; }
+    .pay-heading { display: flex; flex-wrap: wrap; gap: 0.75rem 1.5rem; align-items: center; justify-content: space-between; }
+    .pay-heading h1 { margin: 0; font-size: 1.5rem; font-weight: 600; }
+    .pay-toolbar { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: flex-end; }
+    .pay-toolbar label { display: flex; flex-direction: column; gap: 0.25rem; font-size: 0.75rem; }
+    .pay-toolbar select, .pay-toolbar input[type="search"] {
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        border-radius: 0.375rem;
+        padding: 0.4rem 0.5rem;
+        background-color: #fff;
+        background-image: none;
+        color: inherit;
+        min-width: 9rem;
+    }
+    .dark .pay-toolbar select, .dark .pay-toolbar input[type="search"] {
+        background-color: rgb(15, 23, 42);
+        border-color: rgba(255, 255, 255, 0.2);
+        color: #e5e7eb;
+    }
+    .pay-button, .pay-filter {
+        border: 0;
+        border-radius: 0.375rem;
+        padding: 0.45rem 0.8rem;
+        background: #7e22ce;
+        color: #fff;
+        cursor: pointer;
+        font-weight: 600;
+    }
+    .pay-secondary {
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        border-radius: 0.375rem;
+        padding: 0.45rem 0.8rem;
+        background: #fff;
+        color: inherit;
+        cursor: pointer;
+        font-weight: 600;
+    }
+    .dark .pay-secondary { background: rgb(15, 23, 42); border-color: rgba(255, 255, 255, 0.2); color: #e5e7eb; }
+    .pay-actions { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; margin-left: auto; }
+    .pay-bar { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: flex-end; justify-content: space-between; }
+    .pay-grid {
+        overflow: auto;
+        max-height: calc(100vh - 14rem);
+        border: 1px solid rgba(0, 0, 0, 0.12);
+        border-radius: 0.5rem;
+    }
+    .pay-grid table { border-collapse: separate; border-spacing: 0; min-width: 100%; }
+    .pay-grid th, .pay-grid td {
+        box-sizing: border-box;
+        padding: 0.45rem 0.6rem;
+        border-right: 1px solid rgba(0, 0, 0, 0.28);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.28);
+        vertical-align: middle;
+        white-space: nowrap;
+        background: #fff;
+    }
+    .dark .pay-grid th, .dark .pay-grid td {
+        background: rgb(15, 23, 42);
+        border-right-color: rgba(255, 255, 255, 0.22);
+        border-bottom-color: rgba(255, 255, 255, 0.22);
+        color: #e5e7eb;
+    }
+    .pay-grid td.pay-name, .pay-grid th.pay-name {
+        position: sticky;
+        left: 0;
+        z-index: 3;
+        width: 18rem;
+        min-width: 18rem;
+        max-width: 18rem;
+        white-space: normal;
+        overflow: hidden;
+        border-right: 3px solid #a8a29e;
+    }
+    .dark .pay-name { border-right-color: #78716c; }
+    .pay-current {
+        position: sticky;
+        left: 18rem;
+        z-index: 2;
+        min-width: 7.5rem;
+        padding-left: 0.9rem;
+        box-shadow: 4px 0 6px -4px rgba(0, 0, 0, 0.25);
+    }
+    .pay-grid thead th { position: sticky; top: 0; z-index: 3; font-weight: 600; }
+    .pay-grid thead .pay-name { z-index: 5; }
+    .pay-grid thead .pay-current { z-index: 4; }
+    .pay-total td { font-weight: 700; background: #f8fafc; }
+    .dark .pay-total td { background: rgb(30, 41, 59); }
+    .pay-who { display: grid; grid-template-columns: minmax(0, 1fr); column-gap: 0.55rem; align-items: center; }
+    .pay-who-name {
+        min-width: 0;
+        color: inherit;
+        font-weight: 600;
+        text-decoration: none;
+        line-height: 1.25;
+        white-space: normal;
+        overflow-wrap: break-word;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+    .pay-meta { display: flex; flex-wrap: wrap; gap: 0.15rem 0.45rem; margin-top: 0.15rem; font-size: 0.68rem; font-weight: 600; line-height: 1.2; color: #78716c; }
+    .dark .pay-meta { color: #d6d3d1; }
+    .pay-sum-value { font-weight: 700; }
+    .pay-amount-btn, .pay-add {
+        border: 0;
+        padding: 0;
+        background: transparent;
+        color: inherit;
+        font-weight: 700;
+        font-size: 1rem;
+        cursor: pointer;
+    }
+    .pay-add {
+        border: 1px dashed rgba(0, 0, 0, 0.35);
+        border-radius: 0.25rem;
+        padding: 0.05rem 0.45rem;
+        font-size: 0.9rem;
+    }
+    .dark .pay-add { border-color: rgba(255, 255, 255, 0.35); }
+    .pay-amount { display: inline-block; font-weight: 700; color: inherit; }
+    .pay-dialog {
+        border: 0;
+        border-radius: 0.75rem;
+        padding: 1.25rem;
+        max-width: 22rem;
+        width: calc(100% - 2rem);
+        background: #fff;
+        color: inherit;
+    }
+    .pay-dialog-wide { max-width: 40rem; }
+    .pay-dialog::backdrop { background: rgba(0, 0, 0, 0.45); }
+    .dark .pay-dialog { background: rgb(15, 23, 42); color: #e5e7eb; }
+    .pay-dialog form { display: flex; flex-direction: column; gap: 0.65rem; }
+    .pay-dialog h2 { margin: 0; font-size: 1.05rem; }
+    .pay-dialog label, .pay-check { display: flex; flex-direction: column; gap: 0.3rem; font-size: 0.8rem; }
+    .pay-dialog label.pay-check { flex-direction: row; align-items: center; }
+    .pay-dialog input, .pay-dialog select, .pay-dialog textarea {
+        font-size: 1rem;
+        padding: 0.4rem 0.5rem;
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        border-radius: 0.375rem;
+        background: #fff;
+        color: inherit;
+    }
+    .dark .pay-dialog input, .dark .pay-dialog select, .dark .pay-dialog textarea {
+        background: rgb(30, 41, 59);
+        border-color: rgba(255, 255, 255, 0.2);
+        color: #e5e7eb;
+    }
+    .pay-sponsor-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.65rem; }
+    .pay-span-2 { grid-column: span 2; }
+    .pay-dialog-actions { display: flex; gap: 0.5rem; margin-top: 1rem; align-items: center; flex-wrap: wrap; }
+    .pay-dialog .pay-edit { font-size: 0.85rem; color: #7e22ce; }
+    .pay-dialog-cancel {
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        border-radius: 0.375rem;
+        padding: 0.45rem 0.8rem;
+        background: transparent;
+        color: inherit;
+        cursor: pointer;
+    }
+    .pay-cell-body { display: flex; flex-direction: column; align-items: flex-start; gap: 0.28rem; }
+    .pay-entry { display: flex; align-items: baseline; gap: 0.4rem; }
+    .pay-note { font-size: 0.68rem; font-weight: 600; line-height: 1.2; color: #78716c; }
+    .dark .pay-note { color: #d6d3d1; }
+    .pay-cell-total { font-size: 0.68rem; font-weight: 700; color: #57534e; }
+    .dark .pay-cell-total { color: #d6d3d1; }
+    .pay-empty { padding: 1rem 0; }
+    .pay-error { color: #b91c1c; font-size: 0.75rem; min-height: 1rem; margin: 0.4rem 0 0; }
+    @media (max-width: 640px) {
+        .pay-sponsor-grid { grid-template-columns: 1fr; }
+        .pay-span-2 { grid-column: auto; }
+    }
+</style>
+
+<div class="pay-page" data-create-url="{{ create_url }}" data-today="{{ grid.today }}">
+    <div class="pay-heading">
+        <h1>{{ title }}</h1>
+    </div>
+
+    <form id="pay-csrf-form" hidden>{% csrf_token %}</form>
+    <div class="pay-bar">
+        <form class="pay-toolbar" method="get">
+            <label>
+                {% trans "Name" %}
+                <input type="search" name="q" value="{{ grid.filters.name }}" placeholder="{% trans 'Name or firm' %}">
+            </label>
+            <button class="pay-filter" type="submit">{% trans "Filter" %}</button>
+        </form>
+        <div class="pay-actions">
+            {% if can_add_sponsor %}
+                <button type="button" class="pay-button" id="open-sponsor-dialog">{% trans "Add sponsor" %}</button>
+            {% endif %}
+            {% if can_add_donation and grid.sponsor_choices %}
+                <button type="button" class="pay-button" id="open-donation-dialog">{% trans "Add donation" %}</button>
+            {% endif %}
+            <form method="post">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="address">
+                <input type="hidden" name="q" value="{{ grid.filters.name }}">
+                <button class="pay-secondary" type="submit">{% trans "Generate Address List" %}</button>
+            </form>
+            <form method="post">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="mail">
+                <input type="hidden" name="q" value="{{ grid.filters.name }}">
+                <button class="pay-secondary" type="submit">{% trans "Generate Mailing List" %}</button>
+            </form>
+        </div>
+    </div>
+
+    {% if not grid.rows %}
+        <p class="pay-empty">{% trans "No sponsors match these filters." %}</p>
+    {% else %}
+        <div class="pay-grid">
+            <table>
+                <thead>
+                    <tr>
+                        <th class="pay-name">{% trans "Sponsor" %}</th>
+                        {% for year in grid.years %}
+                            <th class="{% if forloop.first %}pay-current{% endif %}">
+                                <span class="pay-year">{{ year }}</span>
+                            </th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="pay-total">
+                        <td class="pay-name">{% trans "Total" %}</td>
+                        {% for total in grid.totals %}
+                            <td class="{% if forloop.first %}pay-current{% endif %}" data-total-year="{{ total.year }}">
+                                <span class="pay-sum-value">{% if total.total is None %}—{% else %}€{{ total.label }}{% endif %}</span>
+                            </td>
+                        {% endfor %}
+                    </tr>
+                    {% for row in grid.rows %}
+                        <tr>
+                            <td class="pay-name">
+                                <div class="pay-who">
+                                    <a class="pay-who-name" href="{{ row.url }}">{{ row.name }}</a>
+                                    {% if row.badges %}
+                                        <div class="pay-meta">{% for badge in row.badges %}<span>{{ badge }}</span>{% endfor %}</div>
+                                    {% endif %}
+                                </div>
+                            </td>
+                            {% for cell in row.cells %}
+                                <td class="{% if forloop.first %}pay-current{% endif %}" data-year="{{ cell.year }}">
+                                    <div class="pay-cell-body">
+                                        {% for donation in cell.donations %}
+                                            <div class="pay-entry">
+                                                {% if can_change_donation %}
+                                                    <button
+                                                        type="button"
+                                                        class="pay-amount-btn"
+                                                        data-amount="{{ donation.amount }}"
+                                                        data-date="{{ donation.date }}"
+                                                        data-description="{{ donation.description }}"
+                                                        data-url="{{ donation.amount_url }}"
+                                                        data-details="{{ donation.change_url }}"
+                                                        data-year="{{ cell.year }}"
+                                                        data-label="{{ row.name }} {{ cell.year }}"
+                                                    >€{{ donation.amount }}</button>
+                                                {% else %}
+                                                    <span class="pay-amount">€{{ donation.amount }}</span>
+                                                {% endif %}
+                                                <span class="pay-note">{{ donation.date_label }}</span>
+                                            </div>
+                                        {% endfor %}
+                                        {% if cell.donations|length > 1 %}
+                                            <span class="pay-cell-total" data-cell-sum data-total-label="{% trans 'Total' %}">{% trans "Total" %} €{{ cell.total_label }}</span>
+                                        {% endif %}
+                                        {% if can_add_donation %}
+                                            <button
+                                                type="button"
+                                                class="pay-add"
+                                                data-sponsor="{{ row.pk }}"
+                                                data-date="{{ cell.default_date }}"
+                                                data-year="{{ cell.year }}"
+                                                data-label="{% blocktrans with name=row.name year=cell.year %}Add donation for {{ name }} {{ year }}{% endblocktrans %}"
+                                            >+</button>
+                                        {% endif %}
+                                    </div>
+                                </td>
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endif %}
+</div>
+
+<dialog id="donation-dialog" class="pay-dialog">
+    <form>
+        <h2 id="donation-dialog-title">{% trans "Add donation" %}</h2>
+        <label id="donation-sponsor-field">
+            {% trans "Sponsor" %}
+            <select id="donation-sponsor">
+                {% for sponsor in grid.sponsor_choices %}
+                    <option value="{{ sponsor.pk }}">{{ sponsor.name }}</option>
+                {% endfor %}
+            </select>
+        </label>
+        <label>
+            {% trans "Amount" %}
+            <input id="donation-amount" type="number" min="0" step="0.01" required>
+        </label>
+        <label>
+            {% trans "Date" %}
+            <input id="donation-date" type="date" required>
+        </label>
+        <label>
+            {% trans "Description" %}
+            <textarea id="donation-description" rows="2"></textarea>
+        </label>
+        <p id="donation-error" class="pay-error"></p>
+        <div class="pay-dialog-actions">
+            <button type="submit" class="pay-button">{% trans "Save" %}</button>
+            <button type="button" id="donation-cancel" class="pay-dialog-cancel">{% trans "Cancel" %}</button>
+            <a id="donation-details" class="pay-edit" href="#" hidden>{% trans "Open donation" %}</a>
+        </div>
+    </form>
+</dialog>
+
+<dialog id="sponsor-dialog" class="pay-dialog pay-dialog-wide">
+    <form>
+        <h2>{% trans "Add sponsor" %}</h2>
+        <div class="pay-sponsor-grid">
+            <label>{% trans "First Name" %}<input name="first_name" required></label>
+            <label>{% trans "Last Name" %}<input name="last_name" required></label>
+            <label class="pay-span-2">{% trans "Firm" %}<input name="firm"></label>
+            <label>{% trans "E-mail" %}<input name="mail" type="email" required></label>
+            <label>{% trans "Phone Number" %}<input name="phone_number"></label>
+            <label>{% trans "Street Name" %}<input name="street_name" required></label>
+            <label>{% trans "Address Number" %}<input name="address_number" type="number" required></label>
+            <label>{% trans "Bus" %}<input name="bus"></label>
+            <label>{% trans "Postcode" %}<input name="postcode" required></label>
+            <label>{% trans "City" %}<input name="city" required></label>
+            <label class="pay-span-2">{% trans "Country" %}<input name="country" value="Belgium" required></label>
+            <label class="pay-check pay-span-2"><input name="letters" type="checkbox" checked> {% trans "Letters" %}</label>
+        </div>
+        <p id="sponsor-error" class="pay-error"></p>
+        <div class="pay-dialog-actions">
+            <button type="submit" class="pay-button">{% trans "Save" %}</button>
+            <button type="button" id="sponsor-cancel" class="pay-dialog-cancel">{% trans "Cancel" %}</button>
+        </div>
+    </form>
+</dialog>
+
+<script>
+(function () {
+    var csrfInput = document.querySelector("#pay-csrf-form input[name=csrfmiddlewaretoken]");
+    var csrf = csrfInput ? csrfInput.value : "";
+    var page = document.querySelector(".pay-page");
+    var table = document.querySelector(".pay-grid table");
+    var donationDialog = document.getElementById("donation-dialog");
+    var donationForm = donationDialog.querySelector("form");
+    var donationTitle = document.getElementById("donation-dialog-title");
+    var donationSponsorField = document.getElementById("donation-sponsor-field");
+    var donationSponsor = document.getElementById("donation-sponsor");
+    var donationAmount = document.getElementById("donation-amount");
+    var donationDate = document.getElementById("donation-date");
+    var donationDescription = document.getElementById("donation-description");
+    var donationError = document.getElementById("donation-error");
+    var donationDetails = document.getElementById("donation-details");
+    var sponsorDialog = document.getElementById("sponsor-dialog");
+    var sponsorForm = sponsorDialog.querySelector("form");
+    var sponsorError = document.getElementById("sponsor-error");
+    var currentButton = null;
+    var createSponsorId = "";
+
+    function formatTotal(total) {
+        var rounded = Math.round(total * 100) / 100;
+        if (Math.abs(rounded - Math.round(rounded)) < 0.001) return String(Math.round(rounded));
+        return rounded.toFixed(2);
+    }
+
+    function postJson(url, body) {
+        return fetch(url, {
+            method: "POST",
+            headers: {
+                "X-CSRFToken": csrf,
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(body)
+        }).then(function (response) {
+            return response.json().then(function (payload) {
+                return {ok: response.ok, payload: payload};
+            }, function () {
+                return {ok: false, payload: {}};
+            });
+        });
+    }
+
+    function refreshTotals() {
+        if (!table) return;
+        table.querySelectorAll("[data-total-year]").forEach(function (cell) {
+            var year = cell.getAttribute("data-total-year");
+            var buttons = table.querySelectorAll('.pay-amount-btn[data-year="' + year + '"]');
+            var value = cell.querySelector(".pay-sum-value");
+            if (!buttons.length) {
+                value.textContent = "—";
+                return;
+            }
+            var total = 0;
+            buttons.forEach(function (button) {
+                total += parseFloat(button.getAttribute("data-amount")) || 0;
+            });
+            value.textContent = "€" + formatTotal(total);
+        });
+        table.querySelectorAll("[data-cell-sum]").forEach(function (sum) {
+            var cell = sum.closest("td");
+            var total = 0;
+            cell.querySelectorAll(".pay-amount-btn").forEach(function (button) {
+                total += parseFloat(button.getAttribute("data-amount")) || 0;
+            });
+            sum.textContent = (sum.getAttribute("data-total-label") || "Total") + " €" + formatTotal(total);
+        });
+    }
+
+    function openDonationDialog(button, creating) {
+        currentButton = button;
+        donationError.textContent = "";
+        if (creating) {
+            createSponsorId = button.getAttribute("data-sponsor") || "";
+            donationTitle.textContent = button.getAttribute("data-label") || "Add donation";
+            donationSponsorField.hidden = !!createSponsorId;
+            if (!createSponsorId && donationSponsor.options.length) donationSponsor.selectedIndex = 0;
+            donationAmount.value = "";
+            donationDate.value = button.getAttribute("data-date") || (page ? page.getAttribute("data-today") : "");
+            donationDescription.value = "";
+            donationDetails.hidden = true;
+        } else {
+            createSponsorId = "";
+            donationTitle.textContent = button.getAttribute("data-label") || "";
+            donationSponsorField.hidden = true;
+            donationAmount.value = button.getAttribute("data-amount");
+            donationDate.value = button.getAttribute("data-date");
+            donationDescription.value = button.getAttribute("data-description") || "";
+            donationDetails.hidden = false;
+            donationDetails.href = button.getAttribute("data-details");
+        }
+        donationDialog.showModal();
+        donationAmount.focus();
+    }
+
+    if (table) {
+        table.querySelectorAll(".pay-amount-btn").forEach(function (button) {
+            button.addEventListener("click", function () { openDonationDialog(button, false); });
+        });
+        table.querySelectorAll(".pay-add").forEach(function (button) {
+            button.addEventListener("click", function () { openDonationDialog(button, true); });
+        });
+    }
+
+    var openDonation = document.getElementById("open-donation-dialog");
+    if (openDonation) {
+        openDonation.addEventListener("click", function () {
+            openDonation.setAttribute("data-date", page.getAttribute("data-today") || "");
+            openDonation.removeAttribute("data-sponsor");
+            openDonationDialog(openDonation, true);
+            donationTitle.textContent = openDonation.textContent;
+        });
+    }
+
+    document.getElementById("donation-cancel").addEventListener("click", function () {
+        donationDialog.close();
+    });
+
+    donationForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+        if (!currentButton || !page) return;
+        donationError.textContent = "";
+        var editing = currentButton.classList.contains("pay-amount-btn");
+        var sponsorId = createSponsorId || donationSponsor.value;
+        var body = {
+            amount: donationAmount.value,
+            date: donationDate.value,
+            description: donationDescription.value
+        };
+        var request = editing
+            ? postJson(currentButton.getAttribute("data-url"), body)
+            : postJson(page.getAttribute("data-create-url"), Object.assign({sponsor: sponsorId}, body));
+        request.then(function (result) {
+            if (!result.ok) {
+                donationError.textContent = result.payload.error || "Could not save";
+                return;
+            }
+            if (!editing || String(result.payload.year) !== String(currentButton.getAttribute("data-year"))) {
+                window.location.reload();
+                return;
+            }
+            currentButton.textContent = "€" + result.payload.amount;
+            currentButton.setAttribute("data-amount", result.payload.amount);
+            currentButton.setAttribute("data-date", result.payload.date);
+            currentButton.setAttribute("data-description", result.payload.description || "");
+            var note = currentButton.parentElement.querySelector(".pay-note");
+            if (note) note.textContent = result.payload.date_label;
+            refreshTotals();
+            donationDialog.close();
+        }).catch(function () {
+            donationError.textContent = "Could not save";
+        });
+    });
+
+    var openSponsor = document.getElementById("open-sponsor-dialog");
+    if (openSponsor) {
+        openSponsor.addEventListener("click", function () {
+            sponsorError.textContent = "";
+            sponsorDialog.showModal();
+            sponsorForm.elements.first_name.focus();
+        });
+    }
+    document.getElementById("sponsor-cancel").addEventListener("click", function () {
+        sponsorDialog.close();
+    });
+    sponsorForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+        sponsorError.textContent = "";
+        var body = {
+            first_name: sponsorForm.elements.first_name.value,
+            last_name: sponsorForm.elements.last_name.value,
+            firm: sponsorForm.elements.firm.value,
+            mail: sponsorForm.elements.mail.value,
+            phone_number: sponsorForm.elements.phone_number.value,
+            street_name: sponsorForm.elements.street_name.value,
+            address_number: sponsorForm.elements.address_number.value,
+            bus: sponsorForm.elements.bus.value,
+            postcode: sponsorForm.elements.postcode.value,
+            city: sponsorForm.elements.city.value,
+            country: sponsorForm.elements.country.value,
+            letters: sponsorForm.elements.letters.checked
+        };
+        postJson("{% url 'admin:sponsor_quick_create' %}", body).then(function (result) {
+            if (!result.ok) {
+                sponsorError.textContent = result.payload.error || "Could not save";
+                return;
+            }
+            window.location.reload();
+        }).catch(function () {
+            sponsorError.textContent = "Could not save";
+        });
+    });
+})();
+</script>
+{% endblock %}

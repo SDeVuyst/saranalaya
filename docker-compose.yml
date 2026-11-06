@@ -17,26 +17,6 @@ services:
       - db
     working_dir: /app
 
-  celery:
-    build: .
-    restart: always
-    command: celery -A saranalaya worker -l INFO
-    env_file: stack.env
-    depends_on:
-      - redis
-      - db
-    working_dir: /app
-
-  celery-beat:
-    build: .
-    restart: always
-    command: celery -A saranalaya beat -l INFO --scheduler django_celery_beat.schedulers:DatabaseScheduler
-    env_file: stack.env
-    depends_on:
-      - redis
-      - db
-    working_dir: /app
-
   db:
     image: postgres:16
     container_name: saranalaya_db
@@ -49,12 +29,6 @@ services:
       - "5433"
     ports:
       - 5433:5433
-
-  redis:
-    image: redis:latest
-    restart: always
-    ports:
-      - 6379:6379
 
   backup:
     image: eeshugerman/postgres-backup-s3:16
